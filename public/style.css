@@ -176,7 +176,7 @@ header {
     width: 100%;
     max-width: 500px;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: #ffffff; /*test*/
     text-align: center;
     margin: 20px 0;
 }
