@@ -313,6 +313,152 @@ header {
     line-height: 1.6;
     margin: 5px 0;
 }
+/*Werte*/
+
+.value-section {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    background-color: #ffffff; /*test*/
+    text-align: center;
+    margin: 20px 0;
+}
+
+.value-section h2 {
+    color: #6d1e9f;
+    margin-bottom: 20px;
+}
+
+.value-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 4px;
+    object-fit: cover;
+    margin-left: 15px;
+}
+
+.value-card .value-info h3 {
+    color:#6d1e9f;
+}
+
+
+.value-info p {
+    color: #666;
+    margin: 5px 0;
+    font-size: 14px;
+
+}.value-section {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.value-section h2 {
+    color: #7030a0; 
+    margin-bottom: 20px;
+}
+
+
+.value-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid #d3bfe3;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.value-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-left: 15px;
+    order: 2;
+}
+
+.value-info {
+    flex: 1;
+    text-align: left;
+}
+
+.value-info h3 {
+    color: #333;
+    margin: 0;
+    font-size: 18px;
+}
+
+.value-info p {
+    color: #666;
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+/*Trainer*/
+.trainer-card {
+    display: flex;
+    flex-direction: row; 
+    align-items: flex-start; 
+    justify-content: space-between;
+    width: 90%;
+    max-width: 500px;
+    background-color: #d3bfe3;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(112, 48, 160, 1);
+    margin: 20px auto;
+    position: relative;
+    flex-wrap: wrap; 
+}
+
+.trainer-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1; 
+}
+
+.trainer-image {
+    width: 170px;
+    max-width: 170px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-left: 20px; 
+    margin-top: 100px;
+}
+
+.trainer-card .book-button {
+    width: 50%; /* Button wird auf die gesamte Breite zentriert */
+    margin-top: 20px;
+    margin-left: 100px;
+    padding: 10px 20px;
+    background-color: #7030a0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    order: 2;
+    align-self: center; 
+}
+
+.trainer-card h3 {
+    color: #7030a0;
+    font-size: 22px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+.trainer-section h2 {
+    margin-top: 80px;
+}
+
+
+
+
+
 
 @media (max-width: 600px) {
     .hours-section h2 {
