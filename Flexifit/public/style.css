@@ -431,19 +431,28 @@ header {
 }
 
 .trainer-card .book-button {
-    width: 50%; /* Button wird auf die gesamte Breite zentriert */
+    width: 50%; 
     margin-top: 20px;
     margin-left: 100px;
     padding: 10px 20px;
     background-color: #7030a0;
     color: white;
-    border: none;
-    border-radius: 5px;
     cursor: pointer;
     text-align: center;
     order: 2;
     align-self: center; 
+    border: 1px solid white;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
 }
+
+.trainer-card .book-button:hover {
+    background-color: white;
+    color:#7030a0;
+}
+
 
 .trainer-card h3 {
     color: #7030a0;
@@ -469,4 +478,49 @@ header {
         font-size: 14px;
     }
 }
+
+
+.footer {
+    width: 100%;
+    background-color: #d8b5ea;
+    color: white;
+    padding: 20px 0;
+    
+}
+
+.footer p, .footer h6 {
+    margin: 0;
+    color: white;
+}
+
+.footer-divider {
+    border-top: 1px solid #7030a0;
+    width: 80%;
+    margin: 20px auto;
+}
+
+.footer a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.footer a:hover {
+    color: #7030a0;
+}
+
+
+
+
+@media (max-width: 768px) {
+    .footer a {
+        font-size: 14px;
+    }
+}
+
+.main {
+    flex: 1;
+}
+
 
