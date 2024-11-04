@@ -174,9 +174,8 @@ header {
 /* Styling für Kursübersicht */
 .course-section {
     width: 100%;
-    max-width: 500px;
     padding: 20px;
-    background-color: #ffffff; /*test*/
+    background-color: #ffffff;
     text-align: center;
     margin: 20px 0;
 }
@@ -186,39 +185,6 @@ header {
     margin-bottom: 20px;
 }
 
-.course-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 4px;
-    object-fit: cover;
-    margin-left: 15px;
-}
-
-.course-info h3 {
-    color: #333;
-    margin: 0;
-    font-size: 18px;
-}
-
-.course-info p {
-    color: #666;
-    margin: 5px 0;
-    font-size: 14px;
-
-}.course-section {
-    width: 100%;
-    max-width: 500px;
-    padding: 20px;
-    text-align: center;
-    margin: 20px 0;
-}
-
-.course-section h2 {
-    color: #7030a0; 
-    margin-bottom: 20px;
-}
-
-/* einzelne Kurse */
 .course-card {
     display: flex;
     justify-content: space-between;
@@ -226,8 +192,7 @@ header {
     border: 2px solid #d3bfe3;
     border-radius: 8px;
     padding: 10px;
-    margin-bottom: 15px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 8px rgba(112, 48, 160, 0.1);
 }
 
 .course-image {
@@ -247,7 +212,7 @@ header {
 .course-info h3 {
     color: #333;
     margin: 0;
-    font-size: 18px;
+    font-size: 24px;
 }
 
 .course-info p {
@@ -256,55 +221,81 @@ header {
     font-size: 14px;
 }
 
+/* Extra-Text auf mobile-Bildschirmen ausblenden*/
+.extra-text {
+    display: none;
+}
 
-/* Styling für die Buttons */
+/* Extra-Text nur auf Desktop-Bildschirmen anzeigen */
+@media (min-width: 992px) {
+    .extra-text {
+        display: block;
+        color: #666;
+        font-size: 14px;
+        margin-top: 8px;
+    }
+}
+
 .book-button {
-    padding: 8px 16px;
-    color: #6d1e9f;
-    border: 1px solid #6d1e9f;
+    color: #7030a0;
     background-color: transparent;
-    border-radius: 4px;
-    font-size: 14px;
+    border: 2px solid #7030a0;
+    padding: 5px 10px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s ease;
 }
 
 .book-button:hover {
-    background-color: #6d1e9f;
-    color: #ffffff;
+    background-color: #7030a0;
+    color: #fff;
 }
 
 .more-button {
-    width: 100%;
-    padding: 10px;
-    color: #ffffff;
-    background-color: #6d1e9f;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
     margin-top: 20px;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #7030a0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .more-button:hover {
-    background-color: #d3bfe3;
+    background-color: #5a287e;
 }
+
 
 /* Öffnungs- und Trainerzeiten */
 .hours-section {
     width: 90%;
-    max-width: 500px;
+    max-width: 800px; /* Maximale Breite für Desktop */
     background-color: #d3bfe3; 
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(112, 48, 160, 1); 
+    box-shadow: 0px 4px 8px rgba(112, 48, 160, 0.8);
     margin: 20px auto;
 }
 
+/* Flex-Container für die Zeilen */
+.hours-row {
+    display: flex;
+    flex-direction: column; /* Standardmäßig Spaltenrichtung */
+    gap: 20px;
+}
+
+/* Jede Spalte (Öffnungszeiten und Trainerzeiten) */
+.hours-column {
+    flex: 1;
+}
+
+/* Überschriften und Texte für Stunden-Informationen */
 .hours-section h2 {
     color: #7030a0; 
-    font-size: 24px;
+    font-size: 28px;
     margin-bottom: 10px;
+    text-align: center; /* Zentriert für Konsistenz */
 }
 
 .hours-section p {
@@ -312,7 +303,16 @@ header {
     font-size: 16px;
     line-height: 1.6;
     margin: 5px 0;
+    text-align: center;
 }
+
+/* Im Desktop-Modus werden die Spalten nebeneinander angezeigt */
+@media (min-width: 768px) {
+    .hours-row {
+        flex-direction: row; /* Nebeneinander auf größeren Bildschirmen */
+    }
+}
+
 /*Werte*/
 
 .value-section {
