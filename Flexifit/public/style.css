@@ -1,526 +1,521 @@
-
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 header {
-    background-color: #d8b5ea;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    width: 100%; 
+  background-color: #d8b5ea;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  width: 100%;
 }
 
 /* Abstand zwischen Navbar und Startbild */
 .container-fluid {
-    padding: 0;
-    margin-top: 20px;
+  padding: 0;
+  margin-top: 20px;
 }
 
 .custom-bg {
-    background-color: #d8b5ea; /* Hintergrund Navbar */
+  background-color: #d8b5ea; /* Hintergrund Navbar */
 }
 
 .navbar-nav .nav-link {
-    color: #444;
-    font-weight: 500;
-    font-size: 24px;
-    margin-right: 50px; 
+  color: #444;
+  font-weight: 500;
+  font-size: 24px;
+  margin-right: 50px;
 }
 
 .navbar-nav .nav-link.active {
-    color: #6d1e9f !important;
-    font-weight: bold;
-    position: relative;
+  color: #6d1e9f !important;
+  font-weight: bold;
+  position: relative;
 }
 
 /* Unterstreichung für den aktiven Link */
 .navbar-nav .nav-link.active::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0px; /* Abstand zur Schrift*/
-    width: 100%;
-    height: 3px; 
-    background-color: #6d1e9f; 
-    border-radius: 2px; 
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0px; /* Abstand zur Schrift*/
+  width: 100%;
+  height: 3px;
+  background-color: #6d1e9f;
+  border-radius: 2px;
 }
 
 .navbar-toggler {
-    border: none;
+  border: none;
 }
 
 .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml;base64,..."); /* Optional: eigene Hamburger-Icon-Grafik */
+  background-image: url("data:image/svg+xml;base64,..."); /* Optional: eigene Hamburger-Icon-Grafik */
 }
-.user-icon-img{
-    width:24px; 
-    height:24px;
+.user-icon-img {
+  width: 24px;
+  height: 24px;
 }
 /* Verhindert Verschiebungen durch Flex-Alignment */
 .user-icon {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
-
 
 /* Mobile Anpassungen für das User-Icon */
 @media (min-width: 768px) {
-    .navbar-brand.ms-auto {
-        margin-right: 0;
-    }
-    .user-icon {
-        position: absolute;
-        right: 70px; 
-        top: 50%;
-        transform: translateY(-50%);
-        border: 50px;
-    }
+  .navbar-brand.ms-auto {
+    margin-right: 0;
+  }
+  .user-icon {
+    position: absolute;
+    right: 70px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 50px;
+  }
 
-    .user-icon-img{
-        width: 32px;
-        height: 32px;
-    }
+  .user-icon-img {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 /* Basis-Styling für das Bild und Overlay */
 .background-image {
-    width: 100%;
-    height: auto;
-       object-fit: cover;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
 /* Text-Overlay Styling */
 .text-overlay {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 10px;
-    color: white;
-    background-color: rgba(211, 191, 227, 0.8);
-    text-align: center;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  color: white;
+  background-color: rgba(211, 191, 227, 0.8);
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 
 /* Mobile Ansicht (bis 600px) */
 @media (max-width: 600px) {
-    .background-image {
-        max-height: 200px; 
-    }
+  .background-image {
+    max-height: 200px;
+  }
 
-    .text-overlay h1 {
-        font-size: 18px;
-    }
+  .text-overlay h1 {
+    font-size: 18px;
+  }
 
-    .text-overlay p {
-        font-size: 14px;
-    }
-    .text-overlay{
-        padding: 5px;
-    }
+  .text-overlay p {
+    font-size: 14px;
+  }
+  .text-overlay {
+    padding: 5px;
+  }
 }
-
 
 /* Mittlere Ansicht (768px bis 991px) */
 @media (min-width: 768px) and (max-width: 991px) {
-    .background-image {
-        max-height: 350px; 
-    }
+  .background-image {
+    max-height: 350px;
+  }
 
-    .text-overlay h1 {
-        font-size: 28px; 
-    }
+  .text-overlay h1 {
+    font-size: 28px;
+  }
 
-    .text-overlay p {
-        font-size: 20px;
-    }
+  .text-overlay p {
+    font-size: 20px;
+  }
 
-    .text-overlay{
-        padding: 20px;
-    }
-    
+  .text-overlay {
+    padding: 20px;
+  }
 }
 
 /* Desktop Ansicht (ab 992px) */
 @media (min-width: 992px) {
-    .background-image {
-        max-height: 80vh; 
-    }
+  .background-image {
+    max-height: 80vh;
+  }
 
-    .text-overlay h1 {
-        font-size: 38px; 
-    }
+  .text-overlay h1 {
+    font-size: 38px;
+  }
 
-    .text-overlay p {
-        font-size: 24px;
-    }
+  .text-overlay p {
+    font-size: 24px;
+  }
 
-    .text-overlay{
-        padding: 50px;
-    }
+  .text-overlay {
+    padding: 50px;
+  }
 }
 
 /* Styling für Kursübersicht */
 .course-section {
-    width: 100%;
-    padding: 20px;
-    background-color: #ffffff;
-    text-align: center;
-    margin: 20px 0;
+  width: 100%;
+  padding: 20px;
+  background-color: #ffffff;
+  text-align: center;
+  margin: 20px 0;
 }
 
 .course-section h2 {
-    color: #6d1e9f;
-    margin-bottom: 20px;
+  color: #6d1e9f;
+  margin-bottom: 20px;
 }
 
 .course-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 2px solid #d3bfe3;
-    border-radius: 8px;
-    padding: 10px;
-    box-shadow: 0px 4px 8px rgba(112, 48, 160, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid #d3bfe3;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0px 4px 8px rgba(112, 48, 160, 0.1);
 }
 
 .course-image {
-    width: 80px;
-    height: 80px;
-    border-radius: 8px;
-    object-fit: cover;
-    margin-left: 15px;
-    order: 2;
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-left: 15px;
+  order: 2;
 }
 
 .course-info {
-    flex: 1;
-    text-align: left;
+  flex: 1;
+  text-align: left;
 }
 
 .course-info h3 {
-    color: #333;
-    margin: 0;
-    font-size: 24px;
+  color: #333;
+  margin: 0;
+  font-size: 24px;
 }
 
 .course-info p {
-    color: #666;
-    margin: 5px 0;
-    font-size: 14px;
+  color: #666;
+  margin: 5px 0;
+  font-size: 14px;
+}
+.course-label {
+  color: #7030a0;
 }
 
 /* Extra-Text auf mobile-Bildschirmen ausblenden*/
 .extra-text {
-    display: none;
+  display: none;
 }
 
 /* Extra-Text nur auf Desktop-Bildschirmen anzeigen */
 @media (min-width: 992px) {
-    .extra-text {
-        display: block;
-        color: #666;
-        font-size: 14px;
-        margin-top: 8px;
-    }
+  .extra-text {
+    display: block;
+    color: #666;
+    font-size: 14px;
+    margin-top: 8px;
+  }
+
+  .course-info p {
+    font-size: 18px;
+  }
+  .course-image {
+    width: 100px;
+    height: 100px;
+  }
 }
 
 .book-button {
-    color: #7030a0;
-    background-color: transparent;
-    border: 2px solid #7030a0;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  color: #7030a0;
+  background-color: transparent;
+  border: 2px solid #7030a0;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .book-button:hover {
-    background-color: #7030a0;
-    color: #fff;
+  background-color: #7030a0;
+  color: #fff;
 }
 
 .more-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    color: #fff;
-    background-color: #7030a0;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  margin-top: 20px;
+  padding: 10px 20px;
+  color: #fff;
+  background-color: #7030a0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .more-button:hover {
-    background-color: #5a287e;
+  background-color: #5a287e;
 }
-
 
 /* Öffnungs- und Trainerzeiten */
 .hours-section {
-    width: 90%;
-    max-width: 800px; /* Maximale Breite für Desktop */
-    background-color: #d3bfe3; 
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(112, 48, 160, 0.8);
-    margin: 20px auto;
+  width: 90%;
+  max-width: 800px;
+  background-color: #d3bfe3;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(112, 48, 160, 0.8);
+  margin: 20px auto;
 }
 
 /* Flex-Container für die Zeilen */
 .hours-row {
-    display: flex;
-    flex-direction: column; /* Standardmäßig Spaltenrichtung */
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 /* Jede Spalte (Öffnungszeiten und Trainerzeiten) */
 .hours-column {
-    flex: 1;
+  flex: 1;
 }
 
 /* Überschriften und Texte für Stunden-Informationen */
 .hours-section h2 {
-    color: #7030a0; 
-    font-size: 28px;
-    margin-bottom: 10px;
-    text-align: center; /* Zentriert für Konsistenz */
+  color: #7030a0;
+  font-size: 28px;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
 .hours-section p {
-    color: #333;
-    font-size: 16px;
-    line-height: 1.6;
-    margin: 5px 0;
-    text-align: center;
+  color: #333;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 5px 0;
+  text-align: center;
 }
 
 /* Im Desktop-Modus werden die Spalten nebeneinander angezeigt */
 @media (min-width: 768px) {
-    .hours-row {
-        flex-direction: row; /* Nebeneinander auf größeren Bildschirmen */
-    }
+  .hours-row {
+    flex-direction: row; /* Nebeneinander auf größeren Bildschirmen */
+  }
+  .hours-section p {
+    font-size: 20px;
+  }
 }
 
 /*Werte*/
 
 .value-section {
-    width: 100%;
-    max-width: 500px;
-    padding: 20px;
-    background-color: #ffffff; /*test*/
-    text-align: center;
-    margin: 20px 0;
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+  background-color: #ffffff; /*test*/
+  text-align: center;
+  margin: 20px 0;
 }
 
 .value-section h2 {
-    color: #6d1e9f;
-    margin-bottom: 20px;
+  color: #6d1e9f;
+  margin-bottom: 20px;
 }
 
 .value-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 4px;
-    object-fit: cover;
-    margin-left: 15px;
+  width: 100px;
+  height: 100px;
+  border-radius: 4px;
+  object-fit: cover;
+  margin-left: 15px;
 }
 
 .value-card .value-info h3 {
-    color:#6d1e9f;
+  color: #6d1e9f;
 }
 
-
 .value-info p {
-    color: #666;
-    margin: 5px 0;
-    font-size: 14px;
-
-}.value-section {
-    width: 100%;
-    max-width: 500px;
-    padding: 20px;
-    text-align: center;
-    margin: 20px 0;
+  color: #666;
+  margin: 5px 0;
+  font-size: 14px;
+}
+.value-section {
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+  text-align: center;
+  margin: 20px 0;
 }
 
 .value-section h2 {
-    color: #7030a0; 
-    margin-bottom: 20px;
+  color: #7030a0;
+  margin-bottom: 20px;
 }
 
-
 .value-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 2px solid #d3bfe3;
-    border-radius: 8px;
-    padding: 10px;
-    margin-bottom: 15px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid #d3bfe3;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 15px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .value-image {
-    width: 80px;
-    height: 80px;
-    border-radius: 8px;
-    object-fit: cover;
-    margin-left: 15px;
-    order: 2;
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-left: 15px;
+  order: 2;
 }
 
 .value-info {
-    flex: 1;
-    text-align: left;
+  flex: 1;
+  text-align: left;
 }
 
 .value-info h3 {
-    color: #333;
-    margin: 0;
-    font-size: 18px;
+  color: #333;
+  margin: 0;
+  font-size: 18px;
 }
 
 .value-info p {
-    color: #666;
-    margin: 5px 0;
-    font-size: 14px;
+  color: #666;
+  margin: 5px 0;
+  font-size: 14px;
 }
 
 /*Trainer*/
 .trainer-card {
-    display: flex;
-    flex-direction: row; 
-    align-items: flex-start; 
-    justify-content: space-between;
-    width: 90%;
-    max-width: 500px;
-    background-color: #d3bfe3;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(112, 48, 160, 1);
-    margin: 20px auto;
-    position: relative;
-    flex-wrap: wrap; 
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 90%;
+  max-width: 500px;
+  background-color: #d3bfe3;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(112, 48, 160, 1);
+  margin: 20px auto;
+  position: relative;
+  flex-wrap: wrap;
 }
 
 .trainer-info {
-    display: flex;
-    flex-direction: column;
-    flex: 1; 
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .trainer-image {
-    width: 170px;
-    max-width: 170px;
-    border-radius: 8px;
-    object-fit: cover;
-    margin-left: 20px; 
-    margin-top: 100px;
+  width: 170px;
+  max-width: 170px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-left: 20px;
+  margin-top: 100px;
 }
 
 .trainer-card .book-button {
-    width: 50%; 
-    margin-top: 20px;
-    margin-left: 100px;
-    padding: 10px 20px;
-    background-color: #7030a0;
-    color: white;
-    cursor: pointer;
-    text-align: center;
-    order: 2;
-    align-self: center; 
-    border: 1px solid white;
-    border-radius: 4px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+  width: 50%;
+  margin-top: 20px;
+  margin-left: 100px;
+  padding: 10px 20px;
+  background-color: #7030a0;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  order: 2;
+  align-self: center;
+  border: 1px solid white;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .trainer-card .book-button:hover {
-    background-color: white;
-    color:#7030a0;
+  background-color: white;
+  color: #7030a0;
 }
-
 
 .trainer-card h3 {
-    color: #7030a0;
-    font-size: 22px;
-    margin-bottom: 10px;
-    width: 100%;
+  color: #7030a0;
+  font-size: 22px;
+  margin-bottom: 10px;
+  width: 100%;
 }
 .trainer-section h2 {
-    margin-top: 80px;
+  margin-top: 80px;
 }
-
-
-
-
-
 
 @media (max-width: 600px) {
-    .hours-section h2 {
-        font-size: 18px;
-    }
+  .hours-section h2 {
+    font-size: 18px;
+  }
 
-    .hours-section p {
-        font-size: 14px;
-    }
+  .hours-section p {
+    font-size: 14px;
+  }
 }
-
 
 .footer {
-    width: 100%;
-    background-color: #d8b5ea;
-    color: white;
-    padding: 20px 0;
-    
+  width: 100%;
+  background-color: #d8b5ea;
+  color: white;
+  padding: 20px 0;
 }
 
-.footer p, .footer h6 {
-    margin: 0;
-    color: white;
+.footer p,
+.footer h6 {
+  margin: 0;
+  color: white;
 }
 
 .footer-divider {
-    border-top: 1px solid #7030a0;
-    width: 80%;
-    margin: 20px auto;
+  border-top: 1px solid #7030a0;
+  width: 80%;
+  margin: 20px auto;
 }
 
 .footer a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    transition: color 0.3s;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s;
 }
 
 .footer a:hover {
-    color: #7030a0;
+  color: #7030a0;
 }
 
-
-
-
 @media (max-width: 768px) {
-    .footer a {
-        font-size: 14px;
-    }
+  .footer a {
+    font-size: 14px;
+  }
 }
 
 .main {
-    flex: 1;
+  flex: 1;
 }
-
-
