@@ -5,11 +5,15 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: Inter, sans-serif;
   background-color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+h2, h3{
+  font-family: Archivo, sans-serif;
+  font-weight: bold !important;
 }
 
 header {
