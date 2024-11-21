@@ -362,13 +362,21 @@ header {
   border-radius: 8px;
   object-fit: cover;
   margin-left: 20px;
-  margin-top: 20px;
+  display: block;
 }
 
+/* Bild auf kleinen Bildschirmen ausblenden */
+@media (max-width: 768px) {
+  .trainer-image {
+    display: none; /* Bild ausblenden, wenn Bildschirmbreite kleiner als 768px ist */
+  }
+}
+
+
 .trainer-card .book-button {
-  width: 50%;
-  margin-top: 10px;
-  margin-left: 100px;
+  display: block;
+  width: 100%;
+  margin-top: 20px;
   padding: 10px 20px;
   background-color: #7030a0;
   color: white;
@@ -381,7 +389,7 @@ header {
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
-}
+  }
 
 .trainer-card .book-button:hover {
   background-color: white;
