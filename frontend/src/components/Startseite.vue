@@ -12,9 +12,6 @@ import InfosStartseite from "@/components/InfosStartseite.vue";
   <h2>Anstehende Kurse</h2>
   </section>
   <Kurse/>
-  <Kurse/>
-  <Kurse/>
-  <Kurse/>
 <InfosStartseite/>
 </template>
 

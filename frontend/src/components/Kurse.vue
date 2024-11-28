@@ -23,18 +23,17 @@ const kurse = ref([
     <div class="container">
       <div class="row g-4 justify-content-center">
         <div class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3">
-          <div class="course-card">
+          <div class="course-card"  v-for="kurs in kurse">
             <img src="../assets/pictures/Yoga.jpg" alt="Yoga Flow" class="course-image" />
             <div class="course-info">
               <h3>Yoga Flow</h3>
               <div class="trainer-time">
-                <p><span class="course-label">Trainer: </span>Emma Schil</p>
-                <p><span class="course-label">Uhrzeit: </span>8:00 Uhr</p>
+                <p><span class="course-label">Trainer: </span>{{ kurs.name }}</p>
+                <p><span class="course-label">Uhrzeit: </span>{{ kurs.Uhrzeit }}</p>
               </div>
               <p class="extra-text">
                 <span class="course-label">Beschreibung:</span>
-                Ein Kurs, der Körper und Geist durch fließende Bewegungen
-                und gezielte Atemübungen stärkt und entspannt.
+                {{ kurs.description }}
               </p>
               <button class="book-button">Jetzt Buchen</button>
             </div>
