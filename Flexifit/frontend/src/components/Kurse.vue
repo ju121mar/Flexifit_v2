@@ -13,7 +13,7 @@ const kurse = ref([
     "name": "Balance Pilates",
     "Trainer": "Caro Klirr",
     "Uhrzeit": "17:00 Uhr",
-    "description": "Ein Kurs, der die Tiefenmuskulatur stärkt, die Körperhaltung verbessert und für mehr Flexibilität und Balance sorgt.\n" +
+    "description": "Ein Kurs, der die Tiefenmuskulatur stärkt, die Körperhaltung verbessert und für mehr Flexibilität und Balance sorgt."
   }
 ])
 </script>
