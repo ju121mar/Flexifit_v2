@@ -3,7 +3,7 @@ import PrimeVue from 'primevue/config';
 import { createApp } from 'vue'
 import App from './App.vue'
 import Aura from '@primevue/themes/aura';
-import router from './router'
+import router from './router/index.js'
 import '@/components/style.css'
 
 const app = createApp(App);
