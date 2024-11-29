@@ -1,28 +1,7 @@
-<script setup>
-import { ref } from 'vue';
-const kurse = ref([
-  {
-    id: "001",
-    name: "Yoga Flow",
-    Trainer: "Emma Schill",
-    Uhrzeit: "8:00 Uhr",
-    description: "Ein Kurs, der Körper und Geist durch fließende Bewegungen und gezielte Atemübungen stärkt und entspannt.",
-  },
-  {
-    id: "002",
-    name: "Balance Pilates",
-    Trainer: "Caro Klirr",
-    Uhrzeit: "17:00 Uhr",
-    description: "Ein Kurs, der die Tiefenmuskulatur stärkt, die Körperhaltung verbessert und für mehr Flexibilität und Balance sorgt.",
-  },
-]);
-</script>
-
 <template>
   <section class="course-section">
     <div class="container">
       <div class="row g-4 justify-content-center">
-        <!-- Hier wird das v-for angewendet -->
         <div 
           v-for="kurs in kurse" 
           :key="kurs.id" 
@@ -40,7 +19,8 @@ const kurse = ref([
                 <span class="course-label">Beschreibung:</span>
                 {{ kurs.description }}
               </p>
-              <button class="book-button">Jetzt Buchen</button>
+              <!-- Button für Navigation -->
+              <button class="book-button" @click="goToBooking(kurs.id)">Jetzt Buchen</button>
             </div>
           </div>
         </div>
@@ -48,6 +28,38 @@ const kurse = ref([
     </div>
   </section>
 </template>
+
+<script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+// Daten für die Kurse
+const kurse = ref([
+  {
+    id: "001",
+    name: "Yoga Flow",
+    Trainer: "Emma Schill",
+    Uhrzeit: "8:00 Uhr",
+    description: "Ein Kurs, der Körper und Geist durch fließende Bewegungen und gezielte Atemübungen stärkt und entspannt.",
+  },
+  {
+    id: "002",
+    name: "Balance Pilates",
+    Trainer: "Caro Klirr",
+    Uhrzeit: "17:00 Uhr",
+    description: "Ein Kurs, der die Tiefenmuskulatur stärkt, die Körperhaltung verbessert und für mehr Flexibilität und Balance sorgt.",
+  },
+]);
+
+// Router für Navigation
+const router = useRouter();
+
+// Funktion zur Navigation
+const goToBooking = (id) => {
+  router.push({ name: "BookingPage", params: { id } });
+};
+</script>
+
 
 <style scoped>
 /* Styling für Kursübersicht */

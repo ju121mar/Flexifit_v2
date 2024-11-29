@@ -1,7 +1,5 @@
 // src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
-import HeaderComponent from "@/components/Header.vue";
-
 import Startseite from "@/components/Startseite.vue";
 
 const routes = [
@@ -16,15 +14,21 @@ const routes = [
     component: Startseite,
   },
   {
+    path: '/booking/:id',
+    name: 'BookingPage',
+    component: () => import('@/views/BookingView.vue'), //Weiterleitung zur Buchungsseite
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
-    redirect: '/', // Weiterleitung zur Home-Seite
+    redirect: '/', // Weiterleitung zur Startseite
   },
 ];
 
 const router = createRouter({
-  history: createWebHistory(), // Für ein HTML5-Geschichte-basiertes Routing
+  history: createWebHistory(),
   routes,
 });
 
 export default router;
+
