@@ -1,34 +1,39 @@
 <script setup>
-import {ref} from 'vue'
+import { ref } from 'vue';
 const kurse = ref([
   {
-    "id": "001",
-    "name": "Yoga Flow",
-    "Trainer": "Emma Schill",
-    "Uhrzeit": "8:00 Uhr",
-    "description": "Ein Kurs, der Körper und Geist durch fließende Bewegungen und gezielte Atemübungen stärkt und entspannt."
+    id: "001",
+    name: "Yoga Flow",
+    Trainer: "Emma Schill",
+    Uhrzeit: "8:00 Uhr",
+    description: "Ein Kurs, der Körper und Geist durch fließende Bewegungen und gezielte Atemübungen stärkt und entspannt.",
   },
   {
-    "id": "001",
-    "name": "Balance Pilates",
-    "Trainer": "Caro Klirr",
-    "Uhrzeit": "17:00 Uhr",
-    "description": "Ein Kurs, der die Tiefenmuskulatur stärkt, die Körperhaltung verbessert und für mehr Flexibilität und Balance sorgt."
-  }
-])
+    id: "002",
+    name: "Balance Pilates",
+    Trainer: "Caro Klirr",
+    Uhrzeit: "17:00 Uhr",
+    description: "Ein Kurs, der die Tiefenmuskulatur stärkt, die Körperhaltung verbessert und für mehr Flexibilität und Balance sorgt.",
+  },
+]);
 </script>
 
 <template>
   <section class="course-section">
     <div class="container">
       <div class="row g-4 justify-content-center">
-        <div class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3">
-          <div class="course-card"  v-for="kurs in kurse">
+        <!-- Hier wird das v-for angewendet -->
+        <div 
+          v-for="kurs in kurse" 
+          :key="kurs.id" 
+          class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3"
+        >
+          <div class="course-card">
             <img src="../assets/pictures/Yoga.jpg" alt="Yoga Flow" class="course-image" />
             <div class="course-info">
-              <h3>Yoga Flow</h3>
+              <h3>{{ kurs.name }}</h3>
               <div class="trainer-time">
-                <p><span class="course-label">Trainer: </span>{{ kurs.name }}</p>
+                <p><span class="course-label">Trainer: </span>{{ kurs.Trainer }}</p>
                 <p><span class="course-label">Uhrzeit: </span>{{ kurs.Uhrzeit }}</p>
               </div>
               <p class="extra-text">
