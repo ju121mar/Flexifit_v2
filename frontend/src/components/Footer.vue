@@ -28,7 +28,7 @@
         <h6><a href="#">Studio</a></h6>
       </div>
       <div class="col-md-2">
-        <h6><a href="#">Kursangebote</a></h6>
+        <h6><a href="/kursangebote">Kursangebote</a></h6>
       </div>
       <div class="col-md-2">
         <h6><a href="#">Mein Trainingsplan</a></h6>

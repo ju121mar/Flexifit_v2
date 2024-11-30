@@ -74,7 +74,7 @@
           Ausdauer!
         </p>
       </div>
-      <img src="../src/assets/pictures/trainer.jpg" alt="Trainer" class="trainer-image" />
+      <img src="../assets/pictures/trainer.jpg" alt="Trainer" class="trainer-image" />
       <button class="book-button">Mein Trainingsplan ➔</button>
     </div>
   </div>
