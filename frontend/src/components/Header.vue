@@ -47,7 +47,7 @@
               <RouterLink class="nav-link active" to="/lala">Studio</RouterLink>
             </li>
             <li class="nav-item">
-              <RouterLink class="nav-link" to="#">Kursangebote</RouterLink>
+              <RouterLink class="nav-link active" to="/kursangebote">Kursangebote</RouterLink>
             </li>
             <li class="nav-item">
               <RouterLink class="nav-link" to="#">Mein Trainingsplan</RouterLink>

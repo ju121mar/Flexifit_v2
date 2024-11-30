@@ -1,6 +1,8 @@
 // src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
 import Startseite from "@/components/Startseite.vue";
+import BookingView from '@/views/BookingView.vue';
+import BookingOverView from '@/views/BookingOverView.vue';
 
 const routes = [
   {
@@ -16,8 +18,16 @@ const routes = [
   {
     path: '/booking/:id',
     name: 'BookingPage',
-    component: () => import('@/views/BookingView.vue'), //Weiterleitung zur Buchungsseite
+    //component: () => import('@/views/BookingView.vue'), //fuer dynamische Ansicht
+    component: BookingView,
   },
+
+  {
+    path: '/kursangebote',
+    name: 'BookingOverview',
+    component: BookingOverView,
+  },
+
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',

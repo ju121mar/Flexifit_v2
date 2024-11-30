@@ -49,7 +49,9 @@
               <p>
                 FlexiFit ist dein Schlüssel zu einem aktiveren Lebensstil – mit abwechslungsreichen Sportarten und liebevoll gestalteten Kursen, die du ganz flexibel in deinen Alltag integrieren kannst.
               </p>
-              <button class="book-button">Kursangebote</button>
+              <router-link to="/kursangebote">
+                <button class="book-button">Kursangebote</button>
+              </router-link>
             </div>
           </div>
         </div>
