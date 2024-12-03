@@ -1,35 +1,36 @@
 module.exports = {
-  find: async function (req, res){
-    let kurs = [
+  find: async function (req, res) {
+    const kurs = [
       {
-        "id": "001",
-        "name": "Yoga Flow",
-        "Trainer": "Emma Schill",
-        "Uhrzeit": "8:00 Uhr",
-        "description": "Ein Kurs, der Körper und Geist durch fließende Bewegungen und gezielte Atemübungen stärkt und entspannt."
+        id: "001",
+        name: "Yoga Flow",
+        trainer: "Emma Schill",
+        uhrzeit: "8:00 Uhr",
+        description: "Ein Kurs, der Körper und Geist durch fließende Bewegungen stärkt.",
       },
       {
-        "id": "002",
-        "name": "Power HIIT",
-        "Trainer": "Luca Lange",
-        "Uhrzeit": "9:00 Uhr",
-        "description": "Ein intensiver Kurs, der durch kurze, kraftvolle Intervalle und gezielte Erholungsphasen den gesamten Körper stärkt."
+        id: "002",
+        name: "Power HIIT",
+        trainer: "Luca Lange",
+        uhrzeit: "9:00 Uhr",
+        description: "Ein intensiver Kurs für den gesamten Körper.",
       },
       {
-        "id": "003",
-        "name": "Spin Class",
-        "Trainer": "Lara Stein",
-        "Uhrzeit": "17:00 Uhr",
-        "description": "Ein Kurs, der die Tiefenmuskulatur stärkt, die Körperhaltung verbessert und für mehr Flexibilität und Balance sorgt."
+        id: "003",
+        name: "Spin Class",
+        trainer: "Lara Stein",
+        uhrzeit: "17:00 Uhr",
+        description: "Ein Kurs für mehr Flexibilität und Balance.",
       },
       {
-        "id": "004",
-        "name": "Balance Pilates",
-        "Trainer": "Caro Klirr",
-        "Uhrzeit": "17:00 Uhr",
-        "description": " Ein energiegeladener Kurs, der durch intensives Radfahren zu motivierender Musik Ausdauer steigert und die Beinmuskulatur stärkt."
-      }
-    ]
+        id: "004",
+        name: "Balance Pilates",
+        trainer: "Caro Klirr",
+        uhrzeit: "17:00 Uhr",
+        description: "Energiegeladenes Training mit Fokus auf Ausdauer.",
+      },
+    ];
+
     return res.json(kurs);
-  }
-}
+  },
+};

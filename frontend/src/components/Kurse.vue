@@ -38,25 +38,23 @@ const kurse = ref([
   {
     id: "001",
     name: "Yoga Flow",
-    Trainer: "Emma Schill",
-    Uhrzeit: "8:00 Uhr",
+    trainer: "Emma Schill",
+    uhrzeit: "8:00 Uhr",
     description: "Ein Kurs, der Körper und Geist durch fließende Bewegungen und gezielte Atemübungen stärkt und entspannt.",
   },
   {
     id: "002",
     name: "Balance Pilates",
-    Trainer: "Caro Klirr",
-    Uhrzeit: "17:00 Uhr",
+    trainer: "Caro Klirr",
+    uhrzeit: "17:00 Uhr",
     description: "Ein Kurs, der die Tiefenmuskulatur stärkt, die Körperhaltung verbessert und für mehr Flexibilität und Balance sorgt.",
   },
 ]);
 
-// Router für Navigation
 const router = useRouter();
 
-// Funktion zur Navigation
-const goToBooking = (id) => {
-  router.push({ name: "BookingPage", params: { id } });
+function goToBooking(id) {
+  router.push(`/booking/${id}`);
 };
 </script>
 
