@@ -7,7 +7,7 @@ module.exports = {
         trainer: "Emma Schill",
         uhrzeit: "8:00 Uhr",
         description: "Ein Kurs, der Körper und Geist durch fließende Bewegungen stärkt.",
-        image: "../assets/pictures/Yoga.jpg"
+        image: "../Yoga.jpg"
       },
       {
         id: "002",
@@ -15,7 +15,7 @@ module.exports = {
         trainer: "Luca Lange",
         uhrzeit: "9:00 Uhr",
         description: "Ein intensiver Kurs für den gesamten Körper.",
-        image: "../assets/pictures/Yoga.jpg"
+        image: "../Pilates.jpg"
       },
       {
         id: "003",

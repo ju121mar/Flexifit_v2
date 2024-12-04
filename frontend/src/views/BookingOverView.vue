@@ -12,89 +12,82 @@
     </div>
 
     <div class="date-picker">
-      <div class="weekdays">
-        <span v-for="(day, index) in weekdays" :key="index" :class="['day', { 'current-day': isCurrentDay(index) }]"
-        >
-          {{ day }} <span v-if="isCurrentDay(index)">(heute)</span>
-        </span>
-      </div>
-    </div>
+  <div class="weekdays">
+    <span 
+      v-for="(day, index) in weekdays" 
+      :key="index" 
+      :class="['day', { 'current-day': activeDay === day }]"
+      @click="selectDay(day)"
+    >
+      {{ day }} <span v-if="isCurrentDay(index)">(heute)</span>
+    </span>
+  </div>
+</div>
 
-    <div class="container">
-      <div class="row g-4 justify-content-center">
-        <div 
-          v-for="kurs in kurse" 
-          :key="kurs.id" 
-          class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3"
-        >
-          <div class="course-card">
-            <img :src="kurs.image" :alt="kurs.name" class="course-image" />
-            <div class="course-info">
-              <h3>{{ kurs.name }}</h3>
-              <div class="trainer-time">
-                <p><span class="course-label">Trainer: </span>{{ kurs.trainer }}</p>
-                <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
-              </div>
-               <button class="book-button" @click="goToBooking(kurs.id)">Jetzt Buchen</button>
-            </div>
+<div class="container">
+  <div class="row g-4 justify-content-center">
+    <div 
+      v-for="kurs in filteredKurse" 
+      :key="kurs.id" 
+      class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3"
+    >
+      <div class="course-card">
+        <img :src="kurs.image" :alt="kurs.name" class="course-image" />
+        <div class="course-info">
+          <h3>{{ kurs.name }}</h3>
+          <div class="trainer-time">
+            <p><span class="course-label">Trainer: </span>{{ kurs.trainer }}</p>
+            <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
           </div>
+          <button class="book-button" @click="goToBooking(kurs.id)">Jetzt Buchen</button>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</div>
+</section>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 
-const kurse = ref([
-  {
-    id: "001",
-    name: "Yoga Flow",
-    trainer: "Emma Schill",
-    uhrzeit: "8:00 Uhr",
-    image: "../Yoga.jpg",
-  },
-  {
-    id: "002",
-    name: "Balance Pilates",
-    trainer: "Caro Klirr",
-    uhrzeit: "17:00 Uhr",
-    image: "../Pilates.jpg"
-  },
-]);
+const weekdays = ref(["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]);
+const kurseByDay = ref({
+  Mo: [
+    { id: "001", name: "Yoga Flow", trainer: "Emma Schill", uhrzeit: "8:00 Uhr", image: "../Yoga.jpg" },
+  ],
+  Di: [
+    { id: "002", name: "Balance Pilates", trainer: "Caro Klirr", uhrzeit: "17:00 Uhr", image: "../Pilates.jpg" },
+  ],
+  Mi: [
+    { id: "003", name: "Spin Class", trainer: "Lara Stein", uhrzeit: "17:00 Uhr", image: "../Spin.jpg",},
+  ],
+  
+});
+
+const todayIndex = ref(new Date().getDay() - 1); 
+const activeDay = ref(weekdays.value[todayIndex.value]); // Standard: Heute
 const router = useRouter();
 
-function goToBooking(id) {
-  router.push(`/booking/${id}`);
-};
-
-
-// Wochentage
-const weekdays = ref(["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]);
-const todayIndex = ref(new Date().getDay() - 1); // -1, da getDay() Sonntag = 0 ist
-
-// Aktueller Wochentag
 function isCurrentDay(index) {
   return index === todayIndex.value;
 }
 
-// Datum für Anzeige
-const currentDate = ref(new Date().toLocaleDateString());
+function selectDay(day) {
+  activeDay.value = day;
+}
 
-onMounted(() => {
-  setInterval(() => {
-    currentDate.value = new Date().toLocaleDateString();
-  }, 1000);
-});
+function goToBooking(id) {
+  router.push(`/booking/${id}`);
+}
 
-onMounted(() => {
-    setInterval(() => {
-    currentDate.value = new Date().toLocaleDateString();
-  }, 1000);
+// Kurse nach Wochentagen filtern
+const filteredKurse = computed(() => {
+  return kurseByDay.value[activeDay.value] || [];
 });
 </script>
+
 
 <style scoped>
 
