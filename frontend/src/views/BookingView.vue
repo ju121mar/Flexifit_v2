@@ -1,31 +1,19 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRoute} from 'vue-router'
-
+import axios from 'axios'
 const route = useRoute();
 const kurs = ref(null);
 
-// Beispiel-Kursdaten (ersetze mit API-Aufruf, falls nötig)
-const kurse = [
-  {
-    id: "001",
-    name: "Yoga Flow",
-    trainer: "Emma Schill",
-    uhrzeit: "8:00 Uhr",
-    description: "Ein Kurs, der Körper und Geist durch fließende Bewegungen und gezielte Atemübungen stärkt und entspannt.",
-  },
-  {
-    id: "002",
-    name: "Balance Pilates",
-    trainer: "Caro Klirr",
-    uhrzeit: "17:00 Uhr",
-    description: "Ein Kurs, der die Tiefenmuskulatur stärkt, die Körperhaltung verbessert und für mehr Flexibilität und Balance sorgt.",
-  },
-];
-
-onMounted(() => {
+onMounted(async() => {
   const kursId = route.params.id;
-  kurs.value = kurse.find(k => k.id === kursId);
+  try {
+    const response = await axios.get(`/kurse/${kursId}`);
+    kurs.value = response.data;
+  } catch (error) {
+    console.error('Fehler beim Laden der Kursdaten:', error);
+    kurs.value = null;
+  }
 });
 </script>
 

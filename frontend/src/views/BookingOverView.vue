@@ -13,8 +13,9 @@
 
     <div class="date-picker">
       <div class="weekdays">
-        <span v-for="(day, index) in weekdays" :key="index" class="day">
-          {{ day }}
+        <span v-for="(day, index) in weekdays" :key="index" :class="['day', { 'current-day': isCurrentDay(index) }]"
+        >
+          {{ day }} <span v-if="isCurrentDay(index)">(heute)</span>
         </span>
       </div>
     </div>
@@ -27,14 +28,14 @@
           class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3"
         >
           <div class="course-card">
-            <img src="../assets/pictures/Yoga.jpg" alt="Yoga Flow" class="course-image" />
+            <img :src="kurs.image" :alt="kurs.name" class="course-image" />
             <div class="course-info">
               <h3>{{ kurs.name }}</h3>
               <div class="trainer-time">
                 <p><span class="course-label">Trainer: </span>{{ kurs.trainer }}</p>
                 <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
               </div>
-              <button class="book-button">Buchen</button>
+               <button class="book-button" @click="goToBooking(kurs.id)">Jetzt Buchen</button>
             </div>
           </div>
         </div>
@@ -45,6 +46,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 
 const kurse = ref([
   {
@@ -52,25 +54,43 @@ const kurse = ref([
     name: "Yoga Flow",
     trainer: "Emma Schill",
     uhrzeit: "8:00 Uhr",
+    image: "../Yoga.jpg",
   },
   {
     id: "002",
     name: "Balance Pilates",
     trainer: "Caro Klirr",
     uhrzeit: "17:00 Uhr",
+    image: "../Pilates.jpg"
   },
 ]);
+const router = useRouter();
 
-// Datum und Zeitsteuerung
-const currentDate = ref(new Date().toLocaleDateString());
+function goToBooking(id) {
+  router.push(`/booking/${id}`);
+};
 
 
 // Wochentage
 const weekdays = ref(["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]);
+const todayIndex = ref(new Date().getDay() - 1); // -1, da getDay() Sonntag = 0 ist
+
+// Aktueller Wochentag
+function isCurrentDay(index) {
+  return index === todayIndex.value;
+}
+
+// Datum für Anzeige
+const currentDate = ref(new Date().toLocaleDateString());
 
 onMounted(() => {
-  // Aktualisiert das Datum und die Uhrzeit periodisch
   setInterval(() => {
+    currentDate.value = new Date().toLocaleDateString();
+  }, 1000);
+});
+
+onMounted(() => {
+    setInterval(() => {
     currentDate.value = new Date().toLocaleDateString();
   }, 1000);
 });
@@ -237,6 +257,33 @@ onMounted(() => {
 
 .container {
   text-align: center;
+}
+
+.date-picker {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.weekdays {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.day {
+  background-color: #e0d7f5;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Styling für den aktuellen Tag */
+.current-day {
+  background-color: #7030a0;
+  color: #fff;
+  font-weight: bold;
+  border: 2px solid #7030a0;
 }
 
 </style>

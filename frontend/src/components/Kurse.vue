@@ -12,8 +12,8 @@
             <div class="course-info">
               <h3>{{ kurs.name }}</h3>
               <div class="trainer-time">
-                <p><span class="course-label">Trainer: </span>{{ kurs.Trainer }}</p>
-                <p><span class="course-label">Uhrzeit: </span>{{ kurs.Uhrzeit }}</p>
+                <p><span class="course-label">Trainer: </span>{{ kurs.trainer }}</p>
+                <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
               </div>
               <p class="extra-text">
                 <span class="course-label">Beschreibung:</span>
