@@ -9,8 +9,8 @@
  */
 
 module.exports.routes = {
-  'GET /kurse': {controller: 'KursController.find'},
-  'GET /kurse/:id': { controller: 'KursController.findOne' },
+  'GET /kurse': { controller: 'KursController', action: 'find' },
+  'GET /kurse/:id': { controller: 'KursController', action:'findOne' },
 
 
 /***************************************************************************
