@@ -31,8 +31,29 @@ module.exports.datastores = {
   * (For production configuration, see `config/env/production.js`.)          *
   *                                                                          *
   ***************************************************************************/
-
+ //Testdatenbank
   default: {
+    
+          adapter: 'sails-mysql',
+          host: '193.196.53.194',
+          port: 33061,
+          user: 'user7_test',  
+          database: 'flexfit_test',
+  },
+  
+
+
+/*//Prod-Datenbank
+prod: {
+            adapter: 'sails-mysql',
+            host: '193.196.53.194',
+            port: 33061,
+            user: 'user7_prod',
+            database: 'flexfit_prod' 
+        },*/
+    
+  };
+  
 
     /***************************************************************************
     *                                                                          *
@@ -51,7 +72,4 @@ module.exports.datastores = {
     // adapter: 'sails-mysql',
     // url: 'mysql://user:password@host:port/database',
 
-  },
-
-
-};
+  
