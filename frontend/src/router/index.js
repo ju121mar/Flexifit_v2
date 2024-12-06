@@ -3,6 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Startseite from "@/components/Startseite.vue";
 import BookingView from '@/views/BookingView.vue';
 import BookingOverView from '@/views/BookingOverView.vue';
+import KursEntry from '@/components/KursEntry.vue';
+import NewKursView from '@/views/NewKursView.vue';
 
 const routes = [
   {
@@ -26,6 +28,12 @@ const routes = [
     path: '/kursangebote',
     name: 'BookingOverview',
     component: BookingOverView,
+  },
+
+  {
+    path: '/new',
+    name: 'NewKursView',
+    component: NewKursView,
   },
 
   {
