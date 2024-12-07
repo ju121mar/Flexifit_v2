@@ -1,3 +1,33 @@
+
+<script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+// Daten für die Kurse
+const kurse = ref([
+  {
+    id: "001",
+    name: "Yoga Flow",
+    trainer: "Emma Schill",
+    uhrzeit: "8:00 Uhr",
+    description: "Ein Kurs, der Körper und Geist durch fließende Bewegungen und gezielte Atemübungen stärkt und entspannt.",
+  },
+  {
+    id: "002",
+    name: "Balance Pilates",
+    trainer: "Caro Klirr",
+    uhrzeit: "17:00 Uhr",
+    description: "Ein Kurs, der die Tiefenmuskulatur stärkt, die Körperhaltung verbessert und für mehr Flexibilität und Balance sorgt.",
+  },
+]);
+
+const router = useRouter();
+
+function goToBooking(id) {
+  router.push(`/booking/${id}`);
+};
+
+</script>
 <template>
   <section class="course-section">
     <div class="container">
@@ -29,34 +59,7 @@
   </section>
 </template>
 
-<script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
 
-// Daten für die Kurse
-const kurse = ref([
-  {
-    id: "001",
-    name: "Yoga Flow",
-    trainer: "Emma Schill",
-    uhrzeit: "8:00 Uhr",
-    description: "Ein Kurs, der Körper und Geist durch fließende Bewegungen und gezielte Atemübungen stärkt und entspannt.",
-  },
-  {
-    id: "002",
-    name: "Balance Pilates",
-    trainer: "Caro Klirr",
-    uhrzeit: "17:00 Uhr",
-    description: "Ein Kurs, der die Tiefenmuskulatur stärkt, die Körperhaltung verbessert und für mehr Flexibilität und Balance sorgt.",
-  },
-]);
-
-const router = useRouter();
-
-function goToBooking(id) {
-  router.push(`/booking/${id}`);
-};
-</script>
 
 
 <style scoped>

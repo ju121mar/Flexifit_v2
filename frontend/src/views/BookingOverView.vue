@@ -1,52 +1,3 @@
-<template>
-  <section class="booking-overview-section">
-    <div class="header">
-      <h1>Kursangebote:</h1>
-      <div class="header-controls">
-        <button class="back-button">Zurück</button>
-        <div class="date-controls">
-          <span>{{ currentDate }}</span>
-        </div>
-        <button class="filter-button">Filter</button>
-      </div>
-    </div>
-
-    <div class="date-picker">
-  <div class="weekdays">
-    <span 
-      v-for="(day, index) in weekdays" 
-      :key="index" 
-      :class="['day', { 'current-day': activeDay === day }]"
-      @click="selectDay(day)"
-    >
-      {{ day }} <span v-if="isCurrentDay(index)">(heute)</span>
-    </span>
-  </div>
-</div>
-
-<div class="container">
-  <div class="row g-4 justify-content-center">
-    <div 
-      v-for="kurs in filteredKurse" 
-      :key="kurs.id" 
-      class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3"
-    >
-      <div class="course-card">
-        <img :src="kurs.image" :alt="kurs.name" class="course-image" />
-        <div class="course-info">
-          <h3>{{ kurs.name }}</h3>
-          <div class="trainer-time">
-            <p><span class="course-label">Trainer: </span>{{ kurs.trainer }}</p>
-            <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
-          </div>
-          <button class="book-button" @click="goToBooking(kurs.id)">Jetzt Buchen</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</section>
-</template>
 
 <script setup>
 import { ref, computed } from 'vue';
@@ -78,7 +29,9 @@ function selectDay(day) {
   activeDay.value = day;
 }
 
-function goToBooking(id) {
+const currentDate = ref(new Date().toLocaleDateString());
+
+function goToEditing(id) {
   router.push(`/booking/${id}`);
 }
 
@@ -87,6 +40,57 @@ const filteredKurse = computed(() => {
   return kurseByDay.value[activeDay.value] || [];
 });
 </script>
+<template>
+  <section class="booking-overview-section">
+    <div class="header">
+      <h1>Kursangebote:</h1>
+      <div class="header-controls">
+        <RouterLink class="back-button" to="/lala">Zurück</RouterLink>
+        <div class="date-controls">
+          <span>{{ currentDate }}</span>
+        </div>
+        <RouterLink class="filter-button" to="/new">Neuen Kurs erstellen</RouterLink>
+      </div>
+    </div>
+
+    <div class="date-picker">
+  <div class="weekdays">
+    <span 
+      v-for="(day, index) in weekdays" 
+      :key="index" 
+      :class="['day', { 'current-day': activeDay === day }]"
+      @click="selectDay(day)"
+    >
+      {{ day }} <span v-if="isCurrentDay(index)">(heute)</span>
+    </span>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row g-4 justify-content-center">
+    <div 
+      v-for="kurs in filteredKurse" 
+      :key="kurs.id" 
+      class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3"
+    >
+      <div class="course-card">
+        <img :src="kurs.image" :alt="kurs.name" class="course-image" />
+        <div class="course-info">
+          <h3>{{ kurs.name }}</h3>
+          <div class="trainer-time">
+            <p><span class="course-label">Trainer: </span>{{ kurs.trainer }}</p>
+            <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
+          </div>
+          <button class="book-button" @click="goToEditing(kurs.id)">Bearbeiten</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+</template>
+
+
 
 
 <style scoped>
