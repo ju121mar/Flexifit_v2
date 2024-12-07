@@ -5,6 +5,7 @@ import BookingView from '@/views/BookingView.vue';
 import BookingOverView from '@/views/BookingOverView.vue';
 import KursEntry from '@/components/KursEntry.vue';
 import NewKursView from '@/views/NewKursView.vue';
+import EditView from '@/views/EditView.vue';
 
 const routes = [
   {
@@ -35,6 +36,13 @@ const routes = [
     name: 'NewKursView',
     component: NewKursView,
   },
+
+  {
+      path: '/booking/:id/edit',
+      name: 'EditCourse',
+      component: EditView,
+  },
+  
 
   {
     path: '/:pathMatch(.*)*',

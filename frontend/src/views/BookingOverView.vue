@@ -32,7 +32,7 @@ function selectDay(day) {
 const currentDate = ref(new Date().toLocaleDateString());
 
 function goToEditing(id) {
-  router.push(`/booking/${id}`);
+  router.push(`/booking/${id}/edit`);
 }
 
 // Kurse nach Wochentagen filtern
