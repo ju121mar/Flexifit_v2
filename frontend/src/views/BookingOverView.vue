@@ -17,8 +17,9 @@ const kurseByDay = ref({
   
 });
 
+//berechnet den Index des aktuellen Wochentages
 const todayIndex = ref(new Date().getDay() - 1); 
-const activeDay = ref(weekdays.value[todayIndex.value]); // Standard: Heute
+const activeDay = ref(weekdays.value[todayIndex.value]); // Standard aktiver Tag: Heute
 const router = useRouter();
 
 function isCurrentDay(index) {
@@ -31,6 +32,7 @@ function selectDay(day) {
 
 const currentDate = ref(new Date().toLocaleDateString());
 
+//navigiert zur Bearbeitungsseite eines Kurses
 function goToEditing(id) {
   router.push(`/booking/${id}/edit`);
 }

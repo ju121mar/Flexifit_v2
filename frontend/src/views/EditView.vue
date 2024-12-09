@@ -1,10 +1,12 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import axios from 'axios';
 
 const route = useRoute();
 const router = useRouter();
 const courseId = route.params.id;
+const kurse = ref([]);
 
 // Hier DB einpflegen
 const kurseByDay = ref({
@@ -13,13 +15,22 @@ const kurseByDay = ref({
 
 const course = ref(null);
 
-onMounted(() => {
-  for (const day in kurseByDay.value) {
-    const found = kurseByDay.value[day].find((kurs) => kurs.id === courseId);
-    if (found) {
-      course.value = { ...found };
-      break;
-    }
+// onMounted(() => {
+//   for (const day in kurseByDay.value) {
+//     const found = kurseByDay.value[day].find((kurs) => kurs.id === courseId);
+//     if (found) {
+//       course.value = { ...found };
+//       break;
+//     }
+//   }
+// });
+
+onMounted(async () => {
+  try {
+    const response = await axios.get('/api/courses');
+    kurse.value = response.data;
+  } catch (error) {
+    console.error('Fehler beim Laden der Kurse:', error);
   }
 });
 

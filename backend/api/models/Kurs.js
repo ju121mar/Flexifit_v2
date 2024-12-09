@@ -1,7 +1,7 @@
 module.exports = {
 
     attributes: {
-  
+
       name: { type: 'string', columnType: 'varchar(80)', required: true },
       trainer: { type: 'string', columnType: 'varchar(80)', required: true},
       uhrzeit: {type: 'string', columnType: 'varChar(10)', required: true},

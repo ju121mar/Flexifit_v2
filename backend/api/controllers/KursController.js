@@ -1,4 +1,8 @@
 module.exports = {
+  create: async function (req, res){
+    const kurse = await Kurs.find();
+    return res.json(kurse);
+  },
   find: async function (req, res) {
     const kurs = [
       {
@@ -58,12 +62,12 @@ module.exports = {
 
       },
     ].find(k => k.id === String(kursId));
-  
+
     if (kurs) {
       return res.json(kurs);
     } else {
       return res.status(404).json({ error: 'Kurs nicht gefunden' });
     }
   }
-  
+
 };
