@@ -1,34 +1,13 @@
-
 <script setup>
-import { ref, computed } from 'vue';
-import { useRouter } from 'vue-router';
+import {ref, computed, onMounted} from 'vue';
+import {useRouter} from 'vue-router';
+import {apiCall} from "@/utility/ApiCall.js";
 
 const weekdays = ref(["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]);
-const kurseByDay = ref({
-  Mo: [
-    { id: "001", name: "Yoga Flow", trainer: "Emma Schill", uhrzeit: "8:00 Uhr", image: "../Yoga.jpg" },
-  ],
-  Di: [
-    { id: "002", name: "Balance Pilates", trainer: "Caro Klirr", uhrzeit: "17:00 Uhr", image: "../Pilates.jpg" },
-  ],
-  Mi: [
-    { id: "003", name: "Spin Class", trainer: "Lara Stein", uhrzeit: "17:00 Uhr", image: "../Spin.jpg",},
-  ],
-  
-});
+const activeDay = ref(null); // Zum Verfolgen des ausgewählten Tages
+const kurseByDay = ref({});
 
-//berechnet den Index des aktuellen Wochentages
-const todayIndex = ref(new Date().getDay() - 1); 
-const activeDay = ref(weekdays.value[todayIndex.value]); // Standard aktiver Tag: Heute
 const router = useRouter();
-
-function isCurrentDay(index) {
-  return index === todayIndex.value;
-}
-
-function selectDay(day) {
-  activeDay.value = day;
-}
 
 const currentDate = ref(new Date().toLocaleDateString());
 
@@ -41,13 +20,77 @@ function goToEditing(id) {
 const filteredKurse = computed(() => {
   return kurseByDay.value[activeDay.value] || [];
 });
+
+const kurs = ref([]);
+
+onMounted(async () => {
+  console.log('Kurse werden geladen...');
+  try {
+    const response = await apiCall({
+      method: 'GET',
+      url: '/kurse',
+    });
+    const courses = response;
+    const groupedCourses = weekdays.value.reduce((acc, day) => {
+      acc[day] = [];
+      return acc;
+    }, {});
+    courses.forEach((course) => {
+      const weekdayKey = mapWeekdayToShort(course.wochentag);
+      if (groupedCourses[weekdayKey]) {
+        groupedCourses[weekdayKey].push({
+          id: course.id,
+          name: course.name,
+          trainer: course.trainer,
+          uhrzeit: course.uhrzeit,
+          image: '@/assets/pictures/Laufband.png',
+          description: course.description,
+        });
+      }
+    });
+
+    kurseByDay.value = groupedCourses;
+  } catch (error) {
+    console.error('Fehler beim Laden der Kursdaten:', error);
+    kurs.value = null;
+  }
+});
+
+const mapWeekdayToShort = (day) => {
+  const mapping = {
+    Montag: "Mo",
+    Dienstag: "Di",
+    Mittwoch: "Mi",
+    Donnerstag: "Do",
+    Freitag: "Fr",
+    Samstag: "Sa",
+    Sonntag: "So",
+  };
+  return mapping[day] || day;
+};
+
+// Computed Property, um die Kurse für den aktiven Tag anzuzeigen
+const coursesForActiveDay = computed(() => {
+  return kurseByDay.value[activeDay.value] || [];
+});
+
+// Methode zum Setzen des aktiven Tages
+const selectDay = (day) => {
+  activeDay.value = day;
+};
+
+// Aktuellen Tag ermitteln
+const isCurrentDay = (index) => {
+  const today = new Date().getDay(); // 0 = Sonntag, 1 = Montag, etc.
+  return (index === (today === 0 ? 6 : today - 1));
+};
 </script>
 <template>
   <section class="booking-overview-section">
     <div class="header">
       <h1>Kursangebote:</h1>
       <div class="header-controls">
-        <RouterLink class="back-button" to="/lala">Zurück</RouterLink>
+        <RouterLink class="back-button" to="/">Zurück</RouterLink>
         <div class="date-controls">
           <span>{{ currentDate }}</span>
         </div>
@@ -56,43 +99,41 @@ const filteredKurse = computed(() => {
     </div>
 
     <div class="date-picker">
-  <div class="weekdays">
-    <span 
-      v-for="(day, index) in weekdays" 
-      :key="index" 
-      :class="['day', { 'current-day': activeDay === day }]"
-      @click="selectDay(day)"
+      <div class="weekdays">
+    <span
+        v-for="(day, index) in weekdays"
+        :key="index"
+        :class="['day', { 'current-day': activeDay === day }]"
+        @click="selectDay(day)"
     >
       {{ day }} <span v-if="isCurrentDay(index)">(heute)</span>
     </span>
-  </div>
-</div>
+      </div>
+    </div>
 
-<div class="container">
-  <div class="row g-4 justify-content-center">
-    <div 
-      v-for="kurs in filteredKurse" 
-      :key="kurs.id" 
-      class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3"
-    >
-      <div class="course-card">
-        <img :src="kurs.image" :alt="kurs.name" class="course-image" />
-        <div class="course-info">
-          <h3>{{ kurs.name }}</h3>
-          <div class="trainer-time">
-            <p><span class="course-label">Trainer: </span>{{ kurs.trainer }}</p>
-            <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
+    <div class="container">
+      <div class="row g-4 justify-content-center">
+        <div
+            v-for="kurs in filteredKurse"
+            :key="kurs.id"
+            class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3"
+        >
+          <div class="course-card">
+            <img :src="kurs.image" :alt="kurs.name" class="course-image"/>
+            <div class="course-info">
+              <h3>{{ kurs.name }}</h3>
+              <div class="trainer-time">
+                <p><span class="course-label">Trainer: </span>{{ kurs.trainer }}</p>
+                <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
+              </div>
+              <button class="book-button" @click="goToEditing(kurs.id)">Bearbeiten</button>
+            </div>
           </div>
-          <button class="book-button" @click="goToEditing(kurs.id)">Bearbeiten</button>
         </div>
       </div>
     </div>
-  </div>
-</div>
-</section>
+  </section>
 </template>
-
-
 
 
 <style scoped>
@@ -104,7 +145,6 @@ const filteredKurse = computed(() => {
   text-align: center;
   margin: 20px 0;
 }
-
 
 
 .course-card {
@@ -148,6 +188,7 @@ const filteredKurse = computed(() => {
   margin: 5px 0;
   font-size: 14px;
 }
+
 .course-label {
   color: #7030a0;
 }
@@ -168,6 +209,7 @@ const filteredKurse = computed(() => {
   .course-info p {
     font-size: 18px;
   }
+
   .course-image {
     width: 100px;
     height: 100px;
@@ -287,4 +329,3 @@ const filteredKurse = computed(() => {
 
 </style>
 
-  

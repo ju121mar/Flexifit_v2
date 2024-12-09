@@ -44,7 +44,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav mx-auto">
             <li class="nav-item">
-              <RouterLink class="nav-link active" to="/lala">Studio</RouterLink>
+              <RouterLink class="nav-link active" to="/">Studio</RouterLink>
             </li>
             <li class="nav-item">
               <RouterLink class="nav-link active" to="/kursangebote">Kursangebote</RouterLink>

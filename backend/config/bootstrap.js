@@ -23,7 +23,7 @@ module.exports.bootstrap = async function() {
   await Kurs.createEach([
       {
         name: "Yoga Flow",
-        trainer: "Emma Schill",
+        trainer: "Emma Stein",
         uhrzeit: "08:00 Uhr",
         wochentag: "Montag",
         dauer: "60 Minuten",

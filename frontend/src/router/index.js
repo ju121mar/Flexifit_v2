@@ -14,11 +14,6 @@ const routes = [
     component: Startseite,
   },
   {
-    path: '/lala',
-    name: 'lala',
-    component: Startseite,
-  },
-  {
     path: '/booking/:id',
     name: 'BookingPage',
     //component: () => import('@/views/BookingView.vue'), //fuer dynamische Ansicht
@@ -42,7 +37,7 @@ const routes = [
       name: 'EditCourse',
       component: EditView,
   },
-  
+
 
   {
     path: '/:pathMatch(.*)*',

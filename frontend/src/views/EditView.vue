@@ -2,73 +2,150 @@
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
+import {apiCall} from "@/utility/ApiCall.js";
 
 const route = useRoute();
 const router = useRouter();
 const courseId = route.params.id;
 const kurse = ref([]);
 
-// Hier DB einpflegen
-const kurseByDay = ref({
-  Mo: [{ id: "001", name: "Yoga Flow", trainer: "Emma Schill", uhrzeit: "8:00 Uhr", image: "../Yoga.jpg" }],
-});
 
 const course = ref(null);
 
-// onMounted(() => {
-//   for (const day in kurseByDay.value) {
-//     const found = kurseByDay.value[day].find((kurs) => kurs.id === courseId);
-//     if (found) {
-//       course.value = { ...found };
-//       break;
-//     }
-//   }
-// });
+const formData = ref({
+  name: "",
+  description: "",
+  trainer: "",
+  teilnehmer: null,
+  dauer: "",
+  wochentag: "",
+  uhrzeit: "",
+});
+
+const loading = ref(true);
+
 
 onMounted(async () => {
   try {
-    const response = await axios.get('/api/courses');
-    kurse.value = response.data;
+    const response = await apiCall({
+      method: 'GET',
+      url: `/kurse/${courseId}`,
+    });
+    if (response) {
+      formData.value = {
+        name: response.name || "",
+        description: response.description || "",
+        trainer: response.trainer || "",
+        teilnehmer: parseInt(response.teilnehmer, 10) || 0,
+        dauer: response.dauer || "",
+        wochentag: response.wochentag || "",
+        uhrzeit: response.uhrzeit || "",
+      };
+      console.log("Kursdaten geladen:", formData.value);
+    }
+    console.log('Kurse geladen:', kurse.value);
   } catch (error) {
     console.error('Fehler beim Laden der Kurse:', error);
+  } finally {
+    loading.value = false;
   }
 });
 
-function updateCourse() {
-  if (course.value) {
-    // API-Anfrage oder Datenbankaktualisierung 
-    alert(`Kurs ${course.value.name} wurde aktualisiert!`);
-    router.push('/'); 
+// const onSubmit = () => {
+//   console.log("Formular abgesendet:", formData.value);
+//   // Hier kannst du weitere Aktionen hinzufügen, z.B. ein API-Call.
+// };
+
+// function updateCourse() {
+//   if (course.value) {
+//     // API-Anfrage oder Datenbankaktualisierung
+//     alert(`Kurs ${course.value.name} wurde aktualisiert!`);
+//     router.push('/');
+//   }
+// }
+
+const onSubmit = async () => {
+  console.log("Formular abgesendet:", formData.value);
+  try {
+    await apiCall({
+      method: "PUT",
+      url: `/kurse/${courseId}`,
+      data: formData.value,
+    });
+    alert("Kurs erfolgreich aktualisiert!");
+    router.push("/");
+  } catch (error) {
+    console.error("Fehler beim Speichern des Kurses:", error);
+    alert("Es gab einen Fehler beim Speichern.");
   }
-}
+};
 </script>
 
 <template>
-  <div v-if="course" class="edit-course">
-    <h1>Kurs bearbeiten: {{ course.name }}</h1>
-    <form @submit.prevent="updateCourse">
-      <div>
-        <label for="name">Kursname:</label>
-        <input id="name" v-model="course.name" type="text" required />
-      </div>
-      <div>
-        <label for="trainer">Trainer:</label>
-        <input id="trainer" v-model="course.trainer" type="text" required />
-      </div>
-      <div>
-        <label for="uhrzeit">Uhrzeit:</label>
-        <input id="uhrzeit" v-model="course.uhrzeit" type="time" required />
-      </div>
-      <div>
-        <label for="image">Bild:</label>
-        <input id="image" v-model="course.image" type="text" required />
-      </div>
-      <button type="submit">Kurs aktualisieren</button>
-    </form>
-  </div>
-  <div v-else>
-    <p>Kurs nicht gefunden.</p>
-  </div>
+<!--  <div v-if="course" class="edit-course">-->
+<!--    <h1>Kurs bearbeiten: {{ course.name }}</h1>-->
+<!--    <form @submit.prevent="updateCourse">-->
+<!--      <div>-->
+<!--        <label for="name">Kursname:</label>-->
+<!--        <input id="name" v-model="course.name" type="text" required />-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <label for="trainer">Trainer:</label>-->
+<!--        <input id="trainer" v-model="course.trainer" type="text" required />-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <label for="uhrzeit">Uhrzeit:</label>-->
+<!--        <input id="uhrzeit" v-model="course.uhrzeit" type="time" required />-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <label for="image">Bild:</label>-->
+<!--        <input id="image" v-model="course.image" type="text" required />-->
+<!--      </div>-->
+<!--      <button type="submit">Kurs aktualisieren</button>-->
+<!--    </form>-->
+<!--  </div>-->
+<!--  <div v-else>-->
+<!--    <p>Kurs nicht gefunden. {{courseId}}</p>-->
+<!--  </div>-->
+  <div v-if="loading">Daten werden geladen...</div>
+  <form v-else @submit.prevent="onSubmit">
+    <div>
+      <label for="name">Name:</label>
+      <input id="name" v-model="formData.name" type="text" />
+    </div>
+
+    <div>
+      <label for="description">Beschreibung:</label>
+      <input id="description" v-model="formData.description"></input>
+    </div>
+
+    <div>
+      <label for="trainer">Trainer:</label>
+      <input id="trainer" v-model="formData.trainer" type="text" />
+    </div>
+
+    <div>
+      <label for="participants">Teilnehmer:</label>
+      <input id="participants" v-model="formData.teilnehmer" type="number" />
+    </div>
+
+    <div>
+      <label for="duration">Dauer:</label>
+      <input id="duration" v-model="formData.dauer" type="text" />
+    </div>
+
+    <div>
+      <label for="weekday">Wochentag:</label>
+      <input id="weekday" v-model="formData.wochentag" type="text" />
+    </div>
+
+    <div>
+      <label for="time">Uhrzeit:</label>
+      <input id="time" v-model="formData.uhrzeit" type="text" />
+    </div>
+
+    <button type="submit">Speichern</button>
+  </form>
 </template>
 
 <style scoped>
@@ -80,9 +157,9 @@ form {
     max-width: 400px;
   margin: 20px auto;
   padding: 20px;
-  border: 1px solid #c8b1d9; 
+  border: 1px solid #c8b1d9;
   border-radius: 10px;
-  background-color: #f6ebf9; 
+  background-color: #f6ebf9;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   font-family: 'Inter', sans-serif;
 }
@@ -98,7 +175,7 @@ input {
 
 button {
   padding: 10px 15px;
-  background-color: #6a2c91; 
+  background-color: #6a2c91;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -108,7 +185,7 @@ button {
   margin-top: 20px;
 }
 button:hover {
-  background-color: #4e216c; 
+  background-color: #4e216c;
 }
 
 </style>

@@ -7,11 +7,11 @@ import router from './router/index.js'
 import '@/components/style.css'
 
 const app = createApp(App);
-app.use(PrimeVue, {
-    theme: {
-        preset: Aura
-    }
-});
+// app.use(PrimeVue, {
+//     theme: {
+//         preset: Aura
+//     }
+// });
 app.use(router)
 
 app.mount('#app')
