@@ -9,6 +9,7 @@
  */
 
 module.exports.routes = {
+  'POST /kurse': {controller: 'KursController', action: 'create'},
   'GET /kurse': { controller: 'KursController', action: 'find' },
   'GET /kurse/:id': { controller: 'KursController', action:'findOne' },
 
