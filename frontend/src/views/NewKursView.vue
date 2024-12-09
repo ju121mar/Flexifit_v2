@@ -16,7 +16,7 @@ const kursAdded = ref(false);
 
 // Function to handle form submission
 const submitForm = () => {
-  axios.post('/kurs', newKurs.value)
+  axios.post('/kurse', newKurs.value)
     .then((response) => {
       console.log("Neuer Kurs hinzugefügt:", newKurs.value);
 
@@ -60,6 +60,10 @@ const submitForm = () => {
       <div class="kurs-group">
         <label for="kursDauer">Dauer:</label>
         <input type="text" id="kursDauer" v-model="newKurs.dauer" placeholder="Kursdauer eingeben" required />
+      </div>
+      <div class="kurs-group">
+        <label for="kursTag">Wochentag:</label>
+        <input type="text" id="kursTag" v-model="newKurs.wochentag" placeholder="Wochentag eingeben" required />
       </div>
       <div class="kurs-group">
         <label for="kursTeilnehmer">max. Teilnehmer:</label>

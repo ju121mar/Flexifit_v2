@@ -1,4 +1,14 @@
+const Kurs = require("../models/Kurs");
+
 module.exports = {
+
+  create: async function (req, res) {
+    sails.log.debug("Create course....");
+    let params = req.allParams();
+    await Kurs.create(params);
+    res.ok();
+  },
+  
   find: async function (req, res) {
     const kurs = [
       {
