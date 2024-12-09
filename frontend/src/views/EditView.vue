@@ -141,7 +141,7 @@ const onSubmit = async () => {
 
     <div>
       <label for="time">Uhrzeit:</label>
-      <input id="time" v-model="formData.uhrzeit" type="text" />
+      <input id="time" v-model="formData.uhrzeit" type="time" />
     </div>
 
     <button type="submit">Speichern</button>

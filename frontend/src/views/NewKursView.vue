@@ -1,6 +1,8 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from 'axios'
+import {apiCall} from "@/utility/ApiCall.js";
+import router from "@/router/index.js";
 const newKurs = ref({
   name: "",
   trainer:"",
@@ -15,30 +17,28 @@ const newKurs = ref({
 const kursAdded = ref(false);
 
 // Function to handle form submission
-const submitForm = () => {
-  axios.post('/kurse', newKurs.value)
-    .then((response) => {
-      console.log("Neuer Kurs hinzugefügt:", newKurs.value);
-
-      // Reset the form
-      newKurs.value = {
-        name: "",
-        trainer:"",
-        uhrzeit:"",
-        wochentag:"",
-        dauer:"",
-        teilnehmer:"",
-        description: "",
+const submitForm = async () => {
+  console.log("Formular abgesendet:", newKurs.value);
+  await apiCall({
+    method: 'POST',
+    url: '/kurs/erstellen',
+    data: newKurs.value,
+  }).then(() => {
+    // Reset the form
+    newKurs.value = {
+      name: "",
+      trainer: "",
+      uhrzeit: "",
+      wochentag: "",
+      dauer: "",
+      teilnehmer: "",
+      description: "",
     };
+    router.push('/');
+  });
 
-      // Show success message
-      kursAdded.value = true;
-
-      // Hide the success message after 3 seconds
-      setTimeout(() => {
-        kursAdded.value = false;
-      }, 3000);
-    })
+  // Show success message
+  kursAdded.value = true;
 };
 </script>
 <template>
@@ -55,11 +55,11 @@ const submitForm = () => {
       </div>
       <div class="kurs-group">
         <label for="kursUhrzeit">Uhrzeit:</label>
-        <input type="text" id="kursUhrzeit" v-model="newKurs.uhrzeit" placeholder="Uhrzeit eingeben" required />
+        <input type="time" id="kursUhrzeit" v-model="newKurs.uhrzeit" placeholder="Uhrzeit eingeben" required />
       </div>
       <div class="kurs-group">
         <label for="kursDauer">Dauer:</label>
-        <input type="text" id="kursDauer" v-model="newKurs.dauer" placeholder="Kursdauer eingeben" required />
+        <input type="number" id="kursDauer" v-model="newKurs.dauer" placeholder="Kursdauer eingeben" required min="0" max="90"/>
       </div>
       <div class="kurs-group">
         <label for="kursTag">Wochentag:</label>
@@ -87,9 +87,9 @@ const submitForm = () => {
   max-width: 400px;
   margin: 20px auto;
   padding: 20px;
-  border: 1px solid #c8b1d9; 
+  border: 1px solid #c8b1d9;
   border-radius: 10px;
-  background-color: #f6ebf9; 
+  background-color: #f6ebf9;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   font-family: 'Inter', sans-serif;
 }
@@ -102,7 +102,7 @@ label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: #6a2c91; 
+  color: #6a2c91;
 }
 
 input,
@@ -124,7 +124,7 @@ textarea:focus {
 
 button {
   padding: 10px 15px;
-  background-color: #6a2c91; 
+  background-color: #6a2c91;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -134,7 +134,7 @@ button {
 }
 
 button:hover {
-  background-color: #4e216c; 
+  background-color: #4e216c;
 }
 
 .success-message {

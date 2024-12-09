@@ -37,6 +37,16 @@ module.exports = {
       return res.serverError(err);
     }
 
-  }
+  },
+
+  delete: async function (req, res) {
+    const kursId = req.params.id;
+    try {
+      const deletedKurs = await Kurs.destroyOne({ id: kursId });
+      return res.json(deletedKurs);
+    } catch (err) {
+      return res.serverError(err);
+    }
+  },
 
 };

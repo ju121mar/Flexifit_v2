@@ -79,6 +79,19 @@ const selectDay = (day) => {
   activeDay.value = day;
 };
 
+const deleteKurs = async (id) => {
+  try {
+    await apiCall({
+      method: 'DELETE',
+      url: `/delete/kurs/${id}`,
+    });
+    console.log('Kurs wurde gelöscht:', id);
+    await onMounted();
+  } catch (error) {
+    console.error('Fehler beim Löschen des Kurses:', error);
+  }
+};
+
 // Aktuellen Tag ermitteln
 const isCurrentDay = (index) => {
   const today = new Date().getDay(); // 0 = Sonntag, 1 = Montag, etc.
@@ -127,6 +140,7 @@ const isCurrentDay = (index) => {
                 <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
               </div>
               <button class="book-button" @click="goToEditing(kurs.id)">Bearbeiten</button>
+              <button class="book-button" @click="deleteKurs(kurs.id)">Löschen</button>
             </div>
           </div>
         </div>
