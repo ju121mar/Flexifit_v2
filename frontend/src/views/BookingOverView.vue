@@ -50,6 +50,9 @@ onMounted(async () => {
     });
 
     kurseByDay.value = groupedCourses;
+    const todayIndex = new Date().getDay(); // 0 = Sonntag, 1 = Montag, ...
+    const todayShort = weekdays.value[todayIndex === 0 ? 6 : todayIndex - 1]; // Sonntag = letzter Tag
+    activeDay.value = todayShort;
   } catch (error) {
     console.error('Fehler beim Laden der Kursdaten:', error);
     kurs.value = null;
