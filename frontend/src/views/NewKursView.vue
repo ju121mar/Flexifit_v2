@@ -85,6 +85,7 @@ const submitForm = async () => {
         <textarea id="kursDescription" v-model="newKurs.description" placeholder="Kursbeschreibung eingeben" required></textarea>
       </div>
       <button type="submit">Kurs erstellen</button>
+      <router-link to="/kursangebote" class="button zurueck-button">Zurück</router-link>
     </form>
     <div v-if="kursAdded" class="success-message">
       <p>Kurs erfolgreich hinzugefügt!!</p>
@@ -133,21 +134,6 @@ textarea:focus {
   box-shadow: 0 0 5px rgba(106, 44, 145, 0.5);
 }
 
-button {
-  padding: 10px 15px;
-  background-color: #6a2c91;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #4e216c;
-}
-
 .success-message {
   margin-top: 15px;
   padding: 10px;
@@ -156,5 +142,26 @@ button:hover {
   border-radius: 4px;
   color: #155724;
   font-size: 14px;
+}
+
+button,
+.zurueck-button {
+  padding: 10px 15px;
+  background-color: #6a2c91;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  display: inline-block; 
+  text-align: center; 
+  text-decoration: none; 
+  margin-right: 70px;
+}
+
+button:hover,
+.zurueck-button:hover {
+  background-color: #4e216c;
 }
 </style>

@@ -16,10 +16,26 @@ function goToEditing(id) {
   router.push(`/kursangebote/booking/${id}/edit`);
 }
 
-// Kurse nach Wochentagen filtern
+// Kurse nach Wochentagen filtern + Suche
 const filteredKurse = computed(() => {
-  return kurseByDay.value[activeDay.value] || [];
+  if (searchQuery.value) {
+    const result = allKurse.value.filter((kurs) =>
+      kurs.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+    );
+    if (result.length > 0) {
+      const kursDay = mapWeekdayToShort(result[0].wochentag); 
+      if (kursDay !== activeDay.value) {
+        activeDay.value = kursDay;
+      }
+    }
+    return result;
+  }
+  return activeDay.value ? (kurseByDay.value[activeDay.value] || []) : allKurse.value;
 });
+
+
+
+
 
 const kurs = ref([]);
 
@@ -124,10 +140,24 @@ const isCurrentDay = (index) => {
   const today = new Date().getDay(); // 0 = Sonntag, 1 = Montag, etc.
   return (index === (today === 0 ? 6 : today - 1));
 };
+
+const searchQuery = ref(''); //Suche
+const allKurse = computed(() => {
+  return Object.values(kurseByDay.value).flat();
+});
+//Alle
+const selectAllKurse = () => {
+  activeDay.value = null;
+};
+
+
 </script>
 <template>
   <section class="booking-overview-section">
     <div class="header">
+      <div class="search-container">
+        <input type="text" v-model="searchQuery" placeholder="Kurse suchen..." class="search-input"/>
+      </div>
       <h1>Kursangebote:</h1>
       <div class="header-controls">
         <RouterLink class="back-button" to="/">Zurück</RouterLink>
@@ -148,6 +178,7 @@ const isCurrentDay = (index) => {
     >
       {{ day }} <span v-if="isCurrentDay(index)">(heute)</span>
     </span>
+    <button class="show-all-button" @click="selectAllKurse"> Alle Kurse </button>
       </div>
     </div>
 
@@ -341,6 +372,7 @@ const isCurrentDay = (index) => {
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-size: 22px;
+  margin-right: 20px;
 }
 
 .book-button:hover {
@@ -442,6 +474,37 @@ const isCurrentDay = (index) => {
   font-weight: bold;
   border: 2px solid #7030a0;
 }
+
+.search-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  width: 90%;
+  max-width: 400px;
+  padding: 10px;
+  border: 2px solid #d3bfe3;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.show-all-button {
+  background-color: #7030a0;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.show-all-button:hover {
+  background-color: #4e216c;
+}
+
+
 
 </style>
 
