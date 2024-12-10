@@ -82,17 +82,41 @@ const selectDay = (day) => {
   activeDay.value = day;
 };
 
-const deleteKurs = async (id) => {
+const showDeletePopup = ref(false); // Steuert die Anzeige des Popups
+const kursToDelete = ref(null); // Speichert die ID des zu löschenden Kurses
+
+const openDeletePopup = (id) => {
+  kursToDelete.value = id;
+  showDeletePopup.value = true;
+};
+
+const confirmDelete = async () => {
+  if (!kursToDelete.value) return;
   try {
     await apiCall({
       method: 'DELETE',
-      url: `/delete/kurs/${id}`,
+      url: `/delete/kurs/${kursToDelete.value}`,
     });
-    console.log('Kurs wurde gelöscht:', id);
-    await onMounted();
+    console.log('Kurs wurde gelöscht:', kursToDelete.value);
+
+    const day = activeDay.value; // Aktiver Tag (z. B. "Mo")
+    if (kurseByDay.value[day]) {
+      kurseByDay.value[day] = kurseByDay.value[day].filter(
+          (kurs) => kurs.id !== kursToDelete.value
+      );
+    }
+
+    kursToDelete.value = null; // Zurücksetzen
+    showDeletePopup.value = false; // Popup schließen
+    await onMounted(); // Kurse neu laden
+    
   } catch (error) {
     console.error('Fehler beim Löschen des Kurses:', error);
   }
+};
+const cancelDelete = () => {
+  kursToDelete.value = null; // Zurücksetzen
+  showDeletePopup.value = false; // Popup schließen
 };
 
 // Aktuellen Tag ermitteln
@@ -130,6 +154,19 @@ const isCurrentDay = (index) => {
     <div class="container">
       <div class="row g-4 justify-content-center">
         <div
+            v-if="showDeletePopup"
+            class="popup-backdrop"
+        >
+          <div class="popup">
+            <h2>Bestätigung</h2>
+            <p>Möchten Sie diesen Kurs wirklich löschen?</p>
+            <div class="popup-buttons">
+              <button class="confirm-button" @click="confirmDelete">Ja, löschen</button>
+              <button class="cancel-button" @click="cancelDelete">Abbrechen</button>
+            </div>
+          </div>
+        </div>
+        <div
             v-for="kurs in filteredKurse"
             :key="kurs.id"
             class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3"
@@ -143,12 +180,13 @@ const isCurrentDay = (index) => {
                 <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
               </div>
               <button class="book-button" @click="goToEditing(kurs.id)">Bearbeiten</button>
-              <button class="book-button" @click="deleteKurs(kurs.id)">Löschen</button>
+              <button class="book-button" @click="openDeletePopup(kurs.id)">Löschen</button>
             </div>
           </div>
         </div>
       </div>
     </div>
+
   </section>
 </template>
 
@@ -163,6 +201,67 @@ const isCurrentDay = (index) => {
   margin: 20px 0;
 }
 
+.popup-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+}
+.popup h2{
+  color: #7030a0;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+}
+
+.confirm-button {
+  background: #7030a0;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cancel-button {
+  background: #ccc;
+  color: #333;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.confirm-button:hover {
+  background: #d8b5ea;
+}
+
+.cancel-button:hover {
+  background: #bbb;
+}
 
 .course-card {
   display: flex;
