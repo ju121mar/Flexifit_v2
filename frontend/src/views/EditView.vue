@@ -73,7 +73,7 @@ const onSubmit = async () => {
       data: formData.value,
     });
     alert("Kurs erfolgreich aktualisiert!");
-    router.push("/");
+    router.push("/kursangebote");
   } catch (error) {
     console.error("Fehler beim Speichern des Kurses:", error);
     alert("Es gab einen Fehler beim Speichern.");

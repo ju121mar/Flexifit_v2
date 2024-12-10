@@ -13,6 +13,7 @@ const newKurs = ref({
   description: "",
 });
 
+
 // State to show success message
 const kursAdded = ref(false);
 
@@ -34,12 +35,13 @@ const submitForm = async () => {
       teilnehmer: "",
       description: "",
     };
-    router.push('/');
+    router.push('/kursangebote');
   });
 
   // Show success message
   kursAdded.value = true;
 };
+
 </script>
 <template>
   <div class="kurs-form">
@@ -63,7 +65,16 @@ const submitForm = async () => {
       </div>
       <div class="kurs-group">
         <label for="kursTag">Wochentag:</label>
-        <input type="text" id="kursTag" v-model="newKurs.wochentag" placeholder="Wochentag eingeben" required />
+        <select id="kursTag" v-model="newKurs.wochentag" required>
+          <option disabled value="">Wochentag auswählen</option>
+          <option value="Montag">Montag</option>
+          <option value="Dienstag">Dienstag</option>
+          <option value="Mittwoch">Mittwoch</option>
+          <option value="Donnerstag">Donnerstag</option>
+          <option value="Freitag">Freitag</option>
+          <option value="Samstag">Samstag</option>
+          <option value="Sonntag">Sonntag</option>
+        </select>
       </div>
       <div class="kurs-group">
         <label for="kursTeilnehmer">max. Teilnehmer:</label>
