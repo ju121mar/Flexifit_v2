@@ -27,13 +27,13 @@ const routes = [
   },
 
   {
-    path: '/new',
+    path: '/kursangebote/new',
     name: 'NewKursView',
     component: NewKursView,
   },
 
   {
-      path: '/booking/:id/edit',
+      path: '/kursangebote/booking/:id/edit',
       name: 'EditCourse',
       component: EditView,
   },

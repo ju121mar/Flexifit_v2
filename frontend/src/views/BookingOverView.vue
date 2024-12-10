@@ -13,7 +13,7 @@ const currentDate = ref(new Date().toLocaleDateString());
 
 //navigiert zur Bearbeitungsseite eines Kurses
 function goToEditing(id) {
-  router.push(`/booking/${id}/edit`);
+  router.push(`/kursangebote/booking/${id}/edit`);
 }
 
 // Kurse nach Wochentagen filtern
@@ -107,7 +107,7 @@ const isCurrentDay = (index) => {
         <div class="date-controls">
           <span>{{ currentDate }}</span>
         </div>
-        <RouterLink class="filter-button" to="/new">Neuen Kurs erstellen</RouterLink>
+        <RouterLink class="filter-button" to="/kursangebote/new">Neuen Kurs erstellen</RouterLink>
       </div>
     </div>
 

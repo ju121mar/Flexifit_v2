@@ -44,10 +44,14 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav mx-auto">
             <li class="nav-item">
-              <RouterLink class="nav-link active" to="/">Studio</RouterLink>
+              <RouterLink    class="nav-link"
+                             :class="{ 'active': $route.path === '/' }"
+                             to="/">Studio</RouterLink>
             </li>
             <li class="nav-item">
-              <RouterLink class="nav-link active" to="/kursangebote">Kursangebote</RouterLink>
+              <RouterLink  class="nav-link"
+                           :class="{ 'active': $route.path.startsWith('/kursangebote') }"
+                           to="/kursangebote">Kursangebote</RouterLink>
             </li>
             <li class="nav-item">
               <RouterLink class="nav-link" to="#">Mein Trainingsplan</RouterLink>
