@@ -14,6 +14,7 @@ module.exports.routes = {
   'GET /kurse/:id': { controller: 'KursController', action:'findOne' },
   'PUT /kurse/:id': { controller: 'KursController', action: 'update' },
   'DELETE /delete/kurs/:id': { controller: 'KursController', action: 'delete' },
+  'GET /trainer': { controller: 'TrainerController', action: 'find'}
 
 
 /***************************************************************************

@@ -11,6 +11,7 @@ const newKurs = ref({
   dauer:"",
   teilnehmer:"",
   description: "",
+  image:"",
 });
 
 
@@ -28,12 +29,13 @@ const submitForm = async () => {
     // Reset the form
     newKurs.value = {
       name: "",
-      trainer: "",
+      trainer: null,
       uhrzeit: "",
       wochentag: "",
       dauer: "",
       teilnehmer: "",
       description: "",
+      image:"",
     };
     router.push('/kursangebote');
   });
@@ -41,6 +43,51 @@ const submitForm = async () => {
   // Show success message
   kursAdded.value = true;
 };
+
+const FlexiImages = [
+  {
+    path: "@/assets/pictures/Yoga.jpg",
+    alt: "Yoga"
+  },
+  {
+    path: "frontend/src/assets/pictures/Pilates.jpg",
+    alt: "Pilates"
+  },
+  {
+    path: "frontend/src/assets/pictures/Zumba.jpg",
+    alt: "Zumba"
+  },
+  {
+    path: "frontend/src/assets/pictures/Boxing.jpg",
+    alt: "Boxing"
+  },
+  {
+    path: "frontend/src/assets/pictures/Dance.jpg",
+    alt: "Dance"
+  }
+];
+
+
+
+const trainer = ref([]);
+
+onMounted(async ()=>{
+  await selectTrainer();
+    });
+
+const selectTrainer = async () =>{
+  try{
+    const response = await apiCall({
+      method: 'GET',
+      url: '/trainer',
+    });
+    trainer.value = response;
+  } catch(error){
+    console.error('Fehler beim Laden der Trainer:', error);
+    trainer.value = null;
+  }
+}
+
 
 </script>
 <template>
@@ -53,7 +100,13 @@ const submitForm = async () => {
       </div>
       <div class="kurs-group">
         <label for="kursTrainer">Trainername:</label>
-        <input type="text" id="kursTrainer" v-model="newKurs.trainer" placeholder="Name des Trainers eingeben" required />
+        <select id="userDropdown" v-model="newKurs.trainer" required>
+          <option disabled value="">Bitte einen Benutzer auswählen</option>
+          <option v-for="user in trainer" :key="user.id" :value="user.id">
+            {{ user.firstName }} {{ user.lastName }}
+          </option>
+        </select>
+<!--        <input type="text" id="kursTrainer" v-model="newKurs.trainer" placeholder="Name des Trainers eingeben" required />-->
       </div>
       <div class="kurs-group">
         <label for="kursUhrzeit">Uhrzeit:</label>
