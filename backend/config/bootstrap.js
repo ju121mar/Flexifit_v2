@@ -116,7 +116,139 @@ module.exports.bootstrap = async function() {
         dauer: "30 Minuten",
         teilnehmer: "8",
         description: "Eine ruhige Meditationsstunde, um die Woche entspannt zu starten."
-      }
+      },
+    {
+      name: "Functional Fitness",
+      trainer: 1,
+      uhrzeit: "09:00 Uhr",
+      wochentag: "Montag",
+      dauer: "50 Minuten",
+      teilnehmer: "12",
+      description: "Ein intensives Ganzkörpertraining für alle Fitnesslevel."
+    },
+    {
+      name: "Calisthenics Basics",
+      trainer: 2,
+      uhrzeit: "18:30 Uhr",
+      wochentag: "Montag",
+      dauer: "60 Minuten",
+      teilnehmer: "10",
+      description: "Grundlagen des Trainings mit dem eigenen Körpergewicht."
+    },
+
+    {
+      name: "Indoor Cycling",
+      trainer: 3,
+      uhrzeit: "07:00 Uhr",
+      wochentag: "Dienstag",
+      dauer: "45 Minuten",
+      teilnehmer: "15",
+      description: "Ein energiegeladener Kurs auf dem Fahrrad."
+    },
+    {
+      name: "Athletik Training",
+      trainer: 4,
+      uhrzeit: "19:00 Uhr",
+      wochentag: "Dienstag",
+      dauer: "55 Minuten",
+      teilnehmer: "10",
+      description: "Ein athletischer Mix aus Kraft und Kondition."
+    },
+
+    {
+      name: "Kraft & Mobility",
+      trainer: 5,
+      uhrzeit: "08:30 Uhr",
+      wochentag: "Mittwoch",
+      dauer: "60 Minuten",
+      teilnehmer: "12",
+      description: "Verbessere deine Kraft und Beweglichkeit in einem Kurs."
+    },
+    {
+      name: "TRX Suspension Training",
+      trainer: 1,
+      uhrzeit: "17:30 Uhr",
+      wochentag: "Mittwoch",
+      dauer: "45 Minuten",
+      teilnehmer: "8",
+      description: "Training mit dem TRX-System für den ganzen Körper."
+    },
+
+    {
+      name: "Power Yoga",
+      trainer: 2,
+      uhrzeit: "06:30 Uhr",
+      wochentag: "Donnerstag",
+      dauer: "60 Minuten",
+      teilnehmer: "10",
+      description: "Eine kraftvolle Yoga-Session für Geübte."
+    },
+    {
+      name: "Kettlebell Workout",
+      trainer: 3,
+      uhrzeit: "20:00 Uhr",
+      wochentag: "Donnerstag",
+      dauer: "50 Minuten",
+      teilnehmer: "8",
+      description: "Effizientes Krafttraining mit Kettlebells."
+    },
+
+    {
+      name: "Step Aerobic",
+      trainer: 4,
+      uhrzeit: "07:00 Uhr",
+      wochentag: "Freitag",
+      dauer: "50 Minuten",
+      teilnehmer: "15",
+      description: "Ein dynamisches Cardio-Workout mit Step-Elementen."
+    },
+    {
+      name: "Deep Stretch",
+      trainer: 5,
+      uhrzeit: "18:00 Uhr",
+      wochentag: "Freitag",
+      dauer: "40 Minuten",
+      teilnehmer: "10",
+      description: "Ein ruhiger Kurs mit Fokus auf tiefes Dehnen und Entspannen."
+    },
+
+    {
+      name: "Cardio Kickboxing",
+      trainer: 1,
+      uhrzeit: "09:30 Uhr",
+      wochentag: "Samstag",
+      dauer: "60 Minuten",
+      teilnehmer: "12",
+      description: "Ein schweißtreibendes Training mit Kickbox-Elementen."
+    },
+    {
+      name: "Core Blast",
+      trainer: 2,
+      uhrzeit: "11:00 Uhr",
+      wochentag: "Samstag",
+      dauer: "45 Minuten",
+      teilnehmer: "10",
+      description: "Intensives Training für eine starke Körpermitte."
+    },
+
+    {
+      name: "Relaxation Yoga",
+      trainer: 3,
+      uhrzeit: "10:00 Uhr",
+      wochentag: "Sonntag",
+      dauer: "60 Minuten",
+      teilnehmer: "8",
+      description: "Ein sanfter Yoga-Kurs für maximale Entspannung."
+    },
+    {
+      name: "Family Fitness",
+      trainer: 4,
+      uhrzeit: "15:00 Uhr",
+      wochentag: "Sonntag",
+      dauer: "50 Minuten",
+      teilnehmer: "20",
+      description: "Ein spaßiger Fitnesskurs für die ganze Familie."
+    }
     ]
   );
 
