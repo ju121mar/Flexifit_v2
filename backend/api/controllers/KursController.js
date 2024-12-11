@@ -10,7 +10,8 @@ module.exports = {
 
   find: async function (req, res) {
     try {
-      const kurse = await Kurs.find();
+      const kurse = await Kurs.find().populate("trainer");
+      sails.log.info(kurse);
       return res.json(kurse);
     } catch (err) {
       return res.serverError(err);

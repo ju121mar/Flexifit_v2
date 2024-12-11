@@ -4,7 +4,7 @@ import {useRouter} from 'vue-router';
 import {apiCall} from "@/utility/ApiCall.js";
 
 const weekdays = ref(["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]);
-const activeDay = ref(null); // Zum Verfolgen des ausgewählten Tages
+const activeDay = ref(null);
 const kurseByDay = ref({});
 
 const router = useRouter();
@@ -32,9 +32,6 @@ const filteredKurse = computed(() => {
   }
   return activeDay.value ? (kurseByDay.value[activeDay.value] || []) : allKurse.value;
 });
-
-
-
 
 
 const kurs = ref([]);
@@ -66,8 +63,8 @@ onMounted(async () => {
     });
 
     kurseByDay.value = groupedCourses;
-    const todayIndex = new Date().getDay(); // 0 = Sonntag, 1 = Montag, ...
-    const todayShort = weekdays.value[todayIndex === 0 ? 6 : todayIndex - 1]; // Sonntag = letzter Tag
+    const todayIndex = new Date().getDay();
+    const todayShort = weekdays.value[todayIndex === 0 ? 6 : todayIndex - 1];
     activeDay.value = todayShort;
   } catch (error) {
     console.error('Fehler beim Laden der Kursdaten:', error);
@@ -98,14 +95,15 @@ const selectDay = (day) => {
   activeDay.value = day;
 };
 
-const showDeletePopup = ref(false); // Steuert die Anzeige des Popups
-const kursToDelete = ref(null); // Speichert die ID des zu löschenden Kurses
+const showDeletePopup = ref(false);
+const kursToDelete = ref(null);
 
 const openDeletePopup = (id) => {
   kursToDelete.value = id;
   showDeletePopup.value = true;
 };
 
+//Kurs löschen bestätigen
 const confirmDelete = async () => {
   if (!kursToDelete.value) return;
   try {
@@ -130,6 +128,8 @@ const confirmDelete = async () => {
     console.error('Fehler beim Löschen des Kurses:', error);
   }
 };
+
+//Kurs löschen abbrechen
 const cancelDelete = () => {
   kursToDelete.value = null; // Zurücksetzen
   showDeletePopup.value = false; // Popup schließen
@@ -145,11 +145,15 @@ const searchQuery = ref(''); //Suche
 const allKurse = computed(() => {
   return Object.values(kurseByDay.value).flat();
 });
-//Alle
+
+//Alle Kurse anzeigen
 const selectAllKurse = () => {
   activeDay.value = null;
 };
 
+function getFullName(trainer){
+  return (trainer.firstName + " " + trainer.lastName)
+}
 
 </script>
 <template>
@@ -203,11 +207,10 @@ const selectAllKurse = () => {
             class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3"
         >
           <div class="course-card">
-            <img :src="kurs.image" :alt="kurs.name" class="course-image"/>
             <div class="course-info">
               <h3>{{ kurs.name }}</h3>
               <div class="trainer-time">
-                <p><span class="course-label">Trainer: </span>{{ kurs.trainer }}</p>
+                <p><span class="course-label">Trainer: </span> {{getFullName(kurs.trainer)}}</p>
                 <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
               </div>
               <button class="book-button" @click="goToEditing(kurs.id)">Bearbeiten</button>
@@ -223,14 +226,6 @@ const selectAllKurse = () => {
 
 
 <style scoped>
-
-.course-section {
-  width: 100%;
-  padding: 20px;
-  background-color: #ffffff;
-  text-align: center;
-  margin: 20px 0;
-}
 
 .popup-backdrop {
   position: fixed;
@@ -302,15 +297,6 @@ const selectAllKurse = () => {
   border-radius: 8px;
   padding: 10px;
   box-shadow: 0px 4px 8px rgba(112, 48, 160, 0.3);
-}
-
-.course-image {
-  width: 80px;
-  height: 80px;
-  border-radius: 8px;
-  object-fit: cover;
-  margin-left: 15px;
-  order: 2;
 }
 
 .course-info {

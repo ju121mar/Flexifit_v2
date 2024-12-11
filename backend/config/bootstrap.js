@@ -20,10 +20,43 @@ module.exports.bootstrap = async function() {
     return;
   }
   //
+
+  await Trainer.createEach([
+    {
+      "firstName": "Emma",
+      "lastName": "Stein",
+      "email": "emma.stein@example.com",
+      "phoneNumber": "+4915123456789",
+    },
+    {
+      "firstName": "Anna",
+      "lastName": "Schmidt",
+      "email": "anna.schmidt@example.com",
+      "phoneNumber": "+4915155555555",
+    },
+    {
+      "firstName": "Lukas",
+      "lastName": "Fischer",
+      "email": "lukas.fischer@example.com",
+      "phoneNumber": "+4915722222222",
+    },
+    {
+      "firstName": "Sophia",
+      "lastName": "Weber",
+      "email": "sophia.weber@example.com",
+      "phoneNumber": "+4915233333333",
+    },
+    {
+      "firstName": "Tom",
+      "lastName": "Kaiser",
+      "email": "tom.kaiser@example.com",
+      "phoneNumber": "+4915344444444",
+    }
+  ])
   await Kurs.createEach([
       {
         name: "Yoga Flow",
-        trainer: "Emma Stein",
+        trainer: 1,
         uhrzeit: "08:00 Uhr",
         wochentag: "Montag",
         dauer: "60 Minuten",
@@ -32,7 +65,7 @@ module.exports.bootstrap = async function() {
       },
       {
         name: "Balance Pilates",
-        trainer: "Caro Klirr",
+        trainer: 2,
         uhrzeit: "17:00 Uhr",
         wochentag: "Dienstag",
         dauer: "45 Minuten",
@@ -41,7 +74,7 @@ module.exports.bootstrap = async function() {
       },
       {
         name: "Spin Class",
-        trainer: "Lara Stein",
+        trainer: 3,
         uhrzeit: "18:30 Uhr",
         wochentag: "Mittwoch",
         dauer: "50 Minuten",
@@ -50,7 +83,7 @@ module.exports.bootstrap = async function() {
       },
       {
         name: "HIIT Workout",
-        trainer: "Tom Fischer",
+        trainer: 4,
         uhrzeit: "19:00 Uhr",
         wochentag: "Donnerstag",
         dauer: "40 Minuten",
@@ -59,7 +92,7 @@ module.exports.bootstrap = async function() {
       },
       {
         name: "Zumba Dance",
-        trainer: "Anna Müller",
+        trainer: 2,
         uhrzeit: "18:00 Uhr",
         wochentag: "Freitag",
         dauer: "60 Minuten",
@@ -68,7 +101,7 @@ module.exports.bootstrap = async function() {
       },
       {
         name: "Functional Training",
-        trainer: "Maximilian Brandt",
+        trainer: 3,
         uhrzeit: "16:00 Uhr",
         wochentag: "Samstag",
         dauer: "50 Minuten",
@@ -77,7 +110,7 @@ module.exports.bootstrap = async function() {
       },
       {
         name: "Meditation Session",
-        trainer: "Sophia Weiß",
+        trainer: 1,
         uhrzeit: "07:00 Uhr",
         wochentag: "Sonntag",
         dauer: "30 Minuten",
@@ -86,6 +119,5 @@ module.exports.bootstrap = async function() {
       }
     ]
   );
-  // ```
 
 };
