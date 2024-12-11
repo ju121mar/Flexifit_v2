@@ -1,6 +1,6 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import {ref, onMounted} from 'vue';
+import {useRoute, useRouter} from 'vue-router';
 import axios from 'axios';
 import {apiCall} from "@/utility/ApiCall.js";
 
@@ -23,7 +23,19 @@ const formData = ref({
 });
 
 const loading = ref(true);
-
+const trainer = ref([]);
+const selectTrainer = async () => {
+  try {
+    const response = await apiCall({
+      method: 'GET',
+      url: '/trainer',
+    });
+    trainer.value = response;
+  } catch (error) {
+    console.error('Fehler beim Laden der Trainer:', error);
+    trainer.value = null;
+  }
+}
 
 onMounted(async () => {
   try {
@@ -49,6 +61,7 @@ onMounted(async () => {
   } finally {
     loading.value = false;
   }
+  await selectTrainer();
 });
 
 // const onSubmit = () => {
@@ -82,82 +95,89 @@ const onSubmit = async () => {
 </script>
 
 <template>
-<!--  <div v-if="course" class="edit-course">-->
-<!--    <h1>Kurs bearbeiten: {{ course.name }}</h1>-->
-<!--    <form @submit.prevent="updateCourse">-->
-<!--      <div>-->
-<!--        <label for="name">Kursname:</label>-->
-<!--        <input id="name" v-model="course.name" type="text" required />-->
-<!--      </div>-->
-<!--      <div>-->
-<!--        <label for="trainer">Trainer:</label>-->
-<!--        <input id="trainer" v-model="course.trainer" type="text" required />-->
-<!--      </div>-->
-<!--      <div>-->
-<!--        <label for="uhrzeit">Uhrzeit:</label>-->
-<!--        <input id="uhrzeit" v-model="course.uhrzeit" type="time" required />-->
-<!--      </div>-->
-<!--      <div>-->
-<!--        <label for="image">Bild:</label>-->
-<!--        <input id="image" v-model="course.image" type="text" required />-->
-<!--      </div>-->
-<!--      <button type="submit">Kurs aktualisieren</button>-->
-<!--    </form>-->
-<!--  </div>-->
-<!--  <div v-else>-->
-<!--    <p>Kurs nicht gefunden. {{courseId}}</p>-->
-<!--  </div>-->
+  <!--  <div v-if="course" class="edit-course">-->
+  <!--    <h1>Kurs bearbeiten: {{ course.name }}</h1>-->
+  <!--    <form @submit.prevent="updateCourse">-->
+  <!--      <div>-->
+  <!--        <label for="name">Kursname:</label>-->
+  <!--        <input id="name" v-model="course.name" type="text" required />-->
+  <!--      </div>-->
+  <!--      <div>-->
+  <!--        <label for="trainer">Trainer:</label>-->
+  <!--        <input id="trainer" v-model="course.trainer" type="text" required />-->
+  <!--      </div>-->
+  <!--      <div>-->
+  <!--        <label for="uhrzeit">Uhrzeit:</label>-->
+  <!--        <input id="uhrzeit" v-model="course.uhrzeit" type="time" required />-->
+  <!--      </div>-->
+  <!--      <div>-->
+  <!--        <label for="image">Bild:</label>-->
+  <!--        <input id="image" v-model="course.image" type="text" required />-->
+  <!--      </div>-->
+  <!--      <button type="submit">Kurs aktualisieren</button>-->
+  <!--    </form>-->
+  <!--  </div>-->
+  <!--  <div v-else>-->
+  <!--    <p>Kurs nicht gefunden. {{courseId}}</p>-->
+  <!--  </div>-->
   <div v-if="loading">Daten werden geladen...</div>
-  <form v-else @submit.prevent="onSubmit">
-    <div>
-      <label for="name">Name:</label>
-      <input id="name" v-model="formData.name" type="text" />
-    </div>
-
-    <div>
-      <label for="description">Beschreibung:</label>
-      <input id="description" v-model="formData.description"></input>
-    </div>
-
-    <div>
-      <label for="trainer">Trainer:</label>
-      <input id="trainer" v-model="formData.trainer" type="text" />
-    </div>
-
-    <div>
-      <label for="participants">Teilnehmer:</label>
-      <input id="participants" v-model="formData.teilnehmer" type="number" />
-    </div>
-
-    <div>
-      <label for="duration">Dauer:</label>
-      <input id="duration" v-model="formData.dauer" type="text" />
-    </div>
-
-    <div class="kurs-group">
-      <label for="weekday" class="form-label">Wochentag:</label>
+  <div v-else class="kurs-form">
+    <form @submit.prevent="onSubmit">
       <div>
-        <select id="weekday" v-model="formData.wochentag" class="form-select" required>
-          <option disabled value="">Wochentag auswählen</option>
-          <option value="Montag">Montag</option>
-          <option value="Dienstag">Dienstag</option>
-          <option value="Mittwoch">Mittwoch</option>
-          <option value="Donnerstag">Donnerstag</option>
-          <option value="Freitag">Freitag</option>
-          <option value="Samstag">Samstag</option>
-          <option value="Sonntag">Sonntag</option>
-        </select>
+        <label for="name">Name:</label>
+        <input id="name" v-model="formData.name" type="text"/>
       </div>
-    </div>
 
+      <div>
+        <label for="description">Beschreibung:</label>
+        <input id="description" v-model="formData.description"></input>
+      </div>
 
-    <div>
-      <label for="time">Uhrzeit:</label>
-      <input id="time" v-model="formData.uhrzeit" type="time" />
-    </div>
+      <div class="kurs-group">
+        <label for="trainer">Trainer:</label>
+        <select id="userDropdown" v-model="formData.trainer"  class ="form-select" required>
+          <option disabled value="">Bitte einen Benutzer auswählen</option>
+          <option v-for="user in trainer" :key="user.id" :value="user.id">
+            {{ user.firstName }} {{ user.lastName }}
+          </option>
+        </select>
+        <!--      <input id="trainer" v-model="formData.trainer" type="text" />-->
+      </div>
 
-    <button type="submit">Kurs aktualisieren</button>
-  </form>
+      <div>
+        <label for="participants">Teilnehmer:</label>
+        <input id="participants" v-model="formData.teilnehmer" type="number"/>
+      </div>
+
+      <div>
+        <label for="duration">Dauer:</label>
+        <input id="duration" v-model="formData.dauer" type="text"/>
+      </div>
+
+      <div class="kurs-group">
+        <label for="weekday" class="form-label">Wochentag:</label>
+        <div>
+          <select id="weekday" v-model="formData.wochentag" class="form-select" required>
+            <option disabled value="">Wochentag auswählen</option>
+            <option value="Montag">Montag</option>
+            <option value="Dienstag">Dienstag</option>
+            <option value="Mittwoch">Mittwoch</option>
+            <option value="Donnerstag">Donnerstag</option>
+            <option value="Freitag">Freitag</option>
+            <option value="Samstag">Samstag</option>
+            <option value="Sonntag">Sonntag</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label for="time">Uhrzeit:</label>
+        <input id="time" v-model="formData.uhrzeit" type="time"/>
+      </div>
+
+      <button type="submit">Kurs aktualisieren</button>
+    </form>
+  </div>
 </template>
 
 <style scoped>
@@ -168,13 +188,15 @@ const onSubmit = async () => {
 .kurs-group .form-select {
   width: 100%;
   padding: 10px;
-  border-radius:  4px;
-  border:1px solid #a084ca;
+  border-radius: 4px;
+  border: 1px solid #a084ca;
   font-size: 14px;
+  margin-bottom: 15px;
+
 }
 
 form {
-    max-width: 400px;
+  max-width: 400px;
   margin: 20px auto;
   padding: 20px;
   border: 1px solid #c8b1d9;
@@ -185,7 +207,7 @@ form {
 }
 
 input {
-    width: 100%;
+  width: 100%;
   padding: 10px;
   border: 1px solid #a084ca;
   border-radius: 4px;
@@ -204,6 +226,7 @@ button {
   transition: background-color 0.3s ease;
   margin-top: 20px;
 }
+
 button:hover {
   background-color: #4e216c;
 }

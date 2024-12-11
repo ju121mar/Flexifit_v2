@@ -100,7 +100,7 @@ const selectTrainer = async () =>{
       </div>
       <div class="kurs-group">
         <label for="kursTrainer">Trainername:</label>
-        <select id="userDropdown" v-model="newKurs.trainer" required>
+        <select id="userDropdown" v-model="newKurs.trainer" class ="form-select"required>
           <option disabled value="">Bitte einen Benutzer auswählen</option>
           <option v-for="user in trainer" :key="user.id" :value="user.id">
             {{ user.firstName }} {{ user.lastName }}
@@ -118,7 +118,7 @@ const selectTrainer = async () =>{
       </div>
       <div class="kurs-group">
         <label for="kursTag">Wochentag:</label>
-        <select id="kursTag" v-model="newKurs.wochentag" required>
+        <select id="kursTag" v-model="newKurs.wochentag" class ="form-select"required>
           <option disabled value="">Wochentag auswählen</option>
           <option value="Montag">Montag</option>
           <option value="Dienstag">Dienstag</option>
@@ -162,7 +162,15 @@ const selectTrainer = async () =>{
 .kurs-group {
   margin-bottom: 15px;
 }
+.kurs-group .form-select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #a084ca;
+  font-size: 14px;
+  margin-bottom: 15px;
 
+}
 label {
   display: block;
   margin-bottom: 5px;
