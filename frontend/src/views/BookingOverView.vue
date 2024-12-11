@@ -9,7 +9,18 @@ const kurseByDay = ref({});
 
 const router = useRouter();
 
-const currentDate = ref(new Date().toLocaleDateString());
+const currentDate = ref({
+  date: new Date().toLocaleDateString("de-DE", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  }),
+  time: new Date().toLocaleTimeString("de-DE", {
+    hour: "2-digit",
+    minute: "2-digit",
+  }),
+});
+
 
 //navigiert zur Bearbeitungsseite eines Kurses
 function goToEditing(id) {
@@ -166,8 +177,11 @@ function getFullName(trainer){
       <div class="header-controls">
         <RouterLink class="back-button" to="/">Zurück</RouterLink>
         <div class="date-controls">
-          <span>{{ currentDate }}</span>
-        </div>
+        <span class="current-date">{{ currentDate.date }}</span>
+        <span class="current-time">{{ currentDate.time }}</span>
+      </div>
+
+
         <RouterLink class="filter-button" to="/kursangebote/new">Neuen Kurs erstellen</RouterLink>
       </div>
     </div>
@@ -405,11 +419,16 @@ function getFullName(trainer){
   text-align: center;
 }
 
-.date,
-.time {
-  font-size: 14px;
-  color: #444;
+.current-date, .current-time {
+  color: #d8b5ea;
+  font-weight: bold;
+  display: block;
+  font-size: 18px;
+  text-align: center;
+  margin-left: 70px;;
 }
+
+
 
 /* Wochentagsanzeige */
 .date-picker {
@@ -490,8 +509,6 @@ function getFullName(trainer){
 .show-all-button:hover {
   background-color: #4e216c;
 }
-
-
 
 </style>
 

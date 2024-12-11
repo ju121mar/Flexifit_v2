@@ -50,7 +50,7 @@ function goToBooking(id) {
                 {{ kurs.description }}
               </p>
               <!-- Button für Navigation -->
-              <button class="book-button" @click="goToBooking(kurs.id)">Jetzt Buchen</button>
+              <button class="book-button">Jetzt Buchen</button>
             </div>
           </div>
         </div>

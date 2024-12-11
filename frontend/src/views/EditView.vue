@@ -124,17 +124,13 @@ const onSubmit = async () => {
   <div v-else class="kurs-form">
     <form @submit.prevent="onSubmit">
       <div>
-        <label for="name">Name:</label>
+        <h2>Kurs bearbeiten</h2>
+        <label for="name">Kursname:</label>
         <input id="name" v-model="formData.name" type="text"/>
       </div>
 
-      <div>
-        <label for="description">Beschreibung:</label>
-        <input id="description" v-model="formData.description"></input>
-      </div>
-
       <div class="kurs-group">
-        <label for="trainer">Trainer:</label>
+        <label for="trainer">Trainername:</label>
         <select id="userDropdown" v-model="formData.trainer"  class ="form-select" required>
           <option disabled value="">Bitte einen Benutzer auswählen</option>
           <option v-for="user in trainer" :key="user.id" :value="user.id">
@@ -145,8 +141,8 @@ const onSubmit = async () => {
       </div>
 
       <div>
-        <label for="participants">Teilnehmer:</label>
-        <input id="participants" v-model="formData.teilnehmer" type="number"/>
+        <label for="time">Uhrzeit:</label>
+        <input id="time" v-model="formData.uhrzeit" type="time"/>
       </div>
 
       <div>
@@ -171,11 +167,17 @@ const onSubmit = async () => {
       </div>
 
       <div>
-        <label for="time">Uhrzeit:</label>
-        <input id="time" v-model="formData.uhrzeit" type="time"/>
+        <label for="participants">Teilnehmer:</label>
+        <input id="participants" v-model="formData.teilnehmer" type="number"/>
+      </div>
+
+      <div>
+        <label for="description">Beschreibung:</label>
+        <input id="description" v-model="formData.description"></input>
       </div>
 
       <button type="submit">Kurs aktualisieren</button>
+      <router-link to="/kursangebote" class="button zurueck-button">Zurück</router-link>
     </form>
   </div>
 </template>
@@ -215,8 +217,9 @@ input {
   font-size: 14px;
 }
 
-button {
-  padding: 10px 15px;
+button, 
+.zurueck-button {
+    padding: 10px 15px;
   background-color: #6a2c91;
   color: #fff;
   border: none;
@@ -224,11 +227,23 @@ button {
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s ease;
-  margin-top: 20px;
+  display: inline-block; 
+  text-align: center; 
+  text-decoration: none; 
+  margin-right: 60px;
+  margin-top: 40px;
 }
 
-button:hover {
+button:hover,
+.zurueck-button {
   background-color: #4e216c;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #6a2c91;
 }
 
 </style>
