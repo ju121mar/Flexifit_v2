@@ -207,7 +207,7 @@ function getFullName(trainer){
             class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3"
         >
           <div class="course-card">
-            <img src="@/assets/pictures/Yoga.jpg" :alt="kurs.name" class="course-image"/>
+<!--            <img src="@/assets/pictures/Yoga.jpg" :alt="kurs.name" class="course-image"/>-->
             <div class="course-info">
               <h3>{{ kurs.name }}</h3>
               <div class="trainer-time">
