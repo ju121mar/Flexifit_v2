@@ -245,6 +245,7 @@ function getFullName(trainer){
 
 <style scoped>
 
+
 .popup-backdrop {
   position: fixed;
   top: 0;
@@ -423,6 +424,14 @@ function getFullName(trainer){
   flex-direction: column;
   text-align: center;
 }
+
+.current-day {
+  background-color: #7030a0;
+  font-weight: bold;
+  border: 2px solid #7030a0;
+}
+
+
 
 .current-date, .current-time {
   color: #d8b5ea;
