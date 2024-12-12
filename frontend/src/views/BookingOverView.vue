@@ -182,7 +182,10 @@ function getFullName(trainer){
       </div>
 
 
-        <RouterLink class="filter-button" to="/kursangebote/new">Neuen Kurs erstellen</RouterLink>
+        <RouterLink class="filter-button" to="/kursangebote/new">
+          <span class="plus-icon" aria-hidden="true">+</span>
+          <span class="button-text">Neuen Kurs erstellen</span>
+        </RouterLink>
       </div>
     </div>
 
@@ -410,7 +413,9 @@ function getFullName(trainer){
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 .date-controls {
@@ -473,14 +478,6 @@ function getFullName(trainer){
   cursor: pointer;
 }
 
-/* Styling für den aktuellen Tag */
-.current-day {
-  background-color: #7030a0;
-  color: #fff;
-  font-weight: bold;
-  border: 2px solid #7030a0;
-}
-
 .search-container {
   text-align: center;
   margin-bottom: 20px;
@@ -509,6 +506,84 @@ function getFullName(trainer){
 .show-all-button:hover {
   background-color: #4e216c;
 }
+
+/* Styling for the 'Neue Kurse erstellen' button in mobile view */
+.filter-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #7030a0; /* Farbe anpassen */
+  color: white; /* Textfarbe */
+  border: none; /* Kein Rand */
+  padding: 10px 15px; /* Abstände */
+  border-radius: 5px; /* Ecken entfernen */
+  font-size: 16px; /* Schriftgröße */
+  cursor: pointer;
+  text-decoration: none; /* Unterstreichung entfernen */
+  transition: background-color 0.3s ease;
+}
+
+.filter-button:hover {
+  background-color: #5e258f; /* Hover-Farbe */
+}
+
+.filter-button .plus-icon {
+  font-size: 10px; /* Größe des Icons */
+  margin-right: 8px; /* Abstand zwischen Icon und Text */
+}
+
+.filter-button .button-text {
+  font-weight: bold; /* Text fett */
+}
+
+
+@media (max-width: 768px) {
+  .filter-button {
+    width: 40px; /* Smaller size */
+    height: 40px;
+    padding: 0;
+    border-radius: 5px; /* Circular button */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0; /* Hide text */
+    background-image: url('/path/to/plus-icon.svg'); /* Add the Plus Icon */
+    background-size: 60%; /* Adjust icon size */
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-left: 60px;
+  }
+  .filter-button .plus-icon{
+    margin-right: 0px;
+    font-size: 30px;
+  }
+}
+
+/* Styling for the 'Alle Kurse' button in mobile view */
+.show-all-button {
+  background-color: #7030a0;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+@media (max-width: 768px) {
+  .weekdays {
+    flex-wrap: wrap; /* Allow wrapping */
+    gap: 5px;
+  }
+
+  .show-all-button {
+    display: block; /* Ensure visibility under weekdays */
+    margin: 10px auto 0; /* Center and add spacing */
+    width: 90%;
+  }
+}
+
 
 </style>
 
