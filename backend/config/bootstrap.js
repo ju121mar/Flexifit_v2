@@ -21,37 +21,40 @@ module.exports.bootstrap = async function() {
   }
   //
 
+
   await Trainer.createEach([
     {
-      "firstName": "Emma",
-      "lastName": "Stein",
-      "email": "emma.stein@example.com",
-      "phoneNumber": "+4915123456789",
-    },
-    {
-      "firstName": "Anna",
-      "lastName": "Schmidt",
-      "email": "anna.schmidt@example.com",
-      "phoneNumber": "+4915155555555",
-    },
-    {
-      "firstName": "Lukas",
-      "lastName": "Fischer",
-      "email": "lukas.fischer@example.com",
-      "phoneNumber": "+4915722222222",
-    },
-    {
-      "firstName": "Sophia",
-      "lastName": "Weber",
-      "email": "sophia.weber@example.com",
-      "phoneNumber": "+4915233333333",
-    },
-    {
-      "firstName": "Tom",
-      "lastName": "Kaiser",
-      "email": "tom.kaiser@example.com",
-      "phoneNumber": "+4915344444444",
+      firstName: "Emma",
+      lastName: "Stein",
+      email: "emma.stein@example.com",
+      phoneNumber: "+4915123456789",
+      isSuperAdmin: true,
+      password:await sails.helpers.passwords.hashPassword('abc123')
     }
+    // {
+    //   "firstName": "Anna",
+    //   "lastName": "Schmidt",
+    //   "email": "anna.schmidt@example.com",
+    //   "phoneNumber": "+4915155555555",
+    // },
+    // {
+    //   "firstName": "Lukas",
+    //   "lastName": "Fischer",
+    //   "email": "lukas.fischer@example.com",
+    //   "phoneNumber": "+4915722222222",
+    // },
+    // {
+    //   "firstName": "Sophia",
+    //   "lastName": "Weber",
+    //   "email": "sophia.weber@example.com",
+    //   "phoneNumber": "+4915233333333",
+    // },
+    // {
+    //   "firstName": "Tom",
+    //   "lastName": "Kaiser",
+    //   "email": "tom.kaiser@example.com",
+    //   "phoneNumber": "+4915344444444",
+    // }
   ])
   await Kurs.createEach([
       {

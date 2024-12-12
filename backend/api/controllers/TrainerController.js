@@ -10,9 +10,9 @@ module.exports = {
   },
 
   findOne: async function (req, res){
-    const trainerId = rew.params.id;
+    const trainerId = req.params.id;
     try{
-      const trainer = await Trainer.findOne({id: trainerId});
+      const trainer = await Trainer.findOne({where:{id: trainerId}});
       return res.json(trainer);
     }catch (err){
       return res.serverError(err);
