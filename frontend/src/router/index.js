@@ -6,6 +6,7 @@ import BookingOverView from '@/views/BookingOverView.vue';
 import KursEntry from '@/components/KursEntry.vue';
 import NewKursView from '@/views/NewKursView.vue';
 import EditView from '@/views/EditView.vue';
+import LoginView from "@/views/LoginView.vue";
 
 const routes = [
   {
@@ -44,6 +45,12 @@ const routes = [
     name: 'NotFound',
     redirect: '/', // Weiterleitung zur Startseite
   },
+
+  {
+    path: '/login',
+    name: 'LoginView',
+    redirect: LoginView,
+  }
 ];
 
 const router = createRouter({

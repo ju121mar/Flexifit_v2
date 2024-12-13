@@ -1,12 +1,12 @@
 <script setup>
 import { ref } from 'vue'
-import { useUserStore } from "../stores/user";
-const userStore = useUserStore();
+import {useTrainerStore} from "@/stores/trainer.js";
+const trainerStore = useTrainerStore();
 let email = ref("");
 let password =ref("");
 async function login() {
-  userStore.signIn(email.value, password.value);
-  if (useUserStore.user) {
+  await trainerStore.signIn(email.value, password.value);
+  if (useTrainerStore().trainer) {
     console.log("Logged in")
   }
 }
