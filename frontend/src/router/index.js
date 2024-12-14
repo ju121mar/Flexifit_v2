@@ -49,7 +49,7 @@ const routes = [
   {
     path: '/login',
     name: 'LoginView',
-    redirect: LoginView,
+    component: LoginView,
   }
 ];
 

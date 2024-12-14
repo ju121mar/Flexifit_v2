@@ -2,7 +2,7 @@ module.exports = {
   login: async function (req, res) {
     let params = req.body;
     let trainer = await Trainer.findOne({
-        email: params.emailAddress,
+        email: params.email,
     });
     // If there was no matching user, respond thru the "badCombo" exit.
     if (!trainer) {

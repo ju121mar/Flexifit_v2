@@ -13,7 +13,8 @@ const app = createApp(App);
 //         preset: Aura
 //     }
 // });
+const pinia = createPinia();
 app.use(router)
-app.use(createPinia)
+app.use(pinia)
 app.mount('#app')
 
