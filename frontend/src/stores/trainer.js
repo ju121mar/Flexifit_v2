@@ -14,7 +14,7 @@ export const useTrainerStore = defineStore("trainer", {
                 url: '/login',
                 data: loginInformation,
             });
-            await router.push('/');
+            await router.push('/login/sucess');
         },
     }
 });

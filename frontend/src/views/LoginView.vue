@@ -7,18 +7,19 @@ const trainerStore = useTrainerStore();
 const router = useRouter()
 let email = ref("");
 let password = ref("");
+let loginError = ref(false);
 
 async function login() {
-  try{
-    await trainerStore.signIn(email.value, password.value);
-    if (trainerStore.trainer) {
-      console.log("Logged in");
-      router.push('/kursangebote')
-    }
-  }catch (error){
-    console.error('Login fehlgeschlagen:', error.message);
+  try {
+  await trainerStore.signIn(email.value, password.value);
+  if (useTrainerStore().trainer) {
+    console.log("Logged in");
+    router.push ('/kursangebote')
   }
-
+} catch (error) {
+  loginError.value = true;
+  console.error("Login failed:", error);
+  }
 }
 </script>
 
@@ -35,6 +36,13 @@ async function login() {
     <button type="submit">Login</button>
     <a href="/" class="zurueck-button">Zurück</a>
   </form>
+  <div v-if="loginError" class="popup">
+    <div class="popup-content">
+      <p><strong>Ungültige Anmeldedaten</strong></p>
+      <p>Versuchen Sie es nochmal.</p>
+      <button @click="loginError = false">OK</button>
+    </div>
+    </div>
 </template>
 
 <style scoped>
@@ -95,4 +103,44 @@ button:hover,
 .zurueck-button:hover {
   background-color: #4e216c;
 }
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.popup-content p {
+  margin: 10px 0;
+  color: #333;
+}
+
+.popup-content button {
+  background-color: #7030a0;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.popup-content button:hover {
+  background-color: #5e258f;
+}
+
 </style>

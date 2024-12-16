@@ -7,6 +7,8 @@ import KursEntry from '@/components/KursEntry.vue';
 import NewKursView from '@/views/NewKursView.vue';
 import EditView from '@/views/EditView.vue';
 import LoginView from "@/views/LoginView.vue";
+import LoginSucessView from "@/views/LoginSucessView.vue";
+
 
 const routes = [
   {
@@ -59,6 +61,12 @@ const routes = [
     path: '/login',
     name: 'LoginView',
     component: LoginView,
+  },
+
+  {
+    path: '/login/sucess',
+    name: 'LoginSucessView',
+    component: LoginSucessView,
   }
 ];
 
