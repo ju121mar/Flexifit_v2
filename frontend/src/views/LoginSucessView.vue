@@ -1,6 +1,11 @@
 <script setup>
 import { useTrainerStore } from "@/stores/trainer.js";
 const trainerStore = useTrainerStore();
+import {useRouter} from "vue-router";
+const router = useRouter();
+function navigateToTrainerView() {
+  router.push("/kursangebote");
+}
 </script>
 
 <template>
@@ -10,7 +15,9 @@ const trainerStore = useTrainerStore();
         <p v-if="trainerStore.trainer">
       Hallo, {{ trainerStore.trainer.firstName}} {{ trainerStore.trainer.lastName}}! Stay Flexi!
     </p>
-    
+        <button type="button" @click="navigateToTrainerView" class="nav-button">
+          Zu den Kursangeboten
+        </button>
       </div>
       </form>
   </template>
@@ -33,6 +40,21 @@ const trainerStore = useTrainerStore();
     margin-bottom: 5px;
     font-weight: bold;
     color: #6a2c91;
+
+    .nav-button {
+      padding: 10px 20px;
+      background-color: #6a2c91;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    .nav-button:hover {
+      background-color: #4e216c;
+    }
   }
 
 </style>

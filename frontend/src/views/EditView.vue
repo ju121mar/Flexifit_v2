@@ -139,7 +139,7 @@ const onSubmit = async () => {
       </div>
 
       <button type="submit">Kurs aktualisieren</button>
-      <router-link to="/kursangebote" class="button zurueck-button">Zurück</router-link>
+      <RouterLink to="/kursangebote" class="button zurueck-button">Zurück</RouterLink>
     </form>
   </div>
 </template>

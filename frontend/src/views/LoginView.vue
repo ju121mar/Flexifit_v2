@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useTrainerStore } from "@/stores/trainer.js";
 import {useRouter} from "vue-router";
+import TrainerView from "@/views/TrainerView.vue";
 
 const trainerStore = useTrainerStore();
 const router = useRouter()
@@ -14,7 +15,7 @@ async function login() {
   await trainerStore.signIn(email.value, password.value);
   if (useTrainerStore().trainer) {
     console.log("Logged in");
-    router.push ('/kursangebote')
+    // router.push ('/kursangebote')
   }
 } catch (error) {
   loginError.value = true;
@@ -34,7 +35,7 @@ async function login() {
       <input id="password" type="password" v-model="password" placeholder="Passwort eingeben" />
     </div>
     <button type="submit">Login</button>
-    <a href="/" class="zurueck-button">Zurück</a>
+    <a href="/login/success" class="zurueck-button">Zurück</a>
   </form>
   <div v-if="loginError" class="popup">
     <div class="popup-content">

@@ -8,6 +8,9 @@ import NewKursView from '@/views/NewKursView.vue';
 import EditView from '@/views/EditView.vue';
 import LoginView from "@/views/LoginView.vue";
 import LoginSucessView from "@/views/LoginSucessView.vue";
+import TrainerView from "@/views/TrainerView.vue";
+import BookingOverview from "@/views/BookingOverview.vue";
+import CourseDetailView from "@/views/CourseDetailView.vue";
 
 
 const routes = [
