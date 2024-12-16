@@ -23,10 +23,19 @@ const routes = [
 
   {
     path: '/kursangebote',
-    name: 'BookingOverview',
-    component: BookingOverView,
+    name: 'TrainerView',
+    component: TrainerView,
   },
-
+  {
+    path: '/kursangebote/booking',
+    name: 'BookingOverview',
+    component: BookingOverview,
+  },
+  {
+    path: '/kursangebote/kurs',
+    name: 'CourseDetailView',
+    component: CourseDetailView,
+  },
   {
     path: '/kursangebote/new',
     name: 'NewKursView',

@@ -64,19 +64,6 @@ onMounted(async () => {
   await selectTrainer();
 });
 
-// const onSubmit = () => {
-//   console.log("Formular abgesendet:", formData.value);
-//   // Hier kannst du weitere Aktionen hinzufügen, z.B. ein API-Call.
-// };
-
-// function updateCourse() {
-//   if (course.value) {
-//     // API-Anfrage oder Datenbankaktualisierung
-//     alert(`Kurs ${course.value.name} wurde aktualisiert!`);
-//     router.push('/');
-//   }
-// }
-
 const onSubmit = async () => {
   console.log("Formular abgesendet:", formData.value);
   try {
@@ -95,31 +82,6 @@ const onSubmit = async () => {
 </script>
 
 <template>
-  <!--  <div v-if="course" class="edit-course">-->
-  <!--    <h1>Kurs bearbeiten: {{ course.name }}</h1>-->
-  <!--    <form @submit.prevent="updateCourse">-->
-  <!--      <div>-->
-  <!--        <label for="name">Kursname:</label>-->
-  <!--        <input id="name" v-model="course.name" type="text" required />-->
-  <!--      </div>-->
-  <!--      <div>-->
-  <!--        <label for="trainer">Trainer:</label>-->
-  <!--        <input id="trainer" v-model="course.trainer" type="text" required />-->
-  <!--      </div>-->
-  <!--      <div>-->
-  <!--        <label for="uhrzeit">Uhrzeit:</label>-->
-  <!--        <input id="uhrzeit" v-model="course.uhrzeit" type="time" required />-->
-  <!--      </div>-->
-  <!--      <div>-->
-  <!--        <label for="image">Bild:</label>-->
-  <!--        <input id="image" v-model="course.image" type="text" required />-->
-  <!--      </div>-->
-  <!--      <button type="submit">Kurs aktualisieren</button>-->
-  <!--    </form>-->
-  <!--  </div>-->
-  <!--  <div v-else>-->
-  <!--    <p>Kurs nicht gefunden. {{courseId}}</p>-->
-  <!--  </div>-->
   <div v-if="loading">Daten werden geladen...</div>
   <div v-else class="kurs-form">
     <form @submit.prevent="onSubmit">

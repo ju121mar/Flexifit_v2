@@ -52,7 +52,7 @@
             <li class="nav-item">
               <RouterLink  class="nav-link"
                            :class="{ 'active': $route.path.startsWith('/kursangebote') }"
-                           to="/kursangebote">Kursangebote</RouterLink>
+                           to="/kursangebote/booking">Kursangebote</RouterLink>
             </li>
             <li class="nav-item">
               <RouterLink class="nav-link" to="#">Mein Trainingsplan</RouterLink>

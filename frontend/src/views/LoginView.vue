@@ -1,16 +1,24 @@
 <script setup>
 import { ref } from 'vue'
 import { useTrainerStore } from "@/stores/trainer.js";
+import {useRouter} from "vue-router";
 
 const trainerStore = useTrainerStore();
+const router = useRouter()
 let email = ref("");
 let password = ref("");
 
 async function login() {
-  await trainerStore.signIn(email.value, password.value);
-  if (useTrainerStore().trainer) {
-    console.log("Logged in");
+  try{
+    await trainerStore.signIn(email.value, password.value);
+    if (trainerStore.trainer) {
+      console.log("Logged in");
+      router.push('/kursangebote')
+    }
+  }catch (error){
+    console.error('Login fehlgeschlagen:', error.message);
   }
+
 }
 </script>
 
