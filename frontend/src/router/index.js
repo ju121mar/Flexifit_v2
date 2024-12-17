@@ -11,6 +11,7 @@ import LoginSucessView from "@/views/LoginSucessView.vue";
 import TrainerView from "@/views/TrainerView.vue";
 import BookingOverview from "@/views/BookingOverview.vue";
 import CourseDetailView from "@/views/CourseDetailView.vue";
+import LoginMitgliedView from '@/views/LoginMitgliedView.vue';
 
 
 const routes = [
@@ -70,7 +71,14 @@ const routes = [
     path: '/login/sucess',
     name: 'LoginSucessView',
     component: LoginSucessView,
+  },
+
+  {
+    path: '/login/mitglied',
+    name: 'LoginMitgliedView',
+    component: LoginMitgliedView,
   }
+
 ];
 
 const router = createRouter({
