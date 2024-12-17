@@ -37,7 +37,7 @@ const routes = [
     component: BookingOverview,
   },
   {
-    path: '/kursangebote/kurs',
+    path: '/kursangebote/kurs/:id',
     name: 'CourseDetailView',
     component: CourseDetailView,
   },

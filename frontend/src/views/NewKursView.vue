@@ -3,6 +3,7 @@ import { ref, onMounted } from "vue";
 import axios from 'axios'
 import {apiCall} from "@/utility/ApiCall.js";
 import router from "@/router/index.js";
+const selectedImage = ref("");
 const newKurs = ref({
   name: "",
   trainer:"",
@@ -11,8 +12,15 @@ const newKurs = ref({
   dauer:"",
   teilnehmer:"",
   description: "",
-  image:"",
+  image: "",
 });
+
+const imagePath = ref([
+  { title: "HIIT", path: "/src/assets/pictures/HIIT.jpg" },
+  { title: "Laufband", path: "/src/assets/pictures/Laufband.png" },
+  { title: "Pilates", path: "/src/assets/pictures/Pilates.jpg" },
+  { title: "Yoga", path: "/src/assets/pictures/Yoga.jpg" },
+]);
 
 
 // State to show success message
@@ -21,6 +29,8 @@ const kursAdded = ref(false);
 // Function to handle form submission
 const submitForm = async () => {
   console.log("Formular abgesendet:", newKurs.value);
+  newKurs.value.image = selectedImage.value
+  console.log(newKurs.value)
   await apiCall({
     method: 'POST',
     url: '/kurs/erstellen',
@@ -44,31 +54,6 @@ const submitForm = async () => {
   kursAdded.value = true;
 };
 
-const FlexiImages = [
-  {
-    path: "@/assets/pictures/Yoga.jpg",
-    alt: "Yoga"
-  },
-  {
-    path: "frontend/src/assets/pictures/Pilates.jpg",
-    alt: "Pilates"
-  },
-  {
-    path: "frontend/src/assets/pictures/Zumba.jpg",
-    alt: "Zumba"
-  },
-  {
-    path: "frontend/src/assets/pictures/Boxing.jpg",
-    alt: "Boxing"
-  },
-  {
-    path: "frontend/src/assets/pictures/Dance.jpg",
-    alt: "Dance"
-  }
-];
-
-
-
 const trainer = ref([]);
 
 onMounted(async ()=>{
@@ -87,6 +72,14 @@ const selectTrainer = async () =>{
     trainer.value = null;
   }
 }
+
+const showImageDialog = ref(false)
+
+function handleImageDialog(){
+  showImageDialog.value = !showImageDialog.value;
+}
+
+
 
 
 </script>
@@ -137,6 +130,10 @@ const selectTrainer = async () =>{
         <label for="kursDescription">Beschreibung:</label>
         <textarea id="kursDescription" v-model="newKurs.description" placeholder="Kursbeschreibung eingeben" required></textarea>
       </div>
+      <div class="kurs-group">
+        <label for="kursDescription">Bild: {{selectedImage}}</label>
+        <button id="kursImage" type="button" @click="handleImageDialog" >Bild auswählen</button>
+      </div>
       <button type="submit">Kurs erstellen</button>
       <router-link to="/kursangebote" class="button zurueck-button">Zurück</router-link>
     </form>
@@ -144,6 +141,68 @@ const selectTrainer = async () =>{
       <p>Kurs erfolgreich hinzugefügt!!</p>
     </div>
   </div>
+
+  <!-- Bootstrap Modal -->
+  <div
+      class="modal fade"
+      :class="{ 'show d-block': showImageDialog }"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="imageModalLabel"
+      aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="imageModalLabel">Bildanzeige</h5>
+          <button type="button" class="btn-close" aria-label="Close" @click="handleImageDialog"></button>
+        </div>
+        <div class="modal-body text-center">
+          <div class="modal-body">
+            <form @submit.prevent="saveSelectedImage">
+              <div class="row">
+                <!-- Bilder anzeigen -->
+                <div
+                    v-for="(image, index) in imagePath"
+                    :key="index"
+                    class="col-6 col-md-4 mb-4 text-center"
+                >
+                  <img
+                      :src="image.path"
+                      :alt="image.title"
+                      class="img-thumbnail"
+                      style="max-width: 100%; height: auto;"
+                  />
+                  <div class="form-check mt-2">
+                    <input
+                        type="radio"
+                        name="imageSelect"
+                        :value="image.path"
+                        v-model="selectedImage"
+                        required
+                    />
+                    <label class="form-check-label">{{ image.title }}</label>
+                  </div>
+                </div>
+              </div>
+              <!-- Speichern Button -->
+              <div class="text-end mt-3">
+                <button type="button" @click="handleImageDialog" class="btn btn-primary">
+                  Speichern
+                </button>
+              </div>
+            </form>
+          </div>
+          <button type="submit" @click="handleImageDialog" class="btn btn-secondary">Schließen</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal-Overlay (für Bootstrap Effekt) -->
+  <div v-if="showImageDialog" class="modal-backdrop fade show"></div>
+
+
 </template>
 
 <style scoped>
@@ -225,4 +284,35 @@ button:hover,
 .zurueck-button:hover {
   background-color: #4e216c;
 }
+.modal-backdrop {
+  z-index: 1040; /* Bootstrap Modal-Z-Index */
+}
+
+.modal.show {
+  display: block;
+}
+.img-thumbnail {
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.img-thumbnail:hover {
+  transform: scale(1.05);
+}
+
+.modal-header {
+  background-color: #6a2c91;
+  color: white;
+}
+
+.btn-primary {
+  background-color: #6a2c91;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #4e216c;
+}
+
+
 </style>

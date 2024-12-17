@@ -1,29 +1,16 @@
 <script setup>
-import {onMounted, ref} from 'vue';
+import { ref, onMounted } from 'vue';
+import {useRoute, useRouter} from 'vue-router';
+import axios from 'axios';
 import {apiCall} from "@/utility/ApiCall.js";
 
-// Dummy-Daten für Kursinformationen (zum Testen)
-const kurs = ref({
-  name: 'Yoga Class',
-  trainer: 'Lara Stein',
-  datum: '10. Juni 2024',
-  uhrzeit: '09:41 Uhr',
-  beschreibung: 'Ein entspannter Yoga-Kurs zur Förderung der Flexibilität.',
-  equipment: 'Yoga-Matte',
-  image: '', // Hier könntest du ein Bild-URL einfügen
-});
+const route = useRoute();
+const courseId = route.params.id; // Holt die ID aus der URL
+
+
+const kurs = ref(null);
 const loading = ref(true);
 const trainer = ref([]);
-const formData = ref({
-  name: "",
-  description: "",
-  trainer: "",
-  teilnehmer: null,
-  dauer: "",
-  wochentag: "",
-  uhrzeit: "",
-});
-
 const selectTrainer = async () => {
   try {
     const response = await apiCall({
@@ -43,19 +30,8 @@ onMounted(async () => {
       method: 'GET',
       url: `/kurse/${courseId}`,
     });
-    if (response) {
-      formData.value = {
-        name: response.name || "",
-        description: response.description || "",
-        trainer: response.trainer || "",
-        teilnehmer: parseInt(response.teilnehmer, 10) || 0,
-        dauer: response.dauer || "",
-        wochentag: response.wochentag || "",
-        uhrzeit: response.uhrzeit || "",
-      };
-      console.log("Kursdaten geladen:", formData.value);
-    }
-    console.log('Kurse geladen:', kurse.value);
+      kurs.value = response;
+      console.log("Kursdaten geladen:", kurs.value);
   } catch (error) {
     console.error('Fehler beim Laden der Kurse:', error);
   } finally {
@@ -64,58 +40,49 @@ onMounted(async () => {
   await selectTrainer();
 });
 
-const currentDate = ref({
-  date: new Date().toLocaleDateString("de-DE", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  }),
-  time: new Date().toLocaleTimeString("de-DE", {
-    hour: "2-digit",
-    minute: "2-digit",
-  }),
-});
 
-// Buchungsfunktion (optional)
-const buchen = () => {
-  alert('Du hast den Kurs gebucht!');
-};
-function getFullName(trainer){
-  return (trainer.firstName + " " + trainer.lastName)
-}
 </script>
 
 <template>
   <div v-if="loading">Daten werden geladen...</div>
   <section v-else class="kurs-detail">
-    <div class="kurs-container">
+    <div class="kurs-container" v-if="kurs">
       <!-- Zurück-Link -->
-      <a href="#" class="back-link">&lt; Zurück</a>
-
-      <!-- Datum und Uhrzeit -->
+      <a href="/kursangebote/booking" class="back-link">&lt; Zurück</a>
       <div class="date-time">
-        <span class="date">{{ currentDate.date }}</span>
-        <span class="time">{{ currentDate.time }}</span>
+        <span class="date">{{ kurs.wochentag }}</span>
+        <span class="time">{{ kurs.uhrzeit }}</span>
       </div>
 
       <!-- Kursinformationen -->
       <div class="kurs-card">
-        <h2 class="kurs-title">{{ formData.name }}</h2>
-        <div class="kurs-image"></div>
+        <h2 class="kurs-title">{{ kurs.name }}</h2>
+<!--        <div class="kurs-image">-->
+<!--          <img-->
+<!--              v-if="kurs.image"-->
+<!--              :src="kurs.image"-->
+<!--              alt="Kurs Bild"-->
+<!--          />-->
+<!--          <div v-else class="no-image">Bild nicht verfügbar</div>-->
+<!--        </div>-->
+
         <div class="kurs-info">
-          <p><strong>Trainer:</strong> {{getFullName(formData.trainer)}} </p>
-          <p><strong>Datum:</strong> {{ formData.datum }}</p>
-          <p><strong>Uhrzeit:</strong> {{ formData.uhrzeit }}</p>
-          <p><strong>Beschreibung:</strong> {{ formData.beschreibung }}</p>
-<!--          <p><strong>Equipment:</strong> {{ formData.equipment }}</p>-->
+          <p><strong>Trainer:</strong> {{ kurs.trainer.firstName }} {{kurs.trainer.lastName}}</p>
+          <p><strong>Wochentag:</strong> {{ kurs.wochentag }}</p>
+          <p><strong>Uhrzeit:</strong> {{ kurs.uhrzeit }}</p>
+          <p><strong>Beschreibung:</strong> {{ kurs.description }}</p>
+          <p><strong>Equipment:</strong> {{ kurs.equipment }}</p>
         </div>
 
         <!-- Buchungsbutton -->
-        <button class="book-button" @click="buchen">Jetzt Buchen</button>
+        <button class="book-button" @click="alert('Du hast den Kurs gebucht!')">
+          Jetzt Buchen
+        </button>
       </div>
     </div>
   </section>
 </template>
+
 
 <style scoped>
 /* Container für Kursdetail */

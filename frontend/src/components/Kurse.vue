@@ -88,10 +88,12 @@ function goToBooking(id) {
   width: 80px;
   height: 80px;
   border-radius: 8px;
-  object-fit: cover;
+  object-fit: contain; /* Bild bleibt im ursprünglichen Maßstab */
+  background-color: #f8f9fa; /* Optional: Hintergrund für leeren Bereich */
   margin-left: 15px;
   order: 2;
 }
+
 
 .course-info {
   flex: 1;

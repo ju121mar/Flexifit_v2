@@ -217,7 +217,8 @@ function getFullName(trainer){
                 <p><span class="course-label">Trainer: </span> {{getFullName(kurs.trainer)}}</p>
                 <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
               </div>
-              <RouterLink  class="book-button" to="/kursangebote/kurs">Buchen</RouterLink>
+              <RouterLink  class="book-button" :to="`/kursangebote/kurs/${kurs.id}`"
+              >Buchen</RouterLink>
             </div>
           </div>
         </div>

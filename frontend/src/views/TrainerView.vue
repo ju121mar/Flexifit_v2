@@ -67,7 +67,7 @@ onMounted(async () => {
           name: course.name,
           trainer: course.trainer,
           uhrzeit: course.uhrzeit,
-          image: '@/assets/pictures/Laufband.png',
+          image: course.image,
           description: course.description,
         });
       }
@@ -230,6 +230,7 @@ function getFullName(trainer){
               <div class="trainer-time">
                 <p><span class="course-label">Trainer: </span> {{getFullName(kurs.trainer)}}</p>
                 <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
+                <img :src="kurs.image" class="course-image">
               </div>
               <button class="book-button" @click="goToEditing(kurs.id)">Bearbeiten</button>
               <button class="book-button" @click="openDeletePopup(kurs.id)">Löschen</button>

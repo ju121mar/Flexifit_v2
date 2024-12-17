@@ -21,7 +21,7 @@ module.exports = {
   findOne: async function (req, res) {
     const kursId = req.params.id;
     try {
-      const kurs = await Kurs.findOne({ id: kursId });
+      const kurs = await Kurs.findOne({ id: kursId }).populate("trainer");
       return res.json(kurs);
     } catch (err){
       return res.serverError(err);
