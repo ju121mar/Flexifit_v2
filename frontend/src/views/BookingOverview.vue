@@ -166,6 +166,16 @@ function getFullName(trainer){
   return (trainer.firstName + " " + trainer.lastName)
 }
 
+//Popup fuer Login
+const showLoginPopup = ref(false);
+const openLoginPopup = () => {
+  showLoginPopup.value = true;
+};
+
+const redirectToLogin = () => {
+  router.push('/login');
+}
+
 </script>
 <template>
   <section class="booking-overview-section">
@@ -176,10 +186,8 @@ function getFullName(trainer){
       <h1>Kursangebote:</h1>
       <div class="header-controls">
         <RouterLink class="back-button" to="/">Zurück</RouterLink>
-        <div class="date-controls">
           <span class="current-date">{{ currentDate.date }}</span>
           <span class="current-time">{{ currentDate.time }}</span>
-        </div>
       </div>
     </div>
 
@@ -216,12 +224,21 @@ function getFullName(trainer){
               <div class="trainer-time">
                 <p><span class="course-label">Trainer: </span> {{getFullName(kurs.trainer)}}</p>
                 <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
+                <button @click="openLoginPopup" class="book-button">Buchen</button>
               </div>
-              <RouterLink  class="book-button" :to="`/kursangebote/kurs/${kurs.id}`"
-              >Buchen</RouterLink>
+              <!-- <RouterLink  class="book-button" :to="`/kursangebote/kurs/${kurs.id}`">Buchen</RouterLink> -->
+              
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div v-if="showLoginPopup" class="popup-backdrop">
+      <div class="popup">
+        <h2>Zum Buchen anmelden</h2>
+        <p>Bitte melden Sie sich an, um eine Buchung vorzunehmen.</p>
+        <button @click="redirectToLogin" class="confirm-button">Zum Login</button>
+        <button @click="showLoginPopup = false" class="cancel-button">Abbrechen</button>
       </div>
     </div>
 
@@ -284,6 +301,7 @@ function getFullName(trainer){
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin-left: 20px;
 }
 
 .confirm-button:hover {
@@ -425,7 +443,6 @@ function getFullName(trainer){
   display: block;
   font-size: 18px;
   text-align: center;
-  margin-left: 70px;;
 }
 
 
@@ -577,6 +594,68 @@ function getFullName(trainer){
     margin: 10px auto 0; /* Center and add spacing */
     width: 90%;
   }
+}
+
+.popup-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+}
+
+.popup h2 {
+  color: #7030a0;
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+}
+
+.confirm-button {
+  background: #7030a0;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.confirm-button:hover {
+  background: #5e258f;
+}
+
+.cancel-button {
+  background: #ccc;
+  color: #333;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background: #bbb;
 }
 
 
