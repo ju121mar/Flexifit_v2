@@ -3,6 +3,8 @@ import { ref, onMounted } from 'vue';
 import {useRoute, useRouter} from 'vue-router';
 import axios from 'axios';
 import {apiCall} from "@/utility/ApiCall.js";
+import PrimaryButton from "@/components/PrimaryButton.vue";
+import SecondaryButton from "@/components/SecondaryButton.vue";
 
 const route = useRoute();
 const courseId = route.params.id; // Holt die ID aus der URL
@@ -39,7 +41,13 @@ onMounted(async () => {
   }
   await selectTrainer();
 });
+const showConfirmationModal = ref(false);
 
+// Buchung bestätigen
+const confirmBooking = () => {
+  showConfirmationModal.value = false;
+  alert("Der Kurs wurde erfolgreich gebucht!");
+};
 
 </script>
 
@@ -75,16 +83,116 @@ onMounted(async () => {
         </div>
 
         <!-- Buchungsbutton -->
-        <button class="book-button" @click="alert('Du hast den Kurs gebucht!')">
-          Jetzt Buchen
-        </button>
+        <PrimaryButton class="primarybutton" buttontext="Jetzt Buchen" @click="showConfirmationModal= true"></PrimaryButton>
+<!--        <button class="book-button" @click="showConfirmationModal = true">-->
+<!--          Jetzt Buchen-->
+<!--        </button>-->
       </div>
     </div>
   </section>
+  <div
+      class="modal fade"
+      :class="{ 'show d-block': showConfirmationModal }"
+      tabindex="-1"
+      role="dialog"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">Buchungsbestätigung</h5>
+          <button
+              type="button"
+              class="btn-close"
+              aria-label="Close"
+              @click="showConfirmationModal = false"
+          ></button>
+        </div>
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <p>Wollen Sie diesen Kurs wirklich buchen?</p>
+<!--          <p><strong>{{ kurs.name }}</strong> am {{ kurs.wochentag }} um {{ kurs.uhrzeit }}</p>-->
+        </div>
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <PrimaryButton buttontext="Buchen" @click="confirmBooking"></PrimaryButton>
+<!--          <button-->
+<!--              type="button"-->
+<!--              class="btn btn-success"-->
+<!--              @click="confirmBooking"-->
+<!--          >-->
+<!--            Buchen-->
+<!--          </button>-->
+          <SecondaryButton buttontext="Abbrechen" @click="showConfirmationModal = false"></SecondaryButton>
+<!--          <button-->
+<!--              type="button"-->
+<!--              class="book-button"-->
+<!--              @click="showConfirmationModal = false"-->
+<!--          >-->
+<!--            Abbrechen-->
+<!--          </button>-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal Overlay (Hintergrund) -->
+  <div
+      v-if="showConfirmationModal"
+      class="modal-backdrop fade show"
+  ></div>
 </template>
 
 
 <style scoped>
+.modal-content {
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #fff;
+  max-width: 500px;
+}
+
+.modal-header {
+  background-color: #6c2a9f; /* Lila Hintergrundfarbe */
+  color: #fff;
+}
+
+.modal-body p {
+  margin: 0;
+}
+
+.modal-footer .btn {
+  border-radius: 6px;
+}
+
+
+.btn-close {
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5); /* Halbtransparenter schwarzer Hintergrund */
+  backdrop-filter: blur(20
+  px); /* Unschärfe hinzufügen */
+}
+
+.modal.fade .modal-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Zentriert das Modal */
+  max-width: 600px;
+}
+
+.modal-backdrop {
+  z-index: 1040;
+}
+
+.modal-dialog {
+  z-index: 1050; /* Modal Dialog muss vor dem Hintergrund angezeigt werden */
+}
 /* Container für Kursdetail */
 .kurs-detail {
   max-width: 400px;

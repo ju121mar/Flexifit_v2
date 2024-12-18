@@ -2,6 +2,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import PrimaryButton from "@/components/PrimaryButton.vue";
 
 // Daten für die Kurse
 const kurse = ref([
@@ -50,6 +51,7 @@ function goToBooking(id) {
                 {{ kurs.description }}
               </p>
               <!-- Button für Navigation -->
+<!--              <PrimaryButton buttontext="buchen" @click="goToBooking"></PrimaryButton>-->
               <button class="book-button">Jetzt Buchen</button>
             </div>
           </div>
