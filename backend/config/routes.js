@@ -15,7 +15,9 @@ module.exports.routes = {
   'PUT /kurse/:id': { controller: 'KursController', action: 'update' },
   'DELETE /delete/kurs/:id': { controller: 'KursController', action: 'delete' },
   'GET /trainer': { controller: 'TrainerController', action: 'find'},
-  'POST /login': {controller: 'LoginController', action: 'login'}
+  'POST /login': {controller: 'LoginController', action: 'login'},
+  '/': { view: 'pages/homepage' }
+  
 
 
 /***************************************************************************
