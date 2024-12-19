@@ -1,0 +1,464 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Inter, sans-serif;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+h2,
+h3 {
+  font-family: Archivo, sans-serif;
+  font-weight: bold !important;
+}
+
+header {
+  background-color: #d8b5ea;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  width: 100%;
+}
+
+.container-fluid {
+  padding: 0;
+  margin-top: 20px;
+}
+
+.custom-bg {
+  background-color: #d8b5ea;
+}
+
+.navbar-nav .nav-link {
+  color: #444;
+  font-weight: 500;
+  font-size: 24px;
+  margin-right: 50px;
+}
+
+.navbar-nav .nav-link.active {
+  color: #7030a0 !important;
+  font-weight: bold;
+  position: relative;
+}
+
+.navbar-nav .nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0px;
+  width: 100%;
+  height: 3px;
+  background-color: #7030a0;
+  border-radius: 2px;
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;base64,...");
+}
+.user-icon-img {
+  width: 24px;
+  height: 24px;
+}
+
+.user-icon {
+  display: flex;
+  align-items: center;
+}
+
+/* Mobile Anpassungen für das User-Icon */
+@media (min-width: 768px) {
+  .navbar-brand.ms-auto {
+    margin-right: 0;
+  }
+  .user-icon {
+    position: absolute;
+    right: 70px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 50px;
+  }
+
+  .user-icon-img {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.background-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.text-overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  color: white;
+  background-color: rgba(211, 191, 227, 0.8);
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+/* Mobile Ansicht Bild mit Text-Overlay */
+@media (max-width: 600px) {
+  .background-image {
+    max-height: 200px;
+  }
+
+  .text-overlay h1 {
+    font-size: 18px;
+  }
+
+  .text-overlay p {
+    font-size: 14px;
+  }
+  .text-overlay {
+    padding: 5px;
+  }
+}
+
+/* Mittlere Ansicht (768px bis 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .background-image {
+    max-height: 350px;
+  }
+
+  .text-overlay h1 {
+    font-size: 28px;
+  }
+
+  .text-overlay p {
+    font-size: 20px;
+  }
+
+  .text-overlay {
+    padding: 20px;
+  }
+}
+
+/* Desktop Ansicht (ab 992px) */
+@media (min-width: 992px) {
+  .background-image {
+    max-height: 80vh;
+  }
+
+  .text-overlay h1 {
+    font-size: 38px;
+  }
+
+  .text-overlay p {
+    font-size: 24px;
+  }
+
+  .text-overlay {
+    padding: 50px;
+  }
+}
+
+/* Styling für Kursübersicht */
+.course-section {
+  width: 100%;
+  padding: 20px;
+  background-color: #ffffff;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.course-section h2 {
+  color: #7030a0;
+  margin-bottom: 20px;
+}
+
+.course-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid #d3bfe3;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0px 4px 8px rgba(112, 48, 160, 0.3);
+}
+
+.course-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-left: 15px;
+  order: 2;
+}
+
+.course-info {
+  flex: 1;
+  text-align: left;
+}
+
+.course-info h3 {
+  color: #444;
+  margin: 0;
+  font-size: 20px;
+}
+
+.trainer-time {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.course-info p {
+  color: #666;
+  margin: 5px 0;
+  font-size: 14px;
+}
+.course-label {
+  color: #7030a0;
+}
+
+.extra-text {
+  display: none;
+}
+
+/* Extra-Text nur auf Desktop-Bildschirmen anzeigen */
+@media (min-width: 992px) {
+  .extra-text {
+    display: block;
+    color: #666;
+    font-size: 14px;
+    margin-top: 8px;
+  }
+
+  .course-info p {
+    font-size: 18px;
+  }
+  .course-image {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.book-button {
+  color: #7030a0;
+  background-color: transparent;
+  border: 2px solid #7030a0;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 22px;
+}
+
+.book-button:hover {
+  background-color: #7030a0;
+  color: #fff;
+}
+
+.more-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  color: #fff;
+  background-color: #7030a0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 22px;
+}
+
+.more-button:hover {
+  background-color: #7030a0;
+}
+
+/* Öffnungs- und Trainerzeiten */
+.hours-section {
+  width: 90%;
+  max-width: 800px;
+  background-color: #d3bfe3;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(112, 48, 160, 0.8);
+  margin: 20px auto;
+}
+
+.hours-row {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hours-column {
+  flex: 1;
+}
+
+.hours-section h2 {
+  color: #7030a0;
+  font-size: 28px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.hours-section p {
+  color: #444;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 5px 0;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .hours-row {
+    flex-direction: row;
+  }
+  .hours-section p {
+    font-size: 20px;
+  }
+}
+
+/*Styling für Werte-Section*/
+.value-section h2 {
+  color: #7030a0;
+  margin-bottom: 20px;
+}
+
+/*Styling für Trainer-Section*/
+.trainer-card {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 90%;
+  max-width: 800px;
+  background-color: #d3bfe3;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(112, 48, 160, 1);
+  margin: 20px auto;
+  position: relative;
+  flex-wrap: wrap;
+  font-size: 18px;
+}
+
+.trainer-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.trainer-image {
+  width: 170px;
+  max-width: 170px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-left: 20px;
+  display: block;
+}
+
+/* Bild auf kleinen Bildschirmen ausblenden */
+@media (max-width: 768px) {
+  .trainer-image {
+    display: none; /* Bild ausblenden, wenn Bildschirmbreite kleiner als 768px ist */
+  }
+}
+
+
+.trainer-card .book-button {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #7030a0;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  order: 2;
+  align-self: center;
+  border: 1px solid white;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  }
+
+.trainer-card .book-button:hover {
+  background-color: white;
+  color: #7030a0;
+}
+
+.trainer-card h3 {
+  color: #7030a0;
+  font-size: 22px;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.trainer-section h2 {
+  color: #7030a0;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.trainer-section {
+  margin-bottom: 100px;
+}
+
+@media (max-width: 600px) {
+  .hours-section h2 {
+    font-size: 18px;
+  }
+
+  .hours-section p {
+    font-size: 14px;
+  }
+}
+
+.footer {
+  width: 100%;
+  background-color: #d8b5ea;
+  color: white;
+  padding: 20px 0;
+}
+
+.footer p,
+.footer h6 {
+  margin: 0;
+  color: white;
+}
+
+.footer-divider {
+  border-top: 1px solid #7030a0;
+  width: 80%;
+  margin: 20px auto;
+}
+
+.footer a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.footer a:hover {
+  color: #7030a0;
+}
+
+@media (max-width: 768px) {
+  .footer a {
+    font-size: 14px;
+  }
+}
+
+.main {
+  flex: 1;
+}

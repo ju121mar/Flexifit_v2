@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <title>FlexiFit</title>
+  </head>
+  <body>
+    <!-- Bootstrap Navbar -->
+    <header>
+      <nav class="navbar navbar-expand-lg custom-bg w-100">
+        <div class="container">
+          <!-- Kalender Icon -->
+          <a class="navbar-brand d-lg-none d-lg-block" href="#">
+            <img
+              src="../src/assets/pictures/CalendarIcon.png"
+              alt="Calendar Icon"
+              width="24"
+              height="24"
+            />
+          </a>
+
+          <!-- FlexiFit Logo -->
+          <a class="navbar-brand mx-auto" href="#">
+            <img src="../src/assets/pictures/FlexiFitLogo.jpg" alt="FlexiFit Logo" height="60" />
+          </a>
+          <div class="d-flex align-items-center user-menu-container">
+            <!-- User Icon -->
+            <a class="navbar-brand d-lg-block user-icon me-2" href="#">
+              <img src="../src/assets/pictures/UserIcon.png" alt="User Icon" class="user-icon-img" />
+            </a>
+
+            <!-- Hamburgermenü -->
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </div>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+              <li class="nav-item">
+                <a class="nav-link active" href="#">Studio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Kursangebote</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Mein Trainingsplan</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Startbild mit Oberlay Text -->
+    <div class="container-fluid p-0 position-relative">
+      <img
+        src="../src/assets/pictures/Laufband.png"
+        alt="Startbild"
+        class="img-fluid background-image"
+      />
+      <div class="text-overlay">
+        <h1>
+          Dein Flexibles Fitnessstudio in Konstanz<br />
+          Sport, der zu deinem Leben passt
+        </h1>
+        <p>
+          Fördere deinen Körper und erreiche deine Ziele. Flexible Kursbuchung und dein
+          individueller Trainingsplan. Stay Flexi.
+        </p>
+      </div>
+    </div>
+
+    <div class="main">
+     <!-- Kursübersicht -->
+     <section class="course-section">
+      <h2>Anstehende Kurse</h2>
+      <div class="container">
+        <div class="row g-4 justify-content-center">
+          <div class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3">
+            <div class="course-card">
+              <img src="../src/assets/pictures/Yoga.jpg" alt="Yoga Flow" class="course-image" />
+              <div class="course-info">
+                <h3>Yoga Flow</h3>
+                <div class="trainer-time">
+                <p><span class="course-label">Trainer: </span>Emma Schil</p>
+                <p><span class="course-label">Uhrzeit: </span>8:00 Uhr</p>
+                </div>  
+                <p class="extra-text">
+                  <span class="course-label">Beschreibung:</span>
+                  Ein Kurs, der Körper und Geist durch fließende Bewegungen
+                  und gezielte Atemübungen stärkt und entspannt.
+                </p>
+                <button class="book-button">Jetzt Buchen</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3">
+            <div class="course-card">
+              <img src="../src/assets/pictures/Spin.jpg" alt="Spin Class" class="course-image" />
+              <div class="course-info">
+                <h3>Spin Class</h3>
+                <div class="trainer-time">
+                <p><span class="course-label">Trainer: </span>Luca Lange</p>
+                <p><span class="course-label">Uhrzeit: </span>9:00 Uhr</p>
+              </div>
+                <p class="extra-text">
+                  <span class="course-label">Beschreibung:</span>
+                  Ein energiegeladener Kurs, der durch intensives Radfahren zu
+                  motivierender Musik Ausdauer steigert und die Beinmuskulatur
+                  stärkt.
+                </p>
+                <button class="book-button">Jetzt Buchen</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3">
+            <div class="course-card">
+              <img src="../src/assets/pictures/HIIT.jpg" alt="Power HIIT" class="course-image" />
+              <div class="course-info">
+                <h3>Power HIIT</h3>
+                <div class="trainer-time">
+                <p><span class="course-label">Trainer: </span>Lara Stein</p>
+                <p><span class="course-label">Uhrzeit: </span>12:00 Uhr</p>
+                </div>
+                <p class="extra-text">
+                  <span class="course-label">Beschreibung:</span>
+                  Ein intensiver Kurs, der durch kurze, kraftvolle Intervalle
+                  und gezielte Erholungsphasen den gesamten Körper stärkt.
+                </p>
+                <button class="book-button">Jetzt Buchen</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3">
+            <div class="course-card">
+              <img
+                src="../src/assets/pictures/Pilates.jpg"
+                alt="Balance Pilates"
+                class="course-image"
+              />
+              <div class="course-info">
+                <h3>Balance Pilates</h3>
+                <div class="trainer-time">
+                <p><span class="course-label">Trainer: </span>Caro Klirr</p>
+                <p><span class="course-label">Uhrzeit: </span>17:00 Uhr</p>
+                </div>
+                <p class="extra-text">
+                  <span class="course-label">Beschreibung:</span>
+                  Ein Kurs, der die Tiefenmuskulatur stärkt, die Körperhaltung
+                  verbessert und für mehr Flexibilität und Balance sorgt.
+                </p>
+                <button class="book-button">Jetzt Buchen</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="more-button">Zu weiteren Kursangeboten ➔</button>
+      </div>
+    </section>
+
+      <!-- Öffnungszeiten -->
+      <div class="hours-section">
+        <div class="hours-row">
+          <div class="hours-column">
+            <h2>Öffnungszeiten</h2>
+            <p>Montag - Freitag&nbsp;&nbsp;06:00 - 24:00 Uhr</p>
+            <p>Sa-, Sonn- & Feiertags&nbsp;&nbsp;06:00 - 24:00 Uhr</p>
+          </div>
+          <div class="hours-column">
+            <h2>Trainerzeiten</h2>
+            <p>Montag - Freitag&nbsp;&nbsp;08:00 - 20:00 Uhr</p>
+            <p>Sa-, Sonn- & Feiertags&nbsp;&nbsp;08:00 - 18:00 Uhr</p>
+          </div>
+        </div>
+      </div>
+
+
+
+<!--Unsere Werte-->
+<section class="course-section">
+  <h2>Unsere Werte</h2>
+  <div class="container">
+    <div class="row g-4 justify-content-center">
+      <div class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3">
+        <div class="course-card">
+          <img src="../src/assets/pictures/Fitness.png" alt="Fitness" class="course-image" />
+          <div class="course-info">
+            <h3>Fitness</h3>
+            <p>
+              FlexiFit bietet alle Mittel und Ressourcen, um deine körperlichen
+              Ziele zu erreichen – von individuellen Trainingsplänen über
+              motivierende Trainer bis hin zu einer unterstützenden Gemeinschaft.
+            </p>
+            <button class="book-button">Mein Trainingsplan</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3">
+        <div class="course-card">
+          <img src="../src/assets/pictures/Lifestyle.png" alt="Lifestyle" class="course-image" />
+          <div class="course-info">
+            <h3>Lifestyle</h3>
+            <p>
+              FlexiFit ist dein Schlüssel zu einem aktiveren Lebensstil – mit abwechslungsreichen Sportarten und liebevoll gestalteten Kursen, die du ganz flexibel in deinen Alltag integrieren kannst.
+            </p>
+            <button class="book-button">Kursangebote</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+      <!--Trainer-->
+      <div class="trainer-section">
+        <h2>Wir unterstützen dich!</h2>
+        <div class="trainer-card">
+          <h3>Dein individueller Trainingsplan</h3>
+          <div class="trainer-info">
+            <p>
+              Halbmarathon laufen, 10 Kilo abnehmen, 100 Liegestütze schaffen:
+              Verfolgst du auch ein bestimmtes Trainingsziel? Dann brauchst du
+              einen Plan! Wir stellen für dich einen individuellen Trainingsplan
+              zusammen mit Übungen zum Muskeln aufbauen, Abnehmen und für mehr
+              Ausdauer!
+            </p>
+          </div>
+          <img src="../src/assets/pictures/trainer.jpg" alt="Trainer" class="trainer-image" />
+          <button class="book-button">Mein Trainingsplan ➔</button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="footer text-center">
+      <section class="mb-5">
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-8">
+            <div class="logo-text-container d-flex align-items-center">
+              <img src="../src/assets/pictures/FlexiFitLogo.jpg" alt="FlexiFit Logo" height="60" />
+            </div>
+            <div class="text-content ms-3">
+              <p>Stay Flexi!</p>
+              <p>Sport, der zu deinem Leben passt!</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <hr class="footer-divider" />
+
+      <div class="row text-center d-flex justify-content-center pt-3">
+        <div class="col-md-2">
+          <h6><a href="#">Preise</a></h6>
+        </div>
+        <div class="col-md-2">
+          <h6><a href="#">Studio</a></h6>
+        </div>
+        <div class="col-md-2">
+          <h6><a href="#">Kursangebote</a></h6>
+        </div>
+        <div class="col-md-2">
+          <h6><a href="#">Mein Trainingsplan</a></h6>
+        </div>
+        <div class="col-md-2">
+          <h6><a href="#">Kontakt</a></h6>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
