@@ -46,7 +46,13 @@ module.exports = {
     *    (See https://sailsjs.com/config/datastores for help.)                 *
     *                                                                          *
     ***************************************************************************/
+    
     default: {
+        adapter: 'sails-mysql',
+        host: '193.196.53.194',
+        port: 33061,
+        user: 'user7_prod', 
+        database: 'flexfit_prod' 
       // adapter: 'sails-mysql',
       // url: 'mysql://user:password@host:port/database',
       //--------------------------------------------------------------------------
@@ -256,6 +262,8 @@ module.exports = {
   ***************************************************************************/
   sockets: {
 
+    onlyAllowOrigins: [ ],
+
     /***************************************************************************
     *                                                                          *
     * Uncomment the `onlyAllowOrigins` whitelist below to configure which      *
@@ -340,7 +348,7 @@ module.exports = {
     * (https://sailsjs.com/config/http)                                        *
     *                                                                          *
     ***************************************************************************/
-    // trustProxy: true,
+    trustProxy: true,
 
   },
 
@@ -355,7 +363,7 @@ module.exports = {
   * this, just try deploying without setting it and see if it works.)       *
   *                                                                         *
   ***************************************************************************/
-  // port: 80,
+  port: 10000,
 
 
 

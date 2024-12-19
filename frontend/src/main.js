@@ -7,6 +7,16 @@ import Aura from '@primevue/themes/aura';
 import router from './router/index.js'
 import '@/components/style.css'
 
+
+if (!import.meta.env.PROD) {
+    console.log("--> Development Mode")
+    axios.defaults.baseURL = "http://localhost:1337";
+    } else {
+    console.log("--> Production Mode")
+    axios.defaults.baseURL = "/";
+    }
+    axios.defaults.withCredentials = true;
+
 const app = createApp(App);
 // app.use(PrimeVue, {
 //     theme: {
