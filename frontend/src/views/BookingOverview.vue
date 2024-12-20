@@ -22,11 +22,6 @@ const currentDate = ref({
 });
 
 
-//navigiert zur Bearbeitungsseite eines Kurses
-function goToEditing(id) {
-  router.push(`/kursangebote/booking/${id}/edit`);
-}
-
 // Kurse nach Wochentagen filtern + Suche
 const filteredKurse = computed(() => {
   if (searchQuery.value) {
@@ -106,45 +101,6 @@ const selectDay = (day) => {
   activeDay.value = day;
 };
 
-const showDeletePopup = ref(false);
-const kursToDelete = ref(null);
-
-const openDeletePopup = (id) => {
-  kursToDelete.value = id;
-  showDeletePopup.value = true;
-};
-
-//Kurs löschen bestätigen
-const confirmDelete = async () => {
-  if (!kursToDelete.value) return;
-  try {
-    await apiCall({
-      method: 'DELETE',
-      url: `/delete/kurs/${kursToDelete.value}`,
-    });
-    console.log('Kurs wurde gelöscht:', kursToDelete.value);
-
-    const day = activeDay.value; // Aktiver Tag (z. B. "Mo")
-    if (kurseByDay.value[day]) {
-      kurseByDay.value[day] = kurseByDay.value[day].filter(
-          (kurs) => kurs.id !== kursToDelete.value
-      );
-    }
-
-    kursToDelete.value = null; // Zurücksetzen
-    showDeletePopup.value = false; // Popup schließen
-    await onMounted(); // Kurse neu laden
-
-  } catch (error) {
-    console.error('Fehler beim Löschen des Kurses:', error);
-  }
-};
-
-//Kurs löschen abbrechen
-const cancelDelete = () => {
-  kursToDelete.value = null; // Zurücksetzen
-  showDeletePopup.value = false; // Popup schließen
-};
 
 // Aktuellen Tag ermitteln
 const isCurrentDay = (index) => {
@@ -173,10 +129,10 @@ const openLoginPopup = () => {
 };
 
 const redirectToLogin = () => {
-  router.push('/login');
-}
-
+  router.push('/login/mitglied');
+};
 </script>
+
 <template>
   <section class="booking-overview-section">
     <div class="header">
@@ -208,11 +164,6 @@ const redirectToLogin = () => {
     <div class="container">
       <div class="row g-4 justify-content-center">
         <div
-            v-if="showDeletePopup"
-            class="popup-backdrop"
-        >
-        </div>
-        <div
             v-for="kurs in filteredKurse"
             :key="kurs.id"
             class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3"
@@ -224,9 +175,9 @@ const redirectToLogin = () => {
               <div class="trainer-time">
                 <p><span class="course-label">Trainer: </span> {{getFullName(kurs.trainer)}}</p>
                 <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
-                <button @click="openLoginPopup" class="book-button">Buchen</button>
+<!--                <button @click="openLoginPopup" class="book-button">Buchen</button>-->
               </div>
-              <!-- <RouterLink  class="book-button" :to="`/kursangebote/kurs/${kurs.id}`">Buchen</RouterLink> -->
+               <RouterLink  class="book-button" :to="`/kursangebote/kurs/${kurs.id}`">Buchen</RouterLink>
               
             </div>
           </div>

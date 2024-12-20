@@ -6,12 +6,13 @@ import BookingOverView from '@/views/BookingOverView.vue';
 import KursEntry from '@/components/KursEntry.vue';
 import NewKursView from '@/views/NewKursView.vue';
 import EditView from '@/views/EditView.vue';
-import LoginView from "@/views/LoginView.vue";
+import LoginTrainerView from "@/views/LoginTrainerView.vue";
 import LoginSucessView from "@/views/LoginSucessView.vue";
 import TrainerView from "@/views/TrainerView.vue";
 import BookingOverview from "@/views/BookingOverview.vue";
 import CourseDetailView from "@/views/CourseDetailView.vue";
 import LoginMitgliedView from '@/views/LoginMitgliedView.vue';
+import LoginMitgliedSuccess from "@/views/LoginMitgliedSuccess.vue";
 
 
 const routes = [
@@ -64,7 +65,12 @@ const routes = [
   {
     path: '/login',
     name: 'LoginView',
-    component: LoginView,
+    component: LoginTrainerView,
+  },
+  {
+    path: '/login/mitglied',
+    name: 'LoginMitgliedView',
+    component: LoginMitgliedView
   },
 
   {
@@ -72,13 +78,11 @@ const routes = [
     name: 'LoginSucessView',
     component: LoginSucessView,
   },
-
   {
-    path: '/login/mitglied',
-    name: 'LoginMitgliedView',
-    component: LoginMitgliedView,
+    path: '/login/sucess/mitglied',
+    name: 'LoginSucessView',
+    component: LoginMitgliedSuccess,
   }
-
 ];
 
 const router = createRouter({

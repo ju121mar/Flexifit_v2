@@ -16,11 +16,12 @@ module.exports.routes = {
   'DELETE /delete/kurs/:id': { controller: 'KursController', action: 'delete' },
   'GET /trainer': { controller: 'TrainerController', action: 'find'},
   'POST /login': {controller: 'LoginController', action: 'login'},
+  'POST /login/mitglied': {controller: 'LoginController', action:'loginmitglied'},
   '/': { view: 'pages/homepage' }
-  
 
 
-/***************************************************************************
+
+  /***************************************************************************
  *                                                                          *
  * Make the view located at `views/homepage.ejs` your home page.            *
  *                                                                          *
@@ -30,7 +31,7 @@ module.exports.routes = {
  ***************************************************************************/
 
 
-/***************************************************************************
+  /***************************************************************************
  *                                                                          *
  * More custom routes here...                                               *
  * (See https://sailsjs.com/config/routes for examples.)                    *

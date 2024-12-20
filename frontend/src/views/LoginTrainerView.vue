@@ -15,7 +15,7 @@ async function login() {
   await trainerStore.signIn(email.value, password.value);
   if (useTrainerStore().trainer) {
     console.log("Logged in");
-    // router.push ('/kursangebote')
+     // router.push ('/kursangebote')
   }
 } catch (error) {
   loginError.value = true;
@@ -34,7 +34,7 @@ async function login() {
       <label for="password">Passwort:</label>
       <input id="password" type="password" v-model="password" placeholder="Passwort eingeben" />
     </div>
-    <button type="submit">Login</button>
+    <button to="/login/success" type="submit">Login</button>
     <a href="/login/success" class="zurueck-button">Zurück</a>
   </form>
   <div v-if="loginError" class="popup">
