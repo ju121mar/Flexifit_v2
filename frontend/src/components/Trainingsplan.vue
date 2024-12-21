@@ -1,0 +1,55 @@
+<script setup>
+import { ref, onMounted } from 'vue';
+import BackButton from './BackButton.vue';
+import PrimaryButton from './PrimaryButton.vue';
+import {useRoute, useRouter} from 'vue-router';
+import axios from 'axios';
+
+
+const router = useRouter();
+function navigateBack() {
+  router.push('/'); 
+}
+
+</script>
+
+<template>
+    <div class="container">
+      <BackButton @click="navigateBack"></BackButton>
+  
+      <div class="button-container">
+        <PrimaryButton class="primarybutton" buttontext="Mein persönlicher Trainingsplan" @click="goToPersonalPlan"></PrimaryButton>
+        <PrimaryButton class="primarybutton" buttontext="Trainingsplan erstellen" @click="createNewPlanPlan"></PrimaryButton>
+      </div>
+    </div>
+  </template>
+  
+  
+  <style scoped>
+  
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f6ebf9;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #d2b4e8;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  </style>
+  

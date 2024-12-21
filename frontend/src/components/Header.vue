@@ -55,7 +55,9 @@
                            to="/kursangebote/booking">Kursangebote</RouterLink>
             </li>
             <li class="nav-item">
-              <RouterLink class="nav-link" to="#">Mein Trainingsplan</RouterLink>
+            <RouterLink  class="nav-link"
+                           :class="{ 'active': $route.path.startsWith('/trainingsplan') }"
+                           to="/trainingsplan">Mein Trainingsplan</RouterLink>
             </li>
           </ul>
         </div>

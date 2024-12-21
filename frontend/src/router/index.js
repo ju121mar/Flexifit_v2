@@ -13,6 +13,7 @@ import BookingOverview from "@/views/BookingOverview.vue";
 import CourseDetailView from "@/views/CourseDetailView.vue";
 import LoginMitgliedView from '@/views/LoginMitgliedView.vue';
 import LoginMitgliedSuccess from "@/views/LoginMitgliedSuccess.vue";
+import Trainingsplan from '@/components/Trainingsplan.vue';
 
 
 const routes = [
@@ -82,6 +83,12 @@ const routes = [
     path: '/login/sucess/mitglied',
     name: 'LoginSucessView',
     component: LoginMitgliedSuccess,
+  },
+
+  {
+    path: '/trainingsplan',
+    name: 'Trainingsplan',
+    component: Trainingsplan,
   }
 ];
 

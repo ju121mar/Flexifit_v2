@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useTrainerStore } from "@/stores/trainer.js";
 import {useRouter} from "vue-router";
 import TrainerView from "@/views/TrainerView.vue";
+import LoginSucessView from "@/views/LoginSucessView.vue";
 
 const trainerStore = useTrainerStore();
 const router = useRouter()
@@ -15,7 +16,6 @@ async function login() {
   await trainerStore.signIn(email.value, password.value);
   if (useTrainerStore().trainer) {
     console.log("Logged in");
-     // router.push ('/kursangebote')
   }
 } catch (error) {
   loginError.value = true;
