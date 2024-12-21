@@ -3,9 +3,9 @@ import { ref, onMounted } from 'vue';
 import {useRoute, useRouter} from 'vue-router';
 import axios from 'axios';
 import {apiCall} from "@/utility/ApiCall.js";
-import PrimaryButton from "@/components/PrimaryButton.vue";
-import SecondaryButton from "@/components/SecondaryButton.vue";
-import BackButton from "@/components/BackButton.vue";
+import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
+import SecondaryButton from "@/components/Buttons/SecondaryButton.vue";
+import BackButton from "@/components/Buttons/BackButton.vue";
 
 const route = useRoute();
 const router = useRouter();

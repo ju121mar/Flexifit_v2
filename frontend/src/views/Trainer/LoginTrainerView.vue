@@ -2,8 +2,8 @@
 import { ref } from 'vue'
 import { useTrainerStore } from "@/stores/trainer.js";
 import {useRouter} from "vue-router";
-import TrainerView from "@/views/TrainerView.vue";
-import LoginSucessView from "@/views/LoginSucessView.vue";
+import TrainerKursansicht from "@/views/Trainer/TrainerKursansicht.vue";
+import LoginTrainerSuccess from "@/views/Trainer/LoginTrainerSuccess.vue";
 
 const trainerStore = useTrainerStore();
 const router = useRouter()

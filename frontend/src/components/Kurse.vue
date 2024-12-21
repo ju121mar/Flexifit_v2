@@ -2,7 +2,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import PrimaryButton from "@/components/PrimaryButton.vue";
+import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
 
 // Daten für die Kurse
 const kurse = ref([

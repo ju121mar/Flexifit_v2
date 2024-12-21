@@ -175,10 +175,10 @@ const redirectToLogin = () => {
               <div class="trainer-time">
                 <p><span class="course-label">Trainer: </span> {{getFullName(kurs.trainer)}}</p>
                 <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
-                <button @click="openLoginPopup" class="book-button">Buchen</button>
+
               </div>
 <!--               <RouterLink  class="book-button" :to="`/kursangebote/kurs/${kurs.id}`">Buchen</RouterLink>-->
-              
+              <button @click="openLoginPopup" class="book-button">Buchen</button>
             </div>
           </div>
         </div>

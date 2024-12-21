@@ -1,18 +1,16 @@
 // src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
-import Startseite from "@/components/Startseite.vue";
+import Startseite from "@/views/Startseite.vue";
 import BookingView from '@/views/BookingView.vue';
-import BookingOverView from '@/views/BookingOverView.vue';
-import KursEntry from '@/components/KursEntry.vue';
-import NewKursView from '@/views/NewKursView.vue';
-import EditView from '@/views/EditView.vue';
-import LoginTrainerView from "@/views/LoginTrainerView.vue";
-import LoginSucessView from "@/views/LoginSucessView.vue";
-import TrainerView from "@/views/TrainerView.vue";
-import BookingOverview from "@/views/BookingOverview.vue";
-import CourseDetailView from "@/views/CourseDetailView.vue";
-import LoginMitgliedView from '@/views/LoginMitgliedView.vue';
-import LoginMitgliedSuccess from "@/views/LoginMitgliedSuccess.vue";
+import NewKursView from '@/views/Trainer/NewKursView.vue';
+import EditKurs from '@/views/Trainer/EditKurs.vue';
+import LoginTrainerView from "@/views/Trainer/LoginTrainerView.vue";
+import LoginTrainerSuccess from "@/views/Trainer/LoginTrainerSuccess.vue";
+import TrainerKursansicht from "@/views/Trainer/TrainerKursansicht.vue";
+import MitgliedKursansicht from "@/views/Mitglied/MitgliedKursansicht.vue";
+import KursDetailansicht from "@/views/Mitglied/KursDetailansicht.vue";
+import LoginMitgliedView from '@/views/Mitglied/LoginMitgliedView.vue';
+import LoginMitgliedSuccess from "@/views/Mitglied/LoginMitgliedSuccess.vue";
 import Trainingsplan from '@/components/Trainingsplan.vue';
 import NewTrainingsplanView from '@/views/NewTrainingsplanView.vue';
 
@@ -33,17 +31,17 @@ const routes = [
   {
     path: '/kursangebote',
     name: 'TrainerView',
-    component: TrainerView,
+    component: TrainerKursansicht,
   },
   {
     path: '/kursangebote/booking',
     name: 'BookingOverview',
-    component: BookingOverview,
+    component: MitgliedKursansicht,
   },
   {
     path: '/kursangebote/kurs/:id',
     name: 'CourseDetailView',
-    component: CourseDetailView,
+    component: KursDetailansicht,
   },
   {
     path: '/kursangebote/new',
@@ -54,7 +52,7 @@ const routes = [
   {
       path: '/kursangebote/booking/:id/edit',
       name: 'EditCourse',
-      component: EditView,
+      component: EditKurs,
   },
 
 
@@ -78,7 +76,7 @@ const routes = [
   {
     path: '/login/sucess',
     name: 'LoginSucessView',
-    component: LoginSucessView,
+    component: LoginTrainerSuccess,
   },
   {
     path: '/login/sucess/mitglied',

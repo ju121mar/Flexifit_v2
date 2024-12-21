@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import BackButton from "@/components/BackButton.vue";
-import PrimaryButton from "@/components/PrimaryButton.vue";
+import BackButton from "@/components/Buttons/BackButton.vue";
+import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
 import NewTrainingsplanView from '@/views/NewTrainingsplanView.vue'
 import {useRoute, useRouter} from 'vue-router';
 import axios from 'axios';
