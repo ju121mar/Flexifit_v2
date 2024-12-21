@@ -82,7 +82,7 @@ const routes = [
   },
   {
     path: '/login/sucess/mitglied',
-    name: 'LoginSucessView',
+    name: 'LoginMitgliedSucess',
     component: LoginMitgliedSuccess,
   },
 

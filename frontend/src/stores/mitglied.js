@@ -14,7 +14,7 @@ export const useMitgliedStore = defineStore("mitglied", {
                 url: '/login/mitglied',
                 data: loginInformation,
             });
-            await router.push('/login/sucess');
+            await router.push('/login/sucess/mitglied');
         },
     }
 });
