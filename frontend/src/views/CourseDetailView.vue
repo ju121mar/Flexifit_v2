@@ -5,10 +5,15 @@ import axios from 'axios';
 import {apiCall} from "@/utility/ApiCall.js";
 import PrimaryButton from "@/components/PrimaryButton.vue";
 import SecondaryButton from "@/components/SecondaryButton.vue";
+import BackButton from "@/components/BackButton.vue";
 
 const route = useRoute();
+const router = useRouter();
 const courseId = route.params.id; // Holt die ID aus der URL
 
+function navigateBack() {
+  router.push('/kursangebote/booking'); 
+}
 
 const kurs = ref(null);
 const loading = ref(true);
@@ -56,7 +61,7 @@ const confirmBooking = () => {
   <section v-else class="kurs-detail">
     <div class="kurs-container" v-if="kurs">
       <!-- Zurück-Link -->
-      <a href="/kursangebote/booking" class="back-link">&lt; Zurück</a>
+      <BackButton @click="navigateBack"></BackButton>
       <div class="date-time">
         <span class="date">{{ kurs.wochentag }}</span>
         <span class="time">{{ kurs.uhrzeit }}</span>
