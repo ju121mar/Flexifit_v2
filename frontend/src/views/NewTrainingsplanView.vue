@@ -24,7 +24,6 @@ const newPlan = ref({
   age: "",
   goal: "",
   level: "",
-  workload: "",
   trainingDays: [] // Liste der ausgewählten Wochentage
 });
 
@@ -51,7 +50,6 @@ const submitForm = async () => {
       age: "",
       goal: "",
       level: "",
-      workload: "",
       trainingDays: []
     };
     planCreated.value = true;

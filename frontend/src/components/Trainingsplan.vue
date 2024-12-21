@@ -2,7 +2,8 @@
 import { ref, onMounted } from 'vue';
 import BackButton from "@/components/Buttons/BackButton.vue";
 import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
-import NewTrainingsplanView from '@/views/NewTrainingsplanView.vue'
+import NewTrainingsplanView from '@/views/NewTrainingsplanView.vue';
+import MeinTrainingsplan from '@/views/Mitglied/MeinTrainingsplan.vue'
 import {useRoute, useRouter} from 'vue-router';
 import axios from 'axios';
 
@@ -14,6 +15,10 @@ function navigateBack() {
 
 function createNewPlan() {
   router.push('/trainingsplan/new'); 
+}
+
+function goToPersonalPlanPlan() {
+  router.push('/trainingsplan/exercise'); 
 }
 
 </script>

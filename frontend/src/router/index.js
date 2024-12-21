@@ -13,6 +13,7 @@ import LoginMitgliedView from '@/views/Mitglied/LoginMitgliedView.vue';
 import LoginMitgliedSuccess from "@/views/Mitglied/LoginMitgliedSuccess.vue";
 import Trainingsplan from '@/components/Trainingsplan.vue';
 import NewTrainingsplanView from '@/views/NewTrainingsplanView.vue';
+import MeinTrainingsplan from '@/views/Mitglied/MeinTrainingsplan.vue';
 
 
 const routes = [
@@ -94,6 +95,12 @@ const routes = [
     path: '/trainingsplan/new',
     name: 'NewTrainingsplan',
     component: NewTrainingsplanView,
+  },
+
+  {
+    path: '/trainigsplan/exercise',
+    name: 'MeinTrainingsplan',
+    component: MeinTrainingsplan,
   }
 ];
 
