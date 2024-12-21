@@ -1,7 +1,8 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import BackButton from './BackButton.vue';
-import PrimaryButton from './PrimaryButton.vue';
+import BackButton from "@/components/BackButton.vue";
+import PrimaryButton from "@/components/PrimaryButton.vue";
+import NewTrainingsplanView from '@/views/NewTrainingsplanView.vue'
 import {useRoute, useRouter} from 'vue-router';
 import axios from 'axios';
 
@@ -9,6 +10,10 @@ import axios from 'axios';
 const router = useRouter();
 function navigateBack() {
   router.push('/'); 
+}
+
+function createNewPlan() {
+  router.push('/trainingsplan/new'); 
 }
 
 </script>
@@ -19,7 +24,7 @@ function navigateBack() {
   
       <div class="button-container">
         <PrimaryButton class="primarybutton" buttontext="Mein persönlicher Trainingsplan" @click="goToPersonalPlan"></PrimaryButton>
-        <PrimaryButton class="primarybutton" buttontext="Trainingsplan erstellen" @click="createNewPlanPlan"></PrimaryButton>
+        <PrimaryButton class="primarybutton" buttontext="Trainingsplan erstellen" @click="createNewPlan"></PrimaryButton>
       </div>
     </div>
   </template>

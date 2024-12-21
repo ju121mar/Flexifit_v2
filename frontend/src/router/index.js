@@ -14,6 +14,7 @@ import CourseDetailView from "@/views/CourseDetailView.vue";
 import LoginMitgliedView from '@/views/LoginMitgliedView.vue';
 import LoginMitgliedSuccess from "@/views/LoginMitgliedSuccess.vue";
 import Trainingsplan from '@/components/Trainingsplan.vue';
+import NewTrainingsplanView from '@/views/NewTrainingsplanView.vue';
 
 
 const routes = [
@@ -89,6 +90,12 @@ const routes = [
     path: '/trainingsplan',
     name: 'Trainingsplan',
     component: Trainingsplan,
+  },
+
+  {
+    path: '/trainingsplan/new',
+    name: 'NewTrainingsplan',
+    component: NewTrainingsplanView,
   }
 ];
 
