@@ -9,6 +9,8 @@
  * https://sailsjs.com/config/bootstrap
  */
 
+const Plan = require("../api/models/Plan");
+
 module.exports.bootstrap = async function() {
 
   // By convention, this is a good place to set up fake data during development.
@@ -334,4 +336,23 @@ module.exports.bootstrap = async function() {
   ]
   );
 
-};
+  await Exercise.createEach([
+    {
+      exercisename: 'Kniebeugen',
+      equipmentname: 'Langhantel',
+      set: '3',
+      rep: '12',
+      setup: 'Langhantel auf Schulterhöhe platzieren, Füße schulterbreit aufstellen.',
+      execution: 'Langsam in die Knie gehen, Rücken gerade halten.'
+    },
+    {
+      exercisename: 'Bankdrücken',
+      equipmentname: 'Langhantel',
+      set: '4',
+      rep: '10',
+      setup: 'Langhantel in Brusthöhe auflegen, Schulterblätter zusammenziehen.',
+      equipment: 'Langhantel, Flachbank',
+      execution: 'Langhantel kontrolliert nach oben drücken.'
+    }
+  ]);
+}
