@@ -9,6 +9,7 @@ import BackButton from "@/components/Buttons/BackButton.vue";
 
 const route = useRoute();
 const router = useRouter();
+const exerciseId = route.params.id;
 
 function navigateBack() {
   router.push('/'); 
@@ -23,28 +24,28 @@ onMounted(async () => {
       method: 'GET',
       url: `/exercises/${exerciseId}`,
     });
-      exercise.value = response;
-      console.log("Übungsdaten geladen:", exercise.value);
+    exercise.value = response; 
+    console.log("Übungsdaten geladen:", exercise.value);
   } catch (error) {
     console.error('Fehler beim Laden der Übungen:', error);
   } finally {
     loading.value = false;
   }
 });
-const showConfirmationModal = ref(false);
+
 
 </script>
 
 <template>
   <div v-if="loading">Daten werden geladen...</div>
   <section v-else class="kurs-detail">
-    <div class="kurs-container" v-if="kurs">
+    <div class="kurs-container" v-if="exercise">
       <!-- Zurück-Link -->
       <BackButton @click="navigateBack"></BackButton>
 
       <!-- Kursinformationen -->
       <div class="kurs-card">
-        <h2 class="kurs-title">{{ exercise.name }}</h2>
+        <!--<h2 class="kurs-title">{{ exercise.exercisename }}</h2>-->
 
         <div class="kurs-info">
           <p><strong>Übung:</strong> {{ exercise.exercisename}}</p>

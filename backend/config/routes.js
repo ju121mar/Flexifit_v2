@@ -17,7 +17,10 @@ module.exports.routes = {
   'GET /trainer': { controller: 'TrainerController', action: 'find'},
   'POST /login': {controller: 'LoginController', action: 'login'},
   'POST /login/mitglied': {controller: 'LoginController', action:'loginmitglied'},
-  '/': { view: 'pages/homepage' }
+  '/': { view: 'pages/homepage' },
+  //'POST /plan/erstellen' : {controller: 'PlanController', action: 'create'}
+  'GET /exercises': { controller: 'ExerciseController', action: 'find' },
+  'GET /exercises/:id': {controller: 'ExerciseController', action: 'findOne'}
 
 
 

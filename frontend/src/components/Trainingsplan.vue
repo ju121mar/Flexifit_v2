@@ -17,8 +17,8 @@ function createNewPlan() {
   router.push('/trainingsplan/new'); 
 }
 
-function goToPersonalPlanPlan() {
-  router.push('/trainingsplan/exercise'); 
+function goToPersonalPlan() {
+  router.push('/trainingsplan/exercise/:id'); 
 }
 
 </script>

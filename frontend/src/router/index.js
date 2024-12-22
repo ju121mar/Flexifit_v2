@@ -98,10 +98,12 @@ const routes = [
   },
 
   {
-    path: '/trainigsplan/exercise',
-    name: 'MeinTrainingsplan',
+    path: '/trainingsplan/exercise/:id',
+    name: 'ExerciseDetail',
     component: MeinTrainingsplan,
   }
+  
+  
 ];
 
 const router = createRouter({
