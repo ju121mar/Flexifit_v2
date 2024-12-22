@@ -53,7 +53,7 @@ const submitForm = async () => {
       trainingDays: []
     };
     planCreated.value = true;
-    router.push("/");
+    router.push("/trainingsplan/exercise/:id");
   } catch (error) {
     console.error("Fehler beim Erstellen des Plans:", error);
   }
@@ -137,7 +137,7 @@ const submitForm = async () => {
         </div>
       </div>
       <button type="submit">Plan erstellen</button>
-      <router-link to="/" class="button zurueck-button">Zurück</router-link>
+      <router-link to="/trainingsplan" class="button zurueck-button">Zurück</router-link>
     </form>
     <div v-if="planCreated" class="success-message">
       <p>Neuer Trainingsplan erstellt!</p>

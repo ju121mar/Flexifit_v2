@@ -9,7 +9,7 @@
  * https://sailsjs.com/config/bootstrap
  */
 
-const Plan = require("../api/models/Plan");
+
 
 module.exports.bootstrap = async function() {
 
