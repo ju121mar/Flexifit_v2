@@ -3,6 +3,8 @@ import { ref, onMounted } from "vue";
 import axios from 'axios'
 import {apiCall} from "@/utility/ApiCall.js";
 import router from "@/router/index.js";
+import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
+import MeinTrainingsplan from '@/views/Mitglied/MeinTrainingsplan.vue'
 //import { useRouter } from "vue-router";
 
 
@@ -27,37 +29,14 @@ const newPlan = ref({
   trainingDays: [] // Liste der ausgewählten Wochentage
 });
 
-// Zustände
-const planCreated = ref(false);
+function createNewPlan() {
+  router.push({
+    path: '/trainingsplan/exercise/:id',
+    query: { level: newPlan.value.level}
+  });
+}
 
 
-// API-Aufruf zur Erstellung des Plans
-const submitForm = async () => {
-  console.log("Formular abgesendet:", newPlan.value);
-
-  try {
-    await apiCall({
-      method: "POST",
-      url: "/plan/erstellen",
-      data: newPlan.value
-    });
-
-    // Formular zurücksetzen
-    newPlan.value = {
-      gender: "",
-      height: "",
-      weight: "",
-      age: "",
-      goal: "",
-      level: "",
-      trainingDays: []
-    };
-    planCreated.value = true;
-    router.push("/trainingsplan/exercise/:id");
-  } catch (error) {
-    console.error("Fehler beim Erstellen des Plans:", error);
-  }
-};
 </script>
 
 <template>
@@ -136,12 +115,9 @@ const submitForm = async () => {
           <label :for="day">{{ day }}</label>
         </div>
       </div>
-      <button type="submit">Plan erstellen</button>
+      <PrimaryButton class="primarybutton" buttontext="Plan erstellen" @click="createNewPlan"></PrimaryButton>
       <router-link to="/trainingsplan" class="button zurueck-button">Zurück</router-link>
     </form>
-    <div v-if="planCreated" class="success-message">
-      <p>Neuer Trainingsplan erstellt!</p>
-    </div>
   </div>
 </template>
 

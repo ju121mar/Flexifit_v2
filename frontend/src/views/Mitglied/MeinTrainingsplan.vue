@@ -16,8 +16,25 @@ const router = useRouter();
 const exerciseId = route.params.id;
 const showDetails = ref([]);
 
+const level = ref (route.query.level || "Anfänger"); //Standardlevel
+
 function navigateBack() {
   router.push('/trainingsplan'); 
+}
+
+//Anpassung Wiederholungen basierend auf Level
+function adjustRepsForLevel (exercises, level) {
+  return exercises.map(exercise => {
+    let adjustedExercise = { ...exercise }; // Kopieren der Übung
+    if (level === "Anfänger") {
+      adjustedExercise.rep = "12"; // Anfänger: 12 Wiederholungen
+    } else if (level === "Fortgeschritten") {
+      adjustedExercise.rep = "10"; // Fortgeschritten: 10 Wiederholungen
+    } else if (level === "Experte") {
+      adjustedExercise.rep = "8"; // Experte: 8 Wiederholungen
+    }
+    return adjustedExercise;
+  });
 }
 
 onMounted(async () => {
@@ -26,7 +43,8 @@ onMounted(async () => {
       method: 'GET',
       url: '/exercises', // Backend-Route, die alle Übungen liefert
     });
-    exercises.value = response;
+    const allExercises = response;
+    exercises.value = adjustRepsForLevel(allExercises, level.value);
     console.log("Übungen geladen:", exercises.value);
     showDetails.value = exercises.value.map(() => false);
   } catch (err) {
