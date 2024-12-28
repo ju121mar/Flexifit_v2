@@ -23,15 +23,18 @@ function navigateBack() {
 }
 
 //Anpassung Wiederholungen basierend auf Level
-function adjustRepsForLevel (exercises, level) {
+function adjustForLevel (exercises, level ) {
   return exercises.map(exercise => {
     let adjustedExercise = { ...exercise }; // Kopieren der Übung
     if (level === "Anfänger") {
       adjustedExercise.rep = "12"; // Anfänger: 12 Wiederholungen
+      adjustedExercise.set = "3";
     } else if (level === "Fortgeschritten") {
       adjustedExercise.rep = "10"; // Fortgeschritten: 10 Wiederholungen
+      adjustedExercise.set = "4"
     } else if (level === "Experte") {
       adjustedExercise.rep = "8"; // Experte: 8 Wiederholungen
+      adjustedExercise.set = "5";
     }
     return adjustedExercise;
   });
@@ -44,7 +47,7 @@ onMounted(async () => {
       url: '/exercises', // Backend-Route, die alle Übungen liefert
     });
     const allExercises = response;
-    exercises.value = adjustRepsForLevel(allExercises, level.value);
+    exercises.value = adjustForLevel(allExercises, level.value);
     console.log("Übungen geladen:", exercises.value);
     showDetails.value = exercises.value.map(() => false);
   } catch (err) {
