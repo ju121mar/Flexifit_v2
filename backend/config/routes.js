@@ -20,7 +20,10 @@ module.exports.routes = {
   '/': { view: 'pages/homepage' },
   //'POST /plan/erstellen' : {controller: 'PlanController', action: 'create'}
   'GET /exercises': { controller: 'ExerciseController', action: 'find' },
-  'GET /exercises/:id': {controller: 'ExerciseController', action: 'findOne'}
+  'GET /exercises/:id': {controller: 'ExerciseController', action: 'findOne'},
+
+  'POST /newBooking': {controller: 'BuchungController', action: 'booking'},
+  'GET /getBookings': {controller: 'BuchungController', action: 'getBookings'}
 
 
 

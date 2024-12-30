@@ -5,6 +5,7 @@ import {apiCall} from "@/utility/ApiCall.js"; // Import the router
 export const useMitgliedStore = defineStore("mitglied", {
     state: () => ({
         mitglied: null,
+        buchungen: [],
     }),
     actions: {
         async signIn(email, password) {
@@ -15,6 +16,12 @@ export const useMitgliedStore = defineStore("mitglied", {
                 data: loginInformation,
             });
             await router.push('/login/sucess/mitglied');
+        },
+        addBuchung(buchung) {
+            this.buchungen.push(buchung);
+        },
+        getBuchungen() {
+            return this.buchungen;
         },
     }
 });

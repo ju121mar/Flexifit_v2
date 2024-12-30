@@ -59,6 +59,11 @@
                            :class="{ 'active': $route.path.startsWith('/trainingsplan') }"
                            to="/trainingsplan">Mein Trainingsplan</RouterLink>
             </li>
+            <li class="nav-item">
+              <RouterLink  class="nav-link"
+                           :class="{ 'active': $route.path.startsWith('/buchungen') }"
+                           to="/buchungen">Meine Buchungen</RouterLink>
+            </li>
           </ul>
         </div>
       </div>
