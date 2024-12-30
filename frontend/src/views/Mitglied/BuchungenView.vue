@@ -29,11 +29,13 @@ async function getBooking() {
     </div>
     <div v-else class="buchungen-container">
       <div v-for="buchung in buchungen" :key="buchung.id" class="buchung-card">
-        <h2>{{ buchung.kurs.kursname }}</h2>
-        <p><strong>Trainer:</strong> {{ buchung.kurs.trainer.firstName }} {{buchung.kurs.trainer.lastName}}</p>
-        <p><strong>Wochentag:</strong> {{ buchung.kurs.wochentag }}</p>
-        <p><strong>Uhrzeit:</strong> {{ buchung.kurs.uhrzeit }}</p>
-        <p><strong>Status:</strong> {{ buchung.kurs.status }}</p>
+        <h2>{{ buchung.kurs.name }}</h2>
+        <div class="buchung-info">
+          <p><strong>Trainer:</strong> {{ buchung.kurs.trainer.firstName }} {{buchung.kurs.trainer.lastName}}</p>
+          <p><strong>Wochentag:</strong> {{ buchung.kurs.wochentag }}</p>
+          <p><strong>Uhrzeit:</strong> {{ buchung.kurs.uhrzeit }}</p>
+          <p><strong>Status:</strong> {{ buchung.kurs.status }}</p>
+        </div>
       </div>
     </div>
   </section>
@@ -42,34 +44,62 @@ async function getBooking() {
 <style scoped>
 .buchungen-seite {
   padding: 20px;
+  background-color: #ffffff;
 }
 
 .buchungen-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Immer zwei Karten nebeneinander */
-  gap: 16px; /* Abstand zwischen den Karten */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
 }
 
 .buchung-card {
-  border: 1px solid #d3bfe3;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #d3bfe3;
   border-radius: 8px;
-  padding: 16px;
-  background-color: #f9f9f9;
+  padding: 15px;
   box-shadow: 0px 4px 8px rgba(112, 48, 160, 0.3);
 }
 
+.buchung-info {
+  display: flex;
+  flex-direction: column;
+}
 
 h1 {
-  font-size: 24px;
-  color: #4a148c;
+  color: #7030a0;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 h2 {
+  color: #444;
+  margin: 0 0 10px 0;
   font-size: 20px;
-  color: #6a1b9a;
 }
 
 p {
-  margin: 4px 0;
+  color: #666;
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+strong {
+  color: #7030a0;
+}
+
+@media (min-width: 992px) {
+  p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .buchungen-container {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
