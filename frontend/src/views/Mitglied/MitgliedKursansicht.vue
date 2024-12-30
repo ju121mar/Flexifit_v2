@@ -177,21 +177,21 @@ const redirectToLogin = () => {
                 <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
 
               </div>
-<!--               <RouterLink  class="book-button" :to="`/kursangebote/kurs/${kurs.id}`">Buchen</RouterLink>-->
-              <button @click="openLoginPopup" class="book-button">Buchen</button>
+               <RouterLink  class="book-button" :to="`/kursangebote/kurs/${kurs.id}`">Buchen</RouterLink>
+<!--              <button @click="openLoginPopup" class="book-button">Buchen</button>-->
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div v-if="showLoginPopup" class="popup-backdrop">
-      <div class="popup">
-        <h2>Zum Buchen anmelden</h2>
-        <p>Bitte melden Sie sich an, um eine Buchung vorzunehmen.</p>
-        <button @click="redirectToLogin" class="confirm-button">Zum Login</button>
-        <button @click="showLoginPopup = false" class="cancel-button">Abbrechen</button>
-      </div>
-    </div>
+<!--    <div v-if="showLoginPopup" class="popup-backdrop">-->
+<!--      <div class="popup">-->
+<!--        <h2>Zum Buchen anmelden</h2>-->
+<!--        <p>Bitte melden Sie sich an, um eine Buchung vorzunehmen.</p>-->
+<!--        <button @click="redirectToLogin" class="confirm-button">Zum Login</button>-->
+<!--        <button @click="showLoginPopup = false" class="cancel-button">Abbrechen</button>-->
+<!--      </div>-->
+<!--    </div>-->
 
   </section>
 </template>

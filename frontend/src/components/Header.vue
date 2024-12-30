@@ -24,7 +24,7 @@
         </a>
         <div class="d-flex align-items-center user-menu-container">
           <!-- User Icon -->
-          <RouterLink to="/login" class="navbar-brand d-lg-block user-icon me-2">
+          <RouterLink to="/login/mitglied" class="navbar-brand d-lg-block user-icon me-2">
             <img src="../assets/pictures/UserIcon.png" alt="User Icon" class="user-icon-img" />
           </RouterLink>
 
