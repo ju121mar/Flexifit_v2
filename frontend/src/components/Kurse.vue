@@ -1,34 +1,62 @@
-
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
-
-// Daten für die Kurse
-const kurse = ref([
-  {
-    id: "001",
-    name: "Yoga Flow",
-    trainer: "Emma Schill",
-    uhrzeit: "8:00 Uhr",
-    description: "Ein Kurs, der Körper und Geist durch fließende Bewegungen und gezielte Atemübungen stärkt und entspannt.",
-  },
-  {
-    id: "002",
-    name: "Balance Pilates",
-    trainer: "Caro Klirr",
-    uhrzeit: "17:00 Uhr",
-    description: "Ein Kurs, der die Tiefenmuskulatur stärkt, die Körperhaltung verbessert und für mehr Flexibilität und Balance sorgt.",
-  },
-]);
+import { apiCall } from "@/utility/ApiCall.js";
 
 const router = useRouter();
+const kurse = ref([]);
 
 function goToBooking(id) {
   router.push(`/booking/${id}`);
-};
+}
 
+onMounted(async () => {
+  await getKurse();
+});
+
+function parseTime(timeStr) {
+  const [hours, minutes] = timeStr.replace(' Uhr', '').split(':').map(Number);
+  return new Date(0, 0, 0, hours, minutes);
+}
+
+function isFutureCourse(kurs) {
+  const now = new Date();
+  const wochentageOrder = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
+  const currentWeekday = wochentageOrder[now.getDay() - 1];
+
+  const kursWochentagIndex = wochentageOrder.indexOf(kurs.wochentag);
+  const currentWochentagIndex = wochentageOrder.indexOf(currentWeekday);
+
+  const daysDiff = (kursWochentagIndex - currentWochentagIndex + 7) % 7;
+
+  const kursTime = parseTime(kurs.uhrzeit);
+  const kursDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysDiff, kursTime.getHours(), kursTime.getMinutes());
+
+  return kursDate > now;
+}
+
+async function getKurse() {
+  const response = await apiCall({
+    url: '/kurse',
+    method: 'GET',
+    params: { limit: 4}
+  });
+
+  const wochentageOrder = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
+
+  const futureKurse = response.filter(isFutureCourse);
+
+  const sortedFutureKurse = futureKurse.sort((a, b) => {
+    const wochentagDiff = wochentageOrder.indexOf(a.wochentag) - wochentageOrder.indexOf(b.wochentag);
+    if (wochentagDiff !== 0) return wochentagDiff;
+    return parseTime(a.uhrzeit) - parseTime(b.uhrzeit);
+  });
+
+  kurse.value = sortedFutureKurse.slice(0, 4); //Hier ändern wie viele Kurse auf der Startseite sein sollen
+}
 </script>
+
 <template>
   <section class="course-section">
     <div class="container">
@@ -43,7 +71,8 @@ function goToBooking(id) {
             <div class="course-info">
               <h3>{{ kurs.name }}</h3>
               <div class="trainer-time">
-                <p><span class="course-label">Trainer: </span>{{ kurs.trainer }}</p>
+                <p><span class="course-label">Trainer: </span>{{ kurs.trainer.firstName  }} {{ kurs.trainer.lastName  }}</p>
+<!--                <p><span class="course-label">Wochentag: </span>{{ kurs.wochentag }}</p>-->
                 <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
               </div>
               <p class="extra-text">
