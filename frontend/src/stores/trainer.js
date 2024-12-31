@@ -6,6 +6,7 @@ export const useTrainerStore = defineStore("trainer", {
     state: () => ({
         trainer: null,
     }),
+    persist: true,
     actions: {
         async signIn(email, password) {
             let loginInformation = {email: email, password: password};

@@ -7,6 +7,7 @@ export const useMitgliedStore = defineStore("mitglied", {
         mitglied: null,
         buchungen: [],
     }),
+    persist: true,
     actions: {
         async signIn(email, password) {
             let loginInformation = {email: email, password: password};

@@ -1,6 +1,24 @@
 <script setup>
+import { useTrainerStore } from "@/stores/trainer.js";
+const trainerStore = useTrainerStore();
+import { useMitgliedStore } from "@/stores/mitglied.js";
+import {computed, onMounted} from "vue";
+import {apiCall} from "@/utility/ApiCall.js";
+const mitgliedStore = useMitgliedStore();
 
+const userType = computed(() => {
+  if (mitgliedStore.mitglied) {
+    return 'mitglied';
+  } else if (trainerStore.trainer) {
+    return 'trainer';
+  } else {
+    return null;
+  }
+});
 
+onMounted(async () => {
+  console.log(userType.value)
+});
 
 </script>
 
@@ -56,11 +74,13 @@
             </li>
             <li class="nav-item">
             <RouterLink  class="nav-link"
+                         v-if="userType === 'mitglied'"
                            :class="{ 'active': $route.path.startsWith('/trainingsplan') }"
                            to="/trainingsplan">Mein Trainingsplan</RouterLink>
             </li>
             <li class="nav-item">
               <RouterLink  class="nav-link"
+                           v-if="userType === 'mitglied'"
                            :class="{ 'active': $route.path.startsWith('/buchungen') }"
                            to="/buchungen">Meine Buchungen</RouterLink>
             </li>
