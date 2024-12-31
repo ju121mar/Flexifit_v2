@@ -4,7 +4,10 @@ const trainerStore = useTrainerStore();
 import { useMitgliedStore } from "@/stores/mitglied.js";
 import {computed, onMounted} from "vue";
 import {apiCall} from "@/utility/ApiCall.js";
+import {useRouter} from "vue-router";
 const mitgliedStore = useMitgliedStore();
+
+const router = useRouter()
 
 const userType = computed(() => {
   if (mitgliedStore.mitglied) {
@@ -19,6 +22,19 @@ const userType = computed(() => {
 onMounted(async () => {
   console.log(userType.value)
 });
+
+async function logout() {
+  console.log("logout")
+  if (userType.value === 'mitglied') {
+    console.log("logout mitglied")
+    await mitgliedStore.logout();
+  } else if (userType.value === 'trainer') {
+    console.log("logout trainer")
+    await trainerStore.logout();
+  }
+  router.push('/');
+
+}
 
 </script>
 
@@ -83,6 +99,10 @@ onMounted(async () => {
                            v-if="userType === 'mitglied'"
                            :class="{ 'active': $route.path.startsWith('/buchungen') }"
                            to="/buchungen">Meine Buchungen</RouterLink>
+            </li>
+            <li class="nav-item">
+              <Button  class="nav-link"
+                          @click="logout">Abmelden</Button>
             </li>
           </ul>
         </div>

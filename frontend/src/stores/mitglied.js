@@ -1,4 +1,4 @@
-import { defineStore } from "pinia";
+import {defineStore} from "pinia";
 import axios from "axios";
 import router from "@/router";
 import {apiCall} from "@/utility/ApiCall.js"; // Import the router
@@ -23,6 +23,13 @@ export const useMitgliedStore = defineStore("mitglied", {
         },
         getBuchungen() {
             return this.buchungen;
+        },
+        async logout() {
+            await apiCall({
+                method: 'GET',
+                url: '/logout'
+            })
+            this.trainer.$reset()
         },
     }
 });

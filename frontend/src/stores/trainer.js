@@ -1,4 +1,4 @@
-import { defineStore } from "pinia";
+import {defineStore} from "pinia";
 import axios from "axios";
 import router from "@/router";
 import {apiCall} from "@/utility/ApiCall.js"; // Import the router
@@ -16,6 +16,13 @@ export const useTrainerStore = defineStore("trainer", {
                 data: loginInformation,
             });
             await router.push('/login/sucess');
+        },
+        async logout() {
+            await apiCall({
+                method: 'GET',
+                url: '/logout'
+            })
+            this.$reset()
         },
     }
 });
