@@ -31,7 +31,7 @@ export const useMitgliedStore = defineStore("mitglied", {
                 method: 'GET',
                 url: '/logout'
             })
-            this.trainer.$reset()
+            this.$reset()
         },
     }
 });
