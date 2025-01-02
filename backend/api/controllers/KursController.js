@@ -2,6 +2,9 @@
 module.exports = {
 
   create: async function (req, res) {
+    if (!req.session || !req.session.trainerId || req.session.mitgliedId){
+      return res.sendStatus(401);
+    }
     sails.log.debug("Create course....");
     let params = req.allParams();
     await Kurs.create(params);
@@ -29,6 +32,9 @@ module.exports = {
   },
 
   update: async function (req, res) {
+    if (!req.session || !req.session.trainerId || req.session.mitgliedId){
+      return res.sendStatus(401);
+    }
     const kursId = req.params.id;
     const kurs = req.body;
     try {
@@ -41,6 +47,9 @@ module.exports = {
   },
 
   delete: async function (req, res) {
+    if (!req.session || !req.session.trainerId || req.session.mitgliedId){
+      return res.sendStatus(401);
+    }
     const kursId = req.params.id;
     try {
       const deletedKurs = await Kurs.destroyOne({ id: kursId });

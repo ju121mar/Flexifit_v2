@@ -2,10 +2,12 @@
 import {ref, computed, onMounted} from 'vue';
 import {useRouter} from 'vue-router';
 import {apiCall} from "@/utility/ApiCall.js";
+import {useMitgliedStore} from "@/stores/mitglied.js";
 
 const weekdays = ref(["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]);
 const activeDay = ref(null);
 const kurseByDay = ref({});
+const mitgliedStore = useMitgliedStore();
 
 const router = useRouter();
 
@@ -161,6 +163,7 @@ const redirectToLogin = () => {
       </div>
     </div>
 
+    <section class="course-section">
     <div class="container">
       <div class="row g-4 justify-content-center">
         <div
@@ -169,21 +172,25 @@ const redirectToLogin = () => {
             class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3"
         >
           <div class="course-card">
-            <!--            <img src="@/assets/pictures/Yoga.jpg" :alt="kurs.name" class="course-image"/>-->
+<!--                        <img src="@/assets/pictures/Yoga.jpg" :alt="kurs.name" class="course-image"/>-->
             <div class="course-info">
               <h3>{{ kurs.name }}</h3>
               <div class="trainer-time">
                 <p><span class="course-label">Trainer: </span> {{getFullName(kurs.trainer)}}</p>
                 <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
-
               </div>
-               <RouterLink  class="book-button" :to="`/kursangebote/kurs/${kurs.id}`">Buchen</RouterLink>
+                <p class="extra-text">
+                  <span class="course-label">Beschreibung:</span>
+                  {{ kurs.description }}
+                </p>
+              </div>
+               <RouterLink  class="book-button" v-if='mitgliedStore.mitglied' :to="`/kursangebote/kurs/${kurs.id}`">Buchen</RouterLink>
 <!--              <button @click="openLoginPopup" class="book-button">Buchen</button>-->
             </div>
           </div>
         </div>
       </div>
-    </div>
+        </section>
 <!--    <div v-if="showLoginPopup" class="popup-backdrop">-->
 <!--      <div class="popup">-->
 <!--        <h2>Zum Buchen anmelden</h2>-->
@@ -199,7 +206,40 @@ const redirectToLogin = () => {
 
 <style scoped>
 
+.course-section {
+  width: 100%;
+  padding: 20px;
+  background-color: #ffffff;
+  text-align: center;
+  margin: 20px 0;
+}
+.course-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid #d3bfe3;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0px 4px 8px rgba(112, 48, 160, 0.3);
+  height: 150px;
+}
 
+.course-info {
+  flex: 1;
+  text-align: left;
+}
+
+.course-info h3 {
+  color: #444;
+  margin: 0;
+  font-size: 20px;
+}
+
+.trainer-time {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
 .popup-backdrop {
   position: fixed;
   top: 0;
@@ -262,33 +302,24 @@ const redirectToLogin = () => {
 .cancel-button:hover {
   background: #bbb;
 }
+.extra-text {
+  display: none;
+}
+@media (min-width: 992px) {
+  .extra-text {
+    display: block;
+    color: #666;
+    font-size: 14px;
+    margin-top: 8px;
+  }
 
-.course-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: 2px solid #d3bfe3;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0px 4px 8px rgba(112, 48, 160, 0.3);
+  .course-info p {
+    font-size: 18px;
+  }
 }
 
-.course-info {
-  flex: 1;
-  text-align: left;
-}
 
-.course-info h3 {
-  color: #444;
-  margin: 0;
-  font-size: 20px;
-}
 
-.trainer-time {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
 
 .course-info p {
   color: #666;
