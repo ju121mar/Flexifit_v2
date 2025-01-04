@@ -12,7 +12,7 @@ function navigateToTrainerView() {
 <template>
   <form class="kurs-form">
     <div class="kurs-group">
-      Trainerlogin erfolgreich.
+      Mitgliedlogin erfolgreich.
       <p v-if="mitgliedStore.mitglied">
         Hallo, {{ mitgliedStore.mitglied.firstName}} {{ mitgliedStore.mitglied.lasttName}}! Stay Flexi!
       </p>

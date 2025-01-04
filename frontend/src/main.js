@@ -7,7 +7,7 @@ import Aura from '@primevue/themes/aura';
 import router from './router/index.js'
 import '@/components/style.css'
 import axios from 'axios'
-
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 if (!import.meta.env.PROD) {
     console.log("--> Development Mode")
@@ -25,6 +25,7 @@ const app = createApp(App);
 //     }
 // });
 const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate)
 app.use(router)
 app.use(pinia)
 app.mount('#app')

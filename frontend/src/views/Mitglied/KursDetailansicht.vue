@@ -6,7 +6,9 @@ import {apiCall} from "@/utility/ApiCall.js";
 import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
 import SecondaryButton from "@/components/Buttons/SecondaryButton.vue";
 import BackButton from "@/components/Buttons/BackButton.vue";
+import { useMitgliedStore } from "@/stores/mitglied.js";
 
+const mitgliedStore = useMitgliedStore();
 const route = useRoute();
 const router = useRouter();
 const courseId = route.params.id; // Holt die ID aus der URL
@@ -48,10 +50,36 @@ onMounted(async () => {
 });
 const showConfirmationModal = ref(false);
 
-// Buchung bestätigen
-const confirmBooking = () => {
+// // Buchung bestätigen
+// const confirmBooking = () => {
+//   showConfirmationModal.value = false;
+//   alert("Der Kurs wurde erfolgreich gebucht!");
+// };
+const confirmBooking = async () => {
+  // const buchung = {
+  //   id: kurs.value.id,
+  //   kursname: kurs.value.name,
+  //   trainer: kurs.value.trainer.firstName + ' ' + kurs.value.trainer.lastName,
+  //   datum: kurs.value.wochentag,
+  //   uhrzeit: kurs.value.uhrzeit,
+  //   status: 'Bestätigung ausstehend',
+  // };
+  //
+  // mitgliedStore.addBuchung(buchung); // Buchung speichern
+
+  try {
+    await apiCall({
+      url: 'newBooking',
+      method: 'POST',
+      data: {
+        kurs: kurs.value.id
+      }
+    });
+  } catch (e) {
+    console.log(e)
+  }
   showConfirmationModal.value = false;
-  alert("Der Kurs wurde erfolgreich gebucht!");
+  router.push('/buchungen'); // Weiterleitung zur Buchungsseite
 };
 
 </script>

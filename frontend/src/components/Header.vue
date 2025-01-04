@@ -1,6 +1,40 @@
 <script setup>
+import { useTrainerStore } from "@/stores/trainer.js";
+const trainerStore = useTrainerStore();
+import { useMitgliedStore } from "@/stores/mitglied.js";
+import {computed, onMounted} from "vue";
+import {apiCall} from "@/utility/ApiCall.js";
+import {useRouter} from "vue-router";
+const mitgliedStore = useMitgliedStore();
 
+const router = useRouter()
 
+const userType = computed(() => {
+  if (mitgliedStore.mitglied) {
+    return 'mitglied';
+  } else if (trainerStore.trainer) {
+    return 'trainer';
+  } else {
+    return null;
+  }
+});
+
+onMounted(async () => {
+  console.log(userType.value)
+});
+
+async function logout() {
+  console.log("logout")
+  if (userType.value === 'mitglied') {
+    console.log("logout mitglied")
+    await mitgliedStore.logout();
+  } else if (userType.value === 'trainer') {
+    console.log("logout trainer")
+    await trainerStore.logout();
+  }
+  router.push('/');
+
+}
 
 </script>
 
@@ -24,7 +58,7 @@
         </a>
         <div class="d-flex align-items-center user-menu-container">
           <!-- User Icon -->
-          <RouterLink to="/login" class="navbar-brand d-lg-block user-icon me-2">
+          <RouterLink to="/login/mitglied" class="navbar-brand d-lg-block user-icon me-2">
             <img src="../assets/pictures/UserIcon.png" alt="User Icon" class="user-icon-img" />
           </RouterLink>
 
@@ -56,8 +90,19 @@
             </li>
             <li class="nav-item">
             <RouterLink  class="nav-link"
+                         v-if="userType === 'mitglied'"
                            :class="{ 'active': $route.path.startsWith('/trainingsplan') }"
                            to="/trainingsplan">Mein Trainingsplan</RouterLink>
+            </li>
+            <li class="nav-item">
+              <RouterLink  class="nav-link"
+                           v-if="userType === 'mitglied'"
+                           :class="{ 'active': $route.path.startsWith('/buchungen') }"
+                           to="/buchungen">Meine Buchungen</RouterLink>
+            </li>
+            <li class="nav-item">
+              <Button  class="nav-link"
+                          @click="logout">Abmelden</Button>
             </li>
           </ul>
         </div>

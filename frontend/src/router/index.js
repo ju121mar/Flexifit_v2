@@ -14,6 +14,7 @@ import LoginMitgliedSuccess from "@/views/Mitglied/LoginMitgliedSuccess.vue";
 import Trainingsplan from '@/components/Trainingsplan.vue';
 import NewTrainingsplanView from '@/views/NewTrainingsplanView.vue';
 import MeinTrainingsplan from '@/views/Mitglied/MeinTrainingsplan.vue';
+import BuchungenView from "@/views/Mitglied/BuchungenView.vue";
 
 
 const routes = [
@@ -101,8 +102,15 @@ const routes = [
     path: '/trainingsplan/exercise/:id',
     name: 'ExerciseDetail',
     component: MeinTrainingsplan,
-  }
-  
+  },
+  {
+    path: '/buchungen',
+    component: BuchungenView
+  },
+  {
+    path: '/kurs/:id',
+    component: KursDetailansicht
+  },
   
 ];
 

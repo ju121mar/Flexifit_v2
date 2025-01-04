@@ -17,6 +17,15 @@ module.exports = {
     req.session.trainer = trainer;
     return res.json(trainer);
   },
+  logout: async function (req, res) {
+    req.session.destroy(function(err) {
+      if (err) {
+        return res.serverError(err);
+      }
+      res.clearCookie('sails.sid');
+      return res.ok();
+    });
+  },
   loginmitglied: async function (req, res) {
     let params = req.body;
     let mitglied = await Mitglied.findOne({

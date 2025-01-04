@@ -44,9 +44,36 @@ async function login() {
       <button @click="loginError = false">OK</button>
     </div>
     </div>
+  <div class="additional-links">
+    <a href="/login/mitglied" class="text-link">Mitglied Login</a>
+    <span>|</span>
+    <a href="/login/rezeptionist" class="text-link">Rezeptionist Login</a>
+  </div>
 </template>
 
 <style scoped>
+.additional-links {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.text-link {
+  color: #6a2c91;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.text-link:hover {
+  color: #d8b5ea;
+}
+
+/* Separator Styling */
+.additional-links span {
+  margin: 0 10px;
+  color: #6a2c91;
+}
 .kurs-form {
   max-width: 400px;
   margin: 20px auto;

@@ -1,11 +1,15 @@
-import { defineStore } from "pinia";
+import {defineStore} from "pinia";
 import axios from "axios";
 import router from "@/router";
 import {apiCall} from "@/utility/ApiCall.js"; // Import the router
 export const useMitgliedStore = defineStore("mitglied", {
     state: () => ({
         mitglied: null,
+        buchungen: [],
     }),
+    persist: {
+        storage: sessionStorage,
+    },
     actions: {
         async signIn(email, password) {
             let loginInformation = {email: email, password: password};
@@ -15,6 +19,19 @@ export const useMitgliedStore = defineStore("mitglied", {
                 data: loginInformation,
             });
             await router.push('/login/sucess/mitglied');
+        },
+        addBuchung(buchung) {
+            this.buchungen.push(buchung);
+        },
+        getBuchungen() {
+            return this.buchungen;
+        },
+        async logout() {
+            await apiCall({
+                method: 'GET',
+                url: '/logout'
+            })
+            this.$reset()
         },
     }
 });
