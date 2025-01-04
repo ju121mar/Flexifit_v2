@@ -69,7 +69,7 @@ function toggleDetails(index) {
     <div v-else-if="error">{{ error }}</div>
     <section v-else class = "exercise-container">
             <BackButton @click="navigateBack"></BackButton> 
-      <div v-for="exercise in exercises" :key="exercise.id" class="exercise-card">
+      <div v-for="(exercise, index) in exercises" :key="exercise.id" class="exercise-card">
         <h2>{{ exercise.exercisename }}</h2>
         <p><strong>Gerätename:</strong> {{ exercise.equipmentname }}</p>
         <p><strong>Sätze:</strong> {{ exercise.set }}</p>
