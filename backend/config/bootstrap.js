@@ -343,7 +343,8 @@ module.exports.bootstrap = async function() {
       set: '3',
       rep: '12',
       setup: 'Langhantel auf Schulterhöhe platzieren, Füße schulterbreit aufstellen.',
-      execution: 'Langsam in die Knie gehen, Rücken gerade halten.'
+      execution: 'Langsam in die Knie gehen, Rücken gerade halten.',
+      weekday: 'Montag'
     },
     {
       exercisename: 'Bankdrücken',
@@ -352,7 +353,8 @@ module.exports.bootstrap = async function() {
       rep: '10',
       setup: 'Langhantel in Brusthöhe auflegen, Schulterblätter zusammenziehen.',
       equipment: 'Langhantel, Flachbank',
-      execution: 'Langhantel kontrolliert nach oben drücken.'
+      execution: 'Langhantel kontrolliert nach oben drücken.',
+      weekday:'Dienstag'
     }
   ]);
 }

@@ -8,6 +8,7 @@ module.exports = {
       rep: {type: 'string', columnType: 'varchar(80)', required: true},
       setup: {type: 'string', columnType: 'varchar(300)', required: true},
       execution:{type: 'string', columnType: 'varchar(300)', required: true},
+      weekday:{type: 'string',columnType: 'varchar(80)', required: true}
     },
   };
   

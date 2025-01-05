@@ -1,37 +1,58 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import {useRoute, useRouter} from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
-import {apiCall} from "@/utility/ApiCall.js";
-import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
-import SecondaryButton from "@/components/Buttons/SecondaryButton.vue";
+import { apiCall } from "@/utility/ApiCall.js";
 import BackButton from "@/components/Buttons/BackButton.vue";
-
 
 const exercises = ref([]);
 const loading = ref(true);
 const error = ref(null);
 const route = useRoute();
 const router = useRouter();
-const exerciseId = route.params.id;
 const showDetails = ref([]);
+const level = ref(route.query.level || "Anfänger"); // Standardlevel
 
-const level = ref (route.query.level || "Anfänger"); //Standardlevel
+const currentDate = ref({
+  date: new Date().toLocaleDateString("de-DE", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  }),
+  time: new Date().toLocaleTimeString("de-DE", {
+    hour: "2-digit",
+    minute: "2-digit",
+  }),
+});
 
-function navigateBack() {
-  router.push('/trainingsplan'); 
+// Wochentage und Logik
+const weekdays = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
+const activeDay = ref(new Date().toLocaleDateString("de-DE", { weekday: "short" }));
+
+function selectDay(day) {
+  activeDay.value = day;
 }
 
-//Anpassung Wiederholungen basierend auf Level
-function adjustForLevel (exercises, level ) {
-  return exercises.map(exercise => {
+function isCurrentDay(index) {
+  const currentDayIndex = new Date().getDay() - 1; // JavaScript: Sonntag = 0
+  return index === (currentDayIndex < 0 ? 6 : currentDayIndex);
+}
+
+// Navigation zurück
+function navigateBack() {
+  router.push("/trainingsplan");
+}
+
+// Anpassung der Wiederholungen basierend auf dem Level
+function adjustForLevel(exercises, level) {
+  return exercises.map((exercise) => {
     let adjustedExercise = { ...exercise }; // Kopieren der Übung
     if (level === "Anfänger") {
       adjustedExercise.rep = "12"; // Anfänger: 12 Wiederholungen
       adjustedExercise.set = "3";
     } else if (level === "Fortgeschritten") {
       adjustedExercise.rep = "10"; // Fortgeschritten: 10 Wiederholungen
-      adjustedExercise.set = "4"
+      adjustedExercise.set = "4";
     } else if (level === "Experte") {
       adjustedExercise.rep = "8"; // Experte: 8 Wiederholungen
       adjustedExercise.set = "5";
@@ -43,16 +64,16 @@ function adjustForLevel (exercises, level ) {
 onMounted(async () => {
   try {
     const response = await apiCall({
-      method: 'GET',
-      url: '/exercises', // Backend-Route, die alle Übungen liefert
+      method: "GET",
+      url: "/exercises", // Backend-Route, die alle Übungen liefert
     });
     const allExercises = response;
     exercises.value = adjustForLevel(allExercises, level.value);
     console.log("Übungen geladen:", exercises.value);
     showDetails.value = exercises.value.map(() => false);
   } catch (err) {
-    console.error('Fehler beim Laden der Übungen:', err);
-    error.value = 'Fehler beim Laden der Übungen.';
+    console.error("Fehler beim Laden der Übungen:", err);
+    error.value = "Fehler beim Laden der Übungen.";
   } finally {
     loading.value = false;
   }
@@ -61,34 +82,44 @@ onMounted(async () => {
 function toggleDetails(index) {
   showDetails.value[index] = !showDetails.value[index]; // Umschalten des Detailzustands
 }
-
 </script>
 
-  <template>
-    <div v-if="loading">Daten werden geladen...</div>
-    <div v-else-if="error">{{ error }}</div>
-    <section v-else class = "exercise-container">
-            <BackButton @click="navigateBack"></BackButton> 
-      <div v-for="(exercise, index) in exercises" :key="exercise.id" class="exercise-card">
-        <h2>{{ exercise.exercisename }}</h2>
-        <p><strong>Gerätename:</strong> {{ exercise.equipmentname }}</p>
-        <p><strong>Sätze:</strong> {{ exercise.set }}</p>
-        <p><strong>Wiederholungen:</strong> {{ exercise.rep }}</p>
-        <!-- Detailinformationen -->
+<template>
+  <div v-if="loading">Daten werden geladen...</div>
+  <div v-else-if="error">{{ error }}</div>
+  <section v-else class="exercise-container">
+    <div class="header-controls">
+      <BackButton @click="navigateBack"></BackButton>
+      <span class="current-date">{{ currentDate.date }}</span>
+      <span class="current-time">{{ currentDate.time }}</span>
+    </div>
+    <div class="date-picker">
+      <div class="weekdays">
+        <span
+          v-for="(day, index) in weekdays"
+          :key="index"
+          :class="['day-button', { 'current-day': isCurrentDay(index), 'active-day': activeDay === day }]"
+          @click="selectDay(day)"
+        >
+          {{ day }} <span v-if="isCurrentDay(index)">(heute)</span>
+        </span>
+      </div>
+    </div>
+    <div v-for="(exercise, index) in exercises" :key="exercise.id" class="exercise-card">
+      <h2>{{ exercise.exercisename }}</h2>
+      <p><strong>Gerätename:</strong> {{ exercise.equipmentname }}</p>
+      <p><strong>Sätze:</strong> {{ exercise.set }}</p>
+      <p><strong>Wiederholungen:</strong> {{ exercise.rep }}</p>
       <div v-if="showDetails[index]">
         <p><strong>Setup:</strong> {{ exercise.setup }}</p>
         <p><strong>Ausführung:</strong> {{ exercise.execution }}</p>
       </div>
-
-      <!-- Button zum Anzeigen/Verbergen der Details -->
       <button class="detail-button" @click="toggleDetails(index)">
         {{ showDetails[index] ? 'Details verbergen' : 'Details anzeigen' }}
       </button>
-      </div>
-    </section>
-  </template>
-  
-  
+    </div>
+  </section>
+</template>
 
 
   <style scoped>
@@ -166,5 +197,55 @@ function toggleDetails(index) {
   color: #7030a0; /* Lila Schrift */
   border: 2px solid #7030a0; /* Lila Umrandung */
 }
+
+.header-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.current-date, .current-time {
+  color: #d8b5ea;
+  font-weight: bold;
+  display: block;
+  font-size: 18px;
+  text-align: center;
+}
+
+.weekdays {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.day-button {
+  padding: 10px 15px;
+  border: 2px solid #7030a0;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: #7030a0;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.day-button:hover {
+  background-color: #f3e7fc;
+}
+
+.current-day {
+  background-color: #7030a0;
+  color: #ffffff;
+}
+
+.active-day {
+  border: 2px solid #4e216c;
+  background-color: #d8b5ea;
+}
+
+
   </style>
   
