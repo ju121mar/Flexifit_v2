@@ -183,9 +183,10 @@ const redirectToLogin = () => {
                   <span class="course-label">Beschreibung:</span>
                   {{ kurs.description }}
                 </p>
-              </div>
+
                <RouterLink  class="book-button" v-if='mitgliedStore.mitglied' :to="`/kursangebote/kurs/${kurs.id}`">Buchen</RouterLink>
 <!--              <button @click="openLoginPopup" class="book-button">Buchen</button>-->
+            </div>
             </div>
           </div>
         </div>
@@ -221,7 +222,7 @@ const redirectToLogin = () => {
   border-radius: 8px;
   padding: 10px;
   box-shadow: 0px 4px 8px rgba(112, 48, 160, 0.3);
-  height: 150px;
+  height: 170px;
 }
 
 .course-info {
@@ -318,9 +319,6 @@ const redirectToLogin = () => {
   }
 }
 
-
-
-
 .course-info p {
   color: #666;
   margin: 5px 0;
@@ -363,7 +361,6 @@ const redirectToLogin = () => {
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-size: 22px;
-  margin-right: 20px;
 }
 
 .book-button:hover {

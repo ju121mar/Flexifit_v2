@@ -15,6 +15,8 @@ import Trainingsplan from '@/components/Trainingsplan.vue';
 import NewTrainingsplanView from '@/views/NewTrainingsplanView.vue';
 import MeinTrainingsplan from '@/views/Mitglied/MeinTrainingsplan.vue';
 import BuchungenView from "@/views/Mitglied/BuchungenView.vue";
+import LoginRezeptionistView from "@/views/Rezeptionist/LoginRezeptionistView.vue";
+import LoginRezeptionistSuccess from "@/views/Rezeptionist/LoginRezeptionistSuccess.vue";
 
 
 const routes = [
@@ -74,6 +76,11 @@ const routes = [
     name: 'LoginMitgliedView',
     component: LoginMitgliedView
   },
+  {
+    path: '/login/rezeptionist',
+    name: 'LoginRezeptionistView',
+    component: LoginRezeptionistView
+  },
 
   {
     path: '/login/sucess',
@@ -84,6 +91,11 @@ const routes = [
     path: '/login/sucess/mitglied',
     name: 'LoginMitgliedSucess',
     component: LoginMitgliedSuccess,
+  },
+  {
+    path: '/login/sucess/rezeptionist',
+    name: 'LoginRezeptionistSucess',
+    component: LoginRezeptionistSuccess,
   },
 
   {

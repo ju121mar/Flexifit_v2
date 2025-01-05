@@ -43,6 +43,24 @@ module.exports = {
     req.session.mitgliedId = mitglied.id;
     req.session.mitglied = mitglied;
     return res.json(mitglied);
+  },
+  loginrezeptionist: async function (req, res){
+    let params = req.body;
+    let rezeptionist = await Rezeptionist.findOne({
+      email: params.email,
+    });
+    // If there was no matching user, respond thru the "badCombo" exit.
+    if (!rezeptionist) {
+      throw 'badCombo';
+    }
+    // If the password doesn't match, then also exit thru "badCombo".
+    await sails.helpers.passwords
+      .checkPassword(params.password, rezeptionist.password)
+      .intercept('incorrect', 'badCombo');
+    // Modify the active session instance.
+    req.session.rezeptionistId = rezeptionist.id;
+    req.session.rezeptionist = rezeptionist;
+    return res.json(rezeptionist);
   }
   // ,
   // register: async function (req, res) {

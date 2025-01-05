@@ -121,6 +121,34 @@ module.exports.bootstrap = async function() {
       password:await sails.helpers.passwords.hashPassword('abc123')
     }
   ]);
+
+  await Rezeptionist.createEach([
+    {
+      firstName: 'Maria',
+      lastName: 'Schmidt',
+      email: 'maria.schmidt@example.com',
+      password: await sails.helpers.passwords.hashPassword('123abc'),
+      phoneNumber: '+49123456789',
+      isSuperAdmin: false
+    },
+    {
+      firstName: 'Karl',
+      lastName: 'Müller',
+      email: 'karl.mueller@example.com',
+      password: await sails.helpers.passwords.hashPassword('123abc'),
+      phoneNumber: '+49987654321',
+      isSuperAdmin: false
+    },
+    {
+      firstName: 'Lisa',
+      lastName: 'Weber',
+      email: 'lisa.weber@example.com',
+      password: await sails.helpers.passwords.hashPassword('123abc'),
+      phoneNumber: '+49567890123',
+      isSuperAdmin: false
+    }
+  ]);
+
   await Kurs.createEach([
     {
       name: 'Yoga Flow',
@@ -335,6 +363,7 @@ module.exports.bootstrap = async function() {
 
   ]
   );
+
 
   await Exercise.createEach([
     {
