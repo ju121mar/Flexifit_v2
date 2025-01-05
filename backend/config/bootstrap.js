@@ -9,6 +9,8 @@
  * https://sailsjs.com/config/bootstrap
  */
 
+const ExerciseBottom = require("../api/models/ExerciseBottom");
+
 
 
 module.exports.bootstrap = async function() {
@@ -356,5 +358,136 @@ module.exports.bootstrap = async function() {
       execution: 'Langhantel kontrolliert nach oben drücken.',
       weekday:'Dienstag'
     }
+  ]);
+
+  await ExerciseBottom.createEach([
+    [
+      {
+        exercisename: 'Kniebeugen',
+        equipmentname: 'Langhantel',
+        set: '3',
+        rep: '12',
+        setup: 'Langhantel auf Schulterhöhe platzieren, Füße schulterbreit aufstellen.',
+        execution: 'Langsam in die Knie gehen, Rücken gerade halten.',
+        weekday: 'Montag'
+      },
+      {
+        exercisename: 'Beinpresse',
+        equipmentname: 'Beinpresse',
+        set: '4',
+        rep: '10',
+        setup: 'Füße schulterbreit auf der Plattform platzieren.',
+        execution: 'Die Plattform kontrolliert wegdrücken und langsam zurücklassen.',
+        weekday: 'Montag'
+      },
+      {
+        exercisename: 'Bulgarische Kniebeuge',
+        equipmentname: 'Kurzhanteln',
+        set: '3',
+        rep: '10',
+        setup: 'Einen Fuß auf eine Bank hinter dir legen, anderen Fuß nach vorne stellen.',
+        execution: 'Langsam in die Knie gehen, Oberkörper aufrecht halten.',
+        weekday: 'Dienstag'
+      },
+      {
+        exercisename: 'Ausfallschritte',
+        equipmentname: 'Kurzhanteln',
+        set: '4',
+        rep: '12',
+        setup: 'Kurzhanteln in beiden Händen halten, aufrecht stehen.',
+        execution: 'Einen großen Schritt nach vorne machen und das hintere Knie fast den Boden berühren lassen.',
+        weekday: 'Dienstag'
+      },
+      {
+        exercisename: 'Glute Bridge',
+        equipmentname: 'Langhantel',
+        set: '3',
+        rep: '15',
+        setup: 'Langhantel auf der Hüfte platzieren, Rücken auf den Boden legen.',
+        execution: 'Hüfte nach oben drücken, Po anspannen.',
+        weekday: 'Mittwoch'
+      },
+      {
+        exercisename: 'Hip Thrust',
+        equipmentname: 'Langhantel',
+        set: '4',
+        rep: '10',
+        setup: 'Schultern auf eine Bank legen, Langhantel auf der Hüfte platzieren.',
+        execution: 'Hüfte nach oben drücken, Po anspannen.',
+        weekday: 'Mittwoch'
+      },
+      {
+        exercisename: 'Sumo-Kreuzheben',
+        equipmentname: 'Langhantel',
+        set: '4',
+        rep: '8',
+        setup: 'Füße weit auseinander, Langhantel vor dir auf dem Boden.',
+        execution: 'Langhantel kontrolliert anheben, Rücken gerade halten.',
+        weekday: 'Donnerstag'
+      },
+      {
+        exercisename: 'Step-Ups',
+        equipmentname: 'Kurzhanteln',
+        set: '3',
+        rep: '12',
+        setup: 'Eine stabile Box oder Bank verwenden, Kurzhanteln in beiden Händen halten.',
+        execution: 'Mit einem Bein auf die Box steigen, kontrolliert zurück.',
+        weekday: 'Donnerstag'
+      },
+      {
+        exercisename: 'Beinbeuger',
+        equipmentname: 'Beinbeuger-Maschine',
+        set: '4',
+        rep: '10',
+        setup: 'Füße unter die Polster der Maschine legen, Position einstellen.',
+        execution: 'Füße langsam nach oben beugen, kontrolliert zurück.',
+        weekday: 'Freitag'
+      },
+      {
+        exercisename: 'Beinstrecker',
+        equipmentname: 'Beinstrecker-Maschine',
+        set: '3',
+        rep: '12',
+        setup: 'Beine unter die Polster legen, Rücken anlehnen.',
+        execution: 'Beine kontrolliert strecken und zurückführen.',
+        weekday: 'Freitag'
+      },
+      {
+        exercisename: 'Sumo-Kniebeugen mit Kettlebell',
+        equipmentname: 'Kettlebell',
+        set: '4',
+        rep: '12',
+        setup: 'Füße weit auseinander, Kettlebell mit beiden Händen halten.',
+        execution: 'Langsam in die Knie gehen, Rücken gerade halten.',
+        weekday: 'Samstag'
+      },
+      {
+        exercisename: 'Goblet Squat',
+        equipmentname: 'Kurzhantel',
+        set: '3',
+        rep: '12',
+        setup: 'Kurzhantel vor der Brust halten, Füße schulterbreit aufstellen.',
+        execution: 'Langsam in die Knie gehen und wieder hochdrücken.',
+        weekday: 'Samstag'
+      },
+      {
+        exercisename: 'Wadenheben',
+        equipmentname: 'Langhantel',
+        set: '3',
+        rep: '15',
+        setup: 'Langhantel auf Schulterhöhe platzieren, aufrecht stehen.',
+        execution: 'Auf die Zehenspitzen gehen, kontrolliert absenken.',
+        weekday: 'Sonntag'
+      },
+      {
+        exercisename: 'Seitliche Ausfallschritte',
+        equipmentname: 'Kurzhanteln',
+        set: '4',
+        rep: '10',
+        setup: 'Kurzhanteln in beiden Händen halten, breit stehen.',
+        execution: 'Einen Schritt zur Seite machen und das Knie beugen.',
+        weekday: 'Sonntag'
+      }
+    ]    
   ]);
 }
