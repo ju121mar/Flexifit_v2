@@ -16,11 +16,11 @@ module.exports = {
     //   required: true
     // },
 
-    // status: {
-    //   type: 'string',
-    //   isIn: ['aktiv', 'inaktiv', 'abgeschlossen'],
-    //   defaultsTo: 'aktiv'
-    // },
+    status: {
+      type: 'string',
+      isIn: ['Bestätigung ausstehend', 'Bestätigt', 'Abgelehnt'],
+      defaultsTo: 'Bestätigung ausstehend'
+    },
   },
   // Indexdefinition für schnellere Abfragen
   indexes: [

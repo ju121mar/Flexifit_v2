@@ -6,7 +6,7 @@ import {useRouter} from "vue-router";
 const router = useRouter();
 
 function navigateToTrainerView() {
-  router.push("/kursangebote/booking");
+  router.push("/kursangebote/manage");
 }
 </script>
 

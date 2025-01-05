@@ -43,7 +43,7 @@ const submitForm = async () => {
       uhrzeit: "",
       wochentag: "",
       dauer: "",
-      teilnehmer: "",
+      maxTeilnehmer: "",
       description: "",
       image:"",
     };
