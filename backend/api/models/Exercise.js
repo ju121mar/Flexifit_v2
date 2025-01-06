@@ -15,7 +15,7 @@ module.exports = {
         isIn: ['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4', 'Tag 5', 'Tag 6', 'Tag 7']
       },
       goal:{type: 'string', columnType: 'varchar(200)', required: true,
-        isIn: ['Muskelaufbau Ganzkörper', 'Muskelaufbau Fokus Unterkörper', 'Muskelaufbau Fokus Oberkörper', 'Ausdauerverbesserung'  ]
+        isIn: ['Muskelaufbau Ganzkörper', 'Muskelaufbau Unterkörper', 'Muskelaufbau Oberkörper', 'Ausdauerverbesserung'  ]
       }
     },
   };
