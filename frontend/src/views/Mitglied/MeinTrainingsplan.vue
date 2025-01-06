@@ -13,6 +13,9 @@ const router = useRouter();
 const showDetails = ref([]);
 const level = ref(route.query.level || "Anfänger"); // Standardlevel
 const frequency = ref(route.query.frequency);
+const weekdays = ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5", "Tag 6", "Tag 7"];
+const activeDay = ref("Tag 1"); // Standartag
+
 
 const currentDate = ref({
   date: new Date().toLocaleDateString("de-DE", {
@@ -26,8 +29,6 @@ const currentDate = ref({
   }),
 });
 
-// Wochentage und Logik
-const weekdays = ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5", "Tag 6", "Tag 7"];
 
 
 // Navigation zurück
@@ -39,36 +40,30 @@ function navigateBack() {
 function adjustForLevel(exercises, level, frequency) {
   return exercises.map((exercise) => {
     let adjustedExercise = { ...exercise }; // Kopieren der Übung
-    if (frequency === "drei" && exercise.weekday === "Tag 2" || frequency === "drei" && exercise.weekday === "Tag 4" || frequency === "drei" && exercise.weekday === "Tag 7" ) {
-      adjustedExercise.weekday = null;
-    } else if (frequency === "fuenf" && exercise.weekday === "Tag 3" ) {
-      adjustedExercise.weekday = null;
+    // Frequenz-Anpassung: Trainingstage filtern
+    if (
+      (frequency === "drei" && ["Tag 2", "Tag 4", "Tag 7"].includes(exercise.weekday)) ||
+      (frequency === "fuenf" && exercise.weekday === "Tag 3")
+    ) {
+      adjustedExercise.weekday = null; // Übungen an diesen Tagen entfernen
     }
+
+    // Level-Anpassung: Wiederholungen und Sätze
     if (level === "Anfänger") {
       adjustedExercise.rep = "12"; // Anfänger: 12 Wiederholungen
-      adjustedExercise.set = "3";
+      adjustedExercise.set = "3";  // Anfänger: 3 Sätze
     } else if (level === "Fortgeschritten") {
       adjustedExercise.rep = "10"; // Fortgeschritten: 10 Wiederholungen
-      adjustedExercise.set = "4";
+      adjustedExercise.set = "4";  // Fortgeschritten: 4 Sätze
     } else if (level === "Experte") {
-      adjustedExercise.rep = "8"; // Experte: 8 Wiederholungen
-      adjustedExercise.set = "5";
+      adjustedExercise.rep = "8";  // Experte: 8 Wiederholungen
+      adjustedExercise.set = "5";  // Experte: 5 Sätze
     }
+
     return adjustedExercise;
   });
 }
 
-// Anpassung Übungen basierend auf Trainingstagen
-/*function adjustForWeekdays(exercises, weekday) {
-  return exercises.map((exercise) => {
-    let adjustedDay = { ...exercise};
-    if (frequency === "drei") {
-      adjustedDay.equipmentname = "Körpergewicht";
-    }
-    return adjustedDay
-
-  });
-}*/
 
 onMounted(async () => {
   try {
@@ -88,6 +83,10 @@ onMounted(async () => {
   }
 });
 
+function setActiveDay(day) {
+  activeDay.value = day;
+}
+
 function toggleDetails(index) {
   showDetails.value[index] = !showDetails.value[index]; // Umschalten des Detailzustands
 }
@@ -102,7 +101,22 @@ function toggleDetails(index) {
       <span class="current-date">{{ currentDate.date }}</span>
       <span class="current-time">{{ currentDate.time }}</span>
     </div>
-    <div v-for="(exercise, index) in exercises" :key="exercise.id" class="exercise-card">
+    <div class="weekdays">
+      <button
+        v-for="day in weekdays"
+        :key="day"
+        class="day-button"
+        @click="setActiveDay(day)"
+      >
+        {{ day }}
+      </button>
+    </div>
+    <div class="exercises">
+      <div
+        v-for="(exercise, index) in exercises.filter((exercise) => exercise.weekday === activeDay)"
+        :key="exercise.id"
+        class="exercise-card"
+      >
       <h2>{{ exercise.exercisename }}</h2>
       <p><strong>Gerätename:</strong> {{ exercise.equipmentname }}</p>
       <p><strong>Sätze:</strong> {{ exercise.set }}</p>
@@ -116,84 +130,17 @@ function toggleDetails(index) {
         {{ showDetails[index] ? 'Details verbergen' : 'Details anzeigen' }}
       </button>
     </div>
+    </div>
   </section>
 </template>
 
 
   <style scoped>
-  .exercise-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px; /* Abstand zwischen den Karten */
-    justify-content: center;
-    padding: 20px;
-  }
-  
-  .exercise-card {
-    border: 1px solid #d2b4e8; /* Leichtes Lila für die Umrandung */
-    border-radius: 10px;
-    padding: 15px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Weicher Schatten */
-    width: 300px;
-    text-align: left;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .exercise-card:hover {
-    transform: translateY(-5px); /* Leichter Schwebeeffekt */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Stärkerer Schatten beim Hover */
-  }
-  
-  .exercise-card h2 {
-    color: #7030a0; /* Lila für Titel */
-    margin-bottom: 10px;
-  }
-  
-  .exercise-card p {
-    margin: 5px 0;
-    font-size: 16px;
-    color: #333333;
-  }
-  
-  .exercise-card strong {
-    color: #6a2c91; /* Lila Akzente für Labels */
-  }
-  
-  .exercise-card .book-button {
-    display: block;
-    width: 100%;
-    text-align: center;
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #6a2c91;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .exercise-card .book-button:hover {
-    background-color: #4e216c; /* Dunkleres Lila beim Hover */
-  }
-
-  .detail-button {
-  color: #ffffff; /* Weiße Schrift */
-  background-color: #7030a0; /* Lila Hintergrund */
-  border: 2px solid #7030a0; /* Lila Umrandung */
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease; /* Weicher Übergang */
-  font-size: 22px;
-}
-
-.detail-button:hover {
-  background-color: #ffffff; /* Weißer Hintergrund */
-  color: #7030a0; /* Lila Schrift */
-  border: 2px solid #7030a0; /* Lila Umrandung */
+.exercise-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 20px;
 }
 
 .header-controls {
@@ -203,12 +150,25 @@ function toggleDetails(index) {
   margin-bottom: 20px;
 }
 
-.current-date, .current-time {
-  color: #d8b5ea;
+.page-title {
+  font-size: 24px;
   font-weight: bold;
-  display: block;
-  font-size: 18px;
-  text-align: center;
+  color: #7030a0;
+}
+
+.create-plan-button {
+  padding: 10px 15px;
+  background-color: #7030a0;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.create-plan-button:hover {
+  background-color: #4e216c;
 }
 
 .weekdays {
@@ -219,7 +179,7 @@ function toggleDetails(index) {
 }
 
 .day-button {
-  padding: 10px 15px;
+  padding: 10px 20px;
   border: 2px solid #7030a0;
   border-radius: 5px;
   background-color: #ffffff;
@@ -239,11 +199,67 @@ function toggleDetails(index) {
   color: #ffffff;
 }
 
-.active-day {
-  border: 2px solid #4e216c;
-  background-color: #d8b5ea;
+.exercises {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
 }
 
+.exercise-card {
+  border: 1px solid #d2b4e8;
+  border-radius: 10px;
+  padding: 15px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-  </style>
+.exercise-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.exercise-card h2 {
+  color: #7030a0;
+  margin-bottom: 10px;
+}
+
+.exercise-card p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #333333;
+}
+
+.detail-button {
+  color: #ffffff;
+  background-color: #7030a0;
+  border: 2px solid #7030a0;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 16px;
+}
+
+.detail-button:hover {
+  background-color: #ffffff;
+  color: #7030a0;
+  border: 2px solid #7030a0;
+}
+
+.current-date, .current-time {
+  color: #d8b5ea;
+  font-weight: bold;
+  display: block;
+  font-size: 18px;
+  text-align: center;
+}
+</style>
+
+
+
+
   
