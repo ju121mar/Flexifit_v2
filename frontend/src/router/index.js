@@ -15,6 +15,10 @@ import Trainingsplan from '@/components/Trainingsplan.vue';
 import NewTrainingsplanView from '@/views/NewTrainingsplanView.vue';
 import MeinTrainingsplan from '@/views/Mitglied/MeinTrainingsplan.vue';
 import BuchungenView from "@/views/Mitglied/BuchungenView.vue";
+import LoginRezeptionistView from "@/views/Rezeptionist/LoginRezeptionistView.vue";
+import LoginRezeptionistSuccess from "@/views/Rezeptionist/LoginRezeptionistSuccess.vue";
+import RezeptionistKursansicht from "@/views/Rezeptionist/RezeptionistKursansicht.vue";
+import Kursbuchungsdetails from "@/views/Rezeptionist/Kursbuchungsdetails.vue";
 
 
 const routes = [
@@ -39,6 +43,16 @@ const routes = [
     path: '/kursangebote/booking',
     name: 'BookingOverview',
     component: MitgliedKursansicht,
+  },
+  {
+    path: '/kursangebote/manage',
+    name: 'RezeptionistKursansicht',
+    component: RezeptionistKursansicht,
+  },
+  {
+    path: '/kursangebote/confirm',
+    name: 'Kursbuchungdetails',
+    component: Kursbuchungsdetails,
   },
   {
     path: '/kursangebote/kurs/:id',
@@ -74,6 +88,11 @@ const routes = [
     name: 'LoginMitgliedView',
     component: LoginMitgliedView
   },
+  {
+    path: '/login/rezeptionist',
+    name: 'LoginRezeptionistView',
+    component: LoginRezeptionistView
+  },
 
   {
     path: '/login/sucess',
@@ -84,6 +103,11 @@ const routes = [
     path: '/login/sucess/mitglied',
     name: 'LoginMitgliedSucess',
     component: LoginMitgliedSuccess,
+  },
+  {
+    path: '/login/sucess/rezeptionist',
+    name: 'LoginRezeptionistSucess',
+    component: LoginRezeptionistSuccess,
   },
 
   {

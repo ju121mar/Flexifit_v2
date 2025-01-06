@@ -48,7 +48,7 @@ onMounted(async () => {
         name: response.name || "",
         description: response.description || "",
         trainer: response.trainer || "",
-        teilnehmer: parseInt(response.teilnehmer, 10) || 0,
+        maxTeilnehmer: parseInt(response.teilnehmer, 10) || 0,
         dauer: response.dauer || "",
         wochentag: response.wochentag || "",
         uhrzeit: response.uhrzeit || "",

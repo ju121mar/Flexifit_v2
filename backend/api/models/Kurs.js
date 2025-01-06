@@ -11,7 +11,8 @@ module.exports = {
       isIn: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']
     },
     dauer: {type: 'string', columnType: 'varchar(80)', required: true},
-    teilnehmer: {type: 'string', columnType: 'varchar(80)', required: true},
+    aktTeilnehmer: {type: 'number', defaultsTo: 0},
+    teilnehmer: {type: 'number', defaultsTo: 0},
     description: {type: 'string', columnType: 'varchar(300)', required: true},
     equipment:{type: 'string', columnType: 'varchar(300)', required: false},
     image:{type: 'string', required: false},

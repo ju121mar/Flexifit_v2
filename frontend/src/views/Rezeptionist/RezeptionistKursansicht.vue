@@ -64,6 +64,9 @@ onMounted(async () => {
           name: course.name,
           trainer: course.trainer,
           uhrzeit: course.uhrzeit,
+          dauer: course.dauer,
+          aktTeilnehmer: course.aktTeilnehmer,
+          teilnehmer: course.teilnehmer,
           image: '@/assets/pictures/Laufband.png',
           description: course.description,
         });
@@ -144,8 +147,8 @@ const redirectToLogin = () => {
       <h1>Kursangebote:</h1>
       <div class="header-controls">
         <RouterLink class="back-button" to="/">Zurück</RouterLink>
-          <span class="current-date">{{ currentDate.date }}</span>
-          <span class="current-time">{{ currentDate.time }}</span>
+        <span class="current-date">{{ currentDate.date }}</span>
+        <span class="current-time">{{ currentDate.time }}</span>
       </div>
     </div>
 
@@ -164,42 +167,45 @@ const redirectToLogin = () => {
     </div>
 
     <section class="course-section">
-    <div class="container">
-      <div class="row g-4 justify-content-center">
-        <div
-            v-for="kurs in filteredKurse"
-            :key="kurs.id"
-            class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3"
-        >
-          <div class="course-card">
-<!--                        <img src="@/assets/pictures/Yoga.jpg" :alt="kurs.name" class="course-image"/>-->
-            <div class="course-info">
-              <h3>{{ kurs.name }}</h3>
-              <div class="trainer-time">
-                <p><span class="course-label">Trainer: </span> {{getFullName(kurs.trainer)}}</p>
-                <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
-              </div>
-                <p class="extra-text">
-                  <span class="course-label">Beschreibung:</span>
-                  {{ kurs.description }}
-                </p>
+      <div class="container">
+        <div class="row g-4 justify-content-center">
+          <div
+              v-for="kurs in filteredKurse"
+              :key="kurs.id"
+              class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3"
+          >
+            <div class="course-card">
+              <!--                        <img src="@/assets/pictures/Yoga.jpg" :alt="kurs.name" class="course-image"/>-->
+              <div class="course-info">
+                <h3>{{ kurs.name }}</h3>
+                <div class="trainer-time">
+                  <p><span class="course-label">Trainer: </span> {{getFullName(kurs.trainer)}}</p>
+                  <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
+                  <p><span class="course-label">Dauer: </span>{{ kurs.dauer }}</p>
+                  <p><span class="course-label">max. Teilnehmer: </span>{{ kurs.teilnehmer }}</p>
 
-               <RouterLink  class="book-button" v-if='mitgliedStore.mitglied' :to="`/kursangebote/kurs/${kurs.id}`">Buchen</RouterLink>
-<!--              <button @click="openLoginPopup" class="book-button">Buchen</button>-->
-            </div>
+                </div>
+<!--                <p class="extra-text">-->
+<!--                  <span class="course-label">Beschreibung:</span>-->
+<!--                  {{ kurs.description }}-->
+<!--                </p>-->
+
+                <RouterLink  class="book-button"  :to="`/kursangebote/confirm`">Buchungen ansehen</RouterLink>
+                <!--              <button @click="openLoginPopup" class="book-button">Buchen</button>-->
+              </div>
             </div>
           </div>
         </div>
       </div>
-        </section>
-<!--    <div v-if="showLoginPopup" class="popup-backdrop">-->
-<!--      <div class="popup">-->
-<!--        <h2>Zum Buchen anmelden</h2>-->
-<!--        <p>Bitte melden Sie sich an, um eine Buchung vorzunehmen.</p>-->
-<!--        <button @click="redirectToLogin" class="confirm-button">Zum Login</button>-->
-<!--        <button @click="showLoginPopup = false" class="cancel-button">Abbrechen</button>-->
-<!--      </div>-->
-<!--    </div>-->
+    </section>
+    <!--    <div v-if="showLoginPopup" class="popup-backdrop">-->
+    <!--      <div class="popup">-->
+    <!--        <h2>Zum Buchen anmelden</h2>-->
+    <!--        <p>Bitte melden Sie sich an, um eine Buchung vorzunehmen.</p>-->
+    <!--        <button @click="redirectToLogin" class="confirm-button">Zum Login</button>-->
+    <!--        <button @click="showLoginPopup = false" class="cancel-button">Abbrechen</button>-->
+    <!--      </div>-->
+    <!--    </div>-->
 
   </section>
 </template>

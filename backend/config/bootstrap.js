@@ -121,6 +121,41 @@ module.exports.bootstrap = async function() {
       password:await sails.helpers.passwords.hashPassword('abc123')
     }
   ]);
+
+  await Rezeptionist.createEach([
+    {
+      firstName: 'Maria',
+      lastName: 'Schmidt',
+      email: 'maria.schmidt@example.com',
+      password: await sails.helpers.passwords.hashPassword('123abc'),
+      phoneNumber: '+49123456789',
+      isSuperAdmin: false
+    },
+    {
+      firstName: 'Karl',
+      lastName: 'Müller',
+      email: 'karl.mueller@example.com',
+      password: await sails.helpers.passwords.hashPassword('123abc'),
+      phoneNumber: '+49987654321',
+      isSuperAdmin: false
+    },
+    {
+      firstName: 'Lisa',
+      lastName: 'Weber',
+      email: 'lisa.weber@example.com',
+      password: await sails.helpers.passwords.hashPassword('123abc'),
+      phoneNumber: '+49567890123',
+      isSuperAdmin: false
+    }
+  ]);
+
+  await Buchung.createEach([
+    {
+      mitglied: 1,
+      kurs: 1
+    }
+    ]);
+
   await Kurs.createEach([
     {
       name: 'Yoga Flow',
@@ -128,7 +163,7 @@ module.exports.bootstrap = async function() {
       uhrzeit: '08:00 Uhr',
       wochentag: 'Montag',
       dauer: '60 Minuten',
-      teilnehmer: '10',
+      teilnehmer: 10,
       description: 'Ein entspannender Yoga-Kurs, der Körper und Geist verbindet.',
       equipment: 'Yogamatte (vor Ort verfügbar), optional Yoga-Blöcke',
     },
@@ -138,7 +173,7 @@ module.exports.bootstrap = async function() {
       uhrzeit: '17:00 Uhr',
       wochentag: 'Dienstag',
       dauer: '45 Minuten',
-      teilnehmer: '12',
+      teilnehmer: 12,
       description: 'Pilates-Übungen für eine starke Körpermitte und bessere Balance.',
       equipment: 'Pilates-Matte (vor Ort), kleine Pilates-Bälle',
     },
@@ -148,7 +183,7 @@ module.exports.bootstrap = async function() {
       uhrzeit: '18:30 Uhr',
       wochentag: 'Mittwoch',
       dauer: '50 Minuten',
-      teilnehmer: '15',
+      teilnehmer: 15,
       description: 'Ein energiegeladener Indoor-Cycling-Kurs mit motivierender Musik.',
       equipment: 'Indoor Cycling Bike (vor Ort verfügbar)',
     },
@@ -158,7 +193,7 @@ module.exports.bootstrap = async function() {
       uhrzeit: '19:00 Uhr',
       wochentag: 'Donnerstag',
       dauer: '40 Minuten',
-      teilnehmer: '20',
+      teilnehmer: 20,
       description: 'Ein intensives Intervalltraining, das Fett verbrennt und Muskeln stärkt.',
       equipment: 'Kurzhanteln, Kettlebells, Trainingsmatte (alles vor Ort verfügbar)',
     },
@@ -168,7 +203,7 @@ module.exports.bootstrap = async function() {
       uhrzeit: '18:00 Uhr',
       wochentag: 'Freitag',
       dauer: '60 Minuten',
-      teilnehmer: '25',
+      teilnehmer: 25,
       description: 'Eine dynamische Tanzstunde mit lateinamerikanischen Rhythmen.',
       equipment: 'Keine Ausrüstung erforderlich',
     },
@@ -178,7 +213,7 @@ module.exports.bootstrap = async function() {
       uhrzeit: '16:00 Uhr',
       wochentag: 'Samstag',
       dauer: '50 Minuten',
-      teilnehmer: '18',
+      teilnehmer: 18,
       description: 'Ganzkörpertraining für Beweglichkeit, Kraft und Stabilität.',
       equipment: 'Kettlebells, Langhanteln, TRX-Bänder (vor Ort verfügbar)',
     },
@@ -188,7 +223,7 @@ module.exports.bootstrap = async function() {
       uhrzeit: '07:00 Uhr',
       wochentag: 'Sonntag',
       dauer: '30 Minuten',
-      teilnehmer: '8',
+      teilnehmer: 8,
       description: 'Eine ruhige Meditationsstunde, um die Woche entspannt zu starten.',
       equipment: 'Yogamatte oder Sitzkissen (vor Ort verfügbar)',
     },
@@ -198,7 +233,7 @@ module.exports.bootstrap = async function() {
       uhrzeit: '09:00 Uhr',
       wochentag: 'Montag',
       dauer: '50 Minuten',
-      teilnehmer: '12',
+      teilnehmer: 12,
       description: 'Ein intensives Ganzkörpertraining für alle Fitnesslevel.',
       equipment: 'Gewichtsscheiben, Widerstandsbänder, Medizinbälle (vor Ort verfügbar)',
     },
@@ -208,7 +243,7 @@ module.exports.bootstrap = async function() {
       uhrzeit: '18:30 Uhr',
       wochentag: 'Montag',
       dauer: '60 Minuten',
-      teilnehmer: '10',
+      teilnehmer: 10,
       description: 'Grundlagen des Trainings mit dem eigenen Körpergewicht.',
       equipment: 'Keine Ausrüstung erforderlich',
     },
@@ -218,7 +253,7 @@ module.exports.bootstrap = async function() {
       uhrzeit: '07:00 Uhr',
       wochentag: 'Dienstag',
       dauer: '45 Minuten',
-      teilnehmer: '15',
+      teilnehmer: 15,
       description: 'Ein energiegeladener Kurs auf dem Fahrrad.',
       equipment: 'Indoor Cycling Bike (vor Ort verfügbar)',
     },
@@ -228,7 +263,7 @@ module.exports.bootstrap = async function() {
       uhrzeit: '19:00 Uhr',
       wochentag: 'Dienstag',
       dauer: '55 Minuten',
-      teilnehmer: '10',
+      teilnehmer: 10,
       description: 'Ein athletischer Mix aus Kraft und Kondition.',
       equipment: 'Kurzhanteln, Kettlebells, Plyo-Boxen (vor Ort verfügbar)',
     },
@@ -238,7 +273,7 @@ module.exports.bootstrap = async function() {
       uhrzeit: '08:30 Uhr',
       wochentag: 'Mittwoch',
       dauer: '60 Minuten',
-      teilnehmer: '12',
+      teilnehmer: 12,
       description: 'Verbessere deine Kraft und Beweglichkeit in einem Kurs.',
       equipment: 'Trainingsmatte, Widerstandsbänder (vor Ort verfügbar)',
     },
@@ -248,7 +283,7 @@ module.exports.bootstrap = async function() {
       uhrzeit: '17:30 Uhr',
       wochentag: 'Mittwoch',
       dauer: '45 Minuten',
-      teilnehmer: '8',
+      teilnehmer: 8,
       description: 'Training mit dem TRX-System für den ganzen Körper.',
       equipment: 'TRX-Bänder (vor Ort verfügbar)',
     },
@@ -258,7 +293,7 @@ module.exports.bootstrap = async function() {
       uhrzeit: '06:30 Uhr',
       wochentag: 'Donnerstag',
       dauer: '60 Minuten',
-      teilnehmer: '10',
+      teilnehmer: 10,
       description: 'Eine kraftvolle Yoga-Session für Geübte.',
       equipment: 'Yogamatte (vor Ort verfügbar)',
     },
@@ -268,7 +303,7 @@ module.exports.bootstrap = async function() {
       uhrzeit: '20:00 Uhr',
       wochentag: 'Donnerstag',
       dauer: '50 Minuten',
-      teilnehmer: '8',
+      teilnehmer: 8,
       description: 'Effizientes Krafttraining mit Kettlebells.',
       equipment: 'Kettlebells (vor Ort verfügbar)',
     },
@@ -278,7 +313,7 @@ module.exports.bootstrap = async function() {
       uhrzeit: '07:00 Uhr',
       wochentag: 'Freitag',
       dauer: '50 Minuten',
-      teilnehmer: '15',
+      teilnehmer: 15,
       description: 'Ein dynamisches Cardio-Workout mit Step-Elementen.',
       equipment: 'Step-Brett (vor Ort verfügbar)',
     },
@@ -288,7 +323,7 @@ module.exports.bootstrap = async function() {
       uhrzeit: '18:00 Uhr',
       wochentag: 'Freitag',
       dauer: '40 Minuten',
-      teilnehmer: '10',
+      teilnehmer: 10,
       description: 'Ein ruhiger Kurs mit Fokus auf tiefes Dehnen und Entspannen.',
       equipment: 'Yogamatte (vor Ort verfügbar)',
     },
@@ -298,7 +333,7 @@ module.exports.bootstrap = async function() {
       uhrzeit: '09:30 Uhr',
       wochentag: 'Samstag',
       dauer: '60 Minuten',
-      teilnehmer: '12',
+      teilnehmer: 12,
       description: 'Ein schweißtreibendes Training mit Kickbox-Elementen.',
       equipment: 'Boxhandschuhe (optional), Trainingsmatte (vor Ort verfügbar)',
     },
@@ -308,7 +343,7 @@ module.exports.bootstrap = async function() {
       uhrzeit: '11:00 Uhr',
       wochentag: 'Samstag',
       dauer: '45 Minuten',
-      teilnehmer: '10',
+      teilnehmer: 10,
       description: 'Intensives Training für eine starke Körpermitte.',
       equipment: 'Trainingsmatte (vor Ort verfügbar), Medizinball',
     },
@@ -318,7 +353,7 @@ module.exports.bootstrap = async function() {
       uhrzeit: '10:00 Uhr',
       wochentag: 'Sonntag',
       dauer: '60 Minuten',
-      teilnehmer: '8',
+      teilnehmer: 8,
       description: 'Ein sanfter Yoga-Kurs für maximale Entspannung.',
       equipment: 'Yogamatte, Decke (vor Ort verfügbar)',
     },
@@ -328,13 +363,14 @@ module.exports.bootstrap = async function() {
       uhrzeit: '15:00 Uhr',
       wochentag: 'Sonntag',
       dauer: '50 Minuten',
-      teilnehmer: '20',
+      teilnehmer: 20,
       description: 'Ein spaßiger Fitnesskurs für die ganze Familie.',
       equipment: 'Keine Ausrüstung erforderlich',
     }
 
   ]
   );
+
 
   await Exercise.createEach([
     
