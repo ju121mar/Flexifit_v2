@@ -22,7 +22,9 @@ function createNewPlan() {
   router.push({
     path: '/trainingsplan/exercise/:id',
     query: { level: newPlan.value.level,
-            frequency: newPlan.value.frequency}
+             frequency: newPlan.value.frequency,
+             goal: newPlan.value.goal
+          }
   });
 }
 

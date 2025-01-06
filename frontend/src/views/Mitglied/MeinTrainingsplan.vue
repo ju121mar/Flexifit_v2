@@ -13,6 +13,7 @@ const router = useRouter();
 const showDetails = ref([]);
 const level = ref(route.query.level || "Anfänger"); // Standardlevel
 const frequency = ref(route.query.frequency);
+const goal = ref(route.query.goal);
 const weekdays = ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5", "Tag 6", "Tag 7"];
 const activeDay = ref("Tag 1"); // Standartag
 
@@ -36,8 +37,8 @@ function navigateBack() {
   router.push("/trainingsplan");
 }
 
-// Anpassung der Wiederholungen basierend auf dem Level
-function adjustForLevel(exercises, level, frequency) {
+// Anpassung basierend auf Formulareingabe
+function adjustForLevel(exercises, level, frequency, goal) {
   return exercises.map((exercise) => {
     let adjustedExercise = { ...exercise }; // Kopieren der Übung
     // Frequenz-Anpassung: Trainingstage filtern
@@ -46,6 +47,17 @@ function adjustForLevel(exercises, level, frequency) {
       (frequency === "fuenf" && exercise.weekday === "Tag 3")
     ) {
       adjustedExercise.weekday = null; // Übungen an diesen Tagen entfernen
+    }
+
+    //Ziel Anpassung
+    if (
+      (goal === "MuskelaufbauOberkoerper") && ["Muskelaufbau Unterkörper", "Muskelaufbau Ganzkörper", "Ausdauerverbesserung"].includes(exercise.goal) ||
+      (goal === "MuskelaufbauUnterkoerper") && ["Muskelaufbau Oberkörper", "Muskelaufbau Ganzkörper", "Ausdauerverbesserung"].includes(exercise.goal) ||
+      (goal === "MuskelaufbauGanzkoerper") && ["Muskelaufbau Oberkörper", "Muskelaufbau Unterkörper", "Ausdauerverbesserung"].includes(exercise.goal) ||
+      (goal === "Ausdauerverbesserung") && ["Muskelaufbau Oberkörper", "Muskelaufbau Ganzkörper", "Muskelaufbau Unterkörper"].includes(exercise.goal)
+
+    ) {
+      adjustedExercise.weekday = null;
     }
 
     // Level-Anpassung: Wiederholungen und Sätze
@@ -72,7 +84,7 @@ onMounted(async () => {
       url: "/exercises", // Backend-Route, die alle Übungen liefert
     });
     const allExercises = response;
-    exercises.value = adjustForLevel(allExercises, level.value, frequency.value);
+    exercises.value = adjustForLevel(allExercises, level.value, frequency.value, goal.value);
     console.log("Übungen geladen:", exercises.value);
     showDetails.value = exercises.value.map(() => false);
   } catch (err) {
