@@ -492,7 +492,7 @@ module.exports.bootstrap = async function() {
         rep: '12',
         setup: 'Füße weit auseinander, Kettlebell mit beiden Händen halten.',
         execution: 'Langsam in die Knie gehen, Rücken gerade halten.',
-        weekday: 'Tag 6',
+        weekday: 'Tag 2',
         goal: 'Muskelaufbau Unterkörper'
       },
       {
@@ -502,7 +502,7 @@ module.exports.bootstrap = async function() {
         rep: '12',
         setup: 'Kurzhantel vor der Brust halten, Füße schulterbreit aufstellen.',
         execution: 'Langsam in die Knie gehen und wieder hochdrücken.',
-        weekday: 'Tag 6',
+        weekday: 'Tag 7',
         goal: 'Muskelaufbau Unterkörper'
       },
       {

@@ -121,7 +121,6 @@ function toggleDetails(index) {
       <p><strong>Gerätename:</strong> {{ exercise.equipmentname }}</p>
       <p><strong>Sätze:</strong> {{ exercise.set }}</p>
       <p><strong>Wiederholungen:</strong> {{ exercise.rep }}</p>
-      <p><strong></strong> {{ exercise.weekday }}</p>
       <div v-if="showDetails[index]">
         <p><strong>Setup:</strong> {{ exercise.setup }}</p>
         <p><strong>Ausführung:</strong> {{ exercise.execution }}</p>
