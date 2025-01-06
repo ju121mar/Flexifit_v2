@@ -12,6 +12,7 @@ const route = useRoute();
 const router = useRouter();
 const showDetails = ref([]);
 const level = ref(route.query.level || "Anfänger"); // Standardlevel
+const frequency = ref(route.query.frequency);
 
 const currentDate = ref({
   date: new Date().toLocaleDateString("de-DE", {
@@ -29,22 +30,20 @@ const currentDate = ref({
 const weekdays = ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5", "Tag 6", "Tag 7"];
 
 
-
-
-function isCurrentDay(index) {
-  const currentDayIndex = new Date().getDay() - 1; // JavaScript: Sonntag = 0
-  return index === (currentDayIndex < 0 ? 6 : currentDayIndex);
-}
-
 // Navigation zurück
 function navigateBack() {
   router.push("/trainingsplan");
 }
 
 // Anpassung der Wiederholungen basierend auf dem Level
-function adjustForLevel(exercises, level) {
+function adjustForLevel(exercises, level, frequency) {
   return exercises.map((exercise) => {
     let adjustedExercise = { ...exercise }; // Kopieren der Übung
+    if (frequency === "drei" && exercise.weekday === "Tag 2" || frequency === "drei" && exercise.weekday === "Tag 4" || frequency === "drei" && exercise.weekday === "Tag 7" ) {
+      adjustedExercise.weekday = null;
+    } else if (frequency === "fuenf" && exercise.weekday === "Tag 3" ) {
+      adjustedExercise.weekday = null;
+    }
     if (level === "Anfänger") {
       adjustedExercise.rep = "12"; // Anfänger: 12 Wiederholungen
       adjustedExercise.set = "3";
@@ -59,6 +58,18 @@ function adjustForLevel(exercises, level) {
   });
 }
 
+// Anpassung Übungen basierend auf Trainingstagen
+/*function adjustForWeekdays(exercises, weekday) {
+  return exercises.map((exercise) => {
+    let adjustedDay = { ...exercise};
+    if (frequency === "drei") {
+      adjustedDay.equipmentname = "Körpergewicht";
+    }
+    return adjustedDay
+
+  });
+}*/
+
 onMounted(async () => {
   try {
     const response = await apiCall({
@@ -66,7 +77,7 @@ onMounted(async () => {
       url: "/exercises", // Backend-Route, die alle Übungen liefert
     });
     const allExercises = response;
-    exercises.value = adjustForLevel(allExercises, level.value);
+    exercises.value = adjustForLevel(allExercises, level.value, frequency.value);
     console.log("Übungen geladen:", exercises.value);
     showDetails.value = exercises.value.map(() => false);
   } catch (err) {
@@ -91,23 +102,12 @@ function toggleDetails(index) {
       <span class="current-date">{{ currentDate.date }}</span>
       <span class="current-time">{{ currentDate.time }}</span>
     </div>
-    <div class="date-picker">
-      <div class="weekdays">
-        <span
-          v-for="(day, index) in weekdays"
-          :key="index"
-          :class="['day-button', { 'current-day': isCurrentDay(index), 'active-day': activeDay === day }]"
-          @click="selectDay(day)"
-        >
-          {{ day }} <span v-if="isCurrentDay(index)"></span>
-        </span>
-      </div>
-    </div>
     <div v-for="(exercise, index) in exercises" :key="exercise.id" class="exercise-card">
       <h2>{{ exercise.exercisename }}</h2>
       <p><strong>Gerätename:</strong> {{ exercise.equipmentname }}</p>
       <p><strong>Sätze:</strong> {{ exercise.set }}</p>
       <p><strong>Wiederholungen:</strong> {{ exercise.rep }}</p>
+      <p><strong></strong> {{ exercise.weekday }}</p>
       <div v-if="showDetails[index]">
         <p><strong>Setup:</strong> {{ exercise.setup }}</p>
         <p><strong>Ausführung:</strong> {{ exercise.execution }}</p>

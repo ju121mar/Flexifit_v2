@@ -7,17 +7,6 @@ import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
 import MeinTrainingsplan from '@/views/Mitglied/MeinTrainingsplan.vue'
 //import { useRouter } from "vue-router";
 
-
-const days = [
-  "Montag",
-  "Dienstag",
-  "Mittwoch",
-  "Donnerstag",
-  "Freitag",
-  "Samstag",
-  "Sonntag"
-];
-
 // Formulardaten
 const newPlan = ref({
   gender: "",
@@ -26,13 +15,14 @@ const newPlan = ref({
   age: "",
   goal: "",
   level: "",
-  trainingDays: [] // Liste der ausgewählten Wochentage
+  frequency: "" // Liste der ausgewählten Wochentage
 });
 
 function createNewPlan() {
   router.push({
     path: '/trainingsplan/exercise/:id',
-    query: { level: newPlan.value.level}
+    query: { level: newPlan.value.level,
+            frequency: newPlan.value.frequency}
   });
 }
 
@@ -103,8 +93,8 @@ function createNewPlan() {
         </select>
       </div>
       <div class="kurs-group">
-        <label for="day">Trainingstage pro Woche:</label>
-        <select id="day" v-model="newPlan.level" class="form-select" required>
+        <label for="frequency">Trainingstage pro Woche:</label>
+        <select id="frequency" v-model="newPlan.frequency" class="form-select" required>
           <option disabled value="">Anzahl Trainingstage auswählen</option>
           <option value="drei">Drei Mal (Für Anfänger empfohlen)</option>
           <option value="fuenf">Fünf Mal</option>
