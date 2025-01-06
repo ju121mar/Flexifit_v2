@@ -26,12 +26,10 @@ const currentDate = ref({
 });
 
 // Wochentage und Logik
-const weekdays = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
-const activeDay = ref(new Date().toLocaleDateString("de-DE", { weekday: "short" }));
+const weekdays = ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5", "Tag 6", "Tag 7"];
 
-function selectDay(day) {
-  activeDay.value = day;
-}
+
+
 
 function isCurrentDay(index) {
   const currentDayIndex = new Date().getDay() - 1; // JavaScript: Sonntag = 0
@@ -101,7 +99,7 @@ function toggleDetails(index) {
           :class="['day-button', { 'current-day': isCurrentDay(index), 'active-day': activeDay === day }]"
           @click="selectDay(day)"
         >
-          {{ day }} <span v-if="isCurrentDay(index)">(heute)</span>
+          {{ day }} <span v-if="isCurrentDay(index)"></span>
         </span>
       </div>
     </div>

@@ -87,11 +87,10 @@ function createNewPlan() {
         <label for="goal">Mein Ziel:</label>
         <select id="goal" v-model="newPlan.goal" class="form-select" required>
           <option disabled value="">Ziel auswählen</option>
-          <option value="Muskelaufbau">Muskelaufbau</option>
-          <option value="Gewichtsverlust">Gewichtsverlust</option>
+          <option value="MuskelaufbauGanzkoerper">Muskelaufbau Ganzkörper</option>
+          <option value="MuskelaufbauUnterkoerper">Muskelaufbau Unterkörper</option>
+          <option value="MuskelaufbauOberkoerper">Muskelaufbau Oberkörper</option>
           <option value="Ausdauerverbesserung">Ausdauerverbesserung</option>
-          <option value="AllgemeineFitness">Allgemeine Fitness</option>
-          <option value="Rehabilitation">Rehabilitation</option>
         </select>
       </div>
       <div class="kurs-group">
@@ -104,16 +103,12 @@ function createNewPlan() {
         </select>
       </div>
       <div class="kurs-group">
-        <label>Trainingszeiten:</label>
-        <div v-for="day in days" :key="day" class="checkbox-group">
-          <input
-            type="checkbox"
-            :id="day"
-            :value="day"
-            v-model="newPlan.trainingDays"
-          />
-          <label :for="day">{{ day }}</label>
-        </div>
+        <label for="day">Trainingstage pro Woche:</label>
+        <select id="day" v-model="newPlan.level" class="form-select" required>
+          <option disabled value="">Anzahl Trainingstage auswählen</option>
+          <option value="drei">Drei Mal (Für Anfänger empfohlen)</option>
+          <option value="fuenf">Fünf Mal</option>
+        </select>
       </div>
       <PrimaryButton class="primarybutton" buttontext="Plan erstellen" @click="createNewPlan"></PrimaryButton>
       <router-link to="/trainingsplan" class="button zurueck-button">Zurück</router-link>
