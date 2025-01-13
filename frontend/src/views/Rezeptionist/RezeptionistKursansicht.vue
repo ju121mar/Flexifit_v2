@@ -178,25 +178,22 @@ const redirectToLogin = () => {
               <!--                        <img src="@/assets/pictures/Yoga.jpg" :alt="kurs.name" class="course-image"/>-->
               <div class="course-info">
                 <h3>{{ kurs.name }}</h3>
-                <div class="trainer-time">
-                  <p><span class="course-label">Trainer: </span> {{getFullName(kurs.trainer)}}</p>
-                  <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
-                  <p><span class="course-label">Dauer: </span>{{ kurs.dauer }}</p>
-                  <p><span class="course-label">max. Teilnehmer: </span>{{ kurs.teilnehmer }}</p>
-
+                <div class="attribute-pair">
+                  <p><span class="course-label">Trainer:</span> {{ getFullName(kurs.trainer) }}</p>
+                  <p><span class="course-label">Uhrzeit:</span> {{ kurs.uhrzeit }}</p>
                 </div>
-<!--                <p class="extra-text">-->
-<!--                  <span class="course-label">Beschreibung:</span>-->
-<!--                  {{ kurs.description }}-->
-<!--                </p>-->
+                <div class="attribute-pair">
+                  <p><span class="course-label">Dauer:</span> {{ kurs.dauer }}</p>
+                  <p><span class="course-label">Max. Teilnehmer:</span>{{ kurs.teilnehmer }}</p>
+                </div>
+              </div>
 
-                <RouterLink  class="book-button"  :to="`/kursangebote/confirm`">Buchungen ansehen</RouterLink>
+              <RouterLink  class="book-button"  :to="`/kursangebote/confirm`">Buchungen ansehen</RouterLink>
                 <!--              <button @click="openLoginPopup" class="book-button">Buchen</button>-->
               </div>
             </div>
           </div>
         </div>
-      </div>
     </section>
     <!--    <div v-if="showLoginPopup" class="popup-backdrop">-->
     <!--      <div class="popup">-->
@@ -218,57 +215,53 @@ const redirectToLogin = () => {
   padding: 20px;
   background-color: #ffffff;
   text-align: center;
-  margin: 20px 0;
+  margin: 10px 0;
 }
 .course-card {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   border: 2px solid #d3bfe3;
   border-radius: 8px;
-  padding: 10px;
+  padding: 20px;
   box-shadow: 0px 4px 8px rgba(112, 48, 160, 0.3);
-  height: 170px;
+  height: 210px;
+}
+.attribute-pair {
+  display: flex;
+  justify-content: space-between;
+  margin: 2px 0;
 }
 
+.attribute-pair p {
+  flex: 1;
+  font-size: 18px;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .attribute-pair {
+    flex-direction: column;
+  }
+
+  .attribute-pair p {
+    margin-right: 0;
+    margin-bottom: 5px;
+  }
+}
 .course-info {
   flex: 1;
   text-align: left;
+  padding-bottom: 0px;
+  width: 100%;
 }
 
 .course-info h3 {
   color: #444;
-  margin: 0;
   font-size: 20px;
 }
 
-.trainer-time {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-.popup-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.popup {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  max-width: 400px;
-  width: 90%;
-}
 .popup h2{
   color: #7030a0;
   font-size: 28px;
@@ -277,48 +270,7 @@ const redirectToLogin = () => {
   margin-bottom: 20px;
 }
 
-.popup-buttons {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 1rem;
-}
-
-.confirm-button {
-  background: #7030a0;
-  color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.cancel-button {
-  background: #ccc;
-  color: #333;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-left: 20px;
-}
-
-.confirm-button:hover {
-  background: #d8b5ea;
-}
-
-.cancel-button:hover {
-  background: #bbb;
-}
-.extra-text {
-  display: none;
-}
 @media (min-width: 992px) {
-  .extra-text {
-    display: block;
-    color: #666;
-    font-size: 14px;
-    margin-top: 8px;
-  }
 
   .course-info p {
     font-size: 18px;
@@ -327,46 +279,27 @@ const redirectToLogin = () => {
 
 .course-info p {
   color: #666;
-  margin: 5px 0;
-  font-size: 14px;
+  margin: 10px 0;
+  font-size: 16px;
 }
 
 .course-label {
+  font-weight: bold;
   color: #7030a0;
+  font-size: 18px;
 }
 
-.extra-text {
-  display: none;
-}
-
-/* Extra-Text nur auf Desktop-Bildschirmen anzeigen */
-@media (min-width: 992px) {
-  .extra-text {
-    display: block;
-    color: #666;
-    font-size: 14px;
-    margin-top: 8px;
-  }
-
-  .course-info p {
-    font-size: 18px;
-  }
-
-  .course-image {
-    width: 100px;
-    height: 100px;
-  }
-}
 
 .book-button {
   color: #7030a0;
   background-color: transparent;
   border: 2px solid #7030a0;
-  padding: 5px 10px;
+  padding: 5px 8px;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  font-size: 22px;
+  font-size: 18px;
+  margin-top: 2px;
 }
 
 .book-button:hover {
@@ -430,9 +363,6 @@ const redirectToLogin = () => {
   text-align: center;
 }
 
-
-
-/* Wochentagsanzeige */
 .date-picker {
   margin-bottom: 20px;
   text-align: center;
@@ -504,22 +434,6 @@ const redirectToLogin = () => {
   background-color: #4e216c;
 }
 
-/* Styling for the 'Neue Kurse erstellen' button in mobile view */
-.filter-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #7030a0; /* Farbe anpassen */
-  color: white; /* Textfarbe */
-  border: none; /* Kein Rand */
-  padding: 10px 15px; /* Abstände */
-  border-radius: 5px; /* Ecken entfernen */
-  font-size: 16px; /* Schriftgröße */
-  cursor: pointer;
-  text-decoration: none; /* Unterstreichung entfernen */
-  transition: background-color 0.3s ease;
-}
-
 .filter-button:hover {
   background-color: #5e258f; /* Hover-Farbe */
 }
@@ -581,68 +495,15 @@ const redirectToLogin = () => {
   }
 }
 
-.popup-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.popup {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  max-width: 400px;
-  width: 90%;
-}
-
 .popup h2 {
   color: #7030a0;
   font-size: 24px;
   margin-bottom: 15px;
 }
 
-.popup-buttons {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 1rem;
-}
-
-.confirm-button {
-  background: #7030a0;
-  color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
 
 .confirm-button:hover {
   background: #5e258f;
 }
-
-.cancel-button {
-  background: #ccc;
-  color: #333;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.cancel-button:hover {
-  background: #bbb;
-}
-
-
 </style>
 
