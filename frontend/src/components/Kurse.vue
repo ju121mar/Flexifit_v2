@@ -113,6 +113,7 @@ async function getKurse() {
   border-radius: 8px;
   padding: 10px;
   box-shadow: 0px 4px 8px rgba(112, 48, 160, 0.3);
+  height: 200px;
 }
 
 .course-image {
