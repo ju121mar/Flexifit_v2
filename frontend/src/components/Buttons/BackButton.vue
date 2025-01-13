@@ -23,6 +23,7 @@ const emits = defineEmits(["click"]);
 }
 
 .simplebackbutton:hover {
-  color: #4e216c;
+  background-color: #4e216c;
+  color: #ffffff;
 }
 </style>
