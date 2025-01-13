@@ -3,7 +3,6 @@ import { ref, onMounted } from "vue";
 import axios from 'axios'
 import {apiCall} from "@/utility/ApiCall.js";
 import router from "@/router/index.js";
-const selectedImage = ref("");
 const newMessage = ref({
   name: "",
   mail:"",
@@ -20,17 +19,19 @@ const submitForm = async () => {
   console.log("Formular abgesendet:", newMessage.value);
   console.log(newMessage.value)
   await apiCall({
-    method: 'POST',
-    url: '/kurs/erstellen',
-    data: newMessage.value,
-  }).then(() => {
-    // Reset the form
-    newMessage.value = {
-      name: "",
-      mail: "",
-      message: "",
-    };
-  });
+  method: 'POST',
+  url: '/message/send',
+  data: newMessage.value,
+})
+.then(() => {
+  newMessage.value = { name: "", mail: "", message: "" };
+  messageSend.value = true;
+})
+.catch((error) => {
+  console.error("Fehler beim API-Aufruf:", error);
+  alert("Es gab ein Problem beim Senden der Nachricht.");
+});
+
 
   // Show success message
   messageSend.value = true;
@@ -60,7 +61,7 @@ const submitForm = async () => {
       <router-link to="/kursangebote" class="button zurueck-button">Zurück</router-link>
     </form>
     <div v-if="messageSend" class="success-message">
-      <p>Kurs erfolgreich hinzugefügt!!</p>
+      <p>Nachricht wurde versandt!!</p>
     </div>
   </div>
 </template>
