@@ -26,7 +26,9 @@ module.exports.sockets = {
   * > https://sailsjs.com/docs/reference/web-sockets/socket-client           *
   *                                                                          *
   ***************************************************************************/
-
+     onlyAllowOrigins: [
+    'https://flexifit.onrender.com',
+    ],
   // transports: [ 'websocket' ],
 
 
