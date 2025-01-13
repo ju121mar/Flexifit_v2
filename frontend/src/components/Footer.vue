@@ -25,7 +25,7 @@
         <h6><a href="/impressum">Impressum</a></h6>
       </div>
       <div class="col-md-2">
-        <h6><a href="#">Studio</a></h6>
+        <h6><a href="/datenschutz">Datenschutzerklärung</a></h6>
       </div>
       <div class="col-md-2">
         <h6><a href="/kursangebote">Kursangebote</a></h6>

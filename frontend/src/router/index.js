@@ -20,6 +20,7 @@ import LoginRezeptionistSuccess from "@/views/Rezeptionist/LoginRezeptionistSucc
 import RezeptionistKursansicht from "@/views/Rezeptionist/RezeptionistKursansicht.vue";
 import Kursbuchungsdetails from "@/views/Rezeptionist/Kursbuchungsdetails.vue";
 import Impressum from "@/components/Impressum.vue";
+import Datenschutzerklärung from "@/components/Datenschutzerklärung.vue";
 
 
 const routes = [
@@ -139,6 +140,10 @@ const routes = [
   {
     path: '/impressum',
     component: Impressum
+  },
+  {
+    path: '/datenschutz',
+    component: Datenschutzerklärung
   }
   
 ];
