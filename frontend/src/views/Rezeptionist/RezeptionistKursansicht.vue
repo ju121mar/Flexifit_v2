@@ -129,13 +129,7 @@ function getFullName(trainer){
 
 //Popup fuer Login
 const showLoginPopup = ref(false);
-const openLoginPopup = () => {
-  showLoginPopup.value = true;
-};
 
-const redirectToLogin = () => {
-  router.push('/login/mitglied');
-};
 </script>
 
 <template>
@@ -188,7 +182,7 @@ const redirectToLogin = () => {
                 </div>
               </div>
 
-              <RouterLink  class="book-button"  :to="`/kursangebote/confirm`">Buchungen ansehen</RouterLink>
+              <RouterLink  class="book-button"  :to="`/kursangebote/confirm/${kurs.id}`">Buchungen ansehen</RouterLink>
                 <!--              <button @click="openLoginPopup" class="book-button">Buchen</button>-->
               </div>
             </div>

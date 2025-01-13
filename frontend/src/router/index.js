@@ -50,7 +50,7 @@ const routes = [
     component: RezeptionistKursansicht,
   },
   {
-    path: '/kursangebote/confirm',
+    path: '/kursangebote/confirm/:id',
     name: 'Kursbuchungdetails',
     component: Kursbuchungsdetails,
   },
