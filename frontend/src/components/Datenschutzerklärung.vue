@@ -17,6 +17,10 @@
     <li><a class="index-link" href="#m134">Einsatz von Cookies</a></li>
   </ul>
   <section>
+    <h2 id="m3"> Verantwortlicher</h2>
+    <p>FlexiFit GmbH</p>
+    <p> Rheingutstraße 41</p>
+    <p>78462 Konstanz</p>
   <p>Vertretungsberechtigte Personen: Majella Kühne, Julia Martin</p>
   <p>E-Mail-Adresse: <a href="mailto:info@flexifit.de">info@flexifit.de</a></p>
   </section>
@@ -137,3 +141,4 @@ h2::after {
 }
 
 </style>
+
