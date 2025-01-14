@@ -21,7 +21,7 @@ module.exports.session = {
   secret: '1c5d9eecc75dd4aadd99517d65016420',
   cookie: {
     sameSite: 'None',
-    secure: true,
+    secure: false,
 },
 
 
