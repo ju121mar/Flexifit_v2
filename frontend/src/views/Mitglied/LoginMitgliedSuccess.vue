@@ -14,7 +14,7 @@ function navigateToTrainerView() {
     <div class="kurs-group">
       Mitgliedlogin erfolgreich.
       <p v-if="mitgliedStore.mitglied">
-        Hallo, {{ mitgliedStore.mitglied.firstName}} {{ mitgliedStore.mitglied.lasttName}}! Stay Flexi!
+        Hallo, {{ mitgliedStore.mitglied.firstName}} {{ mitgliedStore.mitglied.lastName}}! Stay Flexi!
       </p>
       <button type="button" @click="navigateToTrainerView" class="nav-button">
         Zu den Kursangeboten

@@ -19,6 +19,7 @@ import LoginRezeptionistView from "@/views/Rezeptionist/LoginRezeptionistView.vu
 import LoginRezeptionistSuccess from "@/views/Rezeptionist/LoginRezeptionistSuccess.vue";
 import RezeptionistKursansicht from "@/views/Rezeptionist/RezeptionistKursansicht.vue";
 import Kursbuchungsdetails from "@/views/Rezeptionist/Kursbuchungsdetails.vue";
+import Kontakt from '@/formalities/Kontakt.vue';
 import Impressum from "@/components/Impressum.vue";
 import Datenschutzerklärung from "@/components/Datenschutzerklärung.vue";
 
@@ -136,6 +137,10 @@ const routes = [
   {
     path: '/kurs/:id',
     component: KursDetailansicht
+  },
+  {
+    path: '/kontakt',
+    component: Kontakt
   },
   {
     path: '/impressum',

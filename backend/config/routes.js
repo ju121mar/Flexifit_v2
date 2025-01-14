@@ -24,7 +24,8 @@ module.exports.routes = {
   'GET /exercises': { controller: 'ExerciseController', action: 'find' },
   'GET /exercises/:id': {controller: 'ExerciseController', action: 'findOne'},
   'POST /newBooking': {controller: 'BuchungController', action: 'booking'},
-  'GET /getBookings': {controller: 'BuchungController', action: 'getBookings'}
+  'GET /getBookings': {controller: 'BuchungController', action: 'getBookings'},
+  'POST /message/send' : {controller: 'MessageController', action: 'create'}
 
 
 

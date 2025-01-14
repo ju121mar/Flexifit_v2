@@ -1,23 +1,24 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, watch, onMounted } from "vue";
+import { useFormStore } from "@/stores/formStore"; // Store importieren
 import axios from 'axios'
 import {apiCall} from "@/utility/ApiCall.js";
 import router from "@/router/index.js";
 import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
+import BackButton from "@/components/Buttons/BackButton.vue";
 import MeinTrainingsplan from '@/views/Mitglied/MeinTrainingsplan.vue'
 //import { useRouter } from "vue-router";
 
-// Formulardaten
-const newPlan = ref({
-  gender: "",
-  height: "",
-  weight: "",
-  age: "",
-  goal: "",
-  level: "",
-  frequency: "" // Liste der ausgewählten Wochentage
-});
+// Store initialisieren
+const formStore = useFormStore();
 
+// Verbindung zum Store herstellen (reactive Daten)
+const newPlan = ref({ ...formStore.newPlan });
+
+// Speichern der Daten beim Ändern
+watch(newPlan, (newValue) => {
+  formStore.setFormData(newValue);
+}, { deep: true });
 function createNewPlan() {
   router.push({
     path: '/trainingsplan/exercise/:id',
@@ -28,13 +29,17 @@ function createNewPlan() {
   });
 }
 
+function goBack() {
+  router.push('/trainingsplan')
+}
+
 
 </script>
 
 <template>
   <div class="kurs-form">
     <h2>Neuen Trainingsplan erstellen</h2>
-    <form @submit.prevent="submitForm">
+    <form @submit.prevent="createNewPlan">
       <div class="kurs-group">
         <label for="gender">Geschlecht:</label>
         <input
@@ -103,7 +108,7 @@ function createNewPlan() {
         </select>
       </div>
       <PrimaryButton class="primarybutton" buttontext="Plan erstellen" @click="createNewPlan"></PrimaryButton>
-      <router-link to="/trainingsplan" class="button zurueck-button">Zurück</router-link>
+      <BackButton class="backbutton" @click="goBack"></BackButton>
     </form>
   </div>
 </template>
@@ -167,26 +172,6 @@ textarea:focus {
   font-size: 14px;
 }
 
-button,
-.zurueck-button {
-  padding: 10px 15px;
-  background-color: #6a2c91;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-  display: inline-block; 
-  text-align: center; 
-  text-decoration: none; 
-  margin-right: 70px;
-}
-
-button:hover,
-.zurueck-button:hover {
-  background-color: #4e216c;
-}
 .modal-backdrop {
   z-index: 1040; /* Bootstrap Modal-Z-Index */
 }
@@ -208,14 +193,6 @@ button:hover,
   color: white;
 }
 
-.btn-primary {
-  background-color: #6a2c91;
-  border: none;
-}
-
-.btn-primary:hover {
-  background-color: #4e216c;
-}
 .kurs-group .checkbox-group {
   margin: 5px 0;
 }
