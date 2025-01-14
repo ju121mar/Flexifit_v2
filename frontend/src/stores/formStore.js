@@ -1,8 +1,7 @@
-import { defineStore } from 'pinia';
-import { useMitgliedStore } from '@/stores/mitglied.js'; 
+import { defineStore } from "pinia";
+import { useMitgliedStore } from "@/stores/mitglied.js";
 
-export const useFormStore = defineStore('formStore', {
-  // Der initiale Zustand des Stores
+export const useFormStore = defineStore("formStore", {
   state: () => ({
     newPlan: {
       gender: "",
@@ -15,15 +14,40 @@ export const useFormStore = defineStore('formStore', {
     }
   }),
   actions: {
-    // Aktion zum Setzen der Formulardaten
     setFormData(data) {
       this.newPlan = { ...data };
+    },
+    resetForm() {
+      this.newPlan = {
+        gender: "",
+        height: "",
+        weight: "",
+        age: "",
+        goal: "",
+        level: "",
+        frequency: ""
+      };
+    },
+    loadFormDataFromLocalStorage() {
+      const mitgliedStore = useMitgliedStore();
+      const storedData = localStorage.getItem(`formStore_${mitgliedStore.mitglied?.id}`);
+      if (storedData) {
+        this.setFormData(JSON.parse(storedData));
+      }
     }
   },
-  // Persistenz aktivieren
   persist: {
-    key: 'formStore', // Key im LocalStorage
-    storage: window.localStorage // Speicherort
+    key: () => {
+      const mitgliedStore = useMitgliedStore();
+      return mitgliedStore.mitglied ? `formStore_${mitgliedStore.mitglied.id}` : null; 
+    },
+    storage: window.localStorage, // Daten im lokalen Speicher behalten
+    paths: ["newPlan"], // Nur die Formulardaten persistieren
+    beforeRestore: (context) => {
+      const mitgliedStore = useMitgliedStore();
+      if (!mitgliedStore.mitglied) {
+        context.store.resetForm(); // Wenn kein Mitglied eingeloggt ist, Formulardaten zurücksetzen
+      }
+    }
   }
 });
-
