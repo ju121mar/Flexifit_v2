@@ -1,5 +1,6 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, watch, onMounted } from "vue";
+import { useFormStore } from "@/stores/formStore"; // Store importieren
 import axios from 'axios'
 import {apiCall} from "@/utility/ApiCall.js";
 import router from "@/router/index.js";
@@ -8,17 +9,16 @@ import BackButton from "@/components/Buttons/BackButton.vue";
 import MeinTrainingsplan from '@/views/Mitglied/MeinTrainingsplan.vue'
 //import { useRouter } from "vue-router";
 
-// Formulardaten
-const newPlan = ref({
-  gender: "",
-  height: "",
-  weight: "",
-  age: "",
-  goal: "",
-  level: "",
-  frequency: "" // Liste der ausgewählten Wochentage
-});
+// Store initialisieren
+const formStore = useFormStore();
 
+// Verbindung zum Store herstellen (reactive Daten)
+const newPlan = ref({ ...formStore.newPlan });
+
+// Speichern der Daten beim Ändern
+watch(newPlan, (newValue) => {
+  formStore.setFormData(newValue);
+}, { deep: true });
 function createNewPlan() {
   router.push({
     path: '/trainingsplan/exercise/:id',
@@ -39,7 +39,7 @@ function goBack() {
 <template>
   <div class="kurs-form">
     <h2>Neuen Trainingsplan erstellen</h2>
-    <form @submit.prevent="submitForm">
+    <form @submit.prevent="createNewPlan">
       <div class="kurs-group">
         <label for="gender">Geschlecht:</label>
         <input

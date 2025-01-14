@@ -1,9 +1,11 @@
 <script setup>
+const mitgliedStore = useMitgliedStore();
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
 import { apiCall } from "@/utility/ApiCall.js";
 import BackButton from "@/components/Buttons/BackButton.vue";
+import {useMitgliedStore} from "@/stores/mitglied.js";
 
 const exercises = ref([]);
 const loading = ref(true);
@@ -40,13 +42,13 @@ function navigateBack() {
 // Anpassung basierend auf Formulareingabe
 function adjustForLevel(exercises, level, frequency, goal) {
   return exercises.map((exercise) => {
-    let adjustedExercise = { ...exercise }; // Kopieren der Übung
+    let adjustedExercise = { ...exercise }; 
     // Frequenz-Anpassung: Trainingstage filtern
     if (
       (frequency === "drei" && ["Tag 2", "Tag 4", "Tag 7"].includes(exercise.weekday)) ||
       (frequency === "fuenf" && exercise.weekday === "Tag 3")
     ) {
-      adjustedExercise.weekday = null; // Übungen an diesen Tagen entfernen
+      adjustedExercise.weekday = null; 
     }
 
     //Ziel Anpassung
@@ -62,14 +64,14 @@ function adjustForLevel(exercises, level, frequency, goal) {
 
     // Level-Anpassung: Wiederholungen und Sätze
     if (level === "Anfänger") {
-      adjustedExercise.rep = "12"; // Anfänger: 12 Wiederholungen
-      adjustedExercise.set = "3";  // Anfänger: 3 Sätze
+      adjustedExercise.rep = "12"; 
+      adjustedExercise.set = "3"; 
     } else if (level === "Fortgeschritten") {
-      adjustedExercise.rep = "10"; // Fortgeschritten: 10 Wiederholungen
-      adjustedExercise.set = "4";  // Fortgeschritten: 4 Sätze
+      adjustedExercise.rep = "10"; 
+      adjustedExercise.set = "4";  
     } else if (level === "Experte") {
-      adjustedExercise.rep = "8";  // Experte: 8 Wiederholungen
-      adjustedExercise.set = "5";  // Experte: 5 Sätze
+      adjustedExercise.rep = "8";  
+      adjustedExercise.set = "5";  
     }
 
     return adjustedExercise;
@@ -105,6 +107,9 @@ function toggleDetails(index) {
 </script>
 
 <template>
+   <p v-if="mitgliedStore.mitglied">
+        Hallo, {{ mitgliedStore.mitglied.firstName}} {{ mitgliedStore.mitglied.lastName}}! Stay Flexi!
+      </p>
   <div v-if="loading">Daten werden geladen...</div>
   <div v-else-if="error">{{ error }}</div>
   <section v-else class="exercise-container">

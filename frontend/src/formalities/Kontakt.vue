@@ -3,6 +3,7 @@ import { ref, onMounted } from "vue";
 import axios from 'axios'
 import {apiCall} from "@/utility/ApiCall.js";
 import router from "@/router/index.js";
+import BackButton from "@/components/Buttons/BackButton.vue";
 const newMessage = ref({
   name: "",
   mail:"",
@@ -43,6 +44,7 @@ const submitForm = async () => {
 </script>
 <template>
   <div class="kurs-form">
+    <BackButton class="backbutton" @click="goBack"></BackButton>
     <h2>Sende uns eine Nachricht</h2>
     <form @submit.prevent="submitForm">
       <div class="kurs-group">
@@ -58,7 +60,6 @@ const submitForm = async () => {
         <input type="text" id="message" v-model="newMessage.message" placeholder="Deine Nachricht" />
       </div>
       <button type="submit">Nachricht abschicken</button>
-      <router-link to="/kursangebote" class="button zurueck-button">Zurück</router-link>
     </form>
     <div v-if="messageSend" class="success-message">
       <p>Nachricht wurde versandt!!</p>
