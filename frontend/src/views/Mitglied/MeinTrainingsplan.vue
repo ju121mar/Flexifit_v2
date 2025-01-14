@@ -32,7 +32,9 @@ const currentDate = ref({
   }),
 });
 
-
+function setActiveDay(day) {
+  activeDay.value = day;
+}
 
 // Navigation zurück
 function navigateBack() {
@@ -97,9 +99,6 @@ onMounted(async () => {
   }
 });
 
-function setActiveDay(day) {
-  activeDay.value = day;
-}
 
 function toggleDetails(index) {
   showDetails.value[index] = !showDetails.value[index]; // Umschalten des Detailzustands
@@ -107,28 +106,36 @@ function toggleDetails(index) {
 </script>
 
 <template>
+  <div class="heading">
    <p v-if="mitgliedStore.mitglied">
-        Hallo, {{ mitgliedStore.mitglied.firstName}} {{ mitgliedStore.mitglied.lastName}}! Stay Flexi!
+        <h2>{{ mitgliedStore.mitglied.firstName}}s Trainingsplan</h2>
       </p>
+    </div>
   <div v-if="loading">Daten werden geladen...</div>
   <div v-else-if="error">{{ error }}</div>
   <section v-else class="exercise-container">
     <div class="header-controls">
       <BackButton @click="navigateBack"></BackButton>
+      <div>
       <span class="current-date">{{ currentDate.date }}</span>
       <span class="current-time">{{ currentDate.time }}</span>
+    </div>
     </div>
     <div class="weekdays">
       <button
         v-for="day in weekdays"
         :key="day"
         class="day-button"
+       :class="{ 'current-day': day === activeDay }"
         @click="setActiveDay(day)"
       >
         {{ day }}
       </button>
     </div>
     <div class="exercises">
+      <div v-if="exercises.filter((exercise) => exercise.weekday === activeDay).length === 0">
+    <h2>RESTDAY</h2>
+    </div>
       <div
         v-for="(exercise, index) in exercises.filter((exercise) => exercise.weekday === activeDay)"
         :key="exercise.id"
@@ -145,51 +152,57 @@ function toggleDetails(index) {
       <button class="detail-button" @click="toggleDetails(index)">
         {{ showDetails[index] ? 'Details verbergen' : 'Details anzeigen' }}
       </button>
-    </div>
+      </div>
     </div>
   </section>
 </template>
 
 
-  <style scoped>
-.exercise-container {
+<style scoped>
+/* Zentrieren der Überschrift */
+.heading {
   display: flex;
-  flex-direction: column;
-  padding: 20px;
-  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  color: #7030a0;
+  margin-top: 20px;
+  text-align: center;
 }
 
+.heading h2 {
+  font-size: 24px;
+  margin: 0;
+}
+.exercise-card h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #7030a0 !important;
+}
+
+.exercises h2 {
+  color:#d8b5ea;
+}
+/* Responsive Header für Datum und Uhrzeit */
 .header-controls {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+  gap: 10px;
+  text-align: center;
 }
 
-.page-title {
-  font-size: 24px;
-  font-weight: bold;
-  color: #7030a0;
+@media (min-width: 768px) {
+  .header-controls {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
 
-.create-plan-button {
-  padding: 10px 15px;
-  background-color: #7030a0;
-  color: white;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.create-plan-button:hover {
-  background-color: #4e216c;
-}
-
+/* Wochen-Tage */
 .weekdays {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 20px;
 }
@@ -206,15 +219,13 @@ function toggleDetails(index) {
   transition: all 0.3s ease;
 }
 
-.day-button:hover {
-  background-color: #f3e7fc;
-}
-
-.current-day {
+.day-button:hover,
+.day-button.current-day {
   background-color: #7030a0;
   color: #ffffff;
 }
 
+/* Responsive Karten */
 .exercises {
   display: flex;
   flex-wrap: wrap;
@@ -238,15 +249,11 @@ function toggleDetails(index) {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.exercise-card h2 {
-  color: #7030a0;
-  margin-bottom: 10px;
-}
-
-.exercise-card p {
-  margin: 5px 0;
-  font-size: 16px;
-  color: #333333;
+@media (max-width: 768px) {
+  .exercise-card {
+    width: 100%;
+    padding: 10px;
+  }
 }
 
 .detail-button {
@@ -266,16 +273,19 @@ function toggleDetails(index) {
   border: 2px solid #7030a0;
 }
 
-.current-date, .current-time {
+.current-date{
   color: #d8b5ea;
   font-weight: bold;
-  display: block;
   font-size: 18px;
-  text-align: center;
+}
+.current-time {
+  color: #d8b5ea;
+  font-weight: bold;
+  font-size: 18px;
+  margin-left: 20px;
+  margin-right: 20px
 }
 </style>
-
-
 
 
   

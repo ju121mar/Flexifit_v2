@@ -36,7 +36,9 @@
                 Ziele zu erreichen – von individuellen Trainingsplänen über
                 motivierende Trainer bis hin zu einer unterstützenden Gemeinschaft.
               </p>
+              <router-link to="/login">
               <button class="book-button">Mein Trainingsplan</button>
+            </router-link>
             </div>
           </div>
         </div>
@@ -75,7 +77,11 @@
         </p>
       </div>
       <img src="../assets/pictures/trainer.jpg" alt="Trainer" class="trainer-image" />
-      <button class="book-button">Mein Trainingsplan ➔</button>
+      <div class="button-container">
+      <router-link to="/login">
+        <button class="book-button">Jetzt anmelden und Trainingsplan erstellen!</button>
+      </router-link>
+    </div>
     </div>
   </div>
 </template>
@@ -209,29 +215,27 @@
 }
 
 
-.trainer-card .book-button {
-  display: block;
+.button-container {
+  margin-top: auto;
   width: 100%;
-  margin-top: 20px;
+  text-align: center;
+}
+
+/* Styling des Buttons */
+.trainer-card .book-button {
   padding: 10px 20px;
   background-color: #7030a0;
   color: white;
-  cursor: pointer;
-  text-align: center;
-  order: 2;
-  align-self: center;
-  border: 1px solid white;
-  border-radius: 4px;
   font-size: 16px;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
+  transition: all 0.3s ease;
 }
 
 .trainer-card .book-button:hover {
-  background-color: white;
-  color: #7030a0;
+  background-color: #4e216c;
 }
-
 .trainer-card h3 {
   color: #7030a0;
   font-size: 22px;

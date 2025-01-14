@@ -646,26 +646,7 @@ module.exports.bootstrap = async function() {
         weekday: 'Tag 5',
         goal: 'Muskelaufbau Oberkörper'
       },
-      {
-        exercisename: 'Seitheben mit Kurzhanteln',
-        equipmentname: 'Kurzhanteln',
-        set: '3',
-        rep: '12',
-        setup: 'Kurzhanteln seitlich des Körpers halten, Handflächen nach innen.',
-        execution: 'Kurzhanteln kontrolliert seitlich anheben, bis sie auf Schulterhöhe sind, dann absenken.',
-        weekday: 'Tag 5',
-        goal: 'Muskelaufbau Oberkörper'
-      },
-      {
-        exercisename: 'Frontheben mit Kurzhanteln',
-        equipmentname: 'Kurzhanteln',
-        set: '3',
-        rep: '12',
-        setup: 'Kurzhanteln vor den Oberschenkeln halten, Handflächen nach innen.',
-        execution: 'Kurzhanteln abwechselnd nach vorne bis auf Schulterhöhe anheben, dann absenken.',
-        weekday: 'Tag 5',
-        goal: 'Muskelaufbau Oberkörper'
-      },
+    
       {
         exercisename: 'Hammer Curls',
         equipmentname: 'Kurzhanteln',
@@ -848,16 +829,7 @@ module.exports.bootstrap = async function() {
         weekday: 'Tag 7',
         goal: 'Muskelaufbau Oberkörper'
       },
-      {
-        exercisename: 'Rückenstrecker an der Maschine',
-        equipmentname: 'Rückenstrecker-Maschine',
-        set: '4',
-        rep: '15',
-        setup: 'Auf der Maschine Platz nehmen, Füße stabil abstellen.',
-        execution: 'Oberkörper nach hinten strecken, ohne zu überstrecken, dann kontrolliert nach vorne absenken.',
-        weekday: 'Tag 7',
-        goal: 'Muskelaufbau Oberkörper'
-      },
+    
       {
         exercisename: 'Burpees',
         equipmentname: 'Kein Equipment',

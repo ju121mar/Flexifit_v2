@@ -31,10 +31,7 @@
         <h6><a href="/kursangebote">Kursangebote</a></h6>
       </div>
       <div class="col-md-2">
-        <h6><a href="#">Mein Trainingsplan</a></h6>
-      </div>
-      <div class="col-md-2">
-        <h6><a href="#">Kontakt</a></h6>
+        <h6><a href="/kontakt">Kontakt</a></h6>
       </div>
     </div>
   </footer>

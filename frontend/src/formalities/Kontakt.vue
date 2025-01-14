@@ -37,6 +37,9 @@ const submitForm = async () => {
   // Show success message
   messageSend.value = true;
 };
+function goBack() {
+  router.push("/");
+}
 
 
 

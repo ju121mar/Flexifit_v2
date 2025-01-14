@@ -12,7 +12,7 @@ import KursDetailansicht from "@/views/Mitglied/KursDetailansicht.vue";
 import LoginMitgliedView from '@/views/Mitglied/LoginMitgliedView.vue';
 import LoginMitgliedSuccess from "@/views/Mitglied/LoginMitgliedSuccess.vue";
 import Trainingsplan from '@/components/Trainingsplan.vue';
-import NewTrainingsplanView from '@/views/NewTrainingsplanView.vue';
+import NewTrainingsplanView from '@/views/Mitglied/NewTrainingsplanView.vue';
 import MeinTrainingsplan from '@/views/Mitglied/MeinTrainingsplan.vue';
 import BuchungenView from "@/views/Mitglied/BuchungenView.vue";
 import LoginRezeptionistView from "@/views/Rezeptionist/LoginRezeptionistView.vue";
