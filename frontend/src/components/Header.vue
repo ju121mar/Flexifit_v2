@@ -34,8 +34,10 @@ async function logout() {
   } else if (userType.value === 'trainer') {
     console.log("logout trainer")
     await trainerStore.logout();
+  }  else if (userType.value === 'rezeptionist') {
+    await rezeptionistStore.logout();
   }
-  router.push('/');
+  await router.push('/');
 
 }
 
@@ -97,11 +99,11 @@ async function logout() {
               <RouterLink  class="nav-link"
                            v-if="userType === 'trainer'"
                            :class="{ 'active': $route.path.startsWith('/kursangebote') }"
-                           to="/kursangebote">Kursangebote</RouterLink>
+                           to="/kursangebote">Kursangebote Trainer</RouterLink>
               <RouterLink  class="nav-link"
-                           v-if="userType === 'rezeptionist'"
+                           v-else-if="userType === 'rezeptionist'"
                            :class="{ 'active': $route.path.startsWith('/kursangebote') }"
-                           to="/kursangebote/manage">Kursangebote</RouterLink>
+                           to="/kursangebote/manage">Kursanfragen</RouterLink>
               <RouterLink  class="nav-link"
                            v-else
                            :class="{ 'active': $route.path.startsWith('/kursangebote') }"
