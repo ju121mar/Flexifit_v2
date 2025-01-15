@@ -171,6 +171,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 10,
       description: 'Ein entspannender Yoga-Kurs, der Körper und Geist verbindet.',
       equipment: 'Yogamatte (vor Ort verfügbar), optional Yoga-Blöcke',
+      image: '/src/assets/pictures/Yoga.jpg',
     },
     {
       name: 'Balance Pilates',
@@ -181,6 +182,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 12,
       description: 'Pilates-Übungen für eine starke Körpermitte und bessere Balance.',
       equipment: 'Pilates-Matte (vor Ort), kleine Pilates-Bälle',
+      image: '/src/assets/pictures/Laufband.png',
     },
     {
       name: 'Spin Class',
@@ -191,6 +193,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 15,
       description: 'Ein energiegeladener Indoor-Cycling-Kurs mit motivierender Musik.',
       equipment: 'Indoor Cycling Bike (vor Ort verfügbar)',
+      image: '/src/assets/pictures/HIIT.jpg'
     },
     {
       name: 'HIIT Workout',
@@ -201,6 +204,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 20,
       description: 'Ein intensives Intervalltraining, das Fett verbrennt und Muskeln stärkt.',
       equipment: 'Kurzhanteln, Kettlebells, Trainingsmatte (alles vor Ort verfügbar)',
+      image:'/src/assets/pictures/HIIT.jpg'
     },
     {
       name: 'Zumba Dance',
@@ -211,6 +215,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 25,
       description: 'Eine dynamische Tanzstunde mit lateinamerikanischen Rhythmen.',
       equipment: 'Keine Ausrüstung erforderlich',
+      image: '/src/assets/pictures/Pilates.jpg',
     },
     {
       name: 'Functional Training',
@@ -221,6 +226,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 18,
       description: 'Ganzkörpertraining für Beweglichkeit, Kraft und Stabilität.',
       equipment: 'Kettlebells, Langhanteln, TRX-Bänder (vor Ort verfügbar)',
+      image: '/src/assets/pictures/HIIT.jpg',
     },
     {
       name: 'Meditation Session',
@@ -231,6 +237,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 8,
       description: 'Eine ruhige Meditationsstunde, um die Woche entspannt zu starten.',
       equipment: 'Yogamatte oder Sitzkissen (vor Ort verfügbar)',
+      image: '/src/assets/pictures/Yoga.jpg'
     },
     {
       name: 'Functional Fitness',
@@ -241,6 +248,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 12,
       description: 'Ein intensives Ganzkörpertraining für alle Fitnesslevel.',
       equipment: 'Gewichtsscheiben, Widerstandsbänder, Medizinbälle (vor Ort verfügbar)',
+      image: '/src/assets/pictures/Laufband.png',
     },
     {
       name: 'Calisthenics Basics',
@@ -251,6 +259,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 10,
       description: 'Grundlagen des Trainings mit dem eigenen Körpergewicht.',
       equipment: 'Keine Ausrüstung erforderlich',
+      image: '/src/assets/pictures/HIIT.jpg',
     },
     {
       name: 'Indoor Cycling',
@@ -261,6 +270,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 15,
       description: 'Ein energiegeladener Kurs auf dem Fahrrad.',
       equipment: 'Indoor Cycling Bike (vor Ort verfügbar)',
+      image: '/src/assets/pictures/Laufband.png',
     },
     {
       name: 'Athletik Training',
@@ -271,6 +281,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 10,
       description: 'Ein athletischer Mix aus Kraft und Kondition.',
       equipment: 'Kurzhanteln, Kettlebells, Plyo-Boxen (vor Ort verfügbar)',
+      image: '/src/assets/pictures/HIIT.jpg'
     },
     {
       name: 'Kraft & Mobility',
@@ -281,6 +292,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 12,
       description: 'Verbessere deine Kraft und Beweglichkeit in einem Kurs.',
       equipment: 'Trainingsmatte, Widerstandsbänder (vor Ort verfügbar)',
+      image: '/src/assets/pictures/Pilates.jpg',
     },
     {
       name: 'TRX Suspension Training',
@@ -291,6 +303,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 8,
       description: 'Training mit dem TRX-System für den ganzen Körper.',
       equipment: 'TRX-Bänder (vor Ort verfügbar)',
+      image: '/src/assets/pictures/Laufband.png',
     },
     {
       name: 'Power Yoga',
@@ -301,6 +314,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 10,
       description: 'Eine kraftvolle Yoga-Session für Geübte.',
       equipment: 'Yogamatte (vor Ort verfügbar)',
+      image: '/src/assets/pictures/Yoga.jpg',
     },
     {
       name: 'Kettlebell Workout',
@@ -311,6 +325,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 8,
       description: 'Effizientes Krafttraining mit Kettlebells.',
       equipment: 'Kettlebells (vor Ort verfügbar)',
+      image: '/src/assets/pictures/HIIT.jpg',
     },
     {
       name: 'Step Aerobic',
@@ -321,6 +336,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 15,
       description: 'Ein dynamisches Cardio-Workout mit Step-Elementen.',
       equipment: 'Step-Brett (vor Ort verfügbar)',
+      image: '/src/assets/pictures/Pilates.jpg',
     },
     {
       name: 'Deep Stretch',
@@ -331,6 +347,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 10,
       description: 'Ein ruhiger Kurs mit Fokus auf tiefes Dehnen und Entspannen.',
       equipment: 'Yogamatte (vor Ort verfügbar)',
+      image: '/src/assets/pictures/Yoga.jpg',
     },
     {
       name: 'Cardio Kickboxing',
@@ -341,6 +358,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 12,
       description: 'Ein schweißtreibendes Training mit Kickbox-Elementen.',
       equipment: 'Boxhandschuhe (optional), Trainingsmatte (vor Ort verfügbar)',
+      image: '/src/assets/pictures/Laufband.png'
     },
     {
       name: 'Core Blast',
@@ -351,6 +369,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 10,
       description: 'Intensives Training für eine starke Körpermitte.',
       equipment: 'Trainingsmatte (vor Ort verfügbar), Medizinball',
+      image: '/src/assets/pictures/Pilates.jpg',
     },
     {
       name: 'Relaxation Yoga',
@@ -361,6 +380,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 8,
       description: 'Ein sanfter Yoga-Kurs für maximale Entspannung.',
       equipment: 'Yogamatte, Decke (vor Ort verfügbar)',
+      image: '/src/assets/pictures/Yoga.jpg'
     },
     {
       name: 'Family Fitness',
@@ -371,6 +391,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 20,
       description: 'Ein spaßiger Fitnesskurs für die ganze Familie.',
       equipment: 'Keine Ausrüstung erforderlich',
+      image: '/src/assets/pictures/Pilates.jpg',
     }
 
   ]
