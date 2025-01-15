@@ -71,6 +71,7 @@
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
+
 h1 {
   font-size: 2.5rem;
   color: #7030a0;
@@ -112,8 +113,6 @@ section {
   margin-bottom: 20px;
 }
 
-
-
 h2::after {
   content: '';
   display: block;
@@ -123,7 +122,6 @@ h2::after {
   margin-top: 5px;
   border-radius: 2px;
 }
-
 
 .index {
   list-style-type: none;
@@ -140,5 +138,50 @@ h2::after {
   text-decoration: underline;
 }
 
-</style>
+/* Responsive Design */
+@media (max-width: 768px) {
+  .datenschutz {
+    padding: 15px;
+  }
 
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+
+  h2::after {
+    width: 40px;
+    height: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .datenschutz {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  p {
+    font-size: 0.85rem;
+  }
+
+  h2::after {
+    width: 30px;
+    height: 2px;
+  }
+}
+</style>

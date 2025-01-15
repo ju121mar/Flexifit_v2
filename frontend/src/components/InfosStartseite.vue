@@ -36,7 +36,7 @@
                 Ziele zu erreichen – von individuellen Trainingsplänen über
                 motivierende Trainer bis hin zu einer unterstützenden Gemeinschaft.
               </p>
-              <router-link to="/login">
+              <router-link to="/login/mitglied">
               <button class="book-button">Mein Trainingsplan</button>
             </router-link>
             </div>
@@ -78,7 +78,7 @@
       </div>
       <img src="../assets/pictures/trainer.jpg" alt="Trainer" class="trainer-image" />
       <div class="button-container">
-      <router-link to="/login">
+      <router-link to="/login/mitglied">
         <button class="book-button">Jetzt anmelden und Trainingsplan erstellen!</button>
       </router-link>
     </div>
