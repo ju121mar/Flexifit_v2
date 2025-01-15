@@ -20,47 +20,26 @@ function parseTime(timeStr) {
   return new Date(0, 0, 0, hours, minutes);
 }
 
-function isFutureCourse(kurs) {
+function isFutureCourseToday(kurs) {
   const now = new Date();
   const wochentageOrder = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
-  const currentWeekday = wochentageOrder[now.getDay() - 1];
 
-  const kursWochentagIndex = wochentageOrder.indexOf(kurs.wochentag);
-  const currentWochentagIndex = wochentageOrder.indexOf(currentWeekday);
-
-  const daysDiff = (kursWochentagIndex - currentWochentagIndex + 7) % 7;
-
-  const kursTime = parseTime(kurs.uhrzeit);
-  const kursDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysDiff, kursTime.getHours(), kursTime.getMinutes());
-
-  return kursDate > now;
+  const currentWeekday = wochentageOrder[now.getDay() === 0 ? 6 : now.getDay() - 1];
+  if (kurs.wochentag !== currentWeekday) return false;
+  return kurs
 }
 
 async function getKurse() {
   const response = await apiCall({
     url: '/kurse',
     method: 'GET',
-    params: { limit: 4}
   });
+  console.log(response)
+  const futureKurseToday = response.filter(isFutureCourseToday);
+  const sortedKurse = futureKurseToday.sort((a, b) => parseTime(a.uhrzeit) - parseTime(b.uhrzeit));
+  kurse.value = sortedKurse.slice(0, 4); // Anzahl anpassen nach Bedarf
 
-  const wochentageOrder = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
-
-  const futureKurse = response.filter(isFutureCourse);
-
-  // const sortedFutureKurse = futureKurse.sort((a, b) => {
-  //   const wochentagDiff = wochentageOrder.indexOf(a.wochentag) - wochentageOrder.indexOf(b.wochentag);
-  //   if (wochentagDiff !== 0) return wochentagDiff;
-  //   return parseTime(a.uhrzeit) - parseTime(b.uhrzeit);
-  // });
-
-  const aktuellerWochentag = wochentageOrder[new Date().getDay() -1];
-
-  console.log(new Date().getDay())
-  const sortedFutureKurse = futureKurse.filter(
-      (futureKurse) => futureKurse.wochentag === aktuellerWochentag
-  );
-
-  kurse.value = sortedFutureKurse.slice(0, 4); //Hier ändern wie viele Kurse auf der Startseite sein sollen
+  console.log("Gefilterte Kurse für heute:", sortedKurse);
 }
 </script>
 
@@ -69,7 +48,7 @@ async function getKurse() {
     <div class="container">
       <div class="row g-4 justify-content-center">
         <div 
-          v-for="kurs in kurse" 
+          v-for="kurs in kurse"
           :key="kurs.id" 
           class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3"
         >
