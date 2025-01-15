@@ -42,18 +42,17 @@ function goBack() {
     <form @submit.prevent="createNewPlan">
       <div class="kurs-group">
         <label for="gender">Geschlecht:</label>
-        <input
-          type="text"
-          id="gender"
-          v-model="newPlan.gender"
-          placeholder="Geschlecht eingeben"
-          required
-        />
+        <select id="gender" v-model="newPlan.gender" class="form-select" required>
+          <option disabled value="">Geschlecht auswählen</option>
+          <option value="weiblich">weiblich</option>
+          <option value="männlich">männlich</option>
+          <option value="divers">divers</option>
+          </select>
       </div>
       <div class="kurs-group">
         <label for="height">Größe in cm:</label>
         <input
-          type="text"
+          type="number"
           id="height"
           v-model="newPlan.height"
           placeholder="Größe eingeben"
@@ -63,7 +62,7 @@ function goBack() {
       <div class="kurs-group">
         <label for="weight">Gewicht in kg:</label>
         <input
-          type="text"
+          type="number"
           id="weight"
           v-model="newPlan.weight"
           placeholder="Gewicht eingeben"
@@ -73,7 +72,7 @@ function goBack() {
       <div class="kurs-group">
         <label for="age">Alter:</label>
         <input
-          type="text"
+          type="number"
           id="age"
           v-model="newPlan.age"
           placeholder="Alter eingeben"
@@ -107,7 +106,7 @@ function goBack() {
           <option value="fuenf">Fünf Mal</option>
         </select>
       </div>
-      <PrimaryButton class="primarybutton" buttontext="Plan erstellen" @click="createNewPlan"></PrimaryButton>
+      <PrimaryButton class="primarybutton" buttontext="Plan anzeigen" @click="createNewPlan"></PrimaryButton>
       <BackButton class="backbutton" @click="goBack"></BackButton>
     </form>
   </div>
