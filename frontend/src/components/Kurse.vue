@@ -47,11 +47,18 @@ async function getKurse() {
 
   const futureKurse = response.filter(isFutureCourse);
 
-  const sortedFutureKurse = futureKurse.sort((a, b) => {
-    const wochentagDiff = wochentageOrder.indexOf(a.wochentag) - wochentageOrder.indexOf(b.wochentag);
-    if (wochentagDiff !== 0) return wochentagDiff;
-    return parseTime(a.uhrzeit) - parseTime(b.uhrzeit);
-  });
+  // const sortedFutureKurse = futureKurse.sort((a, b) => {
+  //   const wochentagDiff = wochentageOrder.indexOf(a.wochentag) - wochentageOrder.indexOf(b.wochentag);
+  //   if (wochentagDiff !== 0) return wochentagDiff;
+  //   return parseTime(a.uhrzeit) - parseTime(b.uhrzeit);
+  // });
+
+  const aktuellerWochentag = wochentageOrder[new Date().getDay() -1];
+
+  console.log(new Date().getDay())
+  const sortedFutureKurse = futureKurse.filter(
+      (futureKurse) => futureKurse.wochentag === aktuellerWochentag
+  );
 
   kurse.value = sortedFutureKurse.slice(0, 4); //Hier ändern wie viele Kurse auf der Startseite sein sollen
 }

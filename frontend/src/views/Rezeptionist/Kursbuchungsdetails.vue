@@ -56,12 +56,32 @@ async function updateBooking(status, buchungId) {
         buchungId: buchungId,
       }
     });
+    await loadBuchungen();
   } catch (error) {
     console.error('Fehler beim bestätigen des Buchung')
   }
 }
 
+async function loadBuchungen() {
+  try {
+    buchungen.value = await apiCall({
+      method: 'GET',
+      url: `/getBookingsandMitglied/${courseId}`,
+    });
 
+    bestaetigteBuchung.value = buchungen.value.filter(b => b.status === 'Bestätigt');
+    abgelehnteBuchung.value = buchungen.value.filter(b => b.status === 'Abgelehnt');
+    buchungsanfragen.value = buchungen.value.filter(b => b.status === 'Bestätigung ausstehend');
+  } catch (error) {
+    console.error('Fehler beim Laden der Buchungen:', error);
+  }
+}
+
+function formatGermanDate(dateString) {
+  if (!dateString) return '';
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat('de-DE').format(date);
+}
 
 const buchungen = ref([]);
 const bestaetigteBuchung = ref([]);
@@ -69,6 +89,7 @@ const abgelehnteBuchung = ref([]);
 const buchungsanfragen = ref([]);
 
 onMounted(async () => {
+  await loadBuchungen();
   try {
     // Lade Kursdaten
     const kursResponse = await apiCall({
@@ -122,6 +143,7 @@ onMounted(async () => {
       <p><strong>Uhrzeit:</strong> {{ kurs.uhrzeit }}</p>
       <p><strong>Dauer:</strong> {{ kurs.dauer }}</p>
       <p><strong>max. Teilnehmer:</strong> {{ kurs.teilnehmer }}</p>
+      <p><strong>akt. Teilnehmer:</strong> {{ kurs.aktTeilnehmer }}</p>
     </div>
     <!--    </div>-->
   </section>
@@ -136,27 +158,35 @@ onMounted(async () => {
   <section class="kurs-detail">
     <div v-if="buchungsanfragen && buchungsanfragen.length > 0">
       <div v-for="(buchung, index) in buchungsanfragen" :key="index" class="buchung-card">
-        <h2 class="kurs-title">{{ buchung.mitglied.firstName }} {{ buchung.mitglied.lastName }}</h2>
-        <div class="kurs-info">
+        <details>
+          <summary class="kurs-title">{{ buchung.mitglied.firstName }} {{ buchung.mitglied.lastName }}</summary>
+          <div class="kurs-info">
           <p><strong>E-Mail:</strong> {{ buchung.mitglied.email }}</p>
+          <p><strong>Adresse:</strong> {{ buchung.mitglied.street }} {{buchung.mitglied.houseNumber}} {{buchung.mitglied.postalCode}} {{buchung.mitglied.city}}</p>
+          <p><strong>Geburtsdatum:</strong> {{ formatGermanDate(buchung.mitglied.dob) }}</p>
         </div>
-        <PrimaryButton buttontext="Bestätigen" @click="updateBooking('Bestätigt', buchung.id)"></PrimaryButton>
-        <SecondaryButton buttontext="Stornieren" @click="updateBooking('Abgelehnt', buchung.id)"></SecondaryButton>
+        <PrimaryButton class="action-button" buttontext="Bestätigen" @click="updateBooking('Bestätigt', buchung.id)"></PrimaryButton>
+        <SecondaryButton class="action-button" buttontext="Stornieren" @click="updateBooking('Abgelehnt', buchung.id)"></SecondaryButton>
+        </details>
       </div>
     </div>
     <div v-else>
-      <p>Keine Buchungen vorhanden</p>
+      <p>Keine Buchungsanfragen vorhanden</p>
     </div>
   </section>
   <h1>Bestätigte Buchungen:</h1>
   <section class="kurs-detail">
     <div v-if="bestaetigteBuchung && bestaetigteBuchung.length > 0">
       <div v-for="(buchung, index) in bestaetigteBuchung" :key="index" class="buchung-card">
-        <h2 class="kurs-title">{{ buchung.mitglied.firstName }} {{ buchung.mitglied.lastName }}</h2>
+        <details>
+        <summary class="kurs-title">{{ buchung.mitglied.firstName }} {{ buchung.mitglied.lastName }}</summary>
         <div class="kurs-info">
           <p><strong>E-Mail:</strong> {{ buchung.mitglied.email }}</p>
-        </div>
+          <p><strong>Adresse:</strong> {{ buchung.mitglied.street }} {{buchung.mitglied.houseNumber}} {{buchung.mitglied.postalCode}} {{buchung.mitglied.city}}</p>
+          <p><strong>Geburtsdatum:</strong> {{ formatGermanDate(buchung.mitglied.dob) }}</p>
       </div>
+        </details>
+    </div>
     </div>
     <div v-else>
       <p>Keine bestätigte Buchungen vorhanden</p>
@@ -166,10 +196,14 @@ onMounted(async () => {
   <section class="kurs-detail">
     <div v-if="abgelehnteBuchung && abgelehnteBuchung.length > 0">
       <div v-for="(buchung, index) in abgelehnteBuchung" :key="index" class="buchung-card">
-        <h2 class="kurs-title">{{ buchung.mitglied.firstName }} {{ buchung.mitglied.lastName }}</h2>
+        <details>
+        <summary class="kurs-title">{{ buchung.mitglied.firstName }} {{ buchung.mitglied.lastName }}</summary>
         <div class="kurs-info">
           <p><strong>E-Mail:</strong> {{ buchung.mitglied.email }}</p>
+          <p><strong>Adresse:</strong> {{ buchung.mitglied.street }} {{buchung.mitglied.houseNumber}} {{buchung.mitglied.postalCode}} {{buchung.mitglied.city}}</p>
+          <p><strong>Geburtsdatum:</strong> {{ formatGermanDate(buchung.mitglied.dob) }}</p>
         </div>
+        </details>
       </div>
     </div>
     <div v-else>
@@ -182,6 +216,23 @@ onMounted(async () => {
 
 
 <style scoped>
+/* Button-Styles */
+
+.action-button {
+  margin-right: 10px; /* Abstand zwischen Buttons */
+  margin-bottom: 10px; /* Abstand nach unten */
+}
+.custom-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer;
+  color: #7030a0; /* Dunkellila Farbe für die Überschrift */
+  margin-bottom: 10px;
+}
+
 h1{
   color: #7030a0;
   font-size: 28px;

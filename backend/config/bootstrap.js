@@ -31,7 +31,8 @@ module.exports.bootstrap = async function() {
       houseNumber: '12',
       postalCode: '10115',
       city: 'Berlin',
-      isSuperAdmin: true
+      isSuperAdmin: true,
+      dob: '1985-04-15'
     },
     {
       firstName: 'Max',
@@ -42,7 +43,8 @@ module.exports.bootstrap = async function() {
       houseNumber: '8a',
       postalCode: '80331',
       city: 'München',
-      isSuperAdmin: false
+      isSuperAdmin: false,
+      dob: '1990-09-22' // Geburtsdatum
     },
     {
       firstName: 'Sophia',
@@ -53,7 +55,8 @@ module.exports.bootstrap = async function() {
       houseNumber: '22',
       postalCode: '20095',
       city: 'Hamburg',
-      isSuperAdmin: false
+      isSuperAdmin: false,
+      dob: '1993-02-10' // Geburtsdatum
     },
     {
       firstName: 'Lukas',
@@ -64,7 +67,8 @@ module.exports.bootstrap = async function() {
       houseNumber: '45',
       postalCode: '50667',
       city: 'Köln',
-      isSuperAdmin: false
+      isSuperAdmin: false,
+      dob: '1988-07-05' // Geburtsdatum
     },
     {
       firstName: 'Emily',
@@ -75,7 +79,8 @@ module.exports.bootstrap = async function() {
       houseNumber: '3b',
       postalCode: '90403',
       city: 'Nürnberg',
-      isSuperAdmin: false
+      isSuperAdmin: false,
+      dob: '1995-11-30' // Geburtsdatum
     }
   ]);
 
@@ -373,7 +378,7 @@ module.exports.bootstrap = async function() {
 
 
   await Exercise.createEach([
-    
+
     {
         exercisename: 'Kniebeugen',
         equipmentname: 'Langhantel',
@@ -554,7 +559,7 @@ module.exports.bootstrap = async function() {
         weekday: 'Tag 1',
         goal: 'Muskelaufbau Unterkörper'
       },
-      
+
       {
         exercisename: 'Bankdrücken mit Langhantel',
         equipmentname: 'Langhantel',
@@ -646,7 +651,7 @@ module.exports.bootstrap = async function() {
         weekday: 'Tag 5',
         goal: 'Muskelaufbau Oberkörper'
       },
-    
+
       {
         exercisename: 'Hammer Curls',
         equipmentname: 'Kurzhanteln',
@@ -829,7 +834,7 @@ module.exports.bootstrap = async function() {
         weekday: 'Tag 7',
         goal: 'Muskelaufbau Oberkörper'
       },
-    
+
       {
         exercisename: 'Burpees',
         equipmentname: 'Kein Equipment',
@@ -1190,15 +1195,15 @@ module.exports.bootstrap = async function() {
         weekday: 'Tag 7',
         goal: 'Muskelaufbau Ganzkörper'
       }
-       
 
 
-      
-      
-      
-           
-      
-      
-      
+
+
+
+
+
+
+
+
     ]);
 }
