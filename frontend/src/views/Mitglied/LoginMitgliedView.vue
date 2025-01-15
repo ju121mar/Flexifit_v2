@@ -33,6 +33,9 @@ async function login() {
       <label for="password">Passwort:</label>
       <input id="password" type="password" v-model="password" placeholder="Passwort eingeben" />
     </div>
+    <p>
+    <a href="/register" class="text-link">Noch kein Mitglied? Jetzt registrieren → </a>
+  </p>
     <button type="submit">Login</button>
     <a href="/login/success/mitglied" class="zurueck-button">Zurück</a>
   </form>

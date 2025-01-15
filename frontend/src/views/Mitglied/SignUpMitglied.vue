@@ -40,10 +40,6 @@ import {useMitgliedStore} from "@/stores/mitglied.js";
       <input id="password" type="password" v-model="password" placeholder="6 Zeichen" />
     </div>
     <div class="kurs-group">
-      <label for="password">Passwort wiederholen:</label>
-      <input id="password" type="password" v-model="password" placeholder="Wiederholen" />
-    </div>
-    <div class="kurs-group">
       <label for="street">Straße:</label>
       <input id="street" type="street" v-model="street" placeholder="Straße eingeben" />
     </div>
@@ -60,7 +56,7 @@ import {useMitgliedStore} from "@/stores/mitglied.js";
       <input id="city" type="city" v-model="city" placeholder="Stadt eingeben" />
     </div>
     <button type="submit">Jetzt Registrieren</button>
-    <a href="/login/sucess/mitglied" class="zurueck-button">Zurück</a>
+    <a href="/login/mitglied" class="zurueck-button">Zurück</a>
   </form>
   <div v-if="loginError" class="popup">
     <div class="popup-content">

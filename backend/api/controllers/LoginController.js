@@ -61,7 +61,26 @@ module.exports = {
     req.session.rezeptionistId = rezeptionist.id;
     req.session.rezeptionist = rezeptionist;
     return res.json(rezeptionist);
-  }
+  },
+  register: async function (req, res) {
+    let params = req.body;
+    let newEmail = params.email.toLowerCase();
+
+    let mitglied = await Mitglied.create(
+        {  firstName: params.firstName, lastName: params.lastName, email: newEmail, password: await sails.helpers.passwords.hashPassword(params.password), street: params.street, houseNumber: params.houseNumber, postalCode: params.postalCode, city: params.city,  isSuperAdmin:false,
+         
+         }).intercept('E_UNIQUE', 'emailAlreadyInUse')
+         .intercept({firstName: 'UsageError'}, 'invalid')
+         .fetch();;
+
+    // Store the user's new id in their session.
+    req.session.mitgliedId = mitglied.id;
+    req.session.mitglied = mitglied;
+    return res.json(mitglied);
+  },
+
+  
+
   // ,
   // register: async function (req, res) {
   //   let params = req.body;
