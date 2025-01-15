@@ -38,7 +38,7 @@ function setActiveDay(day) {
 
 // Navigation zurück
 function navigateBack() {
-  router.push("/trainingsplan");
+  router.push("/trainingsplan/new");
 }
 
 // Anpassung basierend auf Formulareingabe
@@ -107,15 +107,15 @@ function toggleDetails(index) {
 
 <template>
   <div class="heading">
-   <p v-if="mitgliedStore.mitglied">
-        <h2>{{ mitgliedStore.mitglied.firstName}}s Trainingsplan</h2>
-      </p>
+   <h2 v-if="mitgliedStore.mitglied">
+        {{ mitgliedStore.mitglied.firstName}}s Trainingsplan
+   </h2>
     </div>
   <div v-if="loading">Daten werden geladen...</div>
   <div v-else-if="error">{{ error }}</div>
   <section v-else class="exercise-container">
     <div class="header-controls">
-      <BackButton @click="navigateBack"></BackButton>
+      <button class="editbutton" @click="navigateBack">← Plan bearbeiten</button>
       <div>
       <span class="current-date">{{ currentDate.date }}</span>
       <span class="current-time">{{ currentDate.time }}</span>
@@ -284,6 +284,24 @@ function toggleDetails(index) {
   font-size: 18px;
   margin-left: 20px;
   margin-right: 20px
+}
+
+.editbutton {
+  text-decoration: none;
+  color: #6a2c91;
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 20px;
+  margin-left: 220px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.editbutton:hover {
+  background-color: #4e216c;
+  color: #ffffff;
 }
 </style>
 

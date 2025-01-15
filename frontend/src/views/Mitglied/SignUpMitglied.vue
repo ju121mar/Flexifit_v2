@@ -2,42 +2,61 @@
 import { ref } from 'vue'
 import {useRouter} from "vue-router";
 import {useMitgliedStore} from "@/stores/mitglied.js";
+  const mitgliedStore = useMitgliedStore();
+  let firstName =ref("");
+  let lastName =ref("");
+  let email = ref("");
+  let password =ref("");
+  let street =ref("");
+  let houseNumber =ref("");
+  let postalCode =ref("");
+  let city =ref("");
 
-const mitgliedStore = useMitgliedStore();
-const router = useRouter()
-let email = ref("");
-let password = ref("");
-let loginError = ref(false);
-
-async function login() {
-  try {
-  await mitgliedStore.signIn(email.value, password.value);
-  if (useMitgliedStore().mitglied) {
-    console.log("Logged in");
-    // router.push ('/kursangebote')
+  async function register() {
+        mitgliedStore.signUp(firstName.value, lastName.value, email.value, password.value, street.value, houseNumber.value, postalCode.value, city.value);
+        if (useMitgliedStore.mitglied) {
+          console.log("Logged in")
+        }
   }
-} catch (error) {
-  loginError.value = true;
-  console.error("Login failed:", error);
-  }
-}
 </script>
 
 <template>
-  <form class="kurs-form" @submit.prevent="login">
+  <form class="kurs-form" @submit.prevent="register">
+    <h2>Registrieren</h2>
+    <div class="kurs-group">
+      <label for="firstName">Vorname:</label>
+      <input id="firstName" type="firstName" v-model="firstName" placeholder="Vorname eingeben" />
+    </div>
+    <div class="kurs-group">
+      <label for="lastName">Nachname:</label>
+      <input id="lastName" type="lastName" v-model="lastName" placeholder="Nachname eingeben" />
+    </div>
     <div class="kurs-group">
       <label for="email">Email:</label>
       <input id="email" type="email" v-model="email" placeholder="Email eingeben" />
     </div>
     <div class="kurs-group">
       <label for="password">Passwort:</label>
-      <input id="password" type="password" v-model="password" placeholder="Passwort eingeben" />
+      <input id="password" type="password" v-model="password" placeholder="6 Zeichen" />
     </div>
-    <p>
-    <a href="/register" class="text-link">Noch kein Mitglied? Jetzt registrieren → </a>
-  </p>
-    <button type="submit">Login</button>
-    <a href="/login/success/mitglied" class="zurueck-button">Zurück</a>
+    <div class="kurs-group">
+      <label for="street">Straße:</label>
+      <input id="street" type="street" v-model="street" placeholder="Straße eingeben" />
+    </div>
+    <div class="kurs-group">
+      <label for="houseNumber">Hausnummer:</label>
+      <input id="houseNumber" type="houseNumber" v-model="houseNumber" placeholder="Hausnummer eingeben" />
+    </div>
+    <div class="kurs-group">
+      <label for="postalCode">Postleitzahl:</label>
+      <input id="postalCode" type="postalCode" v-model="postalCode" placeholder="Postleitzahl eingeben" />
+    </div>
+    <div class="kurs-group">
+      <label for="city">Stadt:</label>
+      <input id="city" type="city" v-model="city" placeholder="Stadt eingeben" />
+    </div>
+    <button type="submit">Jetzt Registrieren</button>
+    <a href="/login/mitglied" class="zurueck-button">Zurück</a>
   </form>
   <div v-if="loginError" class="popup">
     <div class="popup-content">
@@ -45,12 +64,7 @@ async function login() {
       <p>Versuchen Sie es nochmal.</p>
       <button @click="loginError = false">OK</button>
     </div>
-    </div>
-  <div class="additional-links">
-    <a href="/login" class="text-link">Trainer Login</a>
-    <span>|</span>
-    <a href="/login/rezeptionist" class="text-link">Rezeptionist Login</a>
-  </div>
+</div>
 </template>
 
 <style scoped>

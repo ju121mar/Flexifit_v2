@@ -22,6 +22,7 @@ import Kursbuchungsdetails from "@/views/Rezeptionist/Kursbuchungsdetails.vue";
 import Kontakt from '@/formalities/Kontakt.vue';
 import Impressum from "@/components/Impressum.vue";
 import Datenschutzerklärung from "@/components/Datenschutzerklärung.vue";
+import SignUpMitglied from '@/views/Mitglied/SignUpMitglied.vue';
 
 
 const routes = [
@@ -149,6 +150,10 @@ const routes = [
   {
     path: '/datenschutz',
     component: Datenschutzerklärung
+  },
+  {
+    path: '/register',
+    component: SignUpMitglied
   }
   
 ];
