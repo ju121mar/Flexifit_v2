@@ -8,6 +8,7 @@
  * https://sailsjs.com/anatomy/config/routes-js
  */
 
+const {acceptBooking} = require("../api/controllers/BuchungController");
 module.exports.routes = {
   'POST /kurs/erstellen': {controller: 'KursController', action: 'create'},
   'GET /kurse': { controller: 'KursController', action: 'find' },
@@ -25,7 +26,9 @@ module.exports.routes = {
   'GET /exercises/:id': {controller: 'ExerciseController', action: 'findOne'},
   'POST /newBooking': {controller: 'BuchungController', action: 'booking'},
   'GET /getBookings': {controller: 'BuchungController', action: 'getBookings'},
-  'POST /message/send' : {controller: 'MessageController', action: 'create'}
+  'GET /getBookingsandMitglied/:id': {controller: 'BuchungController', action: 'getBookingsandMitglied'},
+  'POST /message/send' : {controller: 'MessageController', action: 'create'},
+  'PUT /updateBooking': {controller: 'BuchungController', action: 'updateBooking'},
 
 
 

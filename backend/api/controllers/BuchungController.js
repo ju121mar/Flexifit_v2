@@ -13,6 +13,7 @@ module.exports = {
   },
 
   getBookings: async function (req, res){
+    sails.log.info(req.session);
     if (!req.session || !req.session.mitgliedId){
       return res.sendStatus(401);
     }
@@ -27,4 +28,29 @@ module.exports = {
       });
     return res.json(mitgliedBooking);
   },
+  getBookingsandMitglied: async function (req, res){
+    sails.log.info(req.session);
+    if (!req.session || !req.session.rezeptionistId ) {
+      return res.sendStatus(401);
+    }
+    const kursId = req.params.id;
+    const kursBooking = await Buchung.find({kurs: kursId})
+      .populate('kurs')
+      .populate('mitglied');
+
+    return res.json(kursBooking);
+  },
+
+  updateBooking: async function (req, res){
+    sails.log.info(req.session);
+    if (!req.session || !req.session.rezeptionistId ) {
+      return res.sendStatus(401);
+    }
+    const status = req.body.buchungstatus;
+    const buchungId = req.body.buchungId;
+    await Buchung.updateOne({ id: buchungId}).set({status});
+    return res.ok();
+
+  },
+
 };
