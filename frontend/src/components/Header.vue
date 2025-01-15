@@ -5,8 +5,9 @@ import { useMitgliedStore } from "@/stores/mitglied.js";
 import {computed, onMounted} from "vue";
 import {apiCall} from "@/utility/ApiCall.js";
 import {useRouter} from "vue-router";
+import {useRezeptionistStore} from "@/stores/rezeptionist.js";
 const mitgliedStore = useMitgliedStore();
-
+const rezeptionistStore = useRezeptionistStore();
 const router = useRouter()
 
 const userType = computed(() => {
@@ -14,6 +15,8 @@ const userType = computed(() => {
     return 'mitglied';
   } else if (trainerStore.trainer) {
     return 'trainer';
+  } else if (rezeptionistStore.rezeptionist){
+    return 'rezeptionist';
   } else {
     return null;
   }
@@ -85,8 +88,18 @@ async function logout() {
             </li>
             <li class="nav-item">
               <RouterLink  class="nav-link"
+                           v-if="userType === 'mitglied'"
                            :class="{ 'active': $route.path.startsWith('/kursangebote') }"
                            to="/kursangebote/booking">Kursangebote</RouterLink>
+              <RouterLink  class="nav-link"
+                           v-if="userType === 'trainer'"
+                           :class="{ 'active': $route.path.startsWith('/kursangebote') }"
+                           to="/kursangebote">Kursangebote</RouterLink>
+              <RouterLink  class="nav-link"
+                           v-if="userType === 'rezeptionist'"
+                           :class="{ 'active': $route.path.startsWith('/kursangebote') }"
+                           to="/kursangebote/manage">Kursangebote</RouterLink>
+
             </li>
             <li class="nav-item">
             <RouterLink  class="nav-link"
