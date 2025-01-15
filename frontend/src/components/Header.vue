@@ -61,9 +61,12 @@ async function logout() {
         </a>
         <div class="d-flex align-items-center user-menu-container">
           <!-- User Icon -->
-          <RouterLink to="/login/mitglied" class="navbar-brand d-lg-block user-icon me-2">
+          <RouterLink v-if="!userType" to="/login/mitglied" class="navbar-brand d-lg-block user-icon me-2">
             <img src="../assets/pictures/UserIcon.png" alt="User Icon" class="user-icon-img" />
           </RouterLink>
+          <button v-if="userType" @click="logout" class="navbar-brand d-lg-block user-icon me-2" style="background: none">
+            <img src="../assets/pictures/LogoutIcon.svg" alt="Logout Icon" class="user-icon-img" />
+          </button>
 
 
           <!-- Hamburgermenü -->
@@ -87,10 +90,10 @@ async function logout() {
                              to="/">Studio</RouterLink>
             </li>
             <li class="nav-item">
-              <RouterLink  class="nav-link"
-                           v-if="userType === 'mitglied'"
-                           :class="{ 'active': $route.path.startsWith('/kursangebote') }"
-                           to="/kursangebote/booking">Kursangebote</RouterLink>
+<!--              <RouterLink  class="nav-link"-->
+<!--                           v-if="userType === 'mitglied'"-->
+<!--                           :class="{ 'active': $route.path.startsWith('/kursangebote') }"-->
+<!--                           to="/kursangebote/booking">Kursangebote</RouterLink>-->
               <RouterLink  class="nav-link"
                            v-if="userType === 'trainer'"
                            :class="{ 'active': $route.path.startsWith('/kursangebote') }"
@@ -99,6 +102,10 @@ async function logout() {
                            v-if="userType === 'rezeptionist'"
                            :class="{ 'active': $route.path.startsWith('/kursangebote') }"
                            to="/kursangebote/manage">Kursangebote</RouterLink>
+              <RouterLink  class="nav-link"
+                           v-else
+                           :class="{ 'active': $route.path.startsWith('/kursangebote') }"
+                           to="/kursangebote/booking">Kursangebote</RouterLink>
 
             </li>
             <li class="nav-item">
@@ -112,10 +119,6 @@ async function logout() {
                            v-if="userType === 'mitglied'"
                            :class="{ 'active': $route.path.startsWith('/buchungen') }"
                            to="/buchungen">Meine Buchungen</RouterLink>
-            </li>
-            <li class="nav-item">
-              <Button  class="nav-link"
-                          @click="logout">Abmelden</Button>
             </li>
           </ul>
         </div>
