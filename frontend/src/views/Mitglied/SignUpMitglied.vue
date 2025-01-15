@@ -1,23 +1,24 @@
 <script setup>
-import { ref } from 'vue'
+import {ref} from 'vue'
 import {useRouter} from "vue-router";
 import {useMitgliedStore} from "@/stores/mitglied.js";
-  const mitgliedStore = useMitgliedStore();
-  let firstName =ref("");
-  let lastName =ref("");
-  let email = ref("");
-  let password =ref("");
-  let street =ref("");
-  let houseNumber =ref("");
-  let postalCode =ref("");
-  let city =ref("");
 
-  async function register() {
-        mitgliedStore.signUp(firstName.value, lastName.value, email.value, password.value, street.value, houseNumber.value, postalCode.value, city.value);
-        if (useMitgliedStore.mitglied) {
-          console.log("Logged in")
-        }
+const mitgliedStore = useMitgliedStore();
+let firstName = ref("");
+let lastName = ref("");
+let email = ref("");
+let password = ref("");
+let street = ref("");
+let houseNumber = ref("");
+let postalCode = ref("");
+let city = ref("");
+
+async function register() {
+  await mitgliedStore.signUp(firstName.value, lastName.value, email.value, password.value, street.value, houseNumber.value, postalCode.value, city.value);
+  if (useMitgliedStore.mitglied) {
+    console.log("Logged in")
   }
+}
 </script>
 
 <template>
@@ -25,35 +26,35 @@ import {useMitgliedStore} from "@/stores/mitglied.js";
     <h2>Registrieren</h2>
     <div class="kurs-group">
       <label for="firstName">Vorname:</label>
-      <input id="firstName" type="firstName" v-model="firstName" placeholder="Vorname eingeben" />
+      <input id="firstName" type="firstName" v-model="firstName" placeholder="Vorname eingeben"/>
     </div>
     <div class="kurs-group">
       <label for="lastName">Nachname:</label>
-      <input id="lastName" type="lastName" v-model="lastName" placeholder="Nachname eingeben" />
+      <input id="lastName" type="lastName" v-model="lastName" placeholder="Nachname eingeben"/>
     </div>
     <div class="kurs-group">
       <label for="email">Email:</label>
-      <input id="email" type="email" v-model="email" placeholder="Email eingeben" />
+      <input id="email" type="email" v-model="email" placeholder="Email eingeben"/>
     </div>
     <div class="kurs-group">
       <label for="password">Passwort:</label>
-      <input id="password" type="password" v-model="password" placeholder="6 Zeichen" />
+      <input id="password" type="password" v-model="password" placeholder="6 Zeichen"/>
     </div>
     <div class="kurs-group">
       <label for="street">Straße:</label>
-      <input id="street" type="street" v-model="street" placeholder="Straße eingeben" />
+      <input id="street" type="street" v-model="street" placeholder="Straße eingeben"/>
     </div>
     <div class="kurs-group">
       <label for="houseNumber">Hausnummer:</label>
-      <input id="houseNumber" type="houseNumber" v-model="houseNumber" placeholder="Hausnummer eingeben" />
+      <input id="houseNumber" type="houseNumber" v-model="houseNumber" placeholder="Hausnummer eingeben"/>
     </div>
     <div class="kurs-group">
       <label for="postalCode">Postleitzahl:</label>
-      <input id="postalCode" type="postalCode" v-model="postalCode" placeholder="Postleitzahl eingeben" />
+      <input id="postalCode" type="postalCode" v-model="postalCode" placeholder="Postleitzahl eingeben"/>
     </div>
     <div class="kurs-group">
       <label for="city">Stadt:</label>
-      <input id="city" type="city" v-model="city" placeholder="Stadt eingeben" />
+      <input id="city" type="city" v-model="city" placeholder="Stadt eingeben"/>
     </div>
     <button type="submit">Jetzt Registrieren</button>
     <a href="/login/mitglied" class="zurueck-button">Zurück</a>
@@ -64,7 +65,7 @@ import {useMitgliedStore} from "@/stores/mitglied.js";
       <p>Versuchen Sie es nochmal.</p>
       <button @click="loginError = false">OK</button>
     </div>
-</div>
+  </div>
 </template>
 
 <style scoped>
@@ -89,7 +90,7 @@ import {useMitgliedStore} from "@/stores/mitglied.js";
 .additional-links span {
   margin: 0 10px;
   color: #6a2c91;
-  }
+}
 
 .kurs-form {
   max-width: 400px;

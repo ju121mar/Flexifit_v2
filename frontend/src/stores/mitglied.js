@@ -48,7 +48,7 @@ export const useMitgliedStore = defineStore("mitglied", {
             axios
               .post("/register", registerInformation)
               .then((response) => {
-                this.mitglied = response;
+                this.mitglied = response.data;
                 router.push('/login/sucess/mitglied');
               })
               .catch((error) => {

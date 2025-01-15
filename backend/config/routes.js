@@ -20,7 +20,6 @@ module.exports.routes = {
   'POST /login/mitglied': {controller: 'LoginController', action:'loginmitglied'},
   'POST /login/rezeptionist': {controller: 'LoginController', action: 'loginrezeptionist'},
   'GET /logout': {controller: 'LoginController', action:'logout'},
-  'POST /register': {controller: 'LoginController', action: 'signup'},
   '/': { view: 'pages/homepage' },
   //'POST /plan/erstellen' : {controller: 'PlanController', action: 'create'}
   'GET /exercises': { controller: 'ExerciseController', action: 'find' },
