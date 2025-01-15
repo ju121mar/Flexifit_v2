@@ -48,12 +48,12 @@ onMounted(async () => {
         name: response.name || "",
         description: response.description || "",
         trainer: response.trainer || "",
-        maxTeilnehmer: parseInt(response.teilnehmer, 10) || 0,
+        teilnehmer: response.teilnehmer || 0,
         dauer: response.dauer || "",
         wochentag: response.wochentag || "",
-        uhrzeit: response.uhrzeit || "",
+        uhrzeit: response.uhrzeit ? response.uhrzeit.slice(0, 5) : "",
       };
-      console.log("Kursdaten geladen:", formData.value);
+      console.log("Kursdaten geladen:", formData.value.teilnehmer);
     }
     console.log('Kurse geladen:', kurse.value);
   } catch (error) {
@@ -79,11 +79,12 @@ const onSubmit = async () => {
     alert("Es gab einen Fehler beim Speichern.");
   }
 };
+
 </script>
 
 <template>
   <div v-if="loading">Daten werden geladen...</div>
-  <div v-else class="kurs-form">
+  <div v-else>
     <form @submit.prevent="onSubmit">
       <div>
         <h2>Kurs bearbeiten</h2>
@@ -93,7 +94,7 @@ const onSubmit = async () => {
 
       <div class="kurs-group">
         <label for="trainer">Trainername:</label>
-        <select id="userDropdown" v-model="formData.trainer"  class ="form-select" required>
+        <select id="userDropdown" :v-model="formData.trainer"  class ="form-select" required>
           <option disabled value="">Bitte einen Benutzer auswählen</option>
           <option v-for="user in trainer" :key="user.id" :value="user.id">
             {{ user.firstName }} {{ user.lastName }}
@@ -130,12 +131,12 @@ const onSubmit = async () => {
 
       <div>
         <label for="participants">Teilnehmer:</label>
-        <input id="participants" v-model="formData.teilnehmer" type="number"/>
+        <input id="participants" v-model.number="formData.teilnehmer" type="number"/>
       </div>
 
       <div>
         <label for="description">Beschreibung:</label>
-        <input id="description" v-model="formData.description"></input>
+        <textarea type="text" id="description" v-model="formData.description"></textarea>
       </div>
 
       <button type="submit">Kurs aktualisieren</button>
@@ -170,7 +171,7 @@ form {
   font-family: 'Inter', sans-serif;
 }
 
-input {
+input, textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid #a084ca;
