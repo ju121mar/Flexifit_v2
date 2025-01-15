@@ -34,7 +34,7 @@ async function getBooking() {
           <p><strong>Trainer:</strong> {{ buchung.kurs.trainer.firstName }} {{buchung.kurs.trainer.lastName}}</p>
           <p><strong>Wochentag:</strong> {{ buchung.kurs.wochentag }}</p>
           <p><strong>Uhrzeit:</strong> {{ buchung.kurs.uhrzeit }}</p>
-          <p><strong>Status:</strong> {{ buchung.kurs.status }}</p>
+          <p><strong>Status:</strong> {{ buchung.status }}</p>
         </div>
       </div>
     </div>

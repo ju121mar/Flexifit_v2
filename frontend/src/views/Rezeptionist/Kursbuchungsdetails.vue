@@ -1,12 +1,12 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import {ref, onMounted} from 'vue';
 import {useRoute, useRouter} from 'vue-router';
 import axios from 'axios';
 import {apiCall} from "@/utility/ApiCall.js";
 import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
 import SecondaryButton from "@/components/Buttons/SecondaryButton.vue";
 import BackButton from "@/components/Buttons/BackButton.vue";
-import { useRezeptionistStore } from "@/stores/rezeptionist.js";
+import {useRezeptionistStore} from "@/stores/rezeptionist.js";
 
 const rezeptionistStore = useRezeptionistStore();
 const route = useRoute();
@@ -20,6 +20,7 @@ function navigateBack() {
 const kurs = ref(null);
 const loading = ref(true);
 const trainer = ref([]);
+const mitglied = ref([]);
 const selectTrainer = async () => {
   try {
     const response = await apiCall({
@@ -32,49 +33,162 @@ const selectTrainer = async () => {
     trainer.value = null;
   }
 }
-
-onMounted(async () => {
+const selectMitglied = async () => {
   try {
     const response = await apiCall({
       method: 'GET',
+      url: '/mitglied',
+    });
+    mitglied.value = response;
+  } catch (error) {
+    console.error('Fehler beim Laden der Mitgliedr:', error);
+    mitglied.value = null;
+  }
+}
+
+async function updateBooking(status, buchungId) {
+  try {
+    await apiCall({
+      url: '/updateBooking',
+      method: 'PUT',
+      data: {
+        buchungstatus: status,
+        buchungId: buchungId,
+      }
+    });
+  } catch (error) {
+    console.error('Fehler beim bestätigen des Buchung')
+  }
+}
+
+
+
+const buchungen = ref([]);
+const bestaetigteBuchung = ref([]);
+const abgelehnteBuchung = ref([]);
+const buchungsanfragen = ref([]);
+
+onMounted(async () => {
+  try {
+    // Lade Kursdaten
+    const kursResponse = await apiCall({
+      method: 'GET',
       url: `/kurse/${courseId}`,
     });
-    kurs.value = response;
-    console.log("Kursdaten geladen:", kurs.value);
+    kurs.value = kursResponse;
+
+    // Lade Buchungsdaten für den spezifischen Kurs
+    buchungen.value = await apiCall({
+      method: 'GET',
+      url: `/getBookingsandMitglied/${courseId}`,
+    });
+
+    bestaetigteBuchung.value = buchungen.value.filter(
+        (buchung) => buchung.status === 'Bestätigt'
+    );
+    abgelehnteBuchung.value = buchungen.value.filter(
+        (buchung) => buchung.status === 'Abgelehnt'
+    );
+    buchungsanfragen.value = buchungen.value.filter(
+        (buchung) => buchung.status === 'Bestätigung ausstehend'
+    );
+
+    console.log(buchungen.value);
   } catch (error) {
-    console.error('Fehler beim Laden der Kurse:', error);
+    console.error('Fehler beim Laden der Daten:', error);
   } finally {
     loading.value = false;
   }
-  await selectTrainer();
 });
+
+
+
 
 </script>
 
 <template>
+  <h1>Kursbuchungen: </h1>
   <div v-if="loading">Daten werden geladen...</div>
   <section v-else class="kurs-detail">
-<!--    <div class="kurs-container" v-if="kurs">-->
-      <!-- Zurück-Link -->
-<!--      <BackButton @click="navigateBack"></BackButton>-->
+    <!--    <div class="kurs-container" v-if="kurs">-->
+    <!-- Zurück-Link -->
+    <!--      <BackButton @click="navigateBack"></BackButton>-->
 
 
-      <!-- Kursinformationen -->
-        <h2 class="kurs-title">{{ kurs.name }}</h2>
-        <div class="kurs-info">
-          <p><strong>Trainer:</strong> {{ kurs.trainer.firstName }} {{kurs.trainer.lastName}}</p>
-          <p><strong>Wochentag:</strong> {{ kurs.wochentag }}</p>
-          <p><strong>Uhrzeit:</strong> {{ kurs.uhrzeit }}</p>
-          <p><strong>Dauer:</strong> {{ kurs.dauer }}</p>
-          <p><strong>max. Teilnehmer:</strong> {{ kurs.teilnehmer }}</p>
-        </div>
-<!--    </div>-->
+    <h2 class="kurs-title">{{ kurs.name }}</h2>
+    <div class="kurs-info">
+      <p><strong>Trainer:</strong> {{ kurs.trainer.firstName }} {{ kurs.trainer.lastName }}</p>
+      <p><strong>Wochentag:</strong> {{ kurs.wochentag }}</p>
+      <p><strong>Uhrzeit:</strong> {{ kurs.uhrzeit }}</p>
+      <p><strong>Dauer:</strong> {{ kurs.dauer }}</p>
+      <p><strong>max. Teilnehmer:</strong> {{ kurs.teilnehmer }}</p>
+    </div>
+    <!--    </div>-->
   </section>
+  <!--  <h1>Buchungsanfragen: </h1>-->
+  <!--  <h2 class="kurs-title">{{ buchung.mitglied.firstName }} {{buchung.mitglied.lastName}}</h2>-->
+  <!--  <section>-->
 
+  <!--  <div class="kurs-info">-->
+  <!--&lt;!&ndash;    <p><strong>E-Mail:</strong>{{buchung.mitglied.email}}</p>&ndash;&gt;-->
+  <!--  </div>-->
+  <h1>Buchungsanfragen:</h1>
+  <section class="kurs-detail">
+    <div v-if="buchungsanfragen && buchungsanfragen.length > 0">
+      <div v-for="(buchung, index) in buchungsanfragen" :key="index" class="buchung-card">
+        <h2 class="kurs-title">{{ buchung.mitglied.firstName }} {{ buchung.mitglied.lastName }}</h2>
+        <div class="kurs-info">
+          <p><strong>E-Mail:</strong> {{ buchung.mitglied.email }}</p>
+        </div>
+        <PrimaryButton buttontext="Bestätigen" @click="updateBooking('Bestätigt', buchung.id)"></PrimaryButton>
+        <SecondaryButton buttontext="Stornieren" @click="updateBooking('Abgelehnt', buchung.id)"></SecondaryButton>
+      </div>
+    </div>
+    <div v-else>
+      <p>Keine Buchungen vorhanden</p>
+    </div>
+  </section>
+  <h1>Bestätigte Buchungen:</h1>
+  <section class="kurs-detail">
+    <div v-if="bestaetigteBuchung && bestaetigteBuchung.length > 0">
+      <div v-for="(buchung, index) in bestaetigteBuchung" :key="index" class="buchung-card">
+        <h2 class="kurs-title">{{ buchung.mitglied.firstName }} {{ buchung.mitglied.lastName }}</h2>
+        <div class="kurs-info">
+          <p><strong>E-Mail:</strong> {{ buchung.mitglied.email }}</p>
+        </div>
+      </div>
+    </div>
+    <div v-else>
+      <p>Keine bestätigte Buchungen vorhanden</p>
+    </div>
+  </section>
+  <h1>Abgelehnte Buchungen:</h1>
+  <section class="kurs-detail">
+    <div v-if="abgelehnteBuchung && abgelehnteBuchung.length > 0">
+      <div v-for="(buchung, index) in abgelehnteBuchung" :key="index" class="buchung-card">
+        <h2 class="kurs-title">{{ buchung.mitglied.firstName }} {{ buchung.mitglied.lastName }}</h2>
+        <div class="kurs-info">
+          <p><strong>E-Mail:</strong> {{ buchung.mitglied.email }}</p>
+        </div>
+      </div>
+    </div>
+    <div v-else>
+      <p>Keine abgelehnten Buchungen vorhanden</p>
+    </div>
+  </section>
 </template>
 
 
+
+
 <style scoped>
+h1{
+  color: #7030a0;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
 .modal-content {
   border-radius: 12px;
   overflow: hidden;
