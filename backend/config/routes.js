@@ -31,6 +31,8 @@ module.exports.routes = {
   'PUT /updateBooking': {controller: 'BuchungController', action: 'updateBooking'},
   'POST /register': {controller: 'LoginController', action: 'register'},
 
+  '/' : {view: 'assets/index'},
+
 
 
   /***************************************************************************
