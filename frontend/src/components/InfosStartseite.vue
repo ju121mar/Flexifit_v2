@@ -21,45 +21,40 @@
 
 
 
-  <!--Unsere Werte-->
-  <section class="course-section">
-    <h2>Unsere Werte</h2>
-    <div class="container">
-      <div class="row g-4 justify-content-center">
-        <div class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3">
-          <div class="course-card">
-            <img src="../assets/pictures/Fitness.png" alt="Fitness" class="course-image" />
-            <div class="course-info">
-              <h3>Fitness</h3>
-              <p>
-                FlexiFit bietet alle Mittel und Ressourcen, um deine körperlichen
-                Ziele zu erreichen – von individuellen Trainingsplänen über
-                motivierende Trainer bis hin zu einer unterstützenden Gemeinschaft.
-              </p>
-              <router-link to="/login/mitglied">
-              <button class="book-button">Mein Trainingsplan</button>
-            </router-link>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3">
-          <div class="course-card">
-            <img src="../assets/pictures/Lifestyle.png" alt="Lifestyle" class="course-image" />
-            <div class="course-info">
-              <h3>Lifestyle</h3>
-              <p>
-                FlexiFit ist dein Schlüssel zu einem aktiveren Lebensstil – mit abwechslungsreichen Sportarten und liebevoll gestalteten Kursen, die du ganz flexibel in deinen Alltag integrieren kannst.
-              </p>
-              <router-link to="/kursangebote">
-                <button class="book-button">Kursangebote</button>
-              </router-link>
-            </div>
-          </div>
-        </div>
+  <!-- Unsere Werte -->
+<section class="values-section">
+  <h2>Unsere Werte</h2>
+  <div class="values-container">
+    <div class="value-card">
+      <img src="../assets/pictures/Fitness.png" alt="Fitness" class="value-image" />
+      <div class="value-info">
+        <h3>Fitness</h3>
+        <p>
+          FlexiFit bietet alle Mittel und Ressourcen, um deine körperlichen
+          Ziele zu erreichen – von individuellen Trainingsplänen über
+          motivierende Trainer bis hin zu einer unterstützenden Gemeinschaft.
+        </p>
+        <router-link to="/login/mitglied">
+          <button class="value-button">Mein Trainingsplan</button>
+        </router-link>
       </div>
     </div>
-  </section>
+
+    <div class="value-card">
+      <img src="../assets/pictures/Lifestyle.png" alt="Lifestyle" class="value-image" />
+      <div class="value-info">
+        <h3>Lifestyle</h3>
+        <p>
+          FlexiFit ist dein Schlüssel zu einem aktiveren Lebensstil – mit abwechslungsreichen Sportarten und liebevoll gestalteten Kursen, die du ganz flexibel in deinen Alltag integrieren kannst.
+        </p>
+        <router-link to="/kursangebote">
+          <button class="value-button">Kursangebote</button>
+        </router-link>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 
   <!--Trainer-->
@@ -262,4 +257,152 @@
     font-size: 14px;
   }
 }
+
+/* Unsere Werte Section */
+.values-section {
+  width: 90%;
+  max-width: 1200px;
+  margin: 40px auto;
+  text-align: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.values-section h2 {
+  font-size: 2.5rem;
+  color: #7030a0;
+  margin-bottom: 30px;
+}
+
+.values-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.value-card {
+  width: 100%;
+  max-width: 500px;
+  background: #ffffff;
+  border: 2px solid #d3bfe3;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(112, 48, 160, 0.3);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.value-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 6px 15px rgba(112, 48, 160, 0.4);
+}
+
+.value-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.value-info {
+  padding: 20px;
+}
+
+.value-info h3 {
+  font-size: 1.8rem;
+  color: #7030a0;
+  margin-bottom: 15px;
+}
+
+.value-info p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.value-button {
+  display: inline-block;
+  color: #7030a0;
+  background-color: transparent;
+  border: 2px solid #7030a0;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.value-button:hover {
+  background-color: #7030a0;
+  color: #ffffff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .values-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .value-card {
+    max-width: 90%;
+  }
+
+  .value-info h3 {
+    font-size: 1.5rem;
+  }
+
+  .value-info p {
+    font-size: 0.9rem;
+  }
+
+  .value-button {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .values-section h2 {
+    font-size: 2rem;
+  }
+
+  .value-info h3 {
+    font-size: 1.2rem;
+  }
+
+  .value-info p {
+    font-size: 0.85rem;
+  }
+}
+
+.value-image {
+  width: 80%; /* Reduziert die Breite des Bildes */
+  max-width: 200px; /* Begrenzung der maximalen Breite */
+  height: auto; /* Bewahrt das Seitenverhältnis */
+  object-fit: cover;
+  margin: 0 auto 20px auto; /* Zentriert das Bild und fügt Abstand zum Text hinzu */
+  display: block; /* Stellt sicher, dass das Bild als Blockelement behandelt wird */
+}
+
+/* Responsive Anpassungen */
+@media (max-width: 768px) {
+  .value-image {
+    max-width: 150px; /* Noch kleinere maximale Breite auf schmaleren Bildschirmen */
+  }
+}
+
+@media (max-width: 480px) {
+  .value-image {
+    max-width: 120px; /* Weitere Reduktion der Breite auf sehr kleinen Bildschirmen */
+  }
+}
+
+
 </style>
