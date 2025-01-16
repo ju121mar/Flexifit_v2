@@ -9,14 +9,14 @@ import '@/components/style.css'
 import axios from 'axios'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
-if (!import.meta.env.PROD) {
-    console.log("--> Development Mode")
-    axios.defaults.baseURL = "http://localhost:1337";
-    } else {
-    console.log("--> Production Mode")
-    axios.defaults.baseURL = "/";
-    }
-    axios.defaults.withCredentials = true;
+// if (!import.meta.env.PROD) {
+//     console.log("--> Development Mode")
+//     axios.defaults.baseURL = "http://localhost:1337";
+//     } else {
+//     console.log("--> Production Mode")
+//     axios.defaults.baseURL = "/";
+//     }
+//     axios.defaults.withCredentials = true;
 
 const app = createApp(App);
 // app.use(PrimeVue, {
