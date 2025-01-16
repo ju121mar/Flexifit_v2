@@ -34,7 +34,7 @@ async function login() {
       <input id="password" type="password" v-model="password" placeholder="Passwort eingeben" />
     </div>
     <button type="submit">Login</button>
-    <a href="/login/success/rezeptionist" class="zurueck-button">Zurück</a>
+    <RouterLink to="/login/success/rezeptionist" class="zurueck-button">Zurück</RouterLink>
   </form>
   <div v-if="loginError" class="popup">
     <div class="popup-content">
@@ -44,9 +44,9 @@ async function login() {
     </div>
   </div>
   <div class="additional-links">
-    <a href="/login" class="text-link">Trainer Login</a>
+    <RouterLink to="/login" class="text-link">Trainer Login</RouterLink>
     <span>|</span>
-    <a href="/login/mitglied" class="text-link">Mitglied Login</a>
+    <RouterLink to="/login/mitglied" class="text-link">Mitglied Login</RouterLink>
   </div>
 </template>
 

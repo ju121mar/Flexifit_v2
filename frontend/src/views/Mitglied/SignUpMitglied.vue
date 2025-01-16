@@ -57,7 +57,7 @@ async function register() {
       <input id="city" type="city" v-model="city" placeholder="Stadt eingeben"/>
     </div>
     <button type="submit">Jetzt Registrieren</button>
-    <a href="/login/mitglied" class="zurueck-button">Zurück</a>
+    <RouterLink to="/login/mitglied" class="zurueck-button">Zurück</RouterLink>
   </form>
   <div v-if="loginError" class="popup">
     <div class="popup-content">

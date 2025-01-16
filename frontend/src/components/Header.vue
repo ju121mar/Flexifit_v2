@@ -47,20 +47,23 @@ async function logout() {
   <header>
     <nav class="navbar navbar-expand-lg custom-bg w-100">
       <div class="container">
-        <!-- Kalender Icon -->
-        <a class="navbar-brand d-lg-none d-lg-block" href="#">
+        <!-- Kalender Icon 
+          <RouterLink  class="navbar-brand d-lg-none d-lg-block"
+                         v-if="userType === 'mitglied'"
+                           to="/trainingsplan">Mein Trainingsplan
           <img
               src="../assets/pictures/CalendarIcon.png"
               alt="Calendar Icon"
               width="24"
               height="24"
           />
-        </a>
+        </RouterLink> -->
+
 
         <!-- FlexiFit Logo -->
-        <a class="navbar-brand mx-auto" href="#">
+        <RouterLink to="/" class="navbar-brand mx-auto">
           <img src="../assets/pictures/FlexiFitLogo.jpg" alt="FlexiFit Logo" height="60"/>
-        </a>
+        </RouterLink>
         <div class="d-flex align-items-center user-menu-container">
           <!-- User Icon -->
           <RouterLink v-if="!userType" to="/login/mitglied" class="navbar-brand d-lg-block user-icon me-2">
