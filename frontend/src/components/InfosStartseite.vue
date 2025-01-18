@@ -1,17 +1,31 @@
 
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
 import SecondaryButton from "@/components/Buttons/SecondaryButton.vue";
 
-const showCookiePopup = ref(true);
+const showCookiePopup = ref(false);
 
-function closeWindow() {
+// Beim Laden der Seite prüfen, ob der Benutzer das Cookie-Hinweis bereits akzeptiert/abgelehnt hat
+onMounted(() => {
+  const cookieConsent = localStorage.getItem("cookieConsent");
+  if (!cookieConsent) {
+    showCookiePopup.value = true; 
+  }
+});
+
+function handleAccept() {
   console.log("Cookies akzeptiert");
-  showCookiePopup.value = false;
+  localStorage.setItem("cookieConsent", "accepted");
+  showCookiePopup.value = false; 
 }
 
+function handleReject() {
+  console.log("Cookies abgelehnt");
+  localStorage.setItem("cookieConsent", "rejected"); 
+  showCookiePopup.value = false; 
+}
 </script>
 <template>
   <!-- Öffnungszeiten -->
@@ -127,12 +141,12 @@ function closeWindow() {
         <SecondaryButton
           class="secondarybutton"
           buttontext="Ablehnen"
-          @click="closeWindow"
+          @click="handleReject"
         ></SecondaryButton>
         <PrimaryButton
           class="primarybutton"
           buttontext="Akzeptieren"
-          @click="closeWindow"
+          @click="handleAccept"
         ></PrimaryButton>
       </div>
     </div>
