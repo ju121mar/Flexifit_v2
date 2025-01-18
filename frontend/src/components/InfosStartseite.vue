@@ -1,5 +1,8 @@
-<script setup>
 
+
+<script setup>
+import SecondaryButton from "@/components/Buttons/SecondaryButton.vue";
+import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
 </script>
 
 <template>
@@ -35,7 +38,7 @@
           motivierende Trainer bis hin zu einer unterstützenden Gemeinschaft.
         </p>
         <router-link to="/login/mitglied">
-          <button class="value-button">Mein Trainingsplan</button>
+          <SecondaryButton class="secondarybutton" buttontext="Mein Trainingsplan"></SecondaryButton>
         </router-link>
       </div>
     </div>
@@ -48,7 +51,7 @@
           FlexiFit ist dein Schlüssel zu einem aktiveren Lebensstil – mit abwechslungsreichen Sportarten und liebevoll gestalteten Kursen, die du ganz flexibel in deinen Alltag integrieren kannst.
         </p>
         <router-link to="/kursangebote">
-          <button class="value-button">Kursangebote</button>
+          <SecondaryButton class="secondarybutton" buttontext="Kursangebote"></SecondaryButton>
         </router-link>
       </div>
     </div>
@@ -74,14 +77,36 @@
       <img src="../assets/pictures/trainer.jpg" alt="Trainer" class="trainer-image" />
       <div class="button-container">
       <router-link to="/login/mitglied">
-        <button class="book-button">Jetzt anmelden und Trainingsplan erstellen!</button>
+        <PrimaryButton class="primarybutton" buttontext="Jetzt anmelden und Trainingsplan erstellen!"></PrimaryButton>
       </router-link>
     </div>
     </div>
   </div>
+
+  <!-- Sportplatz-Manager -->
+  <section class="values-section">
+    <h2>Sportplatz-Manager</h2>
+    <div class="values-container">
+      <div class="value-card">
+        <img src="../assets/pictures/runway-stadium.jpg" alt="Sportplatz" class="platz-image" />
+        <div class="value-info">
+          <h3>Der perfekte Sportplatz für dich!</h3>
+          <p>
+            Suchst du eine hochwertige Sportanlage für dein Training oder ein spannendes Match mit Freunden? 
+            Mit unserem Partner <strong>Sportplatz-Manager</strong> findest du den idealen Platz ganz in deiner Nähe.
+          </p>
+          <a href="https://sportplatz-manager.onrender.com/" target="_blank">
+            <SecondaryButton class="secondarybutton" buttontext="Jetzt Sportplatz finden"></SecondaryButton>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </template>
 
 <style scoped>
+
 
 /* Öffnungs- und Trainerzeiten */
 .hours-section {
@@ -154,20 +179,7 @@
   padding: 10px;
   box-shadow: 0px 4px 8px rgba(112, 48, 160, 0.3);
 }
-.book-button {
-  color: #7030a0;
-  background-color: transparent;
-  border: 2px solid #7030a0;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-size: 22px;
-}
-.book-button:hover {
-  background-color: #7030a0;
-  color: #fff;
-}
+
 
 /*Styling für Trainer-Section*/
 .trainer-card {
@@ -404,5 +416,8 @@
   }
 }
 
-
+.platz-manager {
+  height: 80px;
+  width: 110px;
+}
 </style>
