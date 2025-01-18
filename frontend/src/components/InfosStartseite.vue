@@ -1,10 +1,18 @@
 
 
 <script setup>
-import SecondaryButton from "@/components/Buttons/SecondaryButton.vue";
+import { ref } from "vue";
 import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
-</script>
+import SecondaryButton from "@/components/Buttons/SecondaryButton.vue";
 
+const showCookiePopup = ref(true);
+
+function closeWindow() {
+  console.log("Cookies akzeptiert");
+  showCookiePopup.value = false;
+}
+
+</script>
 <template>
   <!-- Öffnungszeiten -->
   <div class="hours-section">
@@ -104,27 +112,31 @@ import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
     </div>
   </section>
 
-  <div id="cookie-popup" class="cookie-popup">
-  <div class="cookie-popup-content">
-    <h2>Cookie-Einstellungen</h2>
-    <p>
-      Wir setzen Cookies ein, um unsere Webseiten optimal für Sie zu gestalten. Weitere Infos finden Sie in unserer 
-      <RouterLink to="/datenschutz" class="popup-link">Datenschutzerklärung.</RouterLink> Technisch notwendige Cookies werden auch bei der Auswahl von "Ablehnen" gesetzt.
-    </p>
-    <p>
-      Mit einem Klick auf <strong>„Akzeptieren“</strong> stimmen Sie der Verarbeitung Ihrer Daten zu. 
-    </p>
-    <RouterLink to="/impressum" class="popup-link">Impressum</RouterLink>
-    <div class="cookie-buttons">
-      <router-link to="/">
-        <SecondaryButton class="secondarybutton" buttontext="Ablehnen"></SecondaryButton>
-      </router-link>
-      <router-link to="/">
-        <PrimaryButton class="Primarybutton" buttontext="Akzeptieren"></PrimaryButton>
-      </router-link>
+  <div v-if="showCookiePopup" id="cookie-popup" class="cookie-popup">
+    <div class="cookie-popup-content">
+      <h2>Cookie-Einstellungen</h2>
+      <p>
+        Wir setzen Cookies ein, um unsere Webseiten optimal für Sie zu gestalten. Weitere Infos finden Sie in unserer
+        <RouterLink to="/datenschutz" class="popup-link">Datenschutzerklärung</RouterLink>. Technisch notwendige Cookies werden auch bei der Auswahl von "Ablehnen" gesetzt.
+      </p>
+      <p>
+        Mit einem Klick auf <strong>„Akzeptieren“</strong> stimmen Sie der Verarbeitung Ihrer Daten zu.
+      </p>
+      <RouterLink to="/impressum" class="popup-link">Impressum</RouterLink>
+      <div class="cookie-buttons">
+        <SecondaryButton
+          class="secondarybutton"
+          buttontext="Ablehnen"
+          @click="closeWindow"
+        ></SecondaryButton>
+        <PrimaryButton
+          class="primarybutton"
+          buttontext="Akzeptieren"
+          @click="closeWindow"
+        ></PrimaryButton>
+      </div>
     </div>
   </div>
-</div>
 
   
 </template>
