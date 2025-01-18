@@ -8,7 +8,7 @@
       <div class="row d-flex justify-content-center">
         <div class="col-lg-8">
           <div class="logo-text-container d-flex align-items-center">
-            <img src="../assets/pictures/FlexiFitLogo.jpg" alt="FlexiFit Logo" height="60" />
+            <img src="../assets/pictures/FlexiFitLogo.png" alt="FlexiFit Logo" class="logo" />
           </div>
           <div class="text-content ms-3">
             <p>Stay Flexi!</p>
@@ -69,9 +69,19 @@
   color: #7030a0;
 }
 
+.logo {
+  width: 135px;
+  height: 110px
+}
+
 @media (max-width: 768px) {
   .footer a {
     font-size: 14px;
   }
+    .logo {
+    width: 100px;
+    height: 80px;
+  }
 }
+
 </style>

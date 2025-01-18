@@ -62,7 +62,8 @@ async function logout() {
 
         <!-- FlexiFit Logo -->
         <RouterLink to="/" class="navbar-brand mx-auto">
-          <img src="../assets/pictures/FlexiFitLogo.jpg" alt="FlexiFit Logo" height="60"/>
+          <img src="../assets/pictures/FlexiFitLogo.png" alt="FlexiFit Logo" class="logo"/>
+          <img src="../assets/pictures/logoschrift.png" alt="logoschrift" class="logo"/>
         </RouterLink>
         <div class="d-flex align-items-center user-menu-container">
           <!-- User Icon -->
@@ -181,6 +182,11 @@ header {
   align-items: center;
 }
 
+.logo {
+  width: 100px;
+  height: 80px
+}
+
 /* Mobile Anpassungen für das User-Icon */
 @media (min-width: 768px) {
   .navbar-brand.ms-auto {
@@ -198,6 +204,11 @@ header {
   .user-icon-img {
     width: 32px;
     height: 32px;
+  }
+
+  .logo {
+    width: 135px;
+    height: 110px;
   }
 }
 </style>
