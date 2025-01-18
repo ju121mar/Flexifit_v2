@@ -97,15 +97,110 @@ import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
           </p>
           <a href="https://sportplatz-manager.onrender.com/" target="_blank">
             <SecondaryButton class="secondarybutton" buttontext="Jetzt Sportplatz finden"></SecondaryButton>
+
           </a>
         </div>
       </div>
     </div>
   </section>
 
+  <div id="cookie-popup" class="cookie-popup">
+  <div class="cookie-popup-content">
+    <h2>Cookie-Einstellungen</h2>
+    <p>
+      Wir setzen Cookies ein, um unsere Webseiten optimal für Sie zu gestalten. Weitere Infos finden Sie in unserer 
+      <RouterLink to="/datenschutz" class="popup-link">Datenschutzerklärung.</RouterLink> Technisch notwendige Cookies werden auch bei der Auswahl von "Ablehnen" gesetzt.
+    </p>
+    <p>
+      Mit einem Klick auf <strong>„Akzeptieren“</strong> stimmen Sie der Verarbeitung Ihrer Daten zu. 
+    </p>
+    <RouterLink to="/impressum" class="popup-link">Impressum</RouterLink>
+    <div class="cookie-buttons">
+      <router-link to="/">
+        <SecondaryButton class="secondarybutton" buttontext="Ablehnen"></SecondaryButton>
+      </router-link>
+      <router-link to="/">
+        <PrimaryButton class="Primarybutton" buttontext="Akzeptieren"></PrimaryButton>
+      </router-link>
+    </div>
+  </div>
+</div>
+
+  
 </template>
 
 <style scoped>
+
+.cookie-popup {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  z-index: 1000;
+}
+
+.cookie-popup-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.cookie-popup h2 {
+  font-size: 22px;
+  color: #7030a0;
+  margin-bottom: 10px;
+}
+
+.cookie-popup p {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.popup-link {
+  color: #7030a0;
+  text-decoration: none;
+}
+
+.popup-link:hover {
+  text-decoration: underline;
+}
+
+.info-icon {
+  font-size: 14px;
+  color: #0078d4;
+  cursor: pointer;
+}
+
+/* Buttons */
+.cookie-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+
+/* Responsive Anpassungen */
+@media (max-width: 768px) {
+  .cookie-popup-content {
+    padding: 10px;
+  }
+  .cookie-popup h2 {
+    font-size: 18px;
+  }
+  .cookie-popup p {
+    font-size: 12px;
+  }
+  .cookie-button {
+    font-size: 14px;
+    padding: 8px 15px;
+  }
+}
 
 
 /* Öffnungs- und Trainerzeiten */
@@ -178,6 +273,20 @@ import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
   border-radius: 8px;
   padding: 10px;
   box-shadow: 0px 4px 8px rgba(112, 48, 160, 0.3);
+}
+.book-button {
+  color: #7030a0;
+  background-color: transparent;
+  border: 2px solid #7030a0;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 22px;
+}
+.book-button:hover {
+  background-color: #7030a0;
+  color: #fff;
 }
 
 
