@@ -64,7 +64,7 @@ onMounted(async () => {
           name: course.name,
           trainer: course.trainer,
           uhrzeit: course.uhrzeit,
-          image: '@/assets/pictures/Laufband.png',
+          image: course.image,
           description: course.description,
         });
       }
@@ -172,12 +172,14 @@ const redirectToLogin = () => {
             class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3"
         >
           <div class="course-card">
+            <img :src="kurs.image" class="course-image">
 <!--                        <img src="@/assets/pictures/Yoga.jpg" :alt="kurs.name" class="course-image"/>-->
             <div class="course-info">
               <h3>{{ kurs.name }}</h3>
               <div class="trainer-time">
                 <p><span class="course-label">Trainer: </span> {{getFullName(kurs.trainer)}}</p>
                 <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
+
               </div>
                 <p class="extra-text">
                   <span class="course-label">Beschreibung:</span>
@@ -192,14 +194,6 @@ const redirectToLogin = () => {
         </div>
       </div>
         </section>
-<!--    <div v-if="showLoginPopup" class="popup-backdrop">-->
-<!--      <div class="popup">-->
-<!--        <h2>Zum Buchen anmelden</h2>-->
-<!--        <p>Bitte melden Sie sich an, um eine Buchung vorzunehmen.</p>-->
-<!--        <button @click="redirectToLogin" class="confirm-button">Zum Login</button>-->
-<!--        <button @click="showLoginPopup = false" class="cancel-button">Abbrechen</button>-->
-<!--      </div>-->
-<!--    </div>-->
 
   </section>
 </template>
@@ -207,168 +201,139 @@ const redirectToLogin = () => {
 
 <style scoped>
 
-.course-section {
-  width: 100%;
-  padding: 20px;
-  background-color: #ffffff;
-  text-align: center;
-  margin: 20px 0;
-}
-.course-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: 2px solid #d3bfe3;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0px 4px 8px rgba(112, 48, 160, 0.3);
-  height: 170px;
-}
 
-.course-info {
-  flex: 1;
-  text-align: left;
-}
+  .course-section {
+    width: 100%;
+    padding: 20px;
+    background-color: #ffffff;
+    text-align: center;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center; /* Zentriert die Karte */
+  }
 
-.course-info h3 {
-  color: #444;
-  margin: 0;
-  font-size: 20px;
-}
+  .course-card {
+    display: flex;
+    flex-direction: column; /* Standardmäßig für mobile Ansicht */
+    align-items: center;
+    border: 2px solid #d3bfe3;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0px 6px 12px rgba(112, 48, 160, 0.3);
+    background-color: #ffffff;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 100%; /* Mobile Ansicht: Nutzt die gesamte Breite */
+  }
 
-.trainer-time {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-.popup-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
+  .course-card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px; /* Abstand zum Text in mobiler Ansicht */
+  }
 
-.popup {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  max-width: 400px;
-  width: 90%;
-}
-.popup h2{
-  color: #7030a0;
-  font-size: 28px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 20px;
-}
+  .course-info {
+    display: flex;
+    flex-direction: column; /* Informationen untereinander */
+    text-align: center;
+    gap: 10px; /* Abstand zwischen Textteilen */
+  }
 
-.popup-buttons {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 1rem;
-}
+  .course-info h3 {
+    color: #444;
+    margin-bottom: 10px;
+    font-size: 22px;
+    font-weight: bold;
+  }
 
-.confirm-button {
-  background: #7030a0;
-  color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
+  .trainer-time {
+    display: flex;
+    flex-direction: column; /* Trainer und Uhrzeit untereinander */
+    gap: 5px;
+  }
 
-.cancel-button {
-  background: #ccc;
-  color: #333;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-left: 20px;
-}
-
-.confirm-button:hover {
-  background: #d8b5ea;
-}
-
-.cancel-button:hover {
-  background: #bbb;
-}
-.extra-text {
-  display: none;
-}
-@media (min-width: 992px) {
-  .extra-text {
-    display: block;
+  .trainer-time p {
+    margin: 0;
+    font-size: 16px;
     color: #666;
-    font-size: 14px;
-    margin-top: 8px;
   }
 
-  .course-info p {
-    font-size: 18px;
+  .course-label {
+    font-weight: bold;
+    color: #7030a0;
   }
-}
 
-.course-info p {
-  color: #666;
-  margin: 5px 0;
-  font-size: 14px;
-}
-
-.course-label {
-  color: #7030a0;
-}
-
-.extra-text {
-  display: none;
-}
-
-/* Extra-Text nur auf Desktop-Bildschirmen anzeigen */
-@media (min-width: 992px) {
   .extra-text {
-    display: block;
     color: #666;
-    font-size: 14px;
-    margin-top: 8px;
+    font-size: 15px;
+    margin-top: 10px;
   }
 
-  .course-info p {
+  .book-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 15px;
+    color: #7030a0;
+    background-color: transparent;
+    border: 2px solid #7030a0;
+    border-radius: 5px;
     font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
-  .course-image {
-    width: 100px;
-    height: 100px;
+  .book-button:hover {
+    background-color: #7030a0;
+    color: #fff;
   }
-}
 
-.book-button {
-  color: #7030a0;
-  background-color: transparent;
-  border: 2px solid #7030a0;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-size: 22px;
-}
+  @media (min-width: 992px) {
+    .course-section {
+      justify-content: center; /* Zentriert die Karte im Desktop-Modus */
+    }
 
-.book-button:hover {
-  background-color: #7030a0;
-  color: #fff;
-}
+    .course-card {
+      flex-direction: row; /* Informationen nebeneinander */
+      align-items: center;
+      justify-content: space-between; /* Platz zwischen Bild und Text */
+      gap: 20px; /* Abstand zwischen Bild und Text */
+      max-width: 800px; /* Begrenzte Breite im Desktop-Modus */
+      margin: 0 auto; /* Zentriert die Karte */
+    }
 
-.booking-overview-section {
+    .course-card img {
+      width: 35%; /* Bild nimmt 35% der Kartenbreite ein */
+      height: auto; /* Automatische Höhe */
+      margin-bottom: 0; /* Kein Abstand zum Text in der Desktop-Ansicht */
+    }
+
+    .course-info {
+      width: 60%; /* Textbeschreibung nimmt 60% der Kartenbreite ein */
+      text-align: left; /* Text linksbündig */
+      gap: 10px;
+    }
+
+    .trainer-time {
+      flex-direction: row; /* Trainer und Uhrzeit nebeneinander */
+      justify-content: space-between; /* Platz zwischen Trainer und Uhrzeit */
+    }
+
+    .book-button {
+      align-self: flex-start; /* Button links ausrichten */
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  }
+
+
+
+
+
+  .booking-overview-section {
   padding: 20px;
   background-color: #ffffff;
 }
@@ -414,8 +379,6 @@ const redirectToLogin = () => {
   border: 2px solid #7030a0;
 }
 
-
-
 .current-date, .current-time {
   color: #d8b5ea;
   font-weight: bold;
@@ -425,8 +388,6 @@ const redirectToLogin = () => {
 }
 
 
-
-/* Wochentagsanzeige */
 .date-picker {
   margin-bottom: 20px;
   text-align: center;
@@ -448,25 +409,6 @@ const redirectToLogin = () => {
 
 .container {
   text-align: center;
-}
-
-.date-picker {
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.weekdays {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.day {
-  background-color: #e0d7f5;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
 }
 
 .search-container {
@@ -575,68 +517,11 @@ const redirectToLogin = () => {
   }
 }
 
-.popup-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.popup {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  max-width: 400px;
-  width: 90%;
-}
-
 .popup h2 {
   color: #7030a0;
   font-size: 24px;
   margin-bottom: 15px;
 }
-
-.popup-buttons {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 1rem;
-}
-
-.confirm-button {
-  background: #7030a0;
-  color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-.confirm-button:hover {
-  background: #5e258f;
-}
-
-.cancel-button {
-  background: #ccc;
-  color: #333;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.cancel-button:hover {
-  background: #bbb;
-}
-
 
 </style>
 
