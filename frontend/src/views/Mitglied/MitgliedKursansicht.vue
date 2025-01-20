@@ -147,7 +147,7 @@ const redirectToLogin = () => {
       </div>
       <h1>Kursangebote:</h1>
       <div class="header-controls">
-        <BackButton @click="navigateBack" class="back-button" to="/">Zurück</BackButton>
+        <BackButton @click="navigateBack" class="back-button" >Zurück</BackButton>
           <span class="current-date">{{ currentDate.date }}</span>
           <span class="current-time">{{ currentDate.time }}</span>
       </div>
@@ -203,8 +203,6 @@ const redirectToLogin = () => {
 
 
 <style scoped>
-
-
   .course-section {
     width: 100%;
     padding: 20px;
@@ -226,7 +224,7 @@ const redirectToLogin = () => {
     background-color: #ffffff;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    max-width: 100%; /* Mobile Ansicht: Nutzt die gesamte Breite */
+    max-width: 100%;
   }
 
   .course-card img {
