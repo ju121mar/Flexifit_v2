@@ -300,20 +300,6 @@ function handleReject() {
   padding: 10px;
   box-shadow: 0px 4px 8px rgba(112, 48, 160, 0.3);
 }
-.book-button {
-  color: #7030a0;
-  background-color: transparent;
-  border: 2px solid #7030a0;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-size: 22px;
-}
-.book-button:hover {
-  background-color: #7030a0;
-  color: #fff;
-}
 
 
 /*Styling für Trainer-Section*/
@@ -363,7 +349,6 @@ function handleReject() {
   text-align: center;
 }
 
-/* Styling des Buttons */
 .trainer-card .book-button {
   padding: 10px 20px;
   background-color: #7030a0;
@@ -375,7 +360,7 @@ function handleReject() {
   transition: all 0.3s ease;
 }
 
-.trainer-card .book-button:hover {
+.trainer-card:hover {
   background-color: #4e216c;
 }
 .trainer-card h3 {
@@ -405,7 +390,7 @@ function handleReject() {
   }
 }
 
-/* Unsere Werte Section */
+/* Unsere Werte Section
 .values-section {
   width: 90%;
   max-width: 1200px;
@@ -415,12 +400,13 @@ function handleReject() {
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
+}*/
 
 .values-section h2 {
   font-size: 2.5rem;
   color: #7030a0;
-  margin-bottom: 30px;
+  margin: 40px auto;
+  text-align: center;
 }
 
 .values-container {
@@ -538,21 +524,16 @@ function handleReject() {
   display: block; /* Stellt sicher, dass das Bild als Blockelement behandelt wird */
 }
 
-/* Responsive Anpassungen */
 @media (max-width: 768px) {
   .value-image {
-    max-width: 150px; /* Noch kleinere maximale Breite auf schmaleren Bildschirmen */
+    max-width: 150px;
   }
 }
 
 @media (max-width: 480px) {
   .value-image {
-    max-width: 120px; /* Weitere Reduktion der Breite auf sehr kleinen Bildschirmen */
+    max-width: 120px;
   }
 }
 
-.platz-manager {
-  height: 80px;
-  width: 110px;
-}
 </style>

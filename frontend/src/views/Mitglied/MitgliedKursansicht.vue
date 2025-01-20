@@ -232,14 +232,14 @@ const redirectToLogin = () => {
     height: auto;
     object-fit: cover;
     border-radius: 8px;
-    margin-bottom: 15px; /* Abstand zum Text in mobiler Ansicht */
+    margin-bottom: 15px;
   }
 
   .course-info {
     display: flex;
-    flex-direction: column; /* Informationen untereinander */
+    flex-direction: column;
     text-align: center;
-    gap: 10px; /* Abstand zwischen Textteilen */
+    gap: 10px;
   }
 
   .course-info h3 {
@@ -251,7 +251,7 @@ const redirectToLogin = () => {
 
   .trainer-time {
     display: flex;
-    flex-direction: column; /* Trainer und Uhrzeit untereinander */
+    flex-direction: column;
     gap: 5px;
   }
 

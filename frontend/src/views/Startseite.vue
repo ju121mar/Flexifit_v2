@@ -25,6 +25,5 @@ import InfosStartseite from "@/components/InfosStartseite.vue";
 }
 .course-section h2 {
   color: #7030a0;
-  margin-bottom: 20px;
 }
 </style>

@@ -3,12 +3,13 @@ import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
 import { apiCall } from "@/utility/ApiCall.js";
+import SecondaryButton from "@/components/Buttons/SecondaryButton.vue";
 
 const router = useRouter();
 const kurse = ref([]);
 
 function goToBooking(id) {
-  router.push(`/booking/${id}`);
+  router.push(`/kursangebote/booking`);
 }
 
 onMounted(async () => {
@@ -58,16 +59,13 @@ async function getKurse() {
               <h3>{{ kurs.name }}</h3>
               <div class="trainer-time">
                 <p><span class="course-label">Trainer: </span>{{ kurs.trainer.firstName  }} {{ kurs.trainer.lastName  }}</p>
-<!--                <p><span class="course-label">Wochentag: </span>{{ kurs.wochentag }}</p>-->
                 <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
               </div>
               <p class="extra-text">
                 <span class="course-label">Beschreibung:</span>
                 {{ kurs.description }}
               </p>
-              <!-- Button für Navigation -->
-<!--              <PrimaryButton buttontext="buchen" @click="goToBooking"></PrimaryButton>-->
-              <button class="book-button">Jetzt Buchen</button>
+              <SecondaryButton buttontext="Buchen" class="book-button" @click="goToBooking"></SecondaryButton>
             </div>
           </div>
         </div>
@@ -87,47 +85,51 @@ async function getKurse() {
   background-color: #ffffff;
   text-align: center;
   margin: 20px 0;
+  display: flex;
+  justify-content: center;
 }
-
-
 
 .course-card {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column; /* Standardmäßig für mobile Ansicht */
   align-items: center;
   border: 2px solid #d3bfe3;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0px 4px 8px rgba(112, 48, 160, 0.3);
-  height: 200px;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0px 6px 12px rgba(112, 48, 160, 0.15);
+  background-color: #ffffff;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 100%;
 }
 
-.course-image {
-  width: 80px;
-  height: 80px;
+.course-card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
   border-radius: 8px;
-  object-fit: contain; /* Bild bleibt im ursprünglichen Maßstab */
-  background-color: #f8f9fa; /* Optional: Hintergrund für leeren Bereich */
-  margin-left: 15px;
-  order: 2;
+  margin-bottom: 15px;
 }
 
 
 .course-info {
-  flex: 1;
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 10px;
 }
 
 .course-info h3 {
   color: #444;
-  margin: 0;
-  font-size: 20px;
+  margin-bottom: 10px;
+  font-size: 22px;
+  font-weight: bold;
 }
 
 .trainer-time {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .course-info p {
@@ -136,7 +138,9 @@ async function getKurse() {
   font-size: 14px;
 }
 .course-label {
+  font-weight: bold;
   color: #7030a0;
+  font-size: 16px;
 }
 
 .extra-text {
@@ -145,19 +149,83 @@ async function getKurse() {
 
 /* Extra-Text nur auf Desktop-Bildschirmen anzeigen */
 @media (min-width: 992px) {
-  .extra-text {
-    display: block;
-    color: #666;
-    font-size: 14px;
-    margin-top: 8px;
+  .course-section {
+    justify-content: center;
   }
 
-  .course-info p {
+  .course-card {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .course-card img {
+    width: 35%;
+    height: auto;
+    margin-bottom: 0;
+  }
+
+  .course-info {
+    width: 60%;
+    text-align: left;
+    gap: 10px;
+
+  }
+  .course-info h3 {
+    font-size: 20px;
+  }
+
+  .course-label{
     font-size: 18px;
   }
-  .course-image {
-    width: 100px;
-    height: 100px;
+
+  .trainer-time {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .trainer-time p {
+    margin: 0;
+    font-size: 16px;
+    color: #666;
+  }
+  .extra-text {
+    color: #666;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+
+  .book-button {
+    color: #7030a0;
+    background-color: #fff;
+    border: 2px solid #7030a0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 22px;
+    margin-right: 20px;
+    width: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+  .book-button:hover {
+    background-color: #7030a0;
+    color: #fff;
+    text-decoration: none;
+  }
+
+
+  .back-button {
+    order: -1; /* Immer an erster Stelle */
+    border: none;
+  }
+  .back-button:hover{
+    background-color: #4e216c;
   }
 }
 
