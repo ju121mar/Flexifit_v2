@@ -3,6 +3,7 @@ import {ref, computed, onMounted} from 'vue';
 import {useRouter} from 'vue-router';
 import {apiCall} from "@/utility/ApiCall.js";
 import {useMitgliedStore} from "@/stores/mitglied.js";
+import BackButton from "@/components/Buttons/BackButton.vue";
 
 const weekdays = ref(["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]);
 const activeDay = ref(null);
@@ -126,7 +127,9 @@ const selectAllKurse = () => {
 function getFullName(trainer){
   return (trainer.firstName + " " + trainer.lastName)
 }
-
+function navigateBack() {
+  router.push('/');
+}
 //Popup fuer Login
 const showLoginPopup = ref(false);
 
@@ -140,7 +143,7 @@ const showLoginPopup = ref(false);
       </div>
       <h1>Kursangebote:</h1>
       <div class="header-controls">
-        <RouterLink class="back-button" to="/">Zurück</RouterLink>
+        <BackButton @click="navigateBack" class="back-button">Zurück</BackButton>
         <span class="current-date">{{ currentDate.date }}</span>
         <span class="current-time">{{ currentDate.time }}</span>
       </div>
@@ -189,14 +192,6 @@ const showLoginPopup = ref(false);
           </div>
         </div>
     </section>
-    <!--    <div v-if="showLoginPopup" class="popup-backdrop">-->
-    <!--      <div class="popup">-->
-    <!--        <h2>Zum Buchen anmelden</h2>-->
-    <!--        <p>Bitte melden Sie sich an, um eine Buchung vorzunehmen.</p>-->
-    <!--        <button @click="redirectToLogin" class="confirm-button">Zum Login</button>-->
-    <!--        <button @click="showLoginPopup = false" class="cancel-button">Abbrechen</button>-->
-    <!--      </div>-->
-    <!--    </div>-->
 
   </section>
 </template>
@@ -209,7 +204,9 @@ const showLoginPopup = ref(false);
   padding: 20px;
   background-color: #ffffff;
   text-align: center;
-  margin: 10px 0;
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
 }
 .course-card {
   display: flex;
@@ -217,10 +214,13 @@ const showLoginPopup = ref(false);
   justify-content: space-between;
   align-items: flex-start;
   border: 2px solid #d3bfe3;
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 20px;
-  box-shadow: 0px 4px 8px rgba(112, 48, 160, 0.3);
-  height: 210px;
+  box-shadow: 0px 6px 12px rgba(112, 48, 160, 0.3);
+  background-color: #ffffff;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 100%;
 }
 .attribute-pair {
   display: flex;
@@ -265,15 +265,26 @@ const showLoginPopup = ref(false);
 }
 
 @media (min-width: 992px) {
-
+  .course-info h3 {
+    font-size: 20px;
+  }
+  .course-label{
+    font-size: 18px;
+  }
   .course-info p {
     font-size: 18px;
   }
+  .trainer-time p {
+    margin: 0;
+    font-size: 16px;
+    color: #666;
+  }
+
 }
 
 .course-info p {
   color: #666;
-  margin: 10px 0;
+  margin: 5px 0;
   font-size: 16px;
 }
 
@@ -294,6 +305,7 @@ const showLoginPopup = ref(false);
   transition: background-color 0.3s ease;
   font-size: 18px;
   margin-top: 2px;
+  text-decoration: none;
 }
 
 .book-button:hover {
@@ -314,18 +326,8 @@ const showLoginPopup = ref(false);
   margin-bottom: 20px;
 }
 
-/* Header-Kontrollbuttons */
-.header-controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
 
-.back-button,
-.filter-button {
-  color: #fff;
-  background-color: #7030a0;
+.back-button{
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
@@ -333,12 +335,7 @@ const showLoginPopup = ref(false);
   font-size: 16px;
   text-decoration: none;
   font-weight: bold;
-}
-
-.date-controls {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
+  margin-left: 5px;
 }
 
 .current-day {
@@ -346,8 +343,6 @@ const showLoginPopup = ref(false);
   font-weight: bold;
   border: 2px solid #7030a0;
 }
-
-
 
 .current-date, .current-time {
   color: #d8b5ea;
@@ -428,43 +423,6 @@ const showLoginPopup = ref(false);
   background-color: #4e216c;
 }
 
-.filter-button:hover {
-  background-color: #5e258f; /* Hover-Farbe */
-}
-
-.filter-button .plus-icon {
-  font-size: 10px; /* Größe des Icons */
-  margin-right: 8px; /* Abstand zwischen Icon und Text */
-}
-
-.filter-button .button-text {
-  font-weight: bold; /* Text fett */
-}
-
-
-@media (max-width: 768px) {
-  .filter-button {
-    width: 40px; /* Smaller size */
-    height: 40px;
-    padding: 0;
-    border-radius: 5px; /* Circular button */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0; /* Hide text */
-    background-image: url('/path/to/plus-icon.svg'); /* Add the Plus Icon */
-    background-size: 60%; /* Adjust icon size */
-    background-repeat: no-repeat;
-    background-position: center;
-    margin-left: 60px;
-  }
-  .filter-button .plus-icon{
-    margin-right: 0px;
-    font-size: 30px;
-  }
-}
-
-/* Styling for the 'Alle Kurse' button in mobile view */
 .show-all-button {
   background-color: #7030a0;
   color: white;
@@ -495,9 +453,5 @@ const showLoginPopup = ref(false);
   margin-bottom: 15px;
 }
 
-
-.confirm-button:hover {
-  background: #5e258f;
-}
 </style>
 
