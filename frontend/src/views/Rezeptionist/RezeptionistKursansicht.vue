@@ -327,16 +327,7 @@ const showLoginPopup = ref(false);
 }
 
 
-.back-button{
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  text-decoration: none;
-  font-weight: bold;
-  margin-left: 5px;
-}
+
 
 .current-day {
   background-color: #7030a0;

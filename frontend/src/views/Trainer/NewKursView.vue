@@ -3,6 +3,9 @@ import { ref, onMounted } from "vue";
 import axios from 'axios'
 import {apiCall} from "@/utility/ApiCall.js";
 import router from "@/router/index.js";
+import BackButton from "@/components/Buttons/BackButton.vue";
+import SecondaryButton from "@/components/Buttons/SecondaryButton.vue";
+import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
 const selectedImage = ref("");
 const newKurs = ref({
   name: "",
@@ -78,12 +81,15 @@ const showImageDialog = ref(false)
 function handleImageDialog(){
   showImageDialog.value = !showImageDialog.value;
 }
-
+function navigateBack() {
+  router.push('/');
+}
 
 
 
 </script>
 <template>
+  <BackButton @click="navigateBack" class="button zurueck-button">Zurück</BackButton>
   <div class="kurs-form">
     <h2>Neuen Kurs erstellen</h2>
     <form @submit.prevent="submitForm">
@@ -132,10 +138,10 @@ function handleImageDialog(){
       </div>
       <div class="kurs-group">
         <label for="kursDescription">Bild: {{selectedImage}}</label>
-        <button id="kursImage" type="button" @click="handleImageDialog" >Bild auswählen</button>
+        <PrimaryButton buttontext="Bild auswählen" id="kursImage" type="button" @click="handleImageDialog" ></PrimaryButton>
       </div>
-      <button type="submit">Kurs erstellen</button>
-      <router-link to="/kursangebote" class="button zurueck-button">Zurück</router-link>
+      <SecondaryButton buttontext="Kurs erstellen" type="submit"></SecondaryButton>
+
     </form>
     <div v-if="kursAdded" class="success-message">
       <p>Kurs erfolgreich hinzugefügt!!</p>
@@ -187,13 +193,12 @@ function handleImageDialog(){
               </div>
               <!-- Speichern Button -->
               <div class="text-end mt-3">
-                <button type="button" @click="handleImageDialog" class="btn btn-primary">
-                  Speichern
-                </button>
+                <PrimaryButton buttontext="Speichern" type="button" @click="handleImageDialog" >Speichern</PrimaryButton>
+                <SecondaryButton buttontext="Schließen" type="submit" @click="handleImageDialog" >Schließen</SecondaryButton>
               </div>
             </form>
           </div>
-          <button type="submit" @click="handleImageDialog" class="btn btn-secondary">Schließen</button>
+
         </div>
       </div>
     </div>
@@ -264,8 +269,7 @@ textarea:focus {
   font-size: 14px;
 }
 
-button,
-.zurueck-button {
+button{
   padding: 10px 15px;
   background-color: #6a2c91;
   color: #fff;
@@ -304,15 +308,5 @@ button:hover,
   background-color: #6a2c91;
   color: white;
 }
-
-.btn-primary {
-  background-color: #6a2c91;
-  border: none;
-}
-
-.btn-primary:hover {
-  background-color: #4e216c;
-}
-
 
 </style>

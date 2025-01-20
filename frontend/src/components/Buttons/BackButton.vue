@@ -20,6 +20,10 @@ const emits = defineEmits(["click"]);
   border: none;
   cursor: pointer;
   font-size: 16px;
+  border-radius: 4px;
+  text-align: center;
+  margin-right: 70px;
+  padding: 10px 15px;
 }
 
 .simplebackbutton:hover {

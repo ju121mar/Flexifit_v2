@@ -364,7 +364,10 @@ const redirectToLogin = () => {
 
     .back-button {
       order: -1; /* Immer an erster Stelle */
-      margin-right: auto; /* Links ausrichten */
+      border: none;
+    }
+    .back-button:hover{
+      background-color: #4e216c;
     }
   }
 
@@ -379,7 +382,9 @@ const redirectToLogin = () => {
   padding: 20px;
   background-color: #ffffff;
 }
-
+.back-button:hover{
+  background-color: #4e216c;
+}
 .header h1 {
   color: #7030a0;
   font-size: 28px;
