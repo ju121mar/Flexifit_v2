@@ -2,6 +2,7 @@
 import {ref, computed, onMounted} from 'vue';
 import {useRouter} from 'vue-router';
 import {apiCall} from "@/utility/ApiCall.js";
+import BackButton from "@/components/Buttons/BackButton.vue";
 
 const weekdays = ref(["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]);
 const activeDay = ref(null);
@@ -165,6 +166,9 @@ const selectAllKurse = () => {
 function getFullName(trainer){
   return (trainer.firstName + " " + trainer.lastName)
 }
+function navigateBack() {
+  router.push('/');
+}
 
 </script>
 <template>
@@ -175,7 +179,7 @@ function getFullName(trainer){
       </div>
       <h1>Kursangebote:</h1>
       <div class="header-controls">
-        <RouterLink class="back-button" to="/">Zurück</RouterLink>
+        <BackButton @click="navigateBack" class="back-button">Zurück</BackButton>
         <div class="date-controls">
         <span class="current-date">{{ currentDate.date }}</span>
         <span class="current-time">{{ currentDate.time }}</span>
@@ -218,25 +222,30 @@ function getFullName(trainer){
             </div>
           </div>
         </div>
+        <section class="course-section">
+          <div class="container">
+            <div class="row g-4 justify-content-center">
         <div
             v-for="kurs in filteredKurse"
             :key="kurs.id"
             class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3"
         >
           <div class="course-card">
-<!--            <img src="@/assets/pictures/Yoga.jpg" :alt="kurs.name" class="course-image"/>-->
+            <img :src="kurs.image" class="course-image">
             <div class="course-info">
               <h3>{{ kurs.name }}</h3>
               <div class="trainer-time">
                 <p><span class="course-label">Trainer: </span> {{getFullName(kurs.trainer)}}</p>
                 <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
-                <img :src="kurs.image" class="course-image">
               </div>
               <button class="book-button" @click="goToEditing(kurs.id)">Bearbeiten</button>
               <button class="book-button" @click="openDeletePopup(kurs.id)">Löschen</button>
             </div>
           </div>
         </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
 
@@ -311,64 +320,109 @@ function getFullName(trainer){
 
 .course-card {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column; /* Standardmäßig für mobile Ansicht */
   align-items: center;
   border: 2px solid #d3bfe3;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0px 6px 12px rgba(112, 48, 160, 0.3);
+  background-color: #ffffff;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 100%; /* Mobile Ansicht: Nutzt die gesamte Breite */
+}
+
+.course-section {
+  width: 100%;
+  padding: 20px;
+  background-color: #ffffff;
+  text-align: center;
+  margin: 20px 0;
+  display: flex;
+  justify-content: center; /* Zentriert die Karte */
+}
+.course-card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
   border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0px 4px 8px rgba(112, 48, 160, 0.3);
+  margin-bottom: 15px; /* Abstand zum Text in mobiler Ansicht */
 }
 
 .course-info {
-  flex: 1;
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 10px;
+  height: 100%;
 }
 
 .course-info h3 {
   color: #444;
-  margin: 0;
-  font-size: 20px;
+  margin-bottom: 10px;
+  font-size: 22px;
+  font-weight: bold;
 }
-
 .trainer-time {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
+  flex-direction: column; /* Trainer und Uhrzeit untereinander */
+  gap: 5px;
 }
-
-.course-info p {
+.trainer-time p {
+  margin: 0;
+  font-size: 16px;
   color: #666;
-  margin: 5px 0;
-  font-size: 14px;
 }
-
 .course-label {
+  font-weight: bold;
   color: #7030a0;
 }
-
-.extra-text {
-  display: none;
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
 }
+
 
 /* Extra-Text nur auf Desktop-Bildschirmen anzeigen */
 @media (min-width: 992px) {
-  .extra-text {
-    display: block;
-    color: #666;
-    font-size: 14px;
-    margin-top: 8px;
+
+  .course-section {
+    justify-content: center; /* Zentriert die Karte im Desktop-Modus */
   }
 
-  .course-info p {
-    font-size: 18px;
+  .course-card {
+    flex-direction: row; /* Informationen nebeneinander */
+    align-items: center;
+    justify-content: space-between; /* Platz zwischen Bild und Text */
+    gap: 20px; /* Abstand zwischen Bild und Text */
+    max-width: 800px; /* Begrenzte Breite im Desktop-Modus */
+    margin: 0 auto; /* Zentriert die Karte */
   }
 
-  .course-image {
-    width: 100px;
-    height: 100px;
+  .course-card img {
+    width: 35%; /* Bild nimmt 35% der Kartenbreite ein */
+    height: auto; /* Automatische Höhe */
+    margin-bottom: 0; /* Kein Abstand zum Text in der Desktop-Ansicht */
   }
+
+  .course-info {
+    width: 60%; /* Textbeschreibung nimmt 60% der Kartenbreite ein */
+    text-align: left; /* Text linksbündig */
+    gap: 10px;
+  }
+
+
+  .trainer-time {
+    flex-direction: row; /* Trainer und Uhrzeit nebeneinander */
+    justify-content: space-between; /* Platz zwischen Trainer und Uhrzeit */
+  }
+
+
+
 }
-
 .book-button {
   color: #7030a0;
   background-color: transparent;
@@ -379,6 +433,7 @@ function getFullName(trainer){
   transition: background-color 0.3s ease;
   font-size: 22px;
   margin-right: 20px;
+  width: 150px;
 }
 
 .book-button:hover {
@@ -407,7 +462,7 @@ function getFullName(trainer){
   margin-bottom: 20px;
 }
 
-.back-button,
+
 .filter-button {
   color: #fff;
   background-color: #7030a0;
@@ -440,7 +495,6 @@ function getFullName(trainer){
   display: block;
   font-size: 18px;
   text-align: center;
-  margin-left: 70px;;
 }
 
 
@@ -501,7 +555,9 @@ function getFullName(trainer){
   border-radius: 5px;
   font-size: 16px;
 }
-
+.back-button{
+  margin-left: 10px;
+}
 .show-all-button {
   background-color: #7030a0;
   color: white;
@@ -596,4 +652,3 @@ function getFullName(trainer){
 
 
 </style>
-

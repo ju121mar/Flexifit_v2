@@ -3,6 +3,7 @@ import {ref, computed, onMounted} from 'vue';
 import {useRouter} from 'vue-router';
 import {apiCall} from "@/utility/ApiCall.js";
 import {useMitgliedStore} from "@/stores/mitglied.js";
+import BackButton from "@/components/Buttons/BackButton.vue";
 
 const weekdays = ref(["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]);
 const activeDay = ref(null);
@@ -129,6 +130,9 @@ const showLoginPopup = ref(false);
 const openLoginPopup = () => {
   showLoginPopup.value = true;
 };
+function navigateBack() {
+  router.push('/');
+}
 
 const redirectToLogin = () => {
   router.push('/login/mitglied');
@@ -143,7 +147,7 @@ const redirectToLogin = () => {
       </div>
       <h1>Kursangebote:</h1>
       <div class="header-controls">
-        <RouterLink class="back-button" to="/">Zurück</RouterLink>
+        <BackButton @click="navigateBack" class="back-button" to="/">Zurück</BackButton>
           <span class="current-date">{{ currentDate.date }}</span>
           <span class="current-time">{{ currentDate.time }}</span>
       </div>
@@ -173,7 +177,6 @@ const redirectToLogin = () => {
         >
           <div class="course-card">
             <img :src="kurs.image" class="course-image">
-<!--                        <img src="@/assets/pictures/Yoga.jpg" :alt="kurs.name" class="course-image"/>-->
             <div class="course-info">
               <h3>{{ kurs.name }}</h3>
               <div class="trainer-time">
@@ -256,33 +259,32 @@ const redirectToLogin = () => {
 
   .trainer-time p {
     margin: 0;
-    font-size: 16px;
+    font-size: 14px;
     color: #666;
   }
-
   .course-label {
     font-weight: bold;
     color: #7030a0;
+    font-size: 16px;
   }
 
   .extra-text {
     color: #666;
-    font-size: 15px;
+    font-size: 14px;
     margin-top: 10px;
   }
 
   .book-button {
-    display: inline-block;
-    padding: 10px 20px;
-    margin-top: 15px;
     color: #7030a0;
     background-color: transparent;
     border: 2px solid #7030a0;
+    padding: 5px 10px;
     border-radius: 5px;
-    font-size: 18px;
-    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease;
+    font-size: 22px;
+    margin-right: 20px;
+    text-decoration: none;
   }
 
   .book-button:hover {
@@ -292,46 +294,88 @@ const redirectToLogin = () => {
 
   @media (min-width: 992px) {
     .course-section {
-      justify-content: center; /* Zentriert die Karte im Desktop-Modus */
+      justify-content: center;
     }
 
     .course-card {
-      flex-direction: row; /* Informationen nebeneinander */
+      flex-direction: row;
       align-items: center;
-      justify-content: space-between; /* Platz zwischen Bild und Text */
-      gap: 20px; /* Abstand zwischen Bild und Text */
-      max-width: 800px; /* Begrenzte Breite im Desktop-Modus */
-      margin: 0 auto; /* Zentriert die Karte */
+      justify-content: space-between;
+      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto;
     }
 
     .course-card img {
-      width: 35%; /* Bild nimmt 35% der Kartenbreite ein */
-      height: auto; /* Automatische Höhe */
-      margin-bottom: 0; /* Kein Abstand zum Text in der Desktop-Ansicht */
+      width: 35%;
+      height: auto;
+      margin-bottom: 0;
     }
 
     .course-info {
-      width: 60%; /* Textbeschreibung nimmt 60% der Kartenbreite ein */
-      text-align: left; /* Text linksbündig */
+      width: 60%;
+      text-align: left;
       gap: 10px;
+
+    }
+    .course-info h3 {
+      font-size: 20px;
+    }
+
+    .course-label{
+      font-size: 18px;
     }
 
     .trainer-time {
-      flex-direction: row; /* Trainer und Uhrzeit nebeneinander */
-      justify-content: space-between; /* Platz zwischen Trainer und Uhrzeit */
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    .trainer-time p {
+      margin: 0;
+      font-size: 16px;
+      color: #666;
+    }
+    .extra-text {
+      color: #666;
+      font-size: 16px;
+      margin-top: 10px;
     }
 
     .book-button {
-      align-self: flex-start; /* Button links ausrichten */
-      margin-top: 10px;
-      padding: 10px 20px;
-      font-size: 16px;
+      color: #7030a0;
+      background-color: #fff;
+      border: 2px solid #7030a0;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 22px;
+      margin-right: 20px;
+      width: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+    .book-button:hover {
+      background-color: #7030a0;
+      color: #fff;
+      text-decoration: none;
+    }
+
+
+    .back-button {
+      order: -1; /* Immer an erster Stelle */
+      margin-right: auto; /* Links ausrichten */
     }
   }
 
-
-
-
+  @media (max-width: 768px) {
+    .back-button {
+      margin-right: auto; /* Immer linksbündig */
+      margin-bottom: 10px;
+    }
+  }
 
   .booking-overview-section {
   padding: 20px;
@@ -344,27 +388,6 @@ const redirectToLogin = () => {
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
-}
-
-/* Header-Kontrollbuttons */
-.header-controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.back-button,
-.filter-button {
-  color: #fff;
-  background-color: #7030a0;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  text-decoration: none;
-  font-weight: bold;
 }
 
 .date-controls {
