@@ -47,33 +47,18 @@ async function logout() {
   <header>
     <nav class="navbar navbar-expand-lg custom-bg w-100">
       <div class="container">
-        <!-- Kalender Icon 
-          <RouterLink  class="navbar-brand d-lg-none d-lg-block"
-                         v-if="userType === 'mitglied'"
-                           to="/trainingsplan">Mein Trainingsplan
-          <img
-              src="../assets/pictures/CalendarIcon.png"
-              alt="Calendar Icon"
-              width="24"
-              height="24"
-          />
-        </RouterLink> -->
 
-
-        <!-- FlexiFit Logo -->
         <RouterLink to="/" class="navbar-brand mx-auto">
           <img src="../assets/pictures/FlexiFitLogo.png" alt="FlexiFit Logo" class="logo"/>
           <img src="../assets/pictures/logoschrift.png" alt="logoschrift" class="logo"/>
         </RouterLink>
         <div class="d-flex align-items-center user-menu-container">
-          <!-- User Icon -->
           <RouterLink v-if="!userType" to="/login/mitglied" class="navbar-brand d-lg-block user-icon me-2">
             <img src="../assets/pictures/UserIcon.png" alt="User Icon" class="user-icon-img" />
           </RouterLink>
           <button v-if="userType" @click="logout" class="navbar-brand d-lg-block user-icon me-2" style="background: none">
             <img src="../assets/pictures/LogoutIcon.svg" alt="Logout Icon" class="user-icon-img" />
           </button>
-
 
           <!-- Hamburgermenü -->
           <button
