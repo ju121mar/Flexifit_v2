@@ -360,7 +360,7 @@ function handleReject() {
   transition: all 0.3s ease;
 }
 
-.trainer-card:hover {
+.trainer-card .book-button:hover {
   background-color: #4e216c;
 }
 .trainer-card h3 {
