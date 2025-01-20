@@ -1,118 +1,153 @@
 <script setup>
-import { ref, watch, onMounted } from "vue";
-import { useFormStore } from "@/stores/formStore"; // Store importieren
-import axios from 'axios'
-import {apiCall} from "@/utility/ApiCall.js";
+import { ref, watch } from "vue";
+import { useFormStore } from "@/stores/formStore";
 import router from "@/router/index.js";
 import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
 import BackButton from "@/components/Buttons/BackButton.vue";
-import MeinTrainingsplan from '@/views/Mitglied/MeinTrainingsplan.vue'
-//import { useRouter } from "vue-router";
 
-// Store initialisieren
+// Store 
 const formStore = useFormStore();
-
-// Verbindung zum Store herstellen (reactive Daten)
 const newPlan = ref({ ...formStore.newPlan });
 
-// Speichern der Daten beim Ändern
-watch(newPlan, (newValue) => {
-  formStore.setFormData(newValue);
+const fieldErrors = ref({
+  gender: "",
+  height: "",
+  weight: "",
+  age: "",
+  goal: "",
+  level: "",
+  frequency: "",
+});
+
+// Validierung der Eingaben
+function validateForm() {
+  fieldErrors.value = {
+    gender: !newPlan.value.gender ? "Geschlecht ist erforderlich." : "",
+    height: !newPlan.value.height || newPlan.value.height < 140 || newPlan.value.height > 300 ? "Ungültige Größe." : "",
+    weight: !newPlan.value.weight || newPlan.value.weight < 45 || newPlan.value.weight > 200 ? "Ungültiges Gewicht." : "",
+    age: !newPlan.value.age || newPlan.value.age < 16 || newPlan.value.age > 99 ? "Ungültiges Alter." : "",
+    goal: !newPlan.value.goal ? "Ziel auswählen." : "",
+    level: !newPlan.value.level ? "Level auswählen." : "",
+    frequency: !newPlan.value.frequency ? "Trainingstage auswählen." : "",
+  };
+
+  return Object.values(fieldErrors.value).every((error) => error === "");
+}
+
+// Überwachung der Eingabewerte (Validierung bei Änderungen)
+watch(newPlan, () => {
+  validateForm();
 }, { deep: true });
+
+
 function createNewPlan() {
+  if (!validateForm()) {
+    return; 
+  }
   router.push({
     path: '/trainingsplan/exercise/:id',
-    query: { level: newPlan.value.level,
-             frequency: newPlan.value.frequency,
-             goal: newPlan.value.goal
-          }
+    query: {
+      level: newPlan.value.level,
+      frequency: newPlan.value.frequency,
+      goal: newPlan.value.goal,
+    },
   });
 }
 
 function goBack() {
-  router.push('/trainingsplan')
+  router.push('/trainingsplan');
 }
-
-
 </script>
 
 <template>
   <div class="kurs-form">
     <h2>Neuen Trainingsplan erstellen</h2>
     <form @submit.prevent="createNewPlan">
+      <!-- Geschlecht -->
       <div class="kurs-group">
         <label for="gender">Geschlecht:</label>
-        <select id="gender" v-model="newPlan.gender" class="form-select" required>
+        <select id="gender" v-model="newPlan.gender" class="form-select">
           <option disabled value="">Geschlecht auswählen</option>
           <option value="weiblich">weiblich</option>
           <option value="männlich">männlich</option>
           <option value="divers">divers</option>
-          </select>
+        </select>
+        <p v-if="fieldErrors.gender" class="error-message">{{ fieldErrors.gender }}</p>
       </div>
+
+      <!-- Größe -->
       <div class="kurs-group">
         <label for="height">Größe in cm:</label>
-        <input
-          type="number"
-          id="height"
-          v-model="newPlan.height"
-          placeholder="Größe eingeben"
-          required
-        />
+        <input type="number" id="height" v-model="newPlan.height" placeholder="Größe eingeben" />
+        <p v-if="fieldErrors.height" class="error-message">{{ fieldErrors.height }}</p>
       </div>
+
+      <!-- Gewicht -->
       <div class="kurs-group">
         <label for="weight">Gewicht in kg:</label>
-        <input
-          type="number"
-          id="weight"
-          v-model="newPlan.weight"
-          placeholder="Gewicht eingeben"
-          required
-        />
+        <input type="number" id="weight" v-model="newPlan.weight" placeholder="Gewicht eingeben" />
+        <p v-if="fieldErrors.weight" class="error-message">{{ fieldErrors.weight }}</p>
       </div>
+
+      <!-- Alter -->
       <div class="kurs-group">
         <label for="age">Alter:</label>
-        <input
-          type="number"
-          id="age"
-          v-model="newPlan.age"
-          placeholder="Alter eingeben"
-          required
-        />
+        <input type="number" id="age" v-model="newPlan.age" placeholder="Alter eingeben" />
+        <p v-if="fieldErrors.age" class="error-message">{{ fieldErrors.age }}</p>
       </div>
+
+      <!-- Ziel -->
       <div class="kurs-group">
         <label for="goal">Mein Ziel:</label>
-        <select id="goal" v-model="newPlan.goal" class="form-select" required>
+        <select id="goal" v-model="newPlan.goal" class="form-select">
           <option disabled value="">Ziel auswählen</option>
           <option value="MuskelaufbauGanzkoerper">Muskelaufbau Ganzkörper</option>
           <option value="MuskelaufbauUnterkoerper">Muskelaufbau Unterkörper</option>
           <option value="MuskelaufbauOberkoerper">Muskelaufbau Oberkörper</option>
           <option value="Ausdauerverbesserung">Ausdauerverbesserung</option>
         </select>
+        <p v-if="fieldErrors.goal" class="error-message">{{ fieldErrors.goal }}</p>
       </div>
+
+      <!-- Level -->
       <div class="kurs-group">
         <label for="level">Level:</label>
-        <select id="level" v-model="newPlan.level" class="form-select" required>
+        <select id="level" v-model="newPlan.level" class="form-select">
           <option disabled value="">Level auswählen</option>
           <option value="Anfänger">Anfänger</option>
           <option value="Fortgeschritten">Fortgeschritten</option>
           <option value="Experte">Experte</option>
         </select>
+        <p v-if="fieldErrors.level" class="error-message">{{ fieldErrors.level }}</p>
       </div>
+
+      <!-- Trainingstage -->
       <div class="kurs-group">
         <label for="frequency">Trainingstage pro Woche:</label>
-        <select id="frequency" v-model="newPlan.frequency" class="form-select" required>
+        <select id="frequency" v-model="newPlan.frequency" class="form-select">
           <option disabled value="">Anzahl Trainingstage auswählen</option>
           <option value="drei">Drei Mal (Für Anfänger empfohlen)</option>
           <option value="fuenf">Fünf Mal</option>
         </select>
+        <p v-if="fieldErrors.frequency" class="error-message">{{ fieldErrors.frequency }}</p>
       </div>
-      <PrimaryButton class="primarybutton" buttontext="Plan anzeigen" @click="createNewPlan"></PrimaryButton>
+
+      <!-- Buttons -->
+      <PrimaryButton class="primarybutton" buttontext="Plan anzeigen"></PrimaryButton>
       <BackButton class="backbutton" @click="goBack"></BackButton>
     </form>
   </div>
 </template>
 
 <style scoped>
+
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
 
 .kurs-form {
   max-width: 400px;
