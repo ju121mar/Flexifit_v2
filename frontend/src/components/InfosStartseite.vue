@@ -48,7 +48,7 @@ function handleReject() {
 
   <!-- Unsere Werte -->
 <section class="values-section">
-  <h2>Unsere Werte</h2>
+  <h1>Unsere Werte</h1>
   <div class="values-container">
     <div class="value-card">
       <img src="../assets/pictures/Fitness.png" alt="Fitness" class="value-image" />
@@ -70,7 +70,8 @@ function handleReject() {
       <div class="value-info">
         <h3>Lifestyle</h3>
         <p>
-          FlexiFit ist dein Schlüssel zu einem aktiveren Lebensstil – mit abwechslungsreichen Sportarten und liebevoll gestalteten Kursen, die du ganz flexibel in deinen Alltag integrieren kannst.
+          FlexiFit ist dein Schlüssel zu einem aktiveren Lebensstil – mit abwechslungsreichen Sportarten 
+          und liebevoll gestalteten Kursen, die du ganz flexibel in deinen Alltag integrieren kannst.
         </p>
         <router-link to="/kursangebote">
           <SecondaryButton class="secondarybutton" buttontext="Kursangebote"></SecondaryButton>
@@ -83,8 +84,8 @@ function handleReject() {
 
 
   <!--Trainer-->
-  <div class="trainer-section">
-    <h2>Wir unterstützen dich!</h2>
+  <div class="values-section">
+    <h1>Wir unterstützen dich!</h1>
     <div class="trainer-card">
       <h3>Dein individueller Trainingsplan</h3>
       <div class="trainer-info">
@@ -107,10 +108,10 @@ function handleReject() {
 
   <!-- Sportplatz-Manager -->
   <section class="values-section">
-    <h2>Sportplatz-Manager</h2>
+    <h1>Sportplatz-Manager</h1>
     <div class="values-container">
       <div class="value-card">
-        <img src="../assets/pictures/runway-stadium.jpg" alt="Sportplatz" class="platz-image" />
+        <img src="../assets/pictures/stadium.jpg" alt="Sportplatz" class="platz-image" />
         <div class="value-info">
           <h3>Der perfekte Sportplatz für dich!</h3>
           <p>
@@ -196,11 +197,6 @@ function handleReject() {
   text-decoration: underline;
 }
 
-.info-icon {
-  font-size: 14px;
-  color: #0078d4;
-  cursor: pointer;
-}
 
 /* Buttons */
 .cookie-buttons {
@@ -252,15 +248,14 @@ function handleReject() {
 
 .hours-section h2 {
   color: #7030a0;
-  font-size: 28px;
   margin-bottom: 10px;
   text-align: center;
 }
 
 .hours-section p {
   color: #444;
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: 22px;
+  line-height: 1.5;
   margin: 5px 0;
   text-align: center;
 }
@@ -279,28 +274,6 @@ function handleReject() {
   color: #7030a0;
   margin-bottom: 20px;
 }
-.course-section {
-  width: 100%;
-  padding: 20px;
-  background-color: #ffffff;
-  text-align: center;
-  margin: 20px 0;
-}
-
-.course-section h2 {
-  color: #7030a0;
-  margin-bottom: 20px;
-}
-.course-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: 2px solid #d3bfe3;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0px 4px 8px rgba(112, 48, 160, 0.3);
-}
-
 
 /*Styling für Trainer-Section*/
 .trainer-card {
@@ -317,22 +290,26 @@ function handleReject() {
   margin: 20px auto;
   position: relative;
   flex-wrap: wrap;
-  font-size: 18px;
+  font-size: 22px;
+  line-height: 1.5;
 }
 
 .trainer-info {
+  margin-top: 15px;
+  margin-bottom: 15px;
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
 .trainer-image {
-  width: 170px;
-  max-width: 170px;
+  width: 300px;
+  height: 320px;
+  max-width: 300px;
   border-radius: 8px;
   object-fit: cover;
   margin-left: 20px;
-  display: block;
+  margin-bottom: 20px;
 }
 
 /* Bild auf kleinen Bildschirmen ausblenden */
@@ -349,23 +326,10 @@ function handleReject() {
   text-align: center;
 }
 
-.trainer-card .book-button {
-  padding: 10px 20px;
-  background-color: #7030a0;
-  color: white;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
 
-.trainer-card .book-button:hover {
-  background-color: #4e216c;
-}
 .trainer-card h3 {
   color: #7030a0;
-  font-size: 22px;
+  text-align: center;
   margin-bottom: 30px;
   width: 100%;
 }
@@ -374,6 +338,7 @@ function handleReject() {
   color: #7030a0;
   text-align: center;
   margin-top: 20px;
+  font-size: 36px;
 }
 
 .trainer-section {
@@ -390,20 +355,13 @@ function handleReject() {
   }
 }
 
-/* Unsere Werte Section
-.values-section {
-  width: 90%;
-  max-width: 1200px;
-  margin: 40px auto;
-  text-align: center;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}*/
 
 .values-section h2 {
-  font-size: 2.5rem;
+  color: #7030a0;
+  margin: 40px auto;
+  text-align: center;
+}
+.values-section h1 {
   color: #7030a0;
   margin: 40px auto;
   text-align: center;
@@ -413,12 +371,14 @@ function handleReject() {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  gap: 150px;
+  margin-bottom: 70px;
 }
+
 
 .value-card {
   width: 100%;
-  max-width: 500px;
+  max-width: 700px;
   background: #ffffff;
   border: 2px solid #d3bfe3;
   border-radius: 10px;
@@ -446,13 +406,12 @@ function handleReject() {
 }
 
 .value-info h3 {
-  font-size: 1.8rem;
   color: #7030a0;
   margin-bottom: 15px;
 }
 
 .value-info p {
-  font-size: 1rem;
+  font-size: 22px;
   color: #555;
   line-height: 1.6;
   margin-bottom: 20px;
@@ -492,7 +451,7 @@ function handleReject() {
   }
 
   .value-info p {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 
   .value-button {
@@ -511,17 +470,21 @@ function handleReject() {
   }
 
   .value-info p {
-    font-size: 0.85rem;
+    font-size: 1rem;
+  }
+
+  .trainer-info p {
+    font-size: 1rem;
   }
 }
 
 .value-image {
-  width: 80%; /* Reduziert die Breite des Bildes */
-  max-width: 200px; /* Begrenzung der maximalen Breite */
-  height: auto; /* Bewahrt das Seitenverhältnis */
+  width: 80%; 
+  max-width: 200px; 
+  height: auto; 
   object-fit: cover;
-  margin: 0 auto 20px auto; /* Zentriert das Bild und fügt Abstand zum Text hinzu */
-  display: block; /* Stellt sicher, dass das Bild als Blockelement behandelt wird */
+  margin: 0 auto 20px auto; 
+  display: block; 
 }
 
 @media (max-width: 768px) {

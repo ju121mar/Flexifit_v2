@@ -8,9 +8,9 @@
       <div class="row d-flex justify-content-center">
         <div class="col-lg-8">
           <div class="logo-text-container d-flex align-items-center">
-            <img src="../assets/pictures/FlexiFitLogo.png" alt="FlexiFit Logo" class="logo" />
+            <img src="../assets/pictures/logo.png" alt="FlexiFitLogo" class="logo" />
           </div>
-          <div class="text-content ms-3">
+          <div class="text-content">
             <p>Stay Flexi!</p>
             <p>Sport, der zu deinem Leben passt!</p>
           </div>
@@ -71,7 +71,7 @@
 .footer a {
   color: white;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 20px;
   transition: color 0.3s;
 }
 
@@ -84,13 +84,24 @@
   height: 110px
 }
 
+.text-content{
+  font-size: 20px;
+}
+
 @media (max-width: 768px) {
   .footer a {
-    font-size: 14px;
+    font-size: 16px;
   }
+  .footer a:hover {
+  color: #7030a0;
+}
     .logo {
     width: 100px;
     height: 80px;
+  }
+
+  .text-content {
+    font-size: 16px;
   }
 }
 

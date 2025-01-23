@@ -49,7 +49,7 @@ async function logout() {
       <div class="container">
 
         <RouterLink to="/" class="navbar-brand mx-auto">
-          <img src="../assets/pictures/FlexiFitLogo.png" alt="FlexiFit Logo" class="logo"/>
+          <img src="../assets/pictures/logo.png" alt="logo" class="logo"/>
           <img src="../assets/pictures/logoschrift.png" alt="logoschrift" class="logo"/>
         </RouterLink>
         <div class="d-flex align-items-center user-menu-container">
