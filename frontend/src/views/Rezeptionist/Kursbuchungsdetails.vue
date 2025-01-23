@@ -33,18 +33,7 @@ const selectTrainer = async () => {
     trainer.value = null;
   }
 }
-const selectMitglied = async () => {
-  try {
-    const response = await apiCall({
-      method: 'GET',
-      url: '/mitglied',
-    });
-    mitglied.value = response;
-  } catch (error) {
-    console.error('Fehler beim Laden der Mitgliedr:', error);
-    mitglied.value = null;
-  }
-}
+
 
 async function updateBooking(status, buchungId) {
   try {
@@ -124,17 +113,13 @@ onMounted(async () => {
 
 
 
-
 </script>
 
 <template>
   <h1>Kursbuchungen: </h1>
   <div v-if="loading">Daten werden geladen...</div>
   <section v-else class="kurs-detail">
-    <!--    <div class="kurs-container" v-if="kurs">-->
-    <!-- Zurück-Link -->
-    <!--      <BackButton @click="navigateBack"></BackButton>-->
-
+          <BackButton @click="navigateBack"></BackButton>
 
     <h2 class="kurs-title">{{ kurs.name }}</h2>
     <div class="kurs-info">
@@ -145,15 +130,7 @@ onMounted(async () => {
       <p><strong>max. Teilnehmer:</strong> {{ kurs.teilnehmer }}</p>
       <p><strong>akt. Teilnehmer:</strong> {{ kurs.aktTeilnehmer }}</p>
     </div>
-    <!--    </div>-->
   </section>
-  <!--  <h1>Buchungsanfragen: </h1>-->
-  <!--  <h2 class="kurs-title">{{ buchung.mitglied.firstName }} {{buchung.mitglied.lastName}}</h2>-->
-  <!--  <section>-->
-
-  <!--  <div class="kurs-info">-->
-  <!--&lt;!&ndash;    <p><strong>E-Mail:</strong>{{buchung.mitglied.email}}</p>&ndash;&gt;-->
-  <!--  </div>-->
   <h1>Buchungsanfragen:</h1>
   <section class="kurs-detail">
     <div v-if="buchungsanfragen && buchungsanfragen.length > 0">
@@ -216,21 +193,10 @@ onMounted(async () => {
 
 
 <style scoped>
-/* Button-Styles */
 
 .action-button {
   margin-right: 10px; /* Abstand zwischen Buttons */
   margin-bottom: 10px; /* Abstand nach unten */
-}
-.custom-summary {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: bold;
-  font-size: 20px;
-  cursor: pointer;
-  color: #7030a0; /* Dunkellila Farbe für die Überschrift */
-  margin-bottom: 10px;
 }
 
 h1{
@@ -239,17 +205,6 @@ h1{
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
-}
-.modal-content {
-  border-radius: 12px;
-  overflow: hidden;
-  background-color: #fff;
-  max-width: 500px;
-}
-
-.modal-header {
-  background-color: #6c2a9f; /* Lila Hintergrundfarbe */
-  color: #fff;
 }
 
 .modal-body p {
@@ -260,20 +215,6 @@ h1{
   border-radius: 6px;
 }
 
-
-.btn-close {
-  border: none;
-  background: transparent;
-  color: #fff;
-  font-size: 1.5rem;
-}
-
-.modal-backdrop {
-  background-color: rgba(0, 0, 0, 0.5); /* Halbtransparenter schwarzer Hintergrund */
-  backdrop-filter: blur(20
-  px); /* Unschärfe hinzufügen */
-}
-
 .modal.fade .modal-dialog {
   position: fixed;
   top: 50%;
@@ -282,14 +223,6 @@ h1{
   max-width: 600px;
 }
 
-.modal-backdrop {
-  z-index: 1040;
-}
-
-.modal-dialog {
-  z-index: 1050; /* Modal Dialog muss vor dem Hintergrund angezeigt werden */
-}
-/* Container für Kursdetail */
 .kurs-detail {
   max-width: 400px;
   margin: 20px auto;
@@ -318,33 +251,6 @@ h1{
   color: #4e216c;
 }
 
-/* Datum und Uhrzeit */
-.date-time {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.date,
-.time {
-  background-color: #e0cff2;
-  color: #7030a0;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 14px;
-  font-weight: bold;
-}
-
-/* Kurskarte */
-.kurs-card {
-  border: 1px solid #d2b4e8;
-  border-radius: 10px;
-  padding: 15px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Titel */
 .kurs-title {
   font-size: 1.5rem;
   color: #7030a0;
@@ -352,29 +258,12 @@ h1{
   text-align: left;
 }
 
-/* Kursbild */
-.kurs-image {
-  text-align: center;
-  margin-bottom: 15px;
-}
-
 .kurs-image img {
   max-width: 100%;
   border-radius: 8px;
 }
 
-.no-image {
-  width: 100%;
-  height: 150px;
-  background-color: #f0e6f5;
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #7030a0;
-}
 
-/* Kursinformationen */
 .kurs-info p {
   margin: 5px 0;
   font-size: 14px;
@@ -385,20 +274,5 @@ h1{
   color: #6a2c91;
 }
 
-/* Buchungsbutton */
-.book-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #6a2c91;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
 
-.book-button:hover {
-  background-color: #4e216c;
-}
 </style>
