@@ -78,7 +78,6 @@ async function getKurse() {
 
 
 <style scoped>
-/* Styling für Kursübersicht */
 .course-section {
   width: 100%;
   padding: 20px;
