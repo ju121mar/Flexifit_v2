@@ -230,7 +230,7 @@ const showLoginPopup = ref(false);
 
 .attribute-pair p {
   flex: 1;
-  font-size: 18px;
+  font-size: 20px;
   margin: 0;
 }
 
@@ -251,10 +251,7 @@ const showLoginPopup = ref(false);
   width: 100%;
 }
 
-.course-info h3 {
-  color: #444;
-  font-size: 20px;
-}
+
 
 .popup h2{
   color: #7030a0;
@@ -265,18 +262,16 @@ const showLoginPopup = ref(false);
 }
 
 @media (min-width: 992px) {
-  .course-info h3 {
+
+  .course-label{
     font-size: 20px;
   }
-  .course-label{
-    font-size: 18px;
-  }
   .course-info p {
-    font-size: 18px;
+    font-size: 20px;
   }
   .trainer-time p {
     margin: 0;
-    font-size: 16px;
+    font-size: 20px;
     color: #666;
   }
 
@@ -285,13 +280,13 @@ const showLoginPopup = ref(false);
 .course-info p {
   color: #666;
   margin: 5px 0;
-  font-size: 16px;
+  font-size: 20px;
 }
 
 .course-label {
   font-weight: bold;
   color: #7030a0;
-  font-size: 18px;
+  font-size: 22px;
 }
 
 
@@ -303,7 +298,7 @@ const showLoginPopup = ref(false);
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  font-size: 18px;
+  font-size: 20px;
   margin-top: 2px;
   text-decoration: none;
 }
@@ -320,14 +315,10 @@ const showLoginPopup = ref(false);
 
 .header h1 {
   color: #7030a0;
-  font-size: 28px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
 }
-
-
-
 
 .current-day {
   background-color: #7030a0;
@@ -355,7 +346,7 @@ const showLoginPopup = ref(false);
 }
 
 .day {
-  background-color: #e0d7f5;
+  background-color: #d3bfe3;
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 14px;
@@ -366,24 +357,6 @@ const showLoginPopup = ref(false);
   text-align: center;
 }
 
-.date-picker {
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.weekdays {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.day {
-  background-color: #e0d7f5;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
-}
 
 .search-container {
   text-align: center;
@@ -411,29 +384,20 @@ const showLoginPopup = ref(false);
 }
 
 .show-all-button:hover {
-  background-color: #4e216c;
+  background-color: #d8b5ea;
+  color: #7030a0;
 }
 
-.show-all-button {
-  background-color: #7030a0;
-  color: white;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  margin-left: 10px;
-}
 
 @media (max-width: 768px) {
   .weekdays {
-    flex-wrap: wrap; /* Allow wrapping */
+    flex-wrap: wrap;
     gap: 5px;
   }
 
   .show-all-button {
-    display: block; /* Ensure visibility under weekdays */
-    margin: 10px auto 0; /* Center and add spacing */
+    display: block;
+    margin: 10px auto 0;
     width: 90%;
   }
 }

@@ -243,7 +243,7 @@ const redirectToLogin = () => {
   }
 
   .course-info h3 {
-    color: #444;
+    color: #333;
     margin-bottom: 10px;
     font-size: 22px;
     font-weight: bold;
@@ -316,12 +316,9 @@ const redirectToLogin = () => {
       gap: 10px;
 
     }
-    .course-info h3 {
-      font-size: 20px;
-    }
 
     .course-label{
-      font-size: 18px;
+      font-size: 20px;
     }
 
     .trainer-time {
@@ -330,12 +327,12 @@ const redirectToLogin = () => {
     }
     .trainer-time p {
       margin: 0;
-      font-size: 16px;
+      font-size: 18px;
       color: #666;
     }
     .extra-text {
       color: #666;
-      font-size: 16px;
+      font-size: 18px;
       margin-top: 10px;
     }
 
@@ -363,12 +360,10 @@ const redirectToLogin = () => {
 
 
     .back-button {
-      order: -1; /* Immer an erster Stelle */
+      order: -1;
       border: none;
     }
-    .back-button:hover{
-      background-color: #4e216c;
-    }
+
   }
 
   @media (max-width: 768px) {
@@ -426,7 +421,7 @@ const redirectToLogin = () => {
 }
 
 .day {
-  background-color: #e0d7f5;
+  background-color: #d3bfe3;
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 14px;
@@ -462,83 +457,20 @@ const redirectToLogin = () => {
   margin-left: 10px;
 }
 
-.show-all-button:hover {
-  background-color: #4e216c;
-}
-
-/* Styling for the 'Neue Kurse erstellen' button in mobile view */
-.filter-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #7030a0; /* Farbe anpassen */
-  color: white; /* Textfarbe */
-  border: none; /* Kein Rand */
-  padding: 10px 15px; /* Abstände */
-  border-radius: 5px; /* Ecken entfernen */
-  font-size: 16px; /* Schriftgröße */
-  cursor: pointer;
-  text-decoration: none; /* Unterstreichung entfernen */
-  transition: background-color 0.3s ease;
-}
-
-.filter-button:hover {
-  background-color: #5e258f; /* Hover-Farbe */
-}
-
-.filter-button .plus-icon {
-  font-size: 10px; /* Größe des Icons */
-  margin-right: 8px; /* Abstand zwischen Icon und Text */
-}
-
-.filter-button .button-text {
-  font-weight: bold; /* Text fett */
-}
-
-
-@media (max-width: 768px) {
-  .filter-button {
-    width: 40px; /* Smaller size */
-    height: 40px;
-    padding: 0;
-    border-radius: 5px; /* Circular button */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0; /* Hide text */
-    background-image: url('/path/to/plus-icon.svg'); /* Add the Plus Icon */
-    background-size: 60%; /* Adjust icon size */
-    background-repeat: no-repeat;
-    background-position: center;
-    margin-left: 60px;
+  .show-all-button:hover {
+    background-color: #d8b5ea;
+    color: #7030a0;
   }
-  .filter-button .plus-icon{
-    margin-right: 0px;
-    font-size: 30px;
-  }
-}
-
-/* Styling for the 'Alle Kurse' button in mobile view */
-.show-all-button {
-  background-color: #7030a0;
-  color: white;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  margin-left: 10px;
-}
 
 @media (max-width: 768px) {
   .weekdays {
-    flex-wrap: wrap; /* Allow wrapping */
+    flex-wrap: wrap;
     gap: 5px;
   }
 
   .show-all-button {
-    display: block; /* Ensure visibility under weekdays */
-    margin: 10px auto 0; /* Center and add spacing */
+    display: block;
+    margin: 10px auto 0;
     width: 90%;
   }
 }

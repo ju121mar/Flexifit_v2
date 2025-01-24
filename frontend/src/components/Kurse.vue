@@ -119,9 +119,8 @@ async function getKurse() {
 }
 
 .course-info h3 {
-  color: #444;
+  color: #333;
   margin-bottom: 10px;
-  font-size: 22px;
   font-weight: bold;
 }
 
@@ -146,7 +145,6 @@ async function getKurse() {
   display: none;
 }
 
-/* Extra-Text nur auf Desktop-Bildschirmen anzeigen */
 @media (min-width: 992px) {
   .course-section {
     justify-content: center;
@@ -173,12 +171,9 @@ async function getKurse() {
     gap: 10px;
 
   }
-  .course-info h3 {
-    font-size: 20px;
-  }
 
   .course-label{
-    font-size: 18px;
+    font-size: 22px;
   }
 
   .trainer-time {
@@ -187,12 +182,12 @@ async function getKurse() {
   }
   .trainer-time p {
     margin: 0;
-    font-size: 16px;
+    font-size: 20px;
     color: #666;
   }
   .extra-text {
     color: #666;
-    font-size: 16px;
+    font-size: 20px;
     margin-top: 10px;
   }
 
@@ -224,7 +219,7 @@ async function getKurse() {
     border: none;
   }
   .back-button:hover{
-    background-color: #4e216c;
+    background-color: #7030a0;
   }
 }
 

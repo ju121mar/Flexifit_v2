@@ -50,23 +50,7 @@ onMounted(async () => {
 });
 const showConfirmationModal = ref(false);
 
-// // Buchung bestätigen
-// const confirmBooking = () => {
-//   showConfirmationModal.value = false;
-//   alert("Der Kurs wurde erfolgreich gebucht!");
-// };
 const confirmBooking = async () => {
-  // const buchung = {
-  //   id: kurs.value.id,
-  //   kursname: kurs.value.name,
-  //   trainer: kurs.value.trainer.firstName + ' ' + kurs.value.trainer.lastName,
-  //   datum: kurs.value.wochentag,
-  //   uhrzeit: kurs.value.uhrzeit,
-  //   status: 'Bestätigung ausstehend',
-  // };
-  //
-  // mitgliedStore.addBuchung(buchung); // Buchung speichern
-
   try {
     await apiCall({
       url: 'newBooking',
@@ -88,26 +72,16 @@ const confirmBooking = async () => {
   <div v-if="loading">Daten werden geladen...</div>
   <section v-else class="kurs-detail">
     <div class="kurs-container" v-if="kurs">
-      <!-- Zurück-Link -->
-      <BackButton @click="navigateBack"></BackButton>
-      <div class="date-time">
-        <span class="date">{{ kurs.wochentag }}</span>
-        <span class="time">{{ kurs.uhrzeit }}</span>
-      </div>
+        <BackButton @click="navigateBack" class="back-button" >Zurück</BackButton>
+
 
       <!-- Kursinformationen -->
       <div class="kurs-card">
-        <h2 class="kurs-title">{{ kurs.name }}</h2>
-<!--        <div class="kurs-image">-->
-<!--          <img-->
-<!--              v-if="kurs.image"-->
-<!--              :src="kurs.image"-->
-<!--              alt="Kurs Bild"-->
-<!--          />-->
-<!--          <div v-else class="no-image">Bild nicht verfügbar</div>-->
-<!--        </div>-->
-
+        <div class="course-info">
+        <h3>{{ kurs.name }}</h3>
+        <img :src="kurs.image" class="course-image">
         <div class="kurs-info">
+
           <p><strong>Trainer:</strong> {{ kurs.trainer.firstName }} {{kurs.trainer.lastName}}</p>
           <p><strong>Wochentag:</strong> {{ kurs.wochentag }}</p>
           <p><strong>Uhrzeit:</strong> {{ kurs.uhrzeit }}</p>
@@ -117,9 +91,7 @@ const confirmBooking = async () => {
 
         <!-- Buchungsbutton -->
         <PrimaryButton class="primarybutton" buttontext="Jetzt Buchen" @click="showConfirmationModal= true"></PrimaryButton>
-<!--        <button class="book-button" @click="showConfirmationModal = true">-->
-<!--          Jetzt Buchen-->
-<!--        </button>-->
+      </div>
       </div>
     </div>
   </section>
@@ -144,26 +116,11 @@ const confirmBooking = async () => {
         <!-- Modal Body -->
         <div class="modal-body">
           <p>Wollen Sie diesen Kurs wirklich buchen?</p>
-<!--          <p><strong>{{ kurs.name }}</strong> am {{ kurs.wochentag }} um {{ kurs.uhrzeit }}</p>-->
         </div>
         <!-- Modal Footer -->
         <div class="modal-footer">
           <PrimaryButton buttontext="Buchen" @click="confirmBooking"></PrimaryButton>
-<!--          <button-->
-<!--              type="button"-->
-<!--              class="btn btn-success"-->
-<!--              @click="confirmBooking"-->
-<!--          >-->
-<!--            Buchen-->
-<!--          </button>-->
           <SecondaryButton buttontext="Abbrechen" @click="showConfirmationModal = false"></SecondaryButton>
-<!--          <button-->
-<!--              type="button"-->
-<!--              class="book-button"-->
-<!--              @click="showConfirmationModal = false"-->
-<!--          >-->
-<!--            Abbrechen-->
-<!--          </button>-->
         </div>
       </div>
     </div>
@@ -177,6 +134,46 @@ const confirmBooking = async () => {
 
 
 <style scoped>
+
+.course-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.course-info h3 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.course-image {
+  width: 90%;
+  max-width: 400px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.kurs-info {
+  width: 100%;
+  padding-left: 20px;
+  text-align: left;
+}
+
+.kurs-info p {
+  margin: 15px 0;
+  font-size: 20px;
+  color: #666;
+}
+
+.kurs-info strong {
+  color: #7030a0;
+  font-size: 22px;
+}
+
 .modal-content {
   border-radius: 12px;
   overflow: hidden;
@@ -185,7 +182,7 @@ const confirmBooking = async () => {
 }
 
 .modal-header {
-  background-color: #6c2a9f; /* Lila Hintergrundfarbe */
+  background-color: #7030a0;
   color: #fff;
 }
 
@@ -206,16 +203,16 @@ const confirmBooking = async () => {
 }
 
 .modal-backdrop {
-  background-color: rgba(0, 0, 0, 0.5); /* Halbtransparenter schwarzer Hintergrund */
+  background-color: rgba(0, 0, 0, 1);
   backdrop-filter: blur(20
-  px); /* Unschärfe hinzufügen */
+  px);
 }
 
 .modal.fade .modal-dialog {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* Zentriert das Modal */
+  transform: translate(-50%, -50%);
   max-width: 600px;
 }
 
@@ -224,17 +221,14 @@ const confirmBooking = async () => {
 }
 
 .modal-dialog {
-  z-index: 1050; /* Modal Dialog muss vor dem Hintergrund angezeigt werden */
+  z-index: 1050;
 }
-/* Container für Kursdetail */
+
 .kurs-detail {
-  max-width: 400px;
+  max-width: 500px;
   margin: 20px auto;
   padding: 20px;
-  border: 1px solid #c8b1d9;
   border-radius: 10px;
-  background-color: #f6ebf9;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   font-family: 'Inter', sans-serif;
 }
 
@@ -242,100 +236,13 @@ const confirmBooking = async () => {
   text-align: left;
 }
 
-/* Zurück-Link */
-.back-link {
-  text-decoration: none;
-  color: #6a2c91;
-  font-weight: bold;
-  margin-bottom: 10px;
-  display: inline-block;
-}
 
-.back-link:hover {
-  color: #4e216c;
-}
-
-/* Datum und Uhrzeit */
-.date-time {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.date,
-.time {
-  background-color: #e0cff2;
-  color: #7030a0;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 14px;
-  font-weight: bold;
-}
-
-/* Kurskarte */
 .kurs-card {
-  border: 1px solid #d2b4e8;
+  border: 1px solid #d8b5ea;
   border-radius: 10px;
   padding: 15px;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Titel */
-.kurs-title {
-  font-size: 1.5rem;
-  color: #7030a0;
-  margin-bottom: 10px;
-  text-align: left;
-}
-
-/* Kursbild */
-.kurs-image {
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-.kurs-image img {
-  max-width: 100%;
-  border-radius: 8px;
-}
-
-.no-image {
-  width: 100%;
-  height: 150px;
-  background-color: #f0e6f5;
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #7030a0;
-}
-
-/* Kursinformationen */
-.kurs-info p {
-  margin: 5px 0;
-  font-size: 14px;
-  color:#333333;
-}
-
-.kurs-info strong {
-  color: #6a2c91;
-}
-
-/* Buchungsbutton */
-.book-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #6a2c91;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.book-button:hover {
-  background-color: #4e216c;
-}
 </style>

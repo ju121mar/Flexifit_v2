@@ -195,8 +195,8 @@ onMounted(async () => {
 <style scoped>
 
 .action-button {
-  margin-right: 10px; /* Abstand zwischen Buttons */
-  margin-bottom: 10px; /* Abstand nach unten */
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 h1{
@@ -219,7 +219,7 @@ h1{
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* Zentriert das Modal */
+  transform: translate(-50%, -50%);
   max-width: 600px;
 }
 
@@ -227,28 +227,11 @@ h1{
   max-width: 400px;
   margin: 20px auto;
   padding: 20px;
-  border: 1px solid #c8b1d9;
+  border: 1px solid #d8b5ea;
   border-radius: 10px;
   background-color: #f6ebf9;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   font-family: 'Inter', sans-serif;
-}
-
-.kurs-container {
-  text-align: left;
-}
-
-/* Zurück-Link */
-.back-link {
-  text-decoration: none;
-  color: #6a2c91;
-  font-weight: bold;
-  margin-bottom: 10px;
-  display: inline-block;
-}
-
-.back-link:hover {
-  color: #4e216c;
 }
 
 .kurs-title {
@@ -271,7 +254,7 @@ h1{
 }
 
 .kurs-info strong {
-  color: #6a2c91;
+  color: #7030a0;
 }
 
 

@@ -3,6 +3,7 @@ import {ref, onMounted} from 'vue';
 import {useRoute, useRouter} from 'vue-router';
 import axios from 'axios';
 import {apiCall} from "@/utility/ApiCall.js";
+import BackButton from "@/components/Buttons/BackButton.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -79,10 +80,15 @@ const onSubmit = async () => {
     alert("Es gab einen Fehler beim Speichern.");
   }
 };
+function navigateBack(){
+  router.push('/kursangebote')
+}
 
 </script>
 
 <template>
+  <BackButton @click="navigateBack" >Zurück</BackButton>
+
   <div v-if="loading">Daten werden geladen...</div>
   <div v-else>
     <form @submit.prevent="onSubmit">
@@ -100,7 +106,6 @@ const onSubmit = async () => {
             {{ user.firstName }} {{ user.lastName }}
           </option>
         </select>
-        <!--      <input id="trainer" v-model="formData.trainer" type="text" />-->
       </div>
 
       <div>
@@ -140,21 +145,17 @@ const onSubmit = async () => {
       </div>
 
       <button type="submit">Kurs aktualisieren</button>
-      <RouterLink to="/kursangebote" class="button zurueck-button">Zurück</RouterLink>
     </form>
   </div>
 </template>
 
 <style scoped>
-.edit-course {
-  padding: 20px;
-}
 
 .kurs-group .form-select {
   width: 100%;
   padding: 10px;
   border-radius: 4px;
-  border: 1px solid #a084ca;
+  border: 1px solid #d3bfe3;
   font-size: 14px;
   margin-bottom: 15px;
 
@@ -164,7 +165,7 @@ form {
   max-width: 400px;
   margin: 20px auto;
   padding: 20px;
-  border: 1px solid #c8b1d9;
+  border: 1px solid #d8b5ea;
   border-radius: 10px;
   background-color: #f6ebf9;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -174,16 +175,15 @@ form {
 input, textarea {
   width: 100%;
   padding: 10px;
-  border: 1px solid #a084ca;
+  border: 1px solid #d3bfe3;
   border-radius: 4px;
   background-color: #fff;
   font-size: 14px;
 }
 
-button, 
-.zurueck-button {
-    padding: 10px 15px;
-  background-color: #6a2c91;
+button{
+  padding: 10px 15px;
+  background-color: #7030a0;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -197,16 +197,17 @@ button,
   margin-top: 40px;
 }
 
-button:hover,
-.zurueck-button {
-  background-color: #4e216c;
+button:hover{
+  background-color: #d8b5ea;
+  color: #7030a0;
 }
 
 label {
   display: block;
   margin-bottom: 5px;
+  margin-top: 10px;
   font-weight: bold;
-  color: #6a2c91;
+  color: #7030a0;
 }
 
 </style>

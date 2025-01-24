@@ -253,7 +253,7 @@ function handleReject() {
 }
 
 .hours-section p {
-  color: #444;
+  color: #333;
   font-size: 22px;
   line-height: 1.5;
   margin: 5px 0;
@@ -412,7 +412,7 @@ function handleReject() {
 
 .value-info p {
   font-size: 22px;
-  color: #555;
+  color: #333;
   line-height: 1.6;
   margin-bottom: 20px;
 }
@@ -496,6 +496,10 @@ function handleReject() {
 @media (max-width: 480px) {
   .value-image {
     max-width: 120px;
+  }
+  .values-container {
+    gap: 50px;
+
   }
 }
 

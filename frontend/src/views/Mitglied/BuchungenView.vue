@@ -49,8 +49,8 @@ async function getBooking() {
 
 .buchungen-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 50px;
 }
 
 .buchung-card {
@@ -69,16 +69,14 @@ async function getBooking() {
 
 h1 {
   color: #7030a0;
-  font-size: 28px;
   font-weight: bold;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 80px;
 }
 
 h2 {
-  color: #444;
+  color: #333;
   margin: 0 0 10px 0;
-  font-size: 20px;
 }
 
 p {
@@ -93,7 +91,7 @@ strong {
 
 @media (min-width: 992px) {
   p {
-    font-size: 16px;
+    font-size: 22px;
   }
 }
 
