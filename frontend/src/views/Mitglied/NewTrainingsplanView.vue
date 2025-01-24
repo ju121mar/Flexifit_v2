@@ -61,6 +61,7 @@ function goBack() {
 
 <template>
   <div class="kurs-form">
+    <BackButton class="backbutton" @click="goBack"></BackButton>
     <h2>Neuen Trainingsplan erstellen</h2>
     <form @submit.prevent="createNewPlan">
       <!-- Geschlecht -->
@@ -134,7 +135,7 @@ function goBack() {
 
       <!-- Buttons -->
       <PrimaryButton class="primarybutton" buttontext="Plan anzeigen"></PrimaryButton>
-      <BackButton class="backbutton" @click="goBack"></BackButton>
+      
     </form>
   </div>
 </template>
