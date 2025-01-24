@@ -1,61 +1,58 @@
 <script setup>
-import { ref, watch } from "vue";
-import { useFormStore } from "@/stores/formStore";
+import { ref, watch, onMounted } from "vue";
+import { useFormStore } from "@/stores/formStore"; // Store importieren
+import axios from 'axios'
+import {apiCall} from "@/utility/ApiCall.js";
 import router from "@/router/index.js";
 import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
 import BackButton from "@/components/Buttons/BackButton.vue";
-
-// Store 
+import MeinTrainingsplan from '@/views/Mitglied/MeinTrainingsplan.vue'
+//import { useRouter } from "vue-router";
+// Store initialisieren
 const formStore = useFormStore();
+// Verbindung zum Store herstellen (reactive Daten)
 const newPlan = ref({ ...formStore.newPlan });
-
-const fieldErrors = ref({
-  gender: "",
-  height: "",
-  weight: "",
-  age: "",
-  goal: "",
-  level: "",
-  frequency: "",
-});
-
-// Validierung der Eingaben
-function validateForm() {
-  fieldErrors.value = {
-    gender: !newPlan.value.gender ? "Geschlecht ist erforderlich." : "",
-    height: !newPlan.value.height || newPlan.value.height < 140 || newPlan.value.height > 300 ? "Ungültige Größe." : "",
-    weight: !newPlan.value.weight || newPlan.value.weight < 45 || newPlan.value.weight > 200 ? "Ungültiges Gewicht." : "",
-    age: !newPlan.value.age || newPlan.value.age < 16 || newPlan.value.age > 99 ? "Ungültiges Alter." : "",
-    goal: !newPlan.value.goal ? "Ziel auswählen." : "",
-    level: !newPlan.value.level ? "Level auswählen." : "",
-    frequency: !newPlan.value.frequency ? "Trainingstage auswählen." : "",
-  };
-
-  return Object.values(fieldErrors.value).every((error) => error === "");
-}
-
-// Überwachung der Eingabewerte (Validierung bei Änderungen)
-watch(newPlan, () => {
-  validateForm();
+// Speichern der Daten beim Ändern
+watch(newPlan, (newValue) => {
+  formStore.setFormData(newValue);
 }, { deep: true });
-
-
 function createNewPlan() {
-  if (!validateForm()) {
-    return; 
-  }
   router.push({
     path: '/trainingsplan/exercise/:id',
-    query: {
-      level: newPlan.value.level,
-      frequency: newPlan.value.frequency,
-      goal: newPlan.value.goal,
-    },
+    query: { level: newPlan.value.level,
+             frequency: newPlan.value.frequency,
+             goal: newPlan.value.goal
+          }
   });
 }
-
 function goBack() {
-  router.push('/trainingsplan');
+  router.push('/trainingsplan')
+}
+
+function validateForm() {
+  const { height, weight, age, gender, goal, level, frequency } = newPlan.value;
+
+  if (!gender || !goal || !level || !frequency) {
+    alert("Fehlerhafte Eingabe. Bitte füllen Sie alle Felder aus!");
+    return;
+  }
+
+  if (height < 130 || height > 300) {
+    alert("Ungültige Größe. Die Größe muss zwischen 130 cm und 300 cm liegen!");
+    return;
+  }
+
+  if (weight < 35 || weight > 300) {
+    alert("Ungültiges Gewicht, das Gewicht muss zwischen 35 kg und 300 kg liegen!");
+    return;
+  }
+
+  if (age < 16 || age > 100) {
+    alert("Ungültiges Alter. Das Alter muss zwischen 16 und 100 Jahren liegen!");
+    return;
+  }
+
+  createNewPlan();
 }
 </script>
 
@@ -63,102 +60,94 @@ function goBack() {
   <div class="kurs-form">
     <BackButton class="backbutton" @click="goBack"></BackButton>
     <h2>Neuen Trainingsplan erstellen</h2>
-    <form @submit.prevent="createNewPlan">
-      <!-- Geschlecht -->
+    <form @submit.prevent="validateForm">
       <div class="kurs-group">
         <label for="gender">Geschlecht:</label>
-        <select id="gender" v-model="newPlan.gender" class="form-select">
+      <select id="gender" v-model="newPlan.gender" class="form-select" required>
           <option disabled value="">Geschlecht auswählen</option>
           <option value="weiblich">weiblich</option>
           <option value="männlich">männlich</option>
           <option value="divers">divers</option>
-        </select>
-        <p v-if="fieldErrors.gender" class="error-message">{{ fieldErrors.gender }}</p>
+          </select>
       </div>
-
-      <!-- Größe -->
+       <!-- Größe -->
       <div class="kurs-group">
         <label for="height">Größe in cm:</label>
-        <input type="number" id="height" v-model="newPlan.height" placeholder="Größe eingeben" />
-        <p v-if="fieldErrors.height" class="error-message">{{ fieldErrors.height }}</p>
+        <input
+          type="number"
+          id="height"
+          v-model="newPlan.height"
+          placeholder="Größe eingeben"
+          required
+        />
       </div>
-
-      <!-- Gewicht -->
       <div class="kurs-group">
         <label for="weight">Gewicht in kg:</label>
-        <input type="number" id="weight" v-model="newPlan.weight" placeholder="Gewicht eingeben" />
-        <p v-if="fieldErrors.weight" class="error-message">{{ fieldErrors.weight }}</p>
+        <input
+          type="number"
+          id="weight"
+          v-model="newPlan.weight"
+          placeholder="Gewicht eingeben"
+          required
+        />
       </div>
-
-      <!-- Alter -->
       <div class="kurs-group">
         <label for="age">Alter:</label>
-        <input type="number" id="age" v-model="newPlan.age" placeholder="Alter eingeben" />
-        <p v-if="fieldErrors.age" class="error-message">{{ fieldErrors.age }}</p>
+        <input
+          type="number"
+          id="age"
+          v-model="newPlan.age"
+          placeholder="Alter eingeben"
+          required
+        />
       </div>
-
-      <!-- Ziel -->
       <div class="kurs-group">
         <label for="goal">Mein Ziel:</label>
-        <select id="goal" v-model="newPlan.goal" class="form-select">
+        <select id="goal" v-model="newPlan.goal" class="form-select" required>
           <option disabled value="">Ziel auswählen</option>
           <option value="MuskelaufbauGanzkoerper">Muskelaufbau Ganzkörper</option>
           <option value="MuskelaufbauUnterkoerper">Muskelaufbau Unterkörper</option>
           <option value="MuskelaufbauOberkoerper">Muskelaufbau Oberkörper</option>
           <option value="Ausdauerverbesserung">Ausdauerverbesserung</option>
         </select>
-        <p v-if="fieldErrors.goal" class="error-message">{{ fieldErrors.goal }}</p>
       </div>
-
-      <!-- Level -->
       <div class="kurs-group">
         <label for="level">Level:</label>
-        <select id="level" v-model="newPlan.level" class="form-select">
+        <select id="level" v-model="newPlan.level" class="form-select" required>
           <option disabled value="">Level auswählen</option>
           <option value="Anfänger">Anfänger</option>
           <option value="Fortgeschritten">Fortgeschritten</option>
           <option value="Experte">Experte</option>
         </select>
-        <p v-if="fieldErrors.level" class="error-message">{{ fieldErrors.level }}</p>
       </div>
-
-      <!-- Trainingstage -->
       <div class="kurs-group">
         <label for="frequency">Trainingstage pro Woche:</label>
-        <select id="frequency" v-model="newPlan.frequency" class="form-select">
+        <select id="frequency" v-model="newPlan.frequency" class="form-select" required>
           <option disabled value="">Anzahl Trainingstage auswählen</option>
           <option value="drei">Drei Mal (Für Anfänger empfohlen)</option>
           <option value="fuenf">Fünf Mal</option>
         </select>
-        <p v-if="fieldErrors.frequency" class="error-message">{{ fieldErrors.frequency }}</p>
       </div>
-
-      <!-- Buttons -->
-      <PrimaryButton class="primarybutton" buttontext="Plan anzeigen"></PrimaryButton>
-      
+      <PrimaryButton
+        class="primarybutton"
+        buttontext="Plan anzeigen"
+        @click="validateForm"
+      ></PrimaryButton>
     </form>
   </div>
 </template>
 
+
 <style scoped>
-
-
-.error-message {
-  color: red;
-  font-size: 14px;
-  margin-top: 10px;
-}
-
 
 .kurs-form {
   max-width: 400px;
   margin: 20px auto;
   padding: 20px;
-  border: 1px solid #c8b1d9;
+  border: 1px solid #d3bfe3;
   border-radius: 10px;
   background-color: #f6ebf9;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: 'Inter', sans-serif;
 }
 
 .kurs-group {
@@ -168,7 +157,7 @@ function goBack() {
   width: 100%;
   padding: 10px;
   border-radius: 4px;
-  border: 1px solid #a084ca;
+  border: 1px solid #d8b5ea  ;
   font-size: 14px;
   margin-bottom: 15px;
 
@@ -177,14 +166,15 @@ label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: #6a2c91;
+  color: #7030a0
+  ;
 }
 
 input,
 textarea {
   width: 100%;
   padding: 10px;
-  border: 1px solid #a084ca;
+  border: 1px solid #d8b5ea;
   border-radius: 4px;
   background-color: #fff;
   font-size: 14px;
@@ -193,19 +183,10 @@ textarea {
 input:focus,
 textarea:focus {
   outline: none;
-  border-color: #6a2c91;
+  border-color: #7030a0;
   box-shadow: 0 0 5px rgba(106, 44, 145, 0.5);
 }
 
-.success-message {
-  margin-top: 15px;
-  padding: 10px;
-  background-color: #d4edda;
-  border: 1px solid #c3e6cb;
-  border-radius: 4px;
-  color: #155724;
-  font-size: 14px;
-}
 
 .modal-backdrop {
   z-index: 1040; /* Bootstrap Modal-Z-Index */
@@ -224,7 +205,7 @@ textarea:focus {
 }
 
 .modal-header {
-  background-color: #6a2c91;
+  background-color: #7030a0;
   color: white;
 }
 

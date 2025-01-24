@@ -46,7 +46,7 @@ function goToPersonalPlan() {
     padding: 20px;
     border: 1px solid #7030a0;
     border-radius: 12px;
-    background-color: #d8b5ea;
+    background-color: #d3bfe3;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     font-size: 22px;
