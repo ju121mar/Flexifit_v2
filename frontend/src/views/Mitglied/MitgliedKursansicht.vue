@@ -185,7 +185,7 @@ const redirectToLogin = () => {
 
               </div>
                 <p class="extra-text">
-                  <span class="course-label">Beschreibung:</span>
+                  <span class="course-label">Beschreibung:</span><br>
                   {{ kurs.description }}
                 </p>
 
@@ -205,7 +205,6 @@ const redirectToLogin = () => {
 <style scoped>
   .course-section {
     width: 100%;
-    padding: 20px;
     background-color: #ffffff;
     text-align: center;
     margin: 20px 0;
@@ -238,14 +237,13 @@ const redirectToLogin = () => {
   .course-info {
     display: flex;
     flex-direction: column;
-    text-align: center;
+    text-align: left;
     gap: 10px;
   }
 
   .course-info h3 {
     color: #333;
     margin-bottom: 10px;
-    font-size: 22px;
     font-weight: bold;
   }
 
@@ -257,18 +255,18 @@ const redirectToLogin = () => {
 
   .trainer-time p {
     margin: 0;
-    font-size: 14px;
+    font-size: 18px;
     color: #666;
   }
   .course-label {
     font-weight: bold;
     color: #7030a0;
-    font-size: 16px;
+    font-size: 20px;
   }
 
   .extra-text {
     color: #666;
-    font-size: 14px;
+    font-size: 18px;
     margin-top: 10px;
   }
 
@@ -291,17 +289,28 @@ const redirectToLogin = () => {
   }
 
   @media (min-width: 992px) {
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .col-md-6 {
+        display: flex;
+      }
+
+      .course-card {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
     .course-section {
       justify-content: center;
-    }
-
-    .course-card {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      max-width: 800px;
-      margin: 0 auto;
     }
 
     .course-card img {

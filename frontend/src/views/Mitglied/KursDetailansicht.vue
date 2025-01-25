@@ -119,8 +119,8 @@ const confirmBooking = async () => {
         </div>
         <!-- Modal Footer -->
         <div class="modal-footer">
-          <PrimaryButton buttontext="Buchen" @click="confirmBooking"></PrimaryButton>
-          <SecondaryButton buttontext="Abbrechen" @click="showConfirmationModal = false"></SecondaryButton>
+          <PrimaryButton class="primarybutton" buttontext="Buchen" @click="confirmBooking"></PrimaryButton>
+          <SecondaryButton class="secondarybutton" buttontext="Abbrechen" @click="showConfirmationModal = false"></SecondaryButton>
         </div>
       </div>
     </div>
@@ -193,8 +193,40 @@ const confirmBooking = async () => {
 .modal-footer .btn {
   border-radius: 6px;
 }
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  padding: 15px;
+}
 
+.modal-footer .primarybutton,
+.modal-footer .secondarybutton {
+  flex: 1;
+  padding: 10px;
+  font-size: 20px;
+}
+@media (max-width: 480px) {
+  .modal-dialog {
+    margin-right: 0px;
+    width: 90%;
+    max-width: 90%;
+  }
 
+  .modal.fade .modal-dialog {
+    width: calc(100% - 30px);
+    max-width: 350px;
+  }
+
+  .modal-content{
+    max-width: 350px;
+    font-size: 18px;
+  }
+  .modal-title{
+    font-size: 22px;
+  }
+
+}
 .btn-close {
   border: none;
   background: transparent;
