@@ -172,7 +172,6 @@ const showLoginPopup = ref(false);
               class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3"
           >
             <div class="course-card">
-              <!--                        <img src="@/assets/pictures/Yoga.jpg" :alt="kurs.name" class="course-image"/>-->
               <div class="course-info">
                 <h3>{{ kurs.name }}</h3>
                 <div class="attribute-pair">
@@ -186,7 +185,6 @@ const showLoginPopup = ref(false);
               </div>
 
               <RouterLink  class="book-button"  :to="`/kursangebote/confirm/${kurs.id}`">Buchungen ansehen</RouterLink>
-                <!--              <button @click="openLoginPopup" class="book-button">Buchen</button>-->
               </div>
             </div>
           </div>
@@ -201,7 +199,6 @@ const showLoginPopup = ref(false);
 
 .course-section {
   width: 100%;
-  padding: 20px;
   background-color: #ffffff;
   text-align: center;
   margin: 20px 0;
@@ -234,7 +231,7 @@ const showLoginPopup = ref(false);
   margin: 0;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1070px) {
   .attribute-pair {
     flex-direction: column;
   }
@@ -298,7 +295,7 @@ const showLoginPopup = ref(false);
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  font-size: 20px;
+  font-size: 22px;
   margin-top: 2px;
   text-decoration: none;
 }
