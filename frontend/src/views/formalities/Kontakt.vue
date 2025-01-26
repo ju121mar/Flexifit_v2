@@ -89,7 +89,7 @@ function goBack() {
 </svg>
 info@flexifit.de
   </label>
-  <img src="../assets/pictures/kontakt.png" alt="Location" class="location" />
+  <img src="../../assets/pictures/kontakt.png" alt="Location" class="location" />
   </div>
 </div>
 </template>
