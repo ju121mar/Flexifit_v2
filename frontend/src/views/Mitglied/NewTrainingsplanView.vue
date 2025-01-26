@@ -1,18 +1,14 @@
 <script setup>
 import { ref, watch, onMounted } from "vue";
-import { useFormStore } from "@/stores/formStore"; // Store importieren
-import axios from 'axios'
-import {apiCall} from "@/utility/ApiCall.js";
+import { useFormStore } from "@/stores/formStore"; 
 import router from "@/router/index.js";
 import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
 import BackButton from "@/components/Buttons/BackButton.vue";
-import MeinTrainingsplan from '@/views/Mitglied/MeinTrainingsplan.vue'
-//import { useRouter } from "vue-router";
-// Store initialisieren
+
 const formStore = useFormStore();
-// Verbindung zum Store herstellen (reactive Daten)
+
 const newPlan = ref({ ...formStore.newPlan });
-// Speichern der Daten beim Ändern
+
 watch(newPlan, (newValue) => {
   formStore.setFormData(newValue);
 }, { deep: true });
@@ -209,12 +205,6 @@ textarea:focus {
   color: white;
 }
 
-.kurs-group .checkbox-group {
-  margin: 5px 0;
-}
-.checkbox-group input[type="checkbox"] {
-  margin-right: 10px;
-}
 
 
 </style>

@@ -1,7 +1,8 @@
 <script setup>
-import {ref} from 'vue'
-import {useRouter} from "vue-router";
+import {ref} from 'vue';
 import {useMitgliedStore} from "@/stores/mitglied.js";
+import PrimaryButton from '@/components/Buttons/PrimaryButton.vue';
+import BackButton from '@/components/Buttons/BackButton.vue';
 
 const mitgliedStore = useMitgliedStore();
 let firstName = ref("");
@@ -23,6 +24,9 @@ async function register() {
 
 <template>
   <form class="kurs-form" @submit.prevent="register">
+    <RouterLink to="/login/mitglied">
+        <BackButton class="backbutton" buttontext="Zurück"></BackButton>
+    </RouterLink>
     <h2>Registrieren</h2>
     <div class="kurs-group">
       <label for="firstName">Vorname:</label>
@@ -56,8 +60,7 @@ async function register() {
       <label for="city">Stadt:</label>
       <input id="city" type="city" v-model="city" placeholder="Stadt eingeben"/>
     </div>
-    <button type="submit">Jetzt Registrieren</button>
-    <RouterLink to="/login/mitglied" class="zurueck-button">Zurück</RouterLink>
+    <PrimaryButton type="submit" buttontext="Jetzt registrieren!"></PrimaryButton>
   </form>
   <div v-if="loginError" class="popup">
     <div class="popup-content">
@@ -69,34 +72,13 @@ async function register() {
 </template>
 
 <style scoped>
-.additional-links {
-  margin-top: 20px;
-  text-align: center;
-}
 
-.text-link {
-  color: #6a2c91;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1rem;
-  transition: color 0.3s ease;
-}
-
-.text-link:hover {
-  color: #d8b5ea;
-}
-
-/* Separator Styling */
-.additional-links span {
-  margin: 0 10px;
-  color: #6a2c91;
-}
 
 .kurs-form {
   max-width: 400px;
   margin: 20px auto;
   padding: 20px;
-  border: 1px solid #c8b1d9;
+  border: 1px solid #d3bfe3;
   border-radius: 10px;
   background-color: #f6ebf9;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -111,28 +93,24 @@ label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: #6a2c91;
+  color: #7030a0
+  ;
 }
 
 input {
   width: 100%;
   padding: 10px;
-  border: 1px solid #a084ca;
+  border: 1px solid #d8b5ea;
   border-radius: 4px;
   background-color: #fff;
   font-size: 14px;
 }
 
-input:focus {
-  outline: none;
-  border-color: #6a2c91;
-  box-shadow: 0 0 5px rgba(106, 44, 145, 0.5);
-}
 
 button,
 .zurueck-button {
   padding: 10px 15px;
-  background-color: #6a2c91;
+  background-color: #7030a0;
   color: #fff;
   border: none;
   border-radius: 4px;
