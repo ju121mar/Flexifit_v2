@@ -3,6 +3,8 @@ import {ref, computed, onMounted} from 'vue';
 import {useRouter} from 'vue-router';
 import {apiCall} from "@/utility/ApiCall.js";
 import BackButton from "@/components/Buttons/BackButton.vue";
+import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
+import SecondaryButton from "@/components/Buttons/SecondaryButton.vue";
 
 const weekdays = ref(["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]);
 const activeDay = ref(null);
@@ -217,8 +219,8 @@ function navigateBack() {
             <h2>Bestätigung</h2>
             <p>Möchten Sie diesen Kurs wirklich löschen?</p>
             <div class="popup-buttons">
-              <button class="confirm-button" @click="confirmDelete">Ja, löschen</button>
-              <button class="cancel-button" @click="cancelDelete">Abbrechen</button>
+              <PrimaryButton buttontext="Ja, löschen"  @click="confirmDelete">Ja, löschen</PrimaryButton>
+              <SecondaryButton buttontext="Abbrechen" @click="cancelDelete">Abbrechen</SecondaryButton>
             </div>
           </div>
         </div>
@@ -235,11 +237,19 @@ function navigateBack() {
             <div class="course-info">
               <h3>{{ kurs.name }}</h3>
               <div class="trainer-time">
-                <p><span class="course-label">Trainer: </span> {{getFullName(kurs.trainer)}}</p>
-                <p><span class="course-label">Uhrzeit: </span>{{ kurs.uhrzeit }}</p>
+                <div class="trainer-section">
+                  <h4 class="course-label">Trainer:</h4>
+                  <p>{{getFullName(kurs.trainer)}}</p>
+                </div>
+                <div class="time-section">
+                  <h4 class="course-label">Uhrzeit:</h4>
+                  <p>{{ kurs.uhrzeit }}</p>
+                </div>
               </div>
-              <button class="book-button" @click="goToEditing(kurs.id)">Bearbeiten</button>
-              <button class="book-button" @click="openDeletePopup(kurs.id)">Löschen</button>
+              <div class="course-actions">
+                <button class="book-button edit-button" @click="goToEditing(kurs.id)">Bearbeiten</button>
+                <button class="book-button delete-button" @click="openDeletePopup(kurs.id)">Löschen</button>
+              </div>
             </div>
           </div>
         </div>
@@ -254,8 +264,39 @@ function navigateBack() {
 
 
 <style scoped>
+.trainer-time {
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.trainer-section, .time-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: 50px;
+}
 
 
+.course-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.book-button {
+  width: 130px;
+}
+
+.course-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.book-button {
+  width: 130px;
+}
 .popup-backdrop {
   position: fixed;
   top: 0;
@@ -278,6 +319,143 @@ function navigateBack() {
   max-width: 400px;
   width: 90%;
 }
+@media (min-width: 768px) and (max-width: 1000px) {
+  .course-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .col-12.col-md-6 {
+    width: 50%;
+  }
+
+  .course-card {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .course-info {
+    text-align: center;
+    width: 100%;
+  }
+
+  .course-info h3 {
+    text-align: center;
+  }
+
+  .trainer-time {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .trainer-section, .time-section {
+    margin-right: 0;
+    align-items: center;
+  }
+
+  .course-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .book-button {
+    width: 150px;
+    margin-right: 0;
+  }
+}
+@media (max-width: 768px) {
+  .course-card {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .course-card img {
+    width: 100%;
+    max-height: 250px;
+    object-fit: cover;
+    margin-bottom: 15px;
+  }
+
+  .course-info {
+    width: 100%;
+    text-align: center;
+  }
+
+  .trainer-time {
+    flex-direction: column;
+  }
+
+  .course-label{
+    font-size: 22px !important;
+  }
+  .course-info h3 {
+    text-align: center;
+  }
+  .trainer-section, .time-section {
+    margin-right: 0;
+    margin-bottom: 10px;
+    align-items: center;
+  }
+  p{
+    font-size: 20px;
+  }
+
+  .trainer-time p {
+    text-align: center;
+  }
+  .course-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .book-button {
+    width: 150px;
+    margin-right: 0;
+  }
+
+/*
+  .book-button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-indent: -9999px;
+    overflow: hidden;
+  }
+
+  .edit-button, .delete-button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: 2px solid #7030a0;
+    border-radius: 50%;
+  }
+
+  .edit-button::before {
+    content: '✎';
+    background-image: url("../assets/pictures/Edit.svg");
+    color: #7030a0;
+    font-size: 20px;
+    text-indent: 0;
+  }
+
+  .delete-button::before {
+    content: '🗑️';
+    color: #7030a0;
+    font-size: 20px;
+    text-indent: 0;
+  }*/
+}
 .popup h2{
   color: #7030a0;
   font-size: 28px;
@@ -292,35 +470,10 @@ function navigateBack() {
   margin-top: 1rem;
 }
 
-.confirm-button {
-  background: #7030a0;
-  color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.cancel-button {
-  background: #ccc;
-  color: #333;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.confirm-button:hover {
-  background: #d8b5ea;
-}
-
-.cancel-button:hover {
-  background: #bbb;
-}
 
 .course-card {
   display: flex;
-  flex-direction: column; /* Standardmäßig für mobile Ansicht */
+  flex-direction: column;
   align-items: center;
   border: 2px solid #d3bfe3;
   border-radius: 12px;
@@ -329,98 +482,91 @@ function navigateBack() {
   background-color: #ffffff;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  max-width: 100%; /* Mobile Ansicht: Nutzt die gesamte Breite */
+  max-width: 100%;
 }
 
 .course-section {
   width: 100%;
-  padding: 20px;
   background-color: #ffffff;
   text-align: center;
   margin: 20px 0;
   display: flex;
-  justify-content: center; /* Zentriert die Karte */
+  justify-content: center;
 }
 .course-card img {
   width: 100%;
   height: auto;
   object-fit: cover;
   border-radius: 8px;
-  margin-bottom: 15px; /* Abstand zum Text in mobiler Ansicht */
+  margin-bottom: 15px;
 }
 
 .course-info {
   display: flex;
   flex-direction: column;
-  text-align: center;
+  text-align: left;
   gap: 10px;
-  height: 100%;
 }
 
 .course-info h3 {
-  color: #444;
+  color: #333;
   margin-bottom: 10px;
-  font-size: 22px;
   font-weight: bold;
 }
-.trainer-time {
-  display: flex;
-  flex-direction: column; /* Trainer und Uhrzeit untereinander */
-  gap: 5px;
-}
+
 .trainer-time p {
   margin: 0;
-  font-size: 16px;
+  font-size: 20px;
   color: #666;
 }
 .course-label {
   font-weight: bold;
   color: #7030a0;
-}
-.button-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  margin-top: 15px;
+  font-size: 20px;
+
 }
 
 
-/* Extra-Text nur auf Desktop-Bildschirmen anzeigen */
-@media (min-width: 992px) {
+
+@media (min-width: 1400px) {
 
   .course-section {
-    justify-content: center; /* Zentriert die Karte im Desktop-Modus */
+    justify-content: center;
   }
 
   .course-card {
-    flex-direction: row; /* Informationen nebeneinander */
+    flex-direction: row;
     align-items: center;
-    justify-content: space-between; /* Platz zwischen Bild und Text */
-    gap: 20px; /* Abstand zwischen Bild und Text */
-    max-width: 800px; /* Begrenzte Breite im Desktop-Modus */
-    margin: 0 auto; /* Zentriert die Karte */
+    justify-content: space-between;
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
   }
 
   .course-card img {
-    width: 35%; /* Bild nimmt 35% der Kartenbreite ein */
-    height: auto; /* Automatische Höhe */
-    margin-bottom: 0; /* Kein Abstand zum Text in der Desktop-Ansicht */
+    width: 35%;
+    height: auto;
+    margin-bottom: 0;
   }
 
   .course-info {
-    width: 60%; /* Textbeschreibung nimmt 60% der Kartenbreite ein */
-    text-align: left; /* Text linksbündig */
+    width: 60%;
+    text-align: left;
     gap: 10px;
   }
 
-
   .trainer-time {
-    flex-direction: row; /* Trainer und Uhrzeit nebeneinander */
-    justify-content: space-between; /* Platz zwischen Trainer und Uhrzeit */
+    flex-direction: row;
+    justify-content: space-between;
   }
-
-
+  .trainer-time p {
+    margin: 0;
+    font-size: 22px;
+    color: #666;
+  }
+  .course-label{
+    font-size: 22px;
+  }
 
 }
 .book-button {
@@ -448,13 +594,11 @@ function navigateBack() {
 
 .header h1 {
   color: #7030a0;
-  font-size: 28px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
 }
 
-/* Header-Kontrollbuttons */
 .header-controls {
   display: flex;
   justify-content: space-between;
@@ -481,13 +625,12 @@ function navigateBack() {
   text-align: center;
 }
 
+/*wird benutzt, erkennt Klasse nicht*/
 .current-day {
   background-color: #7030a0;
   font-weight: bold;
   border: 2px solid #7030a0;
 }
-
-
 
 .current-date, .current-time {
   color: #d8b5ea;
@@ -497,9 +640,6 @@ function navigateBack() {
   text-align: center;
 }
 
-
-
-/* Wochentagsanzeige */
 .date-picker {
   margin-bottom: 20px;
   text-align: center;
@@ -512,7 +652,7 @@ function navigateBack() {
 }
 
 .day {
-  background-color: #e0d7f5;
+  background-color: #d3bfe3;
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 14px;
@@ -521,25 +661,6 @@ function navigateBack() {
 
 .container {
   text-align: center;
-}
-
-.date-picker {
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.weekdays {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.day {
-  background-color: #e0d7f5;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
 }
 
 .search-container {
@@ -557,6 +678,7 @@ function navigateBack() {
 }
 .back-button{
   margin-left: 10px;
+  margin-right: 0px;
 }
 .show-all-button {
   background-color: #7030a0;
@@ -570,51 +692,52 @@ function navigateBack() {
 }
 
 .show-all-button:hover {
-  background-color: #4e216c;
+  background-color: #d8b5ea;
+  color: #7030a0;
 }
 
-/* Styling for the 'Neue Kurse erstellen' button in mobile view */
 .filter-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: #7030a0; /* Farbe anpassen */
-  color: white; /* Textfarbe */
-  border: none; /* Kein Rand */
-  padding: 10px 15px; /* Abstände */
-  border-radius: 5px; /* Ecken entfernen */
-  font-size: 16px; /* Schriftgröße */
+  background-color: #7030a0;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 16px;
   cursor: pointer;
-  text-decoration: none; /* Unterstreichung entfernen */
+  text-decoration: none;
   transition: background-color 0.3s ease;
 }
 
 .filter-button:hover {
-  background-color: #5e258f; /* Hover-Farbe */
+  background-color: #d8b5ea;
+  color: #7030a0;
 }
 
 .filter-button .plus-icon {
-  font-size: 10px; /* Größe des Icons */
-  margin-right: 8px; /* Abstand zwischen Icon und Text */
+  font-size: 10px;
+  margin-right: 8px;
 }
 
 .filter-button .button-text {
-  font-weight: bold; /* Text fett */
+  font-weight: bold;
 }
 
 
 @media (max-width: 768px) {
   .filter-button {
-    width: 40px; /* Smaller size */
+    width: 40px;
     height: 40px;
     padding: 0;
-    border-radius: 5px; /* Circular button */
+    border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0; /* Hide text */
-    background-image: url('/path/to/plus-icon.svg'); /* Add the Plus Icon */
-    background-size: 60%; /* Adjust icon size */
+    font-size: 0;
+    background-image: url('/path/to/plus-icon.svg');
+    background-size: 60%;
     background-repeat: no-repeat;
     background-position: center;
     margin-left: 60px;
@@ -623,29 +746,14 @@ function navigateBack() {
     margin-right: 0px;
     font-size: 30px;
   }
-}
-
-/* Styling for the 'Alle Kurse' button in mobile view */
-.show-all-button {
-  background-color: #7030a0;
-  color: white;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  margin-left: 10px;
-}
-
-@media (max-width: 768px) {
   .weekdays {
-    flex-wrap: wrap; /* Allow wrapping */
+    flex-wrap: wrap;
     gap: 5px;
   }
 
   .show-all-button {
-    display: block; /* Ensure visibility under weekdays */
-    margin: 10px auto 0; /* Center and add spacing */
+    display: block;
+    margin: 10px auto 0;
     width: 90%;
   }
 }

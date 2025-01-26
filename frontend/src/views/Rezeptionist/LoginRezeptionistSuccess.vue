@@ -29,7 +29,7 @@ function navigateToTrainerView() {
   max-width: 400px;
   margin: 20px auto;
   padding: 20px;
-  border: 1px solid #c8b1d9;
+  border: 1px solid #d8b5ea;
   border-radius: 10px;
   background-color: #f6ebf9;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -41,11 +41,11 @@ function navigateToTrainerView() {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: #6a2c91;
+  color: #7030a0;
 
   .nav-button {
     padding: 10px 20px;
-    background-color: #6a2c91;
+    background-color: #7030a0;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -55,7 +55,8 @@ function navigateToTrainerView() {
   }
 
   .nav-button:hover {
-    background-color: #4e216c;
+    background-color: #d8b5ea;
+    color: #7030a0;
   }
 }
 

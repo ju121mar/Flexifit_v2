@@ -29,7 +29,7 @@ async function getBooking() {
     </div>
     <div v-else class="buchungen-container">
       <div v-for="buchung in buchungen" :key="buchung.id" class="buchung-card">
-        <h2>{{ buchung.kurs.name }}</h2>
+        <h3>{{ buchung.kurs.name }}</h3>
         <div class="buchung-info">
           <p><strong>Trainer:</strong> {{ buchung.kurs.trainer.firstName }} {{buchung.kurs.trainer.lastName}}</p>
           <p><strong>Wochentag:</strong> {{ buchung.kurs.wochentag }}</p>
@@ -49,8 +49,8 @@ async function getBooking() {
 
 .buchungen-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 50px;
 }
 
 .buchung-card {
@@ -67,33 +67,47 @@ async function getBooking() {
   flex-direction: column;
 }
 
+
 h1 {
   color: #7030a0;
-  font-size: 28px;
   font-weight: bold;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
-h2 {
-  color: #444;
+h3 {
+  color: #333;
   margin: 0 0 10px 0;
-  font-size: 20px;
 }
 
 p {
   color: #666;
   margin: 5px 0;
-  font-size: 14px;
+  font-size: 18px;
 }
 
 strong {
   color: #7030a0;
+  font-size: 20px;
 }
-
+@media (min-width: 769px) and (max-width: 1301px) {
+  .buchungen-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for medium screens */
+  }
+}
 @media (min-width: 992px) {
   p {
-    font-size: 16px;
+    font-size: 22px;
+  }
+  h1 {
+    color: #7030a0;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 80px;
+  }
+  strong {
+    color: #7030a0;
+    font-size: 22px;
   }
 }
 

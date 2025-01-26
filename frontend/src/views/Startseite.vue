@@ -9,7 +9,7 @@ import InfosStartseite from "@/components/InfosStartseite.vue";
 <template>
   <StartPicture/>
   <section class="course-section">
-  <h2>Anstehende Kurse</h2>
+  <h1>Anstehende Kurse</h1>
   </section>
   <Kurse/>
 <InfosStartseite/>
@@ -24,6 +24,10 @@ import InfosStartseite from "@/components/InfosStartseite.vue";
   margin: 20px 0;
 }
 .course-section h2 {
+  color: #7030a0;
+}
+
+h1{
   color: #7030a0;
 }
 </style>

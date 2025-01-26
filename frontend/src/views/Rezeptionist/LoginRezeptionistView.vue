@@ -57,7 +57,7 @@ async function login() {
 }
 
 .text-link {
-  color: #6a2c91;
+  color: #7030a0;
   text-decoration: none;
   font-weight: bold;
   font-size: 1rem;
@@ -71,14 +71,14 @@ async function login() {
 /* Separator Styling */
 .additional-links span {
   margin: 0 10px;
-  color: #6a2c91;
+  color: #7030a0;
 }
 
 .kurs-form {
   max-width: 400px;
   margin: 20px auto;
   padding: 20px;
-  border: 1px solid #c8b1d9;
+  border: 1px solid #d8b5ea;
   border-radius: 10px;
   background-color: #f6ebf9;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -93,13 +93,13 @@ label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: #6a2c91;
+  color: #7030a0;
 }
 
 input {
   width: 100%;
   padding: 10px;
-  border: 1px solid #a084ca;
+  border: 1px solid #d8b5ea;
   border-radius: 4px;
   background-color: #fff;
   font-size: 14px;
@@ -107,14 +107,14 @@ input {
 
 input:focus {
   outline: none;
-  border-color: #6a2c91;
+  border-color: #7030a0;
   box-shadow: 0 0 5px rgba(106, 44, 145, 0.5);
 }
 
 button,
 .zurueck-button {
   padding: 10px 15px;
-  background-color: #6a2c91;
+  background-color: #7030a0;
   color: #fff;
   border: none;
   border-radius: 4px;

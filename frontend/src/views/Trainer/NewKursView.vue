@@ -82,7 +82,7 @@ function handleImageDialog(){
   showImageDialog.value = !showImageDialog.value;
 }
 function navigateBack() {
-  router.push('/');
+  router.push('/kursangebote');
 }
 
 
@@ -105,7 +105,6 @@ function navigateBack() {
             {{ user.firstName }} {{ user.lastName }}
           </option>
         </select>
-<!--        <input type="text" id="kursTrainer" v-model="newKurs.trainer" placeholder="Name des Trainers eingeben" required />-->
       </div>
       <div class="kurs-group">
         <label for="kursUhrzeit">Uhrzeit:</label>
@@ -148,7 +147,6 @@ function navigateBack() {
     </div>
   </div>
 
-  <!-- Bootstrap Modal -->
   <div
       class="modal fade"
       :class="{ 'show d-block': showImageDialog }"
@@ -167,7 +165,6 @@ function navigateBack() {
           <div class="modal-body">
             <form @submit.prevent="saveSelectedImage">
               <div class="row">
-                <!-- Bilder anzeigen -->
                 <div
                     v-for="(image, index) in imagePath"
                     :key="index"
@@ -191,7 +188,6 @@ function navigateBack() {
                   </div>
                 </div>
               </div>
-              <!-- Speichern Button -->
               <div class="text-end mt-3">
                 <PrimaryButton buttontext="Speichern" type="button" @click="handleImageDialog" >Speichern</PrimaryButton>
                 <SecondaryButton buttontext="Schließen" type="submit" @click="handleImageDialog" >Schließen</SecondaryButton>
@@ -204,7 +200,6 @@ function navigateBack() {
     </div>
   </div>
 
-  <!-- Modal-Overlay (für Bootstrap Effekt) -->
   <div v-if="showImageDialog" class="modal-backdrop fade show"></div>
 
 
@@ -216,7 +211,7 @@ function navigateBack() {
   max-width: 400px;
   margin: 20px auto;
   padding: 20px;
-  border: 1px solid #c8b1d9;
+  border: 1px solid #d3bfe3;
   border-radius: 10px;
   background-color: #f6ebf9;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -230,7 +225,7 @@ function navigateBack() {
   width: 100%;
   padding: 10px;
   border-radius: 4px;
-  border: 1px solid #a084ca;
+  border: 1px solid #d3bfe3;
   font-size: 14px;
   margin-bottom: 15px;
 
@@ -239,14 +234,14 @@ label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: #6a2c91;
+  color: #7030a0;
 }
 
 input,
 textarea {
   width: 100%;
   padding: 10px;
-  border: 1px solid #a084ca;
+  border: 1px solid #d3bfe3;
   border-radius: 4px;
   background-color: #fff;
   font-size: 14px;
@@ -255,15 +250,15 @@ textarea {
 input:focus,
 textarea:focus {
   outline: none;
-  border-color: #6a2c91;
-  box-shadow: 0 0 5px rgba(106, 44, 145, 0.5);
+  border-color: #7030a0;
+  box-shadow: 0 0 5px rgba(112, 48, 160, 0.5);
 }
 
 .success-message {
   margin-top: 15px;
   padding: 10px;
-  background-color: #d4edda;
-  border: 1px solid #c3e6cb;
+  background-color: #d3bfe3;
+  border: 1px solid #d8b5ea;
   border-radius: 4px;
   color: #155724;
   font-size: 14px;
@@ -271,7 +266,7 @@ textarea:focus {
 
 button{
   padding: 10px 15px;
-  background-color: #6a2c91;
+  background-color: #7030a0;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -284,9 +279,9 @@ button{
   margin-right: 70px;
 }
 
-button:hover,
-.zurueck-button:hover {
-  background-color: #4e216c;
+button:hover{
+  background-color: #d8b5ea;
+  color: #7030a0;
 }
 .modal-backdrop {
   z-index: 1040; /* Bootstrap Modal-Z-Index */
@@ -305,7 +300,7 @@ button:hover,
 }
 
 .modal-header {
-  background-color: #6a2c91;
+  background-color: #7030a0;
   color: white;
 }
 

@@ -116,12 +116,11 @@ onMounted(async () => {
 </script>
 
 <template>
-  <h1>Kursbuchungen: </h1>
+  <BackButton @click="navigateBack"></BackButton>
+  <h1>Kursbuchungen </h1>
   <div v-if="loading">Daten werden geladen...</div>
   <section v-else class="kurs-detail">
-          <BackButton @click="navigateBack"></BackButton>
-
-    <h2 class="kurs-title">{{ kurs.name }}</h2>
+    <h3>{{ kurs.name }}</h3>
     <div class="kurs-info">
       <p><strong>Trainer:</strong> {{ kurs.trainer.firstName }} {{ kurs.trainer.lastName }}</p>
       <p><strong>Wochentag:</strong> {{ kurs.wochentag }}</p>
@@ -131,7 +130,7 @@ onMounted(async () => {
       <p><strong>akt. Teilnehmer:</strong> {{ kurs.aktTeilnehmer }}</p>
     </div>
   </section>
-  <h1>Buchungsanfragen:</h1>
+  <h1 class="headline">Buchungsanfragen:</h1>
   <section class="kurs-detail">
     <div v-if="buchungsanfragen && buchungsanfragen.length > 0">
       <div v-for="(buchung, index) in buchungsanfragen" :key="index" class="buchung-card">
@@ -151,7 +150,7 @@ onMounted(async () => {
       <p>Keine Buchungsanfragen vorhanden</p>
     </div>
   </section>
-  <h1>Bestätigte Buchungen:</h1>
+  <h1 class="headline">Bestätigte Buchungen:</h1>
   <section class="kurs-detail">
     <div v-if="bestaetigteBuchung && bestaetigteBuchung.length > 0">
       <div v-for="(buchung, index) in bestaetigteBuchung" :key="index" class="buchung-card">
@@ -169,7 +168,7 @@ onMounted(async () => {
       <p>Keine bestätigte Buchungen vorhanden</p>
     </div>
   </section>
-  <h1>Abgelehnte Buchungen:</h1>
+  <h1 class="headline">Abgelehnte Buchungen:</h1>
   <section class="kurs-detail">
     <div v-if="abgelehnteBuchung && abgelehnteBuchung.length > 0">
       <div v-for="(buchung, index) in abgelehnteBuchung" :key="index" class="buchung-card">
@@ -195,18 +194,28 @@ onMounted(async () => {
 <style scoped>
 
 .action-button {
-  margin-right: 10px; /* Abstand zwischen Buttons */
-  margin-bottom: 10px; /* Abstand nach unten */
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 h1{
   color: #7030a0;
-  font-size: 28px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
 }
+.headline{
+  margin-top: 50px;
+  font-size: 28px;
+}
 
+h3{
+  color:#333;
+  font-weight: bold;
+}
+p{
+  font-size: 20px;
+}
 .modal-body p {
   margin: 0;
 }
@@ -219,7 +228,7 @@ h1{
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* Zentriert das Modal */
+  transform: translate(-50%, -50%);
   max-width: 600px;
 }
 
@@ -227,35 +236,19 @@ h1{
   max-width: 400px;
   margin: 20px auto;
   padding: 20px;
-  border: 1px solid #c8b1d9;
+  border: 1px solid #d8b5ea;
   border-radius: 10px;
   background-color: #f6ebf9;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   font-family: 'Inter', sans-serif;
 }
 
-.kurs-container {
-  text-align: left;
-}
-
-/* Zurück-Link */
-.back-link {
-  text-decoration: none;
-  color: #6a2c91;
-  font-weight: bold;
-  margin-bottom: 10px;
-  display: inline-block;
-}
-
-.back-link:hover {
-  color: #4e216c;
-}
-
 .kurs-title {
   font-size: 1.5rem;
-  color: #7030a0;
+  color: #333;
   margin-bottom: 10px;
   text-align: left;
+  font-weight: bold;
 }
 
 .kurs-image img {
@@ -266,12 +259,12 @@ h1{
 
 .kurs-info p {
   margin: 5px 0;
-  font-size: 14px;
+  font-size: 20px;
   color:#333333;
 }
 
 .kurs-info strong {
-  color: #6a2c91;
+  color: #7030a0;
 }
 
 
