@@ -190,7 +190,6 @@ const redirectToLogin = () => {
                 </p>
 
                <RouterLink  class="book-button" v-if='mitgliedStore.mitglied' :to="`/kursangebote/kurs/${kurs.id}`">Buchen</RouterLink>
-<!--              <button @click="openLoginPopup" class="book-button">Buchen</button>-->
             </div>
             </div>
           </div>
@@ -209,12 +208,12 @@ const redirectToLogin = () => {
     text-align: center;
     margin: 20px 0;
     display: flex;
-    justify-content: center; /* Zentriert die Karte */
+    justify-content: center;
   }
 
   .course-card {
     display: flex;
-    flex-direction: column; /* Standardmäßig für mobile Ansicht */
+    flex-direction: column;
     align-items: center;
     border: 2px solid #d3bfe3;
     border-radius: 12px;
@@ -397,11 +396,7 @@ const redirectToLogin = () => {
   margin-bottom: 20px;
 }
 
-.date-controls {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
+
 
 .current-day {
   background-color: #7030a0;

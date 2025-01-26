@@ -82,7 +82,7 @@ function handleImageDialog(){
   showImageDialog.value = !showImageDialog.value;
 }
 function navigateBack() {
-  router.push('/');
+  router.push('/kursangebote');
 }
 
 

@@ -319,7 +319,143 @@ function navigateBack() {
   max-width: 400px;
   width: 90%;
 }
+@media (min-width: 768px) and (max-width: 1000px) {
+  .course-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 
+  .col-12.col-md-6 {
+    width: 50%;
+  }
+
+  .course-card {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .course-info {
+    text-align: center;
+    width: 100%;
+  }
+
+  .course-info h3 {
+    text-align: center;
+  }
+
+  .trainer-time {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .trainer-section, .time-section {
+    margin-right: 0;
+    align-items: center;
+  }
+
+  .course-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .book-button {
+    width: 150px;
+    margin-right: 0;
+  }
+}
+@media (max-width: 768px) {
+  .course-card {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .course-card img {
+    width: 100%;
+    max-height: 250px;
+    object-fit: cover;
+    margin-bottom: 15px;
+  }
+
+  .course-info {
+    width: 100%;
+    text-align: center;
+  }
+
+  .trainer-time {
+    flex-direction: column;
+  }
+
+  .course-label{
+    font-size: 22px !important;
+  }
+  .course-info h3 {
+    text-align: center;
+  }
+  .trainer-section, .time-section {
+    margin-right: 0;
+    margin-bottom: 10px;
+    align-items: center;
+  }
+  p{
+    font-size: 20px;
+  }
+
+  .trainer-time p {
+    text-align: center;
+  }
+  .course-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .book-button {
+    width: 150px;
+    margin-right: 0;
+  }
+
+/*
+  .book-button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-indent: -9999px;
+    overflow: hidden;
+  }
+
+  .edit-button, .delete-button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: 2px solid #7030a0;
+    border-radius: 50%;
+  }
+
+  .edit-button::before {
+    content: '✎';
+    background-image: url("../assets/pictures/Edit.svg");
+    color: #7030a0;
+    font-size: 20px;
+    text-indent: 0;
+  }
+
+  .delete-button::before {
+    content: '🗑️';
+    color: #7030a0;
+    font-size: 20px;
+    text-indent: 0;
+  }*/
+}
 .popup h2{
   color: #7030a0;
   font-size: 28px;
@@ -351,7 +487,6 @@ function navigateBack() {
 
 .course-section {
   width: 100%;
-  padding: 20px;
   background-color: #ffffff;
   text-align: center;
   margin: 20px 0;
@@ -369,9 +504,8 @@ function navigateBack() {
 .course-info {
   display: flex;
   flex-direction: column;
-  text-align: center;
+  text-align: left;
   gap: 10px;
-  height: 100%;
 }
 
 .course-info h3 {
@@ -379,24 +513,22 @@ function navigateBack() {
   margin-bottom: 10px;
   font-weight: bold;
 }
-.trainer-time {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
+
 .trainer-time p {
   margin: 0;
-  font-size: 16px;
+  font-size: 20px;
   color: #666;
 }
 .course-label {
   font-weight: bold;
   color: #7030a0;
+  font-size: 20px;
+
 }
 
 
 
-@media (min-width: 992px) {
+@media (min-width: 1400px) {
 
   .course-section {
     justify-content: center;
@@ -433,7 +565,7 @@ function navigateBack() {
     color: #666;
   }
   .course-label{
-    font-size: 20px;
+    font-size: 22px;
   }
 
 }
@@ -546,6 +678,7 @@ function navigateBack() {
 }
 .back-button{
   margin-left: 10px;
+  margin-right: 0px;
 }
 .show-all-button {
   background-color: #7030a0;
@@ -567,14 +700,14 @@ function navigateBack() {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: #7030a0; /* Farbe anpassen */
-  color: white; /* Textfarbe */
-  border: none; /* Kein Rand */
-  padding: 10px 15px; /* Abstände */
-  border-radius: 5px; /* Ecken entfernen */
-  font-size: 16px; /* Schriftgröße */
+  background-color: #7030a0;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 16px;
   cursor: pointer;
-  text-decoration: none; /* Unterstreichung entfernen */
+  text-decoration: none;
   transition: background-color 0.3s ease;
 }
 
