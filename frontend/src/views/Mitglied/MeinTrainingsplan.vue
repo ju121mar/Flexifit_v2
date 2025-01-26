@@ -12,25 +12,13 @@ const loading = ref(true);
 const error = ref(null);
 const route = useRoute();
 const router = useRouter();
-const showDetails = ref([]);
+const showDetails = ref({});
 const level = ref(route.query.level || "Anfänger"); // Standardlevel
 const frequency = ref(route.query.frequency);
 const goal = ref(route.query.goal);
 const weekdays = ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5", "Tag 6", "Tag 7"];
 const activeDay = ref("Tag 1"); // Standartag
 
-
-const currentDate = ref({
-  date: new Date().toLocaleDateString("de-DE", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  }),
-  time: new Date().toLocaleTimeString("de-DE", {
-    hour: "2-digit",
-    minute: "2-digit",
-  }),
-});
 
 function setActiveDay(day) {
   activeDay.value = day;
@@ -100,8 +88,9 @@ onMounted(async () => {
 });
 
 
-function toggleDetails(index) {
-  showDetails.value[index] = !showDetails.value[index]; // Umschalten des Detailzustands
+function toggleDetails(day, id) {
+  const key = `${day}-${id}`; // Eindeutige Kennung basierend auf Tag und ID
+  showDetails.value[key] = !showDetails.value[key];
 }
 </script>
 
@@ -116,10 +105,6 @@ function toggleDetails(index) {
   <section v-else class="exercise-container">
     <div class="header-controls">
       <button class="editbutton" @click="navigateBack">← Plan bearbeiten</button>
-      <div>
-      <span class="current-date">{{ currentDate.date }}</span>
-      <span class="current-time">{{ currentDate.time }}</span>
-    </div>
     </div>
     <div class="weekdays">
       <button
@@ -136,23 +121,28 @@ function toggleDetails(index) {
       <div v-if="exercises.filter((exercise) => exercise.weekday === activeDay).length === 0">
     <h2>RESTDAY</h2>
     </div>
-      <div
-        v-for="(exercise, index) in exercises.filter((exercise) => exercise.weekday === activeDay)"
-        :key="exercise.id"
-        class="exercise-card"
-      >
-      <h2>{{ exercise.exercisename }}</h2>
-      <p><strong>Gerätename:</strong> {{ exercise.equipmentname }}</p>
-      <p><strong>Sätze:</strong> {{ exercise.set }}</p>
-      <p><strong>Wiederholungen:</strong> {{ exercise.rep }}</p>
-      <div v-if="showDetails[index]">
-        <p><strong>Setup:</strong> {{ exercise.setup }}</p>
-        <p><strong>Ausführung:</strong> {{ exercise.execution }}</p>
-      </div>
-      <button class="detail-button" @click="toggleDetails(index)">
-        {{ showDetails[index] ? 'Details verbergen' : 'Details anzeigen' }}
-      </button>
-      </div>
+    <div
+  v-for="(exercise, index) in exercises.filter((exercise) => exercise.weekday === activeDay)"
+  :key="exercise.id"
+  class="exercise-card"
+  :class="{ expanded: showDetails[`${activeDay}-${exercise.id}`] }"
+>
+  <h2>{{ exercise.exercisename }}</h2>
+  <p><strong>Gerätename:</strong> {{ exercise.equipmentname }}</p>
+  <p><strong>Sätze:</strong> {{ exercise.set }}</p>
+  <p><strong>Wiederholungen:</strong> {{ exercise.rep }}</p>
+  <div v-if="showDetails[`${activeDay}-${exercise.id}`]">
+    <p><strong>Setup:</strong> {{ exercise.setup }}</p>
+    <p><strong>Ausführung:</strong> {{ exercise.execution }}</p>
+  </div>
+  <button
+    class="detail-button"
+    @click="toggleDetails(activeDay, exercise.id)"
+  >
+    {{ showDetails[`${activeDay}-${exercise.id}`] ? 'Details verbergen' : 'Details anzeigen' }}
+  </button>
+</div>
+
     </div>
   </section>
 </template>
@@ -169,12 +159,7 @@ function toggleDetails(index) {
   text-align: center;
 }
 
-.heading h2 {
-  font-size: 24px;
-  margin: 0;
-}
 .exercise-card h2 {
-  font-size: 24px;
   margin-bottom: 15px;
   color: #7030a0 !important;
 }
@@ -213,7 +198,7 @@ function toggleDetails(index) {
   border-radius: 5px;
   background-color: #ffffff;
   color: #7030a0;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -229,7 +214,7 @@ function toggleDetails(index) {
 .exercises {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 25px;
   justify-content: center;
 }
 
@@ -242,6 +227,14 @@ function toggleDetails(index) {
   width: 300px;
   text-align: left;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-size: 22px;
+  line-height: 1.5;
+  max-height: 400px; 
+  color:#666;
+}
+
+.exercise-card.expanded {
+  max-height: 1000px; 
 }
 
 .exercise-card:hover {
@@ -253,6 +246,10 @@ function toggleDetails(index) {
   .exercise-card {
     width: 100%;
     padding: 10px;
+    font-size: 18px;
+  }
+  .day-button {
+    font-size: 16px;
   }
 }
 
@@ -264,7 +261,7 @@ function toggleDetails(index) {
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-size: 16px;
+  font-size: 22px;
 }
 
 .detail-button:hover {
@@ -273,22 +270,10 @@ function toggleDetails(index) {
   border: 2px solid #7030a0;
 }
 
-.current-date{
-  color: #d8b5ea;
-  font-weight: bold;
-  font-size: 18px;
-}
-.current-time {
-  color: #d8b5ea;
-  font-weight: bold;
-  font-size: 18px;
-  margin-left: 20px;
-  margin-right: 20px
-}
 
 .editbutton {
   text-decoration: none;
-  color: #6a2c91;
+  color: #7030a0;
   font-weight: bold;
   display: inline-block;
   margin-bottom: 20px;
@@ -300,7 +285,7 @@ function toggleDetails(index) {
 }
 
 .editbutton:hover {
-  background-color: #4e216c;
+  background-color:#7030a0;
   color: #ffffff;
 }
 </style>

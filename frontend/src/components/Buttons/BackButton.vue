@@ -11,7 +11,7 @@ const emits = defineEmits(["click"]);
 <style scoped>
 .simplebackbutton {
   text-decoration: none;
-  color: #6a2c91;
+  color: #7030a0;
   font-weight: bold;
   display: inline-block;
   margin-bottom: 20px;
@@ -24,10 +24,11 @@ const emits = defineEmits(["click"]);
   text-align: center;
   margin-right: 70px;
   padding: 10px 15px;
+  line-height: 1.5;
 }
 
 .simplebackbutton:hover {
-  background-color: #4e216c;
+  background-color: #7030a0;
   color: #ffffff;
 }
 </style>
