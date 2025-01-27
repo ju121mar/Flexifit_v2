@@ -4,9 +4,11 @@ import {useMitgliedStore} from "@/stores/mitglied.js";
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue';
 import BackButton from '@/components/Buttons/BackButton.vue';
 
+
 const mitgliedStore = useMitgliedStore();
 let firstName = ref("");
 let lastName = ref("");
+let dob = ref("");
 let email = ref("");
 let password = ref("");
 let street = ref("");
@@ -14,8 +16,80 @@ let houseNumber = ref("");
 let postalCode = ref("");
 let city = ref("");
 
+let errors = ref({
+  firstName: "",
+  lastName: "",
+  dob: "",
+  email: "",
+  password: "",
+  street: "",
+  houseNumber: "",
+  postalCode: "",
+  city: ""
+});
+
+function validateForm() {
+  // Alle Fehlermeldungen zurücksetzen
+  Object.keys(errors.value).forEach((key) => {
+    errors.value[key] = "";
+  });
+
+  let isValid = true;
+
+  // Validierungslogik
+  if (!firstName.value || firstName.value.length < 2 || firstName.value.length > 20) {
+    errors.value.firstName = "Vorname muss zwischen 2 und 20 Zeichen liegen.";
+    isValid = false;
+  }
+
+  if (!lastName.value || lastName.value.length < 2 || lastName.value.length > 20) {
+    errors.value.lastName = "Nachname muss zwischen 2 und 20 Zeichen liegen.";
+    isValid = false;
+  }
+
+  if (!dob.value) {
+    errors.value.dob = "Geburtsdatum ist erforderlich.";
+    isValid = false;
+  }
+
+  if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
+    errors.value.email = "Bitte geben Sie eine gültige Email-Adresse ein.";
+    isValid = false;
+  }
+
+  if (!password.value || password.value.length !== 6) {
+    errors.value.password = "Passwort muss genau 6 Zeichen lang sein.";
+    isValid = false;
+  }
+
+  if (!street.value || street.value.length < 5 || street.value.length > 30) {
+    errors.value.street = "Straße muss zwischen 5 und 30 Zeichen liegen.";
+    isValid = false;
+  }
+
+  if (!houseNumber.value || houseNumber.value < 1) {
+    errors.value.houseNumber = "Hausnummer ist erforderlich.";
+    isValid = false;
+  }
+
+  if (!postalCode.value || postalCode.value < 10000 || postalCode.value > 99999) {
+    errors.value.postalCode = "Postleitzahl muss eine gültige Zahl sein.";
+    isValid = false;
+  }
+
+  if (!city.value || city.value.length < 5 || city.value.length > 30) {
+    errors.value.city = "Stadt muss zwischen 5 und 30 Zeichen liegen.";
+    isValid = false;
+  }
+
+  // Wenn alles valide ist, führe die Registrierung aus
+  if (isValid) {
+    register();
+  }
+}
+
 async function register() {
-  await mitgliedStore.signUp(firstName.value, lastName.value, email.value, password.value, street.value, houseNumber.value, postalCode.value, city.value);
+  await mitgliedStore.signUp(firstName.value, lastName.value, dob.value, email.value, password.value, street.value, houseNumber.value, postalCode.value, city.value);
   if (useMitgliedStore.mitglied) {
     console.log("Logged in")
   }
@@ -23,44 +97,76 @@ async function register() {
 </script>
 
 <template>
-  <form class="kurs-form" @submit.prevent="register">
+  <form class="kurs-form" @submit.prevent="validateForm">
     <RouterLink to="/login/mitglied">
-        <BackButton class="backbutton" buttontext="Zurück"></BackButton>
+      <BackButton class="backbutton" buttontext="Zurück"></BackButton>
     </RouterLink>
     <h2>Registrieren</h2>
+
+    <!-- Vorname -->
     <div class="kurs-group">
       <label for="firstName">Vorname:</label>
-      <input id="firstName" type="firstName" v-model="firstName" placeholder="Vorname eingeben"/>
+      <input id="firstName" type="text" v-model="firstName" placeholder="Vorname eingeben"/>
+      <p class="error-message" v-if="errors.firstName">{{ errors.firstName }}</p>
     </div>
+
+    <!-- Nachname -->
     <div class="kurs-group">
       <label for="lastName">Nachname:</label>
-      <input id="lastName" type="lastName" v-model="lastName" placeholder="Nachname eingeben"/>
+      <input id="lastName" type="text" v-model="lastName" placeholder="Nachname eingeben"/>
+      <p class="error-message" v-if="errors.lastName">{{ errors.lastName }}</p>
     </div>
+
+    <!-- Geburtsdatum -->
+    <div class="kurs-group">
+      <label for="dob">Geburtsdatum:</label>
+      <input id="dob" type="date" v-model="dob" />
+      <p class="error-message" v-if="errors.dob">{{ errors.dob }}</p>
+    </div>
+
+    <!-- Email -->
     <div class="kurs-group">
       <label for="email">Email:</label>
       <input id="email" type="email" v-model="email" placeholder="Email eingeben"/>
+      <p class="error-message" v-if="errors.email">{{ errors.email }}</p>
     </div>
+
+    <!-- Passwort -->
     <div class="kurs-group">
       <label for="password">Passwort:</label>
       <input id="password" type="password" v-model="password" placeholder="6 Zeichen"/>
+      <p class="error-message" v-if="errors.password">{{ errors.password }}</p>
     </div>
+
+    <!-- Straße -->
     <div class="kurs-group">
       <label for="street">Straße:</label>
-      <input id="street" type="street" v-model="street" placeholder="Straße eingeben"/>
+      <input id="street" type="text" v-model="street" placeholder="Straße eingeben"/>
+      <p class="error-message" v-if="errors.street">{{ errors.street }}</p>
     </div>
+
+    <!-- Hausnummer -->
     <div class="kurs-group">
       <label for="houseNumber">Hausnummer:</label>
-      <input id="houseNumber" type="houseNumber" v-model="houseNumber" placeholder="Hausnummer eingeben"/>
+      <input id="houseNumber" type="number" v-model="houseNumber" placeholder="Hausnummer eingeben"/>
+      <p class="error-message" v-if="errors.houseNumber">{{ errors.houseNumber }}</p>
     </div>
+
+    <!-- Postleitzahl -->
     <div class="kurs-group">
       <label for="postalCode">Postleitzahl:</label>
-      <input id="postalCode" type="postalCode" v-model="postalCode" placeholder="Postleitzahl eingeben"/>
+      <input id="postalCode" type="number" v-model="postalCode" placeholder="Postleitzahl eingeben"/>
+      <p class="error-message" v-if="errors.postalCode">{{ errors.postalCode }}</p>
     </div>
+
+    <!-- Stadt -->
     <div class="kurs-group">
       <label for="city">Stadt:</label>
-      <input id="city" type="city" v-model="city" placeholder="Stadt eingeben"/>
+      <input id="city" type="text" v-model="city" placeholder="Stadt eingeben"/>
+      <p class="error-message" v-if="errors.city">{{ errors.city }}</p>
     </div>
-    <PrimaryButton type="submit" buttontext="Jetzt registrieren!"></PrimaryButton>
+
+    <PrimaryButton @click="register" buttontext="Jetzt registrieren!"></PrimaryButton>
   </form>
   <div v-if="loginError" class="popup">
     <div class="popup-content">
@@ -71,7 +177,14 @@ async function register() {
   </div>
 </template>
 
+
 <style scoped>
+
+.error-message {
+  color: #d9534f;
+  font-size: 14px;
+  margin-top: 5px;
+}
 
 
 .kurs-form {
