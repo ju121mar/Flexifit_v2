@@ -12,5 +12,16 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        assetFileNames: (assetInfo) => {
+          // Entferne den Hash aus dem Dateinamen
+          return `assets/${assetInfo.name}`;
+        },
+      },
+    },
+    assetsInlineLimit: 0 // Deaktiviere Inline-Base64 für Assets
   }
 })
