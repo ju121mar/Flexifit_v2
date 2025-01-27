@@ -54,7 +54,7 @@ async function getKurse() {
           class="col-12 col-md-6 col-lg-6 mb-4 px-2 px-lg-3"
         >
           <div class="course-card">
-            <img src="../assets/pictures/Yoga.jpg" alt="Yoga Flow" class="course-image" />
+            <img :src="kurs.image" alt="Yoga Flow" class="course-image" />
             <div class="course-info">
               <h3>{{ kurs.name }}</h3>
               <div class="trainer-time">
