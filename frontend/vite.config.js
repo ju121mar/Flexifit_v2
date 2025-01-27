@@ -5,6 +5,8 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vite.dev/config/
 export default defineConfig({
+  publicDir: 'public',
+  assetsInclude: ['**/*.jpg', '**/*.png', '**/*.gif', '**/*.svg'][4],
   plugins: [
     vue(),
   ],
@@ -14,10 +16,10 @@ export default defineConfig({
     }
   },
   build: {
+    copyPublicDir: true,
     rollupOptions: {
       output: {
         assetFileNames: (assetInfo) => {
-          // Entferne den Hash aus dem Dateinamen
           return `assets/${assetInfo.name}`;
         },
       },
