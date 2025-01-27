@@ -25,9 +25,56 @@ const imagePath = ref([
   { title: "Yoga", path: "/src/assets/pictures/Yoga.jpg" },
 ]);
 
-//Neuen Kurs anlegen
-const kursAdded = ref(false);
+const validateForm = () => {
+  errors.value = {};
+
+  // Name validation - letters only, 2-30 chars
+  if (!/^[a-zA-ZäöüÄÖÜß\s]{2,30}$/.test(newKurs.value.name)) {
+    errors.value.name = 'Name muss zwischen 2-30 Buchstaben lang sein';
+  }
+
+  // Trainer validation
+  if (!newKurs.value.trainer) {
+    errors.value.trainer = 'Bitte Trainer auswählen';
+  }
+
+  // Time validation
+  if (!newKurs.value.uhrzeit) {
+    errors.value.uhrzeit = 'Bitte Uhrzeit eingeben';
+  }
+
+  // Duration validation - 15-90 minutes
+  if (newKurs.value.dauer < 15 || newKurs.value.dauer > 90) {
+    errors.value.dauer = 'Dauer muss zwischen 15-90 Minuten liegen';
+  }
+
+  // Day validation
+  if (!newKurs.value.wochentag) {
+    errors.value.wochentag = 'Bitte Wochentag auswählen';
+  }
+
+  // Participants validation - number between 1-30
+  if (!/^[1-9][0-9]?$|^30$/.test(newKurs.value.teilnehmer)) {
+    errors.value.teilnehmer = 'Teilnehmerzahl muss zwischen 1-30 liegen';
+  }
+
+  // Description validation - min 10 chars
+  if (newKurs.value.description.length < 10) {
+    errors.value.description = 'Beschreibung muss mindestens 10 Zeichen lang sein';
+  }
+
+  // Image validation
+  if (!selectedImage.value) {
+    errors.value.image = 'Bitte Bild auswählen';
+  }
+
+  return Object.keys(errors.value).length === 0;
+};
+
+
 const submitForm = async () => {
+  if (!validateForm()) return;
+  scrollToError();
   console.log("Formular abgesendet:", newKurs.value);
   newKurs.value.image = selectedImage.value
   console.log(newKurs.value)
@@ -50,6 +97,10 @@ const submitForm = async () => {
   });
   kursAdded.value = true;
 };
+
+//Neuen Kurs anlegen
+const kursAdded = ref(false);
+
 
 const trainer = ref([]);
 
@@ -81,6 +132,8 @@ function navigateBack() {
   router.push('/kursangebote');
 }
 
+const errors = ref({});
+
 
 
 </script>
@@ -92,6 +145,7 @@ function navigateBack() {
       <div class="kurs-group">
         <label for="kursName">Kursname:</label>
         <input type="text" id="kursName" v-model="newKurs.name" placeholder="Kursname eingeben" required />
+        <span v-if="errors.name" class="error">{{ errors.name }}</span>
       </div>
       <div class="kurs-group">
         <label for="kursTrainer">Trainername:</label>
@@ -101,14 +155,17 @@ function navigateBack() {
             {{ user.firstName }} {{ user.lastName }}
           </option>
         </select>
+        <span v-if="errors.trainer" class="error">{{ errors.trainer }}</span>
       </div>
       <div class="kurs-group">
         <label for="kursUhrzeit">Uhrzeit:</label>
         <input type="time" id="kursUhrzeit" v-model="newKurs.uhrzeit" placeholder="Uhrzeit eingeben" required />
+        <span v-if="errors.uhrzeit" class="error">{{ errors.uhrzeit }}</span>
       </div>
       <div class="kurs-group">
         <label for="kursDauer">Dauer:</label>
         <input type="number" id="kursDauer" v-model="newKurs.dauer" placeholder="Kursdauer eingeben" required min="0" max="90"/>
+        <span v-if="errors.dauer" class="error">{{ errors.dauer }}</span>
       </div>
       <div class="kurs-group">
         <label for="kursTag">Wochentag:</label>
@@ -122,18 +179,22 @@ function navigateBack() {
           <option value="Samstag">Samstag</option>
           <option value="Sonntag">Sonntag</option>
         </select>
+        <span v-if="errors.wochentag" class="error">{{ errors.wochentag }}</span>
       </div>
       <div class="kurs-group">
         <label for="kursTeilnehmer">max. Teilnehmer:</label>
         <input type="text" id="kursTeilnehmer" v-model="newKurs.teilnehmer" placeholder="Maximale Anzahl der Teilnehmer eingeben" required />
+        <span v-if="errors.teilnehmer" class="error">{{ errors.teilnehmer }}</span>
       </div>
       <div class="kurs-group">
         <label for="kursDescription">Beschreibung:</label>
         <textarea id="kursDescription" v-model="newKurs.description" placeholder="Kursbeschreibung eingeben" required></textarea>
+        <span v-if="errors.description" class="error">{{ errors.description }}</span>
       </div>
       <div class="kurs-group">
         <label for="kursDescription">Bild: {{selectedImage}}</label>
         <PrimaryButton buttontext="Bild auswählen" id="kursImage" type="button" @click="handleImageDialog" ></PrimaryButton>
+        <span v-if="errors.image" class="error">{{ errors.image }}</span>
       </div>
       <SecondaryButton buttontext="Kurs erstellen" type="submit"></SecondaryButton>
 
@@ -202,7 +263,12 @@ function navigateBack() {
 </template>
 
 <style scoped>
-
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+}
 .kurs-form {
   max-width: 400px;
   margin: 20px auto;
