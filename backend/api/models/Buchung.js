@@ -9,13 +9,6 @@ module.exports = {
       required: true
     },
 
-    // // Zusätzliche Attribute für die Zuordnung
-    // enrollmentDate: {
-    //   type: 'ref',
-    //   columnType: 'datetime',
-    //   required: true
-    // },
-
     status: {
       type: 'string',
       isIn: ['Bestätigung ausstehend', 'Bestätigt', 'Abgelehnt'],

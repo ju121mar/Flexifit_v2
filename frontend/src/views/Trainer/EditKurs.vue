@@ -1,18 +1,19 @@
-<script setup>
+<script setup xmlns="http://www.w3.org/1999/html">
 import {ref, onMounted} from 'vue';
 import {useRoute, useRouter} from 'vue-router';
-import axios from 'axios';
 import {apiCall} from "@/utility/ApiCall.js";
 import BackButton from "@/components/Buttons/BackButton.vue";
+import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
+import SecondaryButton from "@/components/Buttons/SecondaryButton.vue";
 
 const route = useRoute();
 const router = useRouter();
 const courseId = route.params.id;
-const kurse = ref([]);
+const showModal = ref(false);
 
+const showUpdatePopup = ref(false);
 
 const course = ref(null);
-
 const formData = ref({
   name: "",
   description: "",
@@ -54,9 +55,7 @@ onMounted(async () => {
         wochentag: response.wochentag || "",
         uhrzeit: response.uhrzeit ? response.uhrzeit.slice(0, 5) : "",
       };
-      console.log("Kursdaten geladen:", formData.value.teilnehmer);
     }
-    console.log('Kurse geladen:', kurse.value);
   } catch (error) {
     console.error('Fehler beim Laden der Kurse:', error);
   } finally {
@@ -67,32 +66,43 @@ onMounted(async () => {
 
 
 const onSubmit = async () => {
-  console.log("Formular abgesendet:", formData.value);
   try {
     await apiCall({
       method: 'PUT',
       url: `/kurse/${courseId}`,
       data: formData.value,
     });
-    alert("Kurs erfolgreich aktualisiert!");
-    router.push("/kursangebote");
+    showModal.value = true;
+    showUpdatePopup.value = true;
+    setTimeout(() => {
+      showModal.value = false;
+    }, 2000);
   } catch (error) {
     console.error("Fehler beim Speichern des Kurses:", error);
     alert("Es gab einen Fehler beim Speichern.");
   }
 };
-function navigateBack(){
+
+
+const confirmUpdate = () => {
+  showUpdatePopup.value = false;
+  router.push('/kursangebote')
+};
+
+function navigateBack() {
   router.push('/kursangebote')
 }
 
 </script>
 
 <template>
-  <BackButton @click="navigateBack" >Zurück</BackButton>
+  <BackButton @click="navigateBack">Zurück</BackButton>
 
   <div v-if="loading">Daten werden geladen...</div>
   <div v-else>
     <form @submit.prevent="onSubmit">
+      <!-- Previous form content remains the same -->
+
       <div>
         <h2>Kurs bearbeiten</h2>
         <label for="name">Kursname:</label>
@@ -101,7 +111,7 @@ function navigateBack(){
 
       <div class="kurs-group">
         <label for="trainer">Trainername:</label>
-        <select id="userDropdown" :v-model="formData.trainer"  class ="form-select" required>
+        <select id="userDropdown" :v-model="formData.trainer" class="form-select" required>
           <option disabled value="">Bitte einen Benutzer auswählen</option>
           <option v-for="user in trainer" :key="user.id" :value="user.id">
             {{ user.firstName }} {{ user.lastName }}
@@ -146,11 +156,64 @@ function navigateBack(){
       </div>
 
       <button type="submit">Kurs aktualisieren</button>
+      <div
+          v-if="showUpdatePopup"
+          class="popup-backdrop"
+      >
+        <div class="popup">
+          <h2><strong>Bestätigung</strong></h2>
+          <p>Der Kurs wurde erfolgreich aktualisiert</p>
+          <div class="popup-buttons">
+            <button   @click="confirmUpdate">OK</button>
+          </div>
+        </div>
+      </div>
     </form>
+
+    <!-- Success Modal -->
+
   </div>
 </template>
 
 <style scoped>
+
+.popup-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.popup h2 {
+  color: #7030a0;
+  margin-bottom: 10px;
+}
+
+.popup p {
+  margin-bottom: 20px;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
 
 .kurs-group .form-select {
   width: 100%;
@@ -159,7 +222,6 @@ function navigateBack(){
   border: 1px solid #d3bfe3;
   font-size: 14px;
   margin-bottom: 15px;
-
 }
 
 form {
@@ -182,7 +244,7 @@ input, textarea {
   font-size: 14px;
 }
 
-button{
+button {
   padding: 10px 15px;
   background-color: #7030a0;
   color: #fff;
@@ -198,7 +260,7 @@ button{
   margin-top: 40px;
 }
 
-button:hover{
+button:hover {
   background-color: #d8b5ea;
   color: #7030a0;
 }
@@ -211,4 +273,31 @@ label {
   color: #7030a0;
 }
 
+/* New modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.modal p {
+  margin: 0;
+  color: #7030a0;
+  font-weight: bold;
+}
 </style>
