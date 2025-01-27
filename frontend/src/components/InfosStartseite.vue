@@ -28,6 +28,13 @@ function handleReject() {
 }
 </script>
 <template>
+  <!--groesseres Bild vorab laden-->
+  <head>
+  <link rel="preload" href="../assets/pictures/trainer.jpg" as="image" />
+  <link rel="preload" href="../assets/pictures/Fitness.png" as="image" />
+<link rel="preload" href="../assets/pictures/Lifestyle.png" as="image" />
+
+</head>
   <!-- Öffnungszeiten -->
   <div class="hours-section">
     <div class="hours-row">

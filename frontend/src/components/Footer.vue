@@ -11,8 +11,8 @@
             <img src="../assets/pictures/logo.png" alt="FlexiFitLogo" class="logo" />
           </div>
           <div class="text-content">
-            <p>Stay Flexi!</p>
-            <p>Sport, der zu deinem Leben passt!</p>
+            <p><strong>Stay Flexi!</strong></p>
+            <p><strong>Sport, der zu deinem Leben passt!</strong></p>
           </div>
         </div>
       </div>
@@ -56,7 +56,6 @@
   padding: 20px 0;
 }
 
-.footer p,
 .footer h6 {
   margin: 0;
   color: white;
@@ -86,6 +85,7 @@
 
 .text-content{
   font-size: 20px;
+  color: #7030a0;
 }
 
 @media (max-width: 768px) {
@@ -102,6 +102,7 @@
 
   .text-content {
     font-size: 16px;
+    color: #7030a0;
   }
 }
 
