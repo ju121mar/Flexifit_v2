@@ -18,6 +18,7 @@ function navigateBack() {
 }
 
 const kurs = ref(null);
+const aktTeilnehmer = ref(0);
 const loading = ref(true);
 const trainer = ref([]);
 const mitglied = ref([]);
@@ -58,9 +59,10 @@ async function loadBuchungen() {
       url: `/getBookingsandMitglied/${courseId}`,
     });
 
-    bestaetigteBuchung.value = buchungen.value.filter(b => b.status === 'Bestätigt');
-    abgelehnteBuchung.value = buchungen.value.filter(b => b.status === 'Abgelehnt');
-    buchungsanfragen.value = buchungen.value.filter(b => b.status === 'Bestätigung ausstehend');
+    bestaetigteBuchung.value = buchungen.value.kurse.filter(b => b.status === 'Bestätigt');
+    abgelehnteBuchung.value = buchungen.value.kurse.filter(b => b.status === 'Abgelehnt');
+    buchungsanfragen.value = buchungen.value.kurse.filter(b => b.status === 'Bestätigung ausstehend');
+    aktTeilnehmer.value = buchungen.value.aktTeilnehmer;
   } catch (error) {
     console.error('Fehler beim Laden der Buchungen:', error);
   }
@@ -86,24 +88,6 @@ onMounted(async () => {
       url: `/kurse/${courseId}`,
     });
     kurs.value = kursResponse;
-
-    // Lade Buchungsdaten für den spezifischen Kurs
-    buchungen.value = await apiCall({
-      method: 'GET',
-      url: `/getBookingsandMitglied/${courseId}`,
-    });
-
-    bestaetigteBuchung.value = buchungen.value.filter(
-        (buchung) => buchung.status === 'Bestätigt'
-    );
-    abgelehnteBuchung.value = buchungen.value.filter(
-        (buchung) => buchung.status === 'Abgelehnt'
-    );
-    buchungsanfragen.value = buchungen.value.filter(
-        (buchung) => buchung.status === 'Bestätigung ausstehend'
-    );
-
-    console.log(buchungen.value);
   } catch (error) {
     console.error('Fehler beim Laden der Daten:', error);
   } finally {
@@ -127,7 +111,7 @@ onMounted(async () => {
       <p><strong>Uhrzeit:</strong> {{ kurs.uhrzeit }}</p>
       <p><strong>Dauer:</strong> {{ kurs.dauer }}</p>
       <p><strong>max. Teilnehmer:</strong> {{ kurs.teilnehmer }}</p>
-      <p><strong>akt. Teilnehmer:</strong> {{ kurs.aktTeilnehmer }}</p>
+      <p><strong>akt. Teilnehmer:</strong> {{ aktTeilnehmer }}/{{ kurs.teilnehmer }}</p>
     </div>
   </section>
   <h1 class="headline">Buchungsanfragen:</h1>

@@ -157,8 +157,23 @@ module.exports.bootstrap = async function() {
   await Buchung.createEach([
     {
       mitglied: 1,
-      kurs: 1
-    }
+      kurs: 1,
+      status: 'Bestätigt'
+    },
+    {
+      mitglied: 2,
+      kurs: 1,
+      status: 'Bestätigt'
+    },
+    {
+      mitglied: 3,
+      kurs: 1,
+      status: 'Abgelehnt'
+    },
+    {
+      mitglied: 4,
+      kurs: 1,
+    },
     ]);
 
   await Kurs.createEach([
