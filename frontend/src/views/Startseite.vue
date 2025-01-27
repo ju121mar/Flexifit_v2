@@ -24,6 +24,10 @@ import Yoga from "@/assets/pictures/Yoga.jpg";
 </template>
 
 <style scoped>
+.images-container {
+  display: none;
+}
+
 .course-section {
   width: 100%;
   padding: 20px;
