@@ -6,6 +6,7 @@ import vue from '@vitejs/plugin-vue'
 // https://vite.dev/config/
 export default defineConfig({
   publicDir: 'public',
+  base: '/',
   assetsInclude: ['**/*.jpg', '**/*.png', '**/*.gif', '**/*.svg'][4],
   plugins: [
     vue(),
@@ -16,6 +17,7 @@ export default defineConfig({
     }
   },
   build: {
+    assetsDir: 'assets',
     copyPublicDir: true,
     rollupOptions: {
       output: {
