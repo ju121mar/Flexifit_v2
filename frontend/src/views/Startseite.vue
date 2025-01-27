@@ -4,6 +4,9 @@ import StartPicture from "@/components/StartPicture.vue";
 import HeaderComponent from "@/components/Header.vue";
 import Kurse from "@/components/Kurse.vue";
 import InfosStartseite from "@/components/InfosStartseite.vue";
+import HIIT from "@/assets/pictures/HIIT.jpg";
+import Pilates from "@/assets/pictures/Pilates.jpg";
+import Yoga from "@/assets/pictures/Yoga.jpg";
 </script>
 
 <template>
@@ -13,6 +16,11 @@ import InfosStartseite from "@/components/InfosStartseite.vue";
   </section>
   <Kurse/>
 <InfosStartseite/>
+<div class="images-container">
+      <img :src="HIIT" alt="HIIT Training">
+      <img :src="Pilates" alt="Pilates Kurs">
+      <img :src="Yoga" alt="Yoga Kurs">
+    </div>
 </template>
 
 <style scoped>
