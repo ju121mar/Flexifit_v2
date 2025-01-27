@@ -15,6 +15,7 @@ const newKurs = ref({
   dauer:"",
   teilnehmer:"",
   description: "",
+  equipment: "",
   image: "",
 });
 
@@ -63,6 +64,10 @@ const validateForm = () => {
     errors.value.description = 'Beschreibung muss mindestens 10 Zeichen lang sein';
   }
 
+  if (newKurs.value.equipment.length < 10) {
+    errors.value.equipment = 'Equipment muss mindestens 10 Zeichen lang sein';
+  }
+
   // Image validation
   if (!selectedImage.value) {
     errors.value.image = 'Bitte Bild auswählen';
@@ -90,6 +95,7 @@ const submitForm = async () => {
       dauer: "",
       maxTeilnehmer: "",
       description: "",
+      equipment: "",
       image:"",
     };
     router.push('/kursangebote');
@@ -191,10 +197,16 @@ const errors = ref({});
         <span v-if="errors.description" class="error">{{ errors.description }}</span>
       </div>
       <div class="kurs-group">
+        <label for="kursDescription">Equipment:</label>
+        <textarea id="kursDescription" v-model="newKurs.equipment" placeholder="Equipment eingeben" required></textarea>
+        <span v-if="errors.equipment" class="error">{{ errors.equipment }}</span>
+      </div>
+      <div class="kurs-group">
         <label for="kursDescription">Bild: {{selectedImage}}</label>
         <PrimaryButton buttontext="Bild auswählen" id="kursImage" type="button" @click="handleImageDialog" ></PrimaryButton>
         <span v-if="errors.image" class="error">{{ errors.image }}</span>
       </div>
+
       <SecondaryButton buttontext="Kurs erstellen" type="submit"></SecondaryButton>
 
     </form>
