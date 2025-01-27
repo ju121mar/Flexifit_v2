@@ -25,10 +25,10 @@ const currentDate = ref({
 });
 
 
-// Kurse nach Wochentagen filtern + Suche
 const filteredKurse = computed(() => {
+  let result;
   if (searchQuery.value) {
-    const result = allKurse.value.filter((kurs) =>
+    result = allKurse.value.filter((kurs) =>
         kurs.name.toLowerCase().includes(searchQuery.value.toLowerCase())
     );
     if (result.length > 0) {
@@ -37,9 +37,22 @@ const filteredKurse = computed(() => {
         activeDay.value = kursDay;
       }
     }
-    return result;
+  } else {
+    result = activeDay.value ? (kurseByDay.value[activeDay.value] || []) : allKurse.value;
   }
-  return activeDay.value ? (kurseByDay.value[activeDay.value] || []) : allKurse.value;
+  
+  // Sortierung nach Uhrzeit
+  return result.sort((a, b) => {
+    const timeA = a.uhrzeit.split(':').map(Number);
+    const timeB = b.uhrzeit.split(':').map(Number);
+    
+    // Vergleiche erst Stunden
+    if (timeA[0] !== timeB[0]) {
+      return timeA[0] - timeB[0];
+    }
+    // Bei gleichen Stunden vergleiche Minuten
+    return timeA[1] - timeB[1];
+  });
 });
 
 
