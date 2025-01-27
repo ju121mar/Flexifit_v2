@@ -176,7 +176,7 @@ function navigateBack() {
                 </div>
                 <div class="attribute-pair">
                   <p><span class="course-label">Dauer:</span> {{ kurs.dauer }}</p>
-                  <p><span class="course-label">Max. Teilnehmer:</span>{{ kurs.teilnehmer }}</p>
+                  <p><span class="course-label">aktuelle Teilnehmer:</span> {{ kurs.aktTeilnehmer }}/{{ kurs.teilnehmer }}</p>
                 </div>
               </div>
 

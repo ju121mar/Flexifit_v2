@@ -89,6 +89,7 @@ const confirmBooking = async () => {
           <p><strong>Trainer:</strong> {{ kurs.trainer.firstName }} {{kurs.trainer.lastName}}</p>
           <p><strong>Wochentag:</strong> {{ kurs.wochentag }}</p>
           <p><strong>Uhrzeit:</strong> {{ kurs.uhrzeit }}</p>
+          <p><strong>Dauer:</strong> {{ kurs.dauer }}</p>
           <p><strong>Beschreibung:</strong> {{ kurs.description }}</p>
           <p><strong>Equipment:</strong> {{ kurs.equipment }}</p>
         </div>
