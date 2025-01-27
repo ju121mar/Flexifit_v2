@@ -9,6 +9,16 @@ const formStore = useFormStore();
 
 const newPlan = ref({ ...formStore.newPlan });
 
+const errors = ref({
+  gender: "",
+  height: "",
+  weight: "",
+  age: "",
+  goal: "",
+  level: "",
+  frequency: "",
+});
+
 watch(newPlan, (newValue) => {
   formStore.setFormData(newValue);
 }, { deep: true });
@@ -26,30 +36,61 @@ function goBack() {
 }
 
 function validateForm() {
-  const { height, weight, age, gender, goal, level, frequency } = newPlan.value;
+  // Extrahiere alle Felder aus `newPlan.value`
+  const { gender, height, weight, age, goal, level, frequency } = newPlan.value;
 
-  if (!gender || !goal || !level || !frequency) {
-    alert("Fehlerhafte Eingabe. Bitte füllen Sie alle Felder aus!");
-    return;
+  // Alle Fehlermeldungen zurücksetzen
+  Object.keys(errors.value).forEach((key) => {
+    errors.value[key] = "";
+  });
+
+  let isValid = true;
+
+  // Validierungslogik
+  if (!gender) {
+    errors.value.gender = "Bitte wählen Sie Ihr Geschlecht aus.";
+    isValid = false;
   }
 
-  if (height < 130 || height > 300) {
-    alert("Ungültige Größe. Die Größe muss zwischen 130 cm und 300 cm liegen!");
-    return;
+  if (!goal) {
+    errors.value.goal = "Bitte wählen Sie ein Ziel aus.";
+    isValid = false;
   }
 
-  if (weight < 35 || weight > 300) {
-    alert("Ungültiges Gewicht, das Gewicht muss zwischen 35 kg und 300 kg liegen!");
-    return;
+  if (!level) {
+    errors.value.level = "Bitte wählen Sie ein Level aus.";
+    isValid = false;
   }
 
-  if (age < 16 || age > 100) {
-    alert("Ungültiges Alter. Das Alter muss zwischen 16 und 100 Jahren liegen!");
-    return;
+  if (!frequency) {
+    errors.value.frequency = "Bitte wählen Sie die Trainingsfrequenz aus.";
+    isValid = false;
   }
 
-  createNewPlan();
+  if (!height || height < 130 || height > 300) {
+    errors.value.height =
+      "Ungültige Größe. Die Größe muss zwischen 130 cm und 300 cm liegen.";
+    isValid = false;
+  }
+
+  if (!weight || weight < 35 || weight > 300) {
+    errors.value.weight =
+      "Ungültiges Gewicht. Das Gewicht muss zwischen 35 kg und 300 kg liegen.";
+    isValid = false;
+  }
+
+  if (!age || age < 16 || age > 100) {
+    errors.value.age =
+      "Ungültiges Alter. Das Alter muss zwischen 16 und 100 Jahren liegen.";
+    isValid = false;
+  }
+
+  // Wenn das Formular valide ist, rufe die Funktion `createNewPlan` auf
+  if (isValid) {
+    createNewPlan();
+  }
 }
+
 </script>
 
 <template>
@@ -57,16 +98,19 @@ function validateForm() {
     <BackButton class="backbutton" @click="goBack"></BackButton>
     <h2>Neuen Trainingsplan erstellen</h2>
     <form @submit.prevent="validateForm">
+      <!-- Geschlecht -->
       <div class="kurs-group">
         <label for="gender">Geschlecht:</label>
-      <select id="gender" v-model="newPlan.gender" class="form-select" required>
+        <select id="gender" v-model="newPlan.gender" class="form-select">
           <option disabled value="">Geschlecht auswählen</option>
           <option value="weiblich">weiblich</option>
           <option value="männlich">männlich</option>
           <option value="divers">divers</option>
-          </select>
+        </select>
+        <p class="error-message" v-if="errors.gender">{{ errors.gender }}</p>
       </div>
-       <!-- Größe -->
+
+      <!-- Größe -->
       <div class="kurs-group">
         <label for="height">Größe in cm:</label>
         <input
@@ -74,9 +118,11 @@ function validateForm() {
           id="height"
           v-model="newPlan.height"
           placeholder="Größe eingeben"
-          required
         />
+        <p class="error-message" v-if="errors.height">{{ errors.height }}</p>
       </div>
+
+      <!-- Gewicht -->
       <div class="kurs-group">
         <label for="weight">Gewicht in kg:</label>
         <input
@@ -84,9 +130,11 @@ function validateForm() {
           id="weight"
           v-model="newPlan.weight"
           placeholder="Gewicht eingeben"
-          required
         />
+        <p class="error-message" v-if="errors.weight">{{ errors.weight }}</p>
       </div>
+
+      <!-- Alter -->
       <div class="kurs-group">
         <label for="age">Alter:</label>
         <input
@@ -94,36 +142,50 @@ function validateForm() {
           id="age"
           v-model="newPlan.age"
           placeholder="Alter eingeben"
-          required
         />
+        <p class="error-message" v-if="errors.age">{{ errors.age }}</p>
       </div>
+
+      <!-- Ziel -->
       <div class="kurs-group">
         <label for="goal">Mein Ziel:</label>
-        <select id="goal" v-model="newPlan.goal" class="form-select" required>
+        <select id="goal" v-model="newPlan.goal" class="form-select">
           <option disabled value="">Ziel auswählen</option>
           <option value="MuskelaufbauGanzkoerper">Muskelaufbau Ganzkörper</option>
           <option value="MuskelaufbauUnterkoerper">Muskelaufbau Unterkörper</option>
           <option value="MuskelaufbauOberkoerper">Muskelaufbau Oberkörper</option>
           <option value="Ausdauerverbesserung">Ausdauerverbesserung</option>
         </select>
+        <p class="error-message" v-if="errors.goal">{{ errors.goal }}</p>
       </div>
+
+      <!-- Level -->
       <div class="kurs-group">
         <label for="level">Level:</label>
-        <select id="level" v-model="newPlan.level" class="form-select" required>
+        <select id="level" v-model="newPlan.level" class="form-select">
           <option disabled value="">Level auswählen</option>
           <option value="Anfänger">Anfänger</option>
           <option value="Fortgeschritten">Fortgeschritten</option>
           <option value="Experte">Experte</option>
         </select>
+        <p class="error-message" v-if="errors.level">{{ errors.level }}</p>
       </div>
+
+      <!-- Trainingsfrequenz -->
       <div class="kurs-group">
         <label for="frequency">Trainingstage pro Woche:</label>
-        <select id="frequency" v-model="newPlan.frequency" class="form-select" required>
+        <select
+          id="frequency"
+          v-model="newPlan.frequency"
+          class="form-select"
+        >
           <option disabled value="">Anzahl Trainingstage auswählen</option>
           <option value="drei">Drei Mal (Für Anfänger empfohlen)</option>
           <option value="fuenf">Fünf Mal</option>
         </select>
+        <p class="error-message" v-if="errors.frequency">{{ errors.frequency }}</p>
       </div>
+
       <PrimaryButton
         class="primarybutton"
         buttontext="Plan anzeigen"
@@ -133,8 +195,13 @@ function validateForm() {
   </div>
 </template>
 
-
 <style scoped>
+
+.error-message {
+  color: #d9534f;
+  font-size: 14px;
+  margin-top: 5px;
+}
 
 .kurs-form {
   max-width: 400px;

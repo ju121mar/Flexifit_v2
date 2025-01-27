@@ -33,10 +33,11 @@ export const useMitgliedStore = defineStore("mitglied", {
             return this.buchungen;
         },
 
-        async signUp(firstName, lastName, email, password, street, houseNumber, postalCode, city) {
+        async signUp(firstName, lastName, email, dob, password, street, houseNumber, postalCode, city) {
             let registerInformation = {
                 firstName: firstName, 
                 lastName: lastName, 
+                dob: dob,
                 email: email, 
                 password: password, 
                 street: street, 

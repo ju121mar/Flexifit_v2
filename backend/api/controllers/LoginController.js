@@ -67,7 +67,7 @@ module.exports = {
     let newEmail = params.email.toLowerCase();
 
     let mitglied = await Mitglied.create(
-        {  firstName: params.firstName, lastName: params.lastName, email: newEmail, password: await sails.helpers.passwords.hashPassword(params.password), street: params.street, houseNumber: params.houseNumber, postalCode: params.postalCode, city: params.city,  isSuperAdmin:false,
+        {  firstName: params.firstName, lastName: params.lastName, dob: params.dob, email: newEmail, password: await sails.helpers.passwords.hashPassword(params.password), street: params.street, houseNumber: params.houseNumber, postalCode: params.postalCode, city: params.city,  isSuperAdmin:false,
          
          }).intercept('E_UNIQUE', 'emailAlreadyInUse')
          .intercept({firstName: 'UsageError'}, 'invalid')
