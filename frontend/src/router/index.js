@@ -1,7 +1,6 @@
 // src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
 import Startseite from "@/views/Startseite.vue";
-import BookingView from '@/views/BookingView.vue';
 import NewKursView from '@/views/Trainer/NewKursView.vue';
 import EditKurs from '@/views/Trainer/EditKurs.vue';
 import LoginTrainerView from "@/views/Trainer/LoginTrainerView.vue";
@@ -19,10 +18,13 @@ import LoginRezeptionistView from "@/views/Rezeptionist/LoginRezeptionistView.vu
 import LoginRezeptionistSuccess from "@/views/Rezeptionist/LoginRezeptionistSuccess.vue";
 import RezeptionistKursansicht from "@/views/Rezeptionist/RezeptionistKursansicht.vue";
 import Kursbuchungsdetails from "@/views/Rezeptionist/Kursbuchungsdetails.vue";
-import Kontakt from '@/formalities/Kontakt.vue';
-import Impressum from "@/components/Impressum.vue";
-import Datenschutzerklärung from "@/components/Datenschutzerklärung.vue";
+import Kontakt from '@/views/formalities/Kontakt.vue';
+import Impressum from "@/views/formalities/Impressum.vue";
+import Datenschutzerklärung from "@/views/formalities/Datenschutzerklärung.vue";
 import SignUpMitglied from '@/views/Mitglied/SignUpMitglied.vue';
+import {useMitgliedStore} from "@/stores/mitglied.js";
+import {useRezeptionistStore} from "@/stores/rezeptionist.js";
+import {useTrainerStore} from "@/stores/trainer.js";
 
 
 const routes = [
@@ -30,12 +32,6 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Startseite,
-  },
-  {
-    path: '/booking/:id',
-    name: 'BookingPage',
-    //component: () => import('@/views/BookingView.vue'), //fuer dynamische Ansicht
-    component: BookingView,
   },
 
   {
@@ -162,6 +158,71 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+// router.beforeEach((to, from, next) => {
+//   const mitgliedStore = useMitgliedStore();
+//   const rezeptionistStore = useRezeptionistStore();
+//   const trainerStore =useTrainerStore();
+//   const publicRoutes = ['/', '/login', '/kursangebote/booking', '/kontakt', '/impressum', '/datenschutz', '/login/mitglied', 'login/rezeptionist','/login/sucess/mitglied' ];
+//   const mitgliedRoutes = [
+//       '/kursangebote/kurs/:id',
+//       '/buchungen',
+//       '/register',
+//       '/trainingsplan',
+//       '/trainingsplan/new',
+//       '/trainingsplan/exercise/:id',
+//
+//   ];
+//   const rezeptionistRoutes = [
+//       '/kursangebote/confirm/:id',
+//       '/kursangebote/manage',
+//     '/login/sucess/rezeptionist'
+//   ]
+//   const trainerRoutes =[
+//       '/kursangebote',
+//       '/kursangebote/new',
+//       '/kursangebote/booking/:id/edit',
+//       '/login/sucess'
+//   ]
+
+// 1. Zuerst öffentliche Routen prüfen
+//   if (publicRoutes.includes(to.path)) {
+//     return next();
+//   }
+//
+//   // 2. Authentifizierungsstatus prüfen
+//   if (!mitgliedStore && !rezeptionistStore && !trainerStore) {
+//     return next({ path: '/login/mitglied' });
+//   }
+//
+//   // 3. Admin-Routen-Berechtigung prüfen
+//   if (mitgliedStore && !trainerStore && mitgliedRoutes.some(route => to.path.includes(route))) {
+//     return next();
+//   }
+//   if (rezeptionistStore && rezeptionistRoutes.some(route => to.path.includes(route))) {
+//       return next();
+//   }
+//   if (trainerStore && trainerRoutes.some(route => to.path.includes(route))) {
+//       return next();
+//   }
+
+  // if (mitgliedRoutes.some(route => to.path.includes(route))) {
+  //   if (!mitgliedStore.user) {
+  //     return next({path: '/'});
+  //   }
+  // }
+  //
+  // if (rezeptionistRoutes.some(route => to.path.includes(route)) && !rezeptionistStore.user) {
+  //   return next({ path: '/login/rezeptionist' });
+  // }
+  //
+  // if (trainerRoutes.some(route => to.path.includes(route)) && !trainerStore.user) {
+  //   return next({ path: '/login/trainer' });
+  // }
+
+
+  // 4. Wenn alle Prüfungen bestanden, Route freigeben
+//   next();
+// });
 
 export default router;
 
