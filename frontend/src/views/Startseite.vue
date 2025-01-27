@@ -16,7 +16,7 @@ import Yoga from "@/assets/pictures/Yoga.jpg";
   </section>
   <Kurse/>
 <InfosStartseite/>
-<div class="images-container">
+<div v-if="false" class="images-container">
       <img :src="HIIT" alt="HIIT Training">
       <img :src="Pilates" alt="Pilates Kurs">
       <img :src="Yoga" alt="Yoga Kurs">
