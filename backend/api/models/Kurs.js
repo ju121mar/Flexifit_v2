@@ -14,7 +14,7 @@ module.exports = {
     aktTeilnehmer: {type: 'number', defaultsTo: 0},
     teilnehmer: {type: 'number', defaultsTo: 0},
     description: {type: 'string', columnType: 'varchar(300)', required: true},
-    equipment:{type: 'string', columnType: 'varchar(300)', required: false},
+    equipment:{type: 'string', columnType: 'varchar(300)', required: false, defaultsTo: "Keine Ausrüstung erforderlich"},
     image:{type: 'string', required: false},
     trainer: {model: 'trainer', required: true}
   },

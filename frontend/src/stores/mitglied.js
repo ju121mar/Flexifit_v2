@@ -33,7 +33,7 @@ export const useMitgliedStore = defineStore("mitglied", {
             return this.buchungen;
         },
 
-        async signUp(firstName, lastName, email, dob, password, street, houseNumber, postalCode, city) {
+        async signUp(firstName, lastName, dob, email, password, street, houseNumber, postalCode, city) {
             let registerInformation = {
                 firstName: firstName, 
                 lastName: lastName, 
@@ -46,15 +46,13 @@ export const useMitgliedStore = defineStore("mitglied", {
                 city: city,
              
             };
-            axios
-              .post("/register", registerInformation)
-              .then((response) => {
-                this.mitglied = response.data;
-                router.push('/login/sucess/mitglied');
-              })
-              .catch((error) => {
-                console.error("Register failed:", error);
-              });
+
+            this.mitglied = await apiCall({
+                method: 'POST',
+                url: '/register',
+                data: registerInformation,
+            });
+            await router.push('/login/sucess/mitglied');
           },
 
         async logout() {

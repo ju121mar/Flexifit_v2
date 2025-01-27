@@ -74,7 +74,6 @@ const validateForm = () => {
 
 const submitForm = async () => {
   if (!validateForm()) return;
-  scrollToError();
   console.log("Formular abgesendet:", newKurs.value);
   newKurs.value.image = selectedImage.value
   console.log(newKurs.value)

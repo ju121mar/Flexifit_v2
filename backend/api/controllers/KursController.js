@@ -7,6 +7,8 @@ module.exports = {
     }
     sails.log.debug("Create course....");
     let params = req.allParams();
+    params.uhrzeit = params.uhrzeit + " Uhr";
+    params.dauer = params.dauer + " Minuten";
     await Kurs.create(params);
     res.ok();
   },
