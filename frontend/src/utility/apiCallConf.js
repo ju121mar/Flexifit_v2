@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Erstelle eine Axios-Instanz mit Base URL
 const api = axios.create({
-    baseURL: import.meta.env.PROD ? "/" : 'http://localhost:1337', // Deine Base URL
+    baseURL: import.meta.env.PROD ? "https://flexifit-backend.onrender.com" : 'http://localhost:1337', // Deine Base URL
     withCredentials: true,
     timeout: 30000, // Optional: Timeout in Millisekunden
     headers: {
