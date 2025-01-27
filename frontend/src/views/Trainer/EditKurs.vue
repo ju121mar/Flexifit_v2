@@ -48,7 +48,7 @@ onMounted(async () => {
       formData.value = {
         name: response.name || "",
         description: response.description || "",
-        trainer: response.trainer || "",
+        trainer: response.trainer.id || "",
         teilnehmer: response.teilnehmer || 0,
         dauer: response.dauer || "",
         wochentag: response.wochentag || "",
@@ -70,7 +70,7 @@ const onSubmit = async () => {
   console.log("Formular abgesendet:", formData.value);
   try {
     await apiCall({
-      method: "PUT",
+      method: 'PUT',
       url: `/kurse/${courseId}`,
       data: formData.value,
     });
@@ -191,9 +191,9 @@ button{
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s ease;
-  display: inline-block; 
-  text-align: center; 
-  text-decoration: none; 
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
   margin-right: 60px;
   margin-top: 40px;
 }
