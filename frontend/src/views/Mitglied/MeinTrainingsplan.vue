@@ -2,9 +2,7 @@
 const mitgliedStore = useMitgliedStore();
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import axios from 'axios';
 import { apiCall } from "@/utility/ApiCall.js";
-import BackButton from "@/components/Buttons/BackButton.vue";
 import {useMitgliedStore} from "@/stores/mitglied.js";
 
 const exercises = ref([]);
@@ -183,7 +181,7 @@ function toggleDetails(day, id) {
   }
 }
 
-/* Wochen-Tage */
+
 .weekdays {
   display: flex;
   justify-content: center;
