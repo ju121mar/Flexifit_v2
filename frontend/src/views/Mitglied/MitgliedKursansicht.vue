@@ -46,6 +46,7 @@ const filteredKurse = computed(() => {
 const kurs = ref([]);
 
 onMounted(async () => {
+  //Alle Kursdaten laden
   console.log('Kurse werden geladen...');
   try {
     const response = await apiCall({
@@ -94,10 +95,6 @@ const mapWeekdayToShort = (day) => {
   return mapping[day] || day;
 };
 
-// Computed Property, um die Kurse für den aktiven Tag anzuzeigen
-const coursesForActiveDay = computed(() => {
-  return kurseByDay.value[activeDay.value] || [];
-});
 
 // Methode zum Setzen des aktiven Tages
 const selectDay = (day) => {
@@ -110,7 +107,6 @@ const isCurrentDay = (index) => {
   const today = new Date().getDay(); // 0 = Sonntag, 1 = Montag, etc.
   return (index === (today === 0 ? 6 : today - 1));
 };
-
 const searchQuery = ref(''); //Suche
 const allKurse = computed(() => {
   return Object.values(kurseByDay.value).flat();
@@ -121,22 +117,19 @@ const selectAllKurse = () => {
   activeDay.value = null;
 };
 
+//ganzer Name des Trainers
 function getFullName(trainer){
   return (trainer.firstName + " " + trainer.lastName)
 }
 
 //Popup fuer Login
 const showLoginPopup = ref(false);
-const openLoginPopup = () => {
-  showLoginPopup.value = true;
-};
+
 function navigateBack() {
   router.push('/');
 }
 
-const redirectToLogin = () => {
-  router.push('/login/mitglied');
-};
+
 </script>
 
 <template>
@@ -280,6 +273,7 @@ const redirectToLogin = () => {
     font-size: 22px;
     margin-right: 20px;
     text-decoration: none;
+    text-align: center;
   }
 
   .book-button:hover {

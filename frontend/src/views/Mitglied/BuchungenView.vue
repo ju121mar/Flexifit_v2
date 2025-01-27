@@ -11,7 +11,6 @@ onMounted(async () => {
   await getBooking();
   console.log(buchungen.value)
 });
-
 async function getBooking() {
   const response = await apiCall({
     url:'/getBookings',

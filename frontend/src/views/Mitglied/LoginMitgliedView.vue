@@ -14,7 +14,6 @@ async function login() {
   await mitgliedStore.signIn(email.value, password.value);
   if (useMitgliedStore().mitglied) {
     console.log("Logged in");
-    // router.push ('/kursangebote')
   }
 } catch (error) {
   loginError.value = true;

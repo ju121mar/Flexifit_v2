@@ -13,6 +13,7 @@ const route = useRoute();
 const router = useRouter();
 const courseId = route.params.id; // Holt die ID aus der URL
 
+//Auf vorherige Seite navigieren
 function navigateBack() {
   router.push('/kursangebote/booking'); 
 }
@@ -20,6 +21,8 @@ function navigateBack() {
 const kurs = ref(null);
 const loading = ref(true);
 const trainer = ref([]);
+
+//Trainerdaten laden
 const selectTrainer = async () => {
   try {
     const response = await apiCall({
@@ -34,6 +37,7 @@ const selectTrainer = async () => {
 }
 
 onMounted(async () => {
+  //Kursdaten laden über ID
   try {
     const response = await apiCall({
       method: 'GET',
@@ -49,7 +53,7 @@ onMounted(async () => {
   await selectTrainer();
 });
 const showConfirmationModal = ref(false);
-
+//Buchung bestätigen + anlegen
 const confirmBooking = async () => {
   try {
     await apiCall({
