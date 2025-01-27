@@ -18,18 +18,15 @@ const newKurs = ref({
   image: "",
 });
 
+//vordefinierteAuswahl an Bildern
 const imagePath = ref([
   { title: "HIIT", path: "/src/assets/pictures/HIIT.jpg" },
-  { title: "Laufband", path: "/src/assets/pictures/Laufband.png" },
   { title: "Pilates", path: "/src/assets/pictures/Pilates.jpg" },
   { title: "Yoga", path: "/src/assets/pictures/Yoga.jpg" },
 ]);
 
-
-// State to show success message
+//Neuen Kurs anlegen
 const kursAdded = ref(false);
-
-// Function to handle form submission
 const submitForm = async () => {
   console.log("Formular abgesendet:", newKurs.value);
   newKurs.value.image = selectedImage.value
@@ -39,7 +36,6 @@ const submitForm = async () => {
     url: '/kurs/erstellen',
     data: newKurs.value,
   }).then(() => {
-    // Reset the form
     newKurs.value = {
       name: "",
       trainer: null,
@@ -52,8 +48,6 @@ const submitForm = async () => {
     };
     router.push('/kursangebote');
   });
-
-  // Show success message
   kursAdded.value = true;
 };
 
@@ -63,6 +57,7 @@ onMounted(async ()=>{
   await selectTrainer();
     });
 
+//Trainerdaten laden
 const selectTrainer = async () =>{
   try{
     const response = await apiCall({
@@ -81,6 +76,7 @@ const showImageDialog = ref(false)
 function handleImageDialog(){
   showImageDialog.value = !showImageDialog.value;
 }
+//zur vorherigen Seite navigieren
 function navigateBack() {
   router.push('/kursangebote');
 }

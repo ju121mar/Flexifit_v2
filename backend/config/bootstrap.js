@@ -197,7 +197,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 12,
       description: 'Pilates-Übungen für eine starke Körpermitte und bessere Balance.',
       equipment: 'Pilates-Matte (vor Ort), kleine Pilates-Bälle',
-      image: '/src/assets/pictures/Laufband.png',
+      image: '/src/assets/pictures/Pilates.jpg',
     },
     {
       name: 'Spin Class',
@@ -263,7 +263,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 12,
       description: 'Ein intensives Ganzkörpertraining für alle Fitnesslevel.',
       equipment: 'Gewichtsscheiben, Widerstandsbänder, Medizinbälle (vor Ort verfügbar)',
-      image: '/src/assets/pictures/Laufband.png',
+      image: '/src/assets/pictures/Pilates.jpg',
     },
     {
       name: 'Calisthenics Basics',
@@ -285,7 +285,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 15,
       description: 'Ein energiegeladener Kurs auf dem Fahrrad.',
       equipment: 'Indoor Cycling Bike (vor Ort verfügbar)',
-      image: '/src/assets/pictures/Laufband.png',
+      image: '/src/assets/pictures/Yoga.jpg',
     },
     {
       name: 'Athletik Training',
@@ -318,7 +318,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 8,
       description: 'Training mit dem TRX-System für den ganzen Körper.',
       equipment: 'TRX-Bänder (vor Ort verfügbar)',
-      image: '/src/assets/pictures/Laufband.png',
+      image: '/src/assets/pictures/HIIT.jpg',
     },
     {
       name: 'Power Yoga',
@@ -373,7 +373,7 @@ module.exports.bootstrap = async function() {
       teilnehmer: 12,
       description: 'Ein schweißtreibendes Training mit Kickbox-Elementen.',
       equipment: 'Boxhandschuhe (optional), Trainingsmatte (vor Ort verfügbar)',
-      image: '/src/assets/pictures/Laufband.png'
+      image: '/src/assets/pictures/HIIT.jpg'
     },
     {
       name: 'Core Blast',

@@ -65,6 +65,7 @@ onMounted(async () => {
   await selectTrainer();
 });
 
+
 const onSubmit = async () => {
   console.log("Formular abgesendet:", formData.value);
   try {

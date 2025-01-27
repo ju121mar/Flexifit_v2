@@ -46,6 +46,7 @@ const filteredKurse = computed(() => {
 const kurs = ref([]);
 
 onMounted(async () => {
+  //Alle Kursdaten laden
   console.log('Kurse werden geladen...');
   try {
     const response = await apiCall({
@@ -97,16 +98,10 @@ const mapWeekdayToShort = (day) => {
   return mapping[day] || day;
 };
 
-// Computed Property, um die Kurse für den aktiven Tag anzuzeigen
-const coursesForActiveDay = computed(() => {
-  return kurseByDay.value[activeDay.value] || [];
-});
-
 // Methode zum Setzen des aktiven Tages
 const selectDay = (day) => {
   activeDay.value = day;
 };
-
 
 // Aktuellen Tag ermitteln
 const isCurrentDay = (index) => {
@@ -124,14 +119,15 @@ const selectAllKurse = () => {
   activeDay.value = null;
 };
 
+//ganzer Name des Trainers
 function getFullName(trainer){
   return (trainer.firstName + " " + trainer.lastName)
 }
+//zur vorherigen Seite navigieren
 function navigateBack() {
   router.push('/');
 }
-//Popup fuer Login
-const showLoginPopup = ref(false);
+
 
 </script>
 

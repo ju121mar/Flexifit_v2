@@ -20,22 +20,8 @@ function navigateBack() {
 const kurs = ref(null);
 const aktTeilnehmer = ref(0);
 const loading = ref(true);
-const trainer = ref([]);
-const mitglied = ref([]);
-const selectTrainer = async () => {
-  try {
-    const response = await apiCall({
-      method: 'GET',
-      url: '/trainer',
-    });
-    trainer.value = response;
-  } catch (error) {
-    console.error('Fehler beim Laden der Trainer:', error);
-    trainer.value = null;
-  }
-}
 
-
+//Buchungsdaten aktualisieren
 async function updateBooking(status, buchungId) {
   try {
     await apiCall({
@@ -52,6 +38,7 @@ async function updateBooking(status, buchungId) {
   }
 }
 
+//Mitglieder zu Buchungen finden + Status setzen
 async function loadBuchungen() {
   try {
     buchungen.value = await apiCall({
@@ -80,6 +67,7 @@ const abgelehnteBuchung = ref([]);
 const buchungsanfragen = ref([]);
 
 onMounted(async () => {
+  //Kursdaten über ID laden
   await loadBuchungen();
   try {
     // Lade Kursdaten

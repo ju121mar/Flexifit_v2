@@ -10,6 +10,7 @@ const mitgliedStore = useMitgliedStore();
 const rezeptionistStore = useRezeptionistStore();
 const router = useRouter()
 
+//Navbar ändert sich, je nach eingeloggtem Nutzer
 const userType = computed(() => {
   if (mitgliedStore.mitglied) {
     return 'mitglied';

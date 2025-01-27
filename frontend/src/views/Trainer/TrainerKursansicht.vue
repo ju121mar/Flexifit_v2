@@ -51,6 +51,7 @@ const filteredKurse = computed(() => {
 const kurs = ref([]);
 
 onMounted(async () => {
+  //Alle Kursdaten laden
   console.log('Kurse werden geladen...');
   try {
     const response = await apiCall({
@@ -99,11 +100,6 @@ const mapWeekdayToShort = (day) => {
   return mapping[day] || day;
 };
 
-// Computed Property, um die Kurse für den aktiven Tag anzuzeigen
-const coursesForActiveDay = computed(() => {
-  return kurseByDay.value[activeDay.value] || [];
-});
-
 // Methode zum Setzen des aktiven Tages
 const selectDay = (day) => {
   activeDay.value = day;
@@ -112,6 +108,7 @@ const selectDay = (day) => {
 const showDeletePopup = ref(false);
 const kursToDelete = ref(null);
 
+//Popup zur Bestätigung des Kurslöschen
 const openDeletePopup = (id) => {
   kursToDelete.value = id;
   showDeletePopup.value = true;
@@ -127,17 +124,16 @@ const confirmDelete = async () => {
     });
     console.log('Kurs wurde gelöscht:', kursToDelete.value);
 
-    const day = activeDay.value; // Aktiver Tag (z. B. "Mo")
+    const day = activeDay.value; // Aktiver Tag
     if (kurseByDay.value[day]) {
       kurseByDay.value[day] = kurseByDay.value[day].filter(
           (kurs) => kurs.id !== kursToDelete.value
       );
     }
 
-    kursToDelete.value = null; // Zurücksetzen
-    showDeletePopup.value = false; // Popup schließen
-    await onMounted(); // Kurse neu laden
-    
+    kursToDelete.value = null;
+    showDeletePopup.value = false;
+    await onMounted();
   } catch (error) {
     console.error('Fehler beim Löschen des Kurses:', error);
   }
@@ -145,8 +141,8 @@ const confirmDelete = async () => {
 
 //Kurs löschen abbrechen
 const cancelDelete = () => {
-  kursToDelete.value = null; // Zurücksetzen
-  showDeletePopup.value = false; // Popup schließen
+  kursToDelete.value = null;
+  showDeletePopup.value = false;
 };
 
 // Aktuellen Tag ermitteln
@@ -165,9 +161,11 @@ const selectAllKurse = () => {
   activeDay.value = null;
 };
 
+//ganzer Trainer Name
 function getFullName(trainer){
   return (trainer.firstName + " " + trainer.lastName)
 }
+//zur vorherigen Seite navigieren
 function navigateBack() {
   router.push('/');
 }
