@@ -378,7 +378,7 @@ function handleReject() {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 150px;
+  gap: 100px;
   margin-bottom: 70px;
 }
 
