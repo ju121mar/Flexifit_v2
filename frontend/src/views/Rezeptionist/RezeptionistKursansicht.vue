@@ -67,7 +67,6 @@ onMounted(async () => {
           trainer: course.trainer,
           uhrzeit: course.uhrzeit,
           dauer: course.dauer,
-          aktTeilnehmer: course.aktTeilnehmer,
           teilnehmer: course.teilnehmer,
           image: '@/assets/pictures/Laufband.png',
           description: course.description,
@@ -176,7 +175,7 @@ function navigateBack() {
                 </div>
                 <div class="attribute-pair">
                   <p><span class="course-label">Dauer:</span> {{ kurs.dauer }}</p>
-                  <p><span class="course-label">aktuelle Teilnehmer:</span> {{ kurs.aktTeilnehmer }}/{{ kurs.teilnehmer }}</p>
+                  <p><span class="course-label">aktuelle Teilnehmer:</span> {{ kurs.teilnehmer }}</p>
                 </div>
               </div>
 
